@@ -10,7 +10,7 @@ import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setIsSelected] = useState("Dashboard");
 
   return (
@@ -64,12 +64,10 @@ const Sidebarr = () => {
           >
             {!isCollapsed && (
               <div className="flex justify-between items-center ml-[15px]">
-                <Typography variant="h3" color={colors.grey[100]}>
+                <Typography variant="h3" >
                   LOGO
                 </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
-                </IconButton>
               </div>
             )}
           </MenuItem>
