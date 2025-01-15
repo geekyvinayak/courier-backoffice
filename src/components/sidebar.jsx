@@ -7,10 +7,11 @@ import { tokens } from "../theme";
 // import {MenuOutlinedIcon } from '@mui/icons-material'
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import AddLocationOutlinedIcon from '@mui/icons-material/AddLocationOutlined';
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [selected, setIsSelected] = useState("Dashboard");
 
   return (
@@ -36,13 +37,10 @@ const Sidebarr = () => {
             },
             ['&.ps-sidebar-root']:{
               height:"100% !important",
-            },
-            
+            }
           }}
           menuItemStyles={{
             button: {
-              // the active class will be added automatically by react router
-              // so we can use it to style the active menu item
               [`.active`]: {
                 backgroundColor: "#13395e",
                 color: "red",
@@ -50,7 +48,12 @@ const Sidebarr = () => {
               [`&:hover`]:{
                 // backgroundColor:"red"
                 color:`black !important`
-              }
+              },
+
+            ['&.ps-active']:{
+              backgroundColor: `${colors.blueAccent[300]} !important`,
+              color: `${colors.primary[400]} !important`
+            }
             },
           }}
         >
@@ -79,10 +82,29 @@ const Sidebarr = () => {
               color: colors.grey[100],
             }}
             component={<Link to="/dashboard" />}
+            active={selected === 'Dashboard'}
+            onClick={()=>{setIsSelected('Dashboard')}}
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
                 <GridViewOutlinedIcon /> {!isCollapsed && "Dashboard"}
+              </div>
+            )}
+          </MenuItem>
+
+          <MenuItem
+            icon={isCollapsed ? <AddLocationOutlinedIcon /> : undefined}
+            style={{
+              margin: "10px 0 20px 0",
+              color: colors.grey[100],
+            }}
+            component={<Link to="/" />}
+            active={selected === 'Second'}
+            onClick={()=>{setIsSelected('Second')}}
+          >
+            {!isCollapsed && (
+              <div className="flex gap-2 items-center ml-[15px]">
+                <AddLocationOutlinedIcon /> {!isCollapsed && "Second"}
               </div>
             )}
           </MenuItem>
