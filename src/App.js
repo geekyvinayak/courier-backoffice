@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import Navbar from "./components/navbar";
 import { ColorModeContext , useMode } from "./theme";
 import { CssBaseline , ThemeProvider } from "@mui/material";
@@ -18,7 +18,7 @@ function App() {
       <main className="content">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pricelist" element={<Price />} />
         <Route path="/pricelist/create" element={<NewPrice />} />
