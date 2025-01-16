@@ -6,6 +6,8 @@ import Dashboard from "./tabs/dashboardTab";
 import Sidebar from "./components/sidebar";
 import Price from "./tabs/priceListTab/priceList/price";
 import NewPrice from "./tabs/priceListTab/priceList/newPrice";
+import VehiclesTypes from "./tabs/priceListTab/vehicles/vehiclesTypes";
+
 function App() {
   const [theme , colorMode] = useMode();
 
@@ -22,6 +24,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pricelist" element={<Price />} />
         <Route path="/pricelist/create" element={<NewPrice />} />
+        <Route path="/pricelist/vehicles" element={<VehiclesTypes />} />
 
       </Routes>
       </main>

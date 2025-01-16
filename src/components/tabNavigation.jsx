@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react
 const itemsData = {
   "/pricelist": [
     { id: 1, name: "Price List", link: "/pricelist" },
-    { id: 2, name: "Vehicles", link: "/pricelist/Vehicles" },
+    { id: 2, name: "Vehicles", link: "/pricelist/vehicles" },
     { id: 3, name: "Service Levels", link: "/pricelist/servicelevels" },
     { id: 4, name: "Fuel Surcharges", link: "/pricelist/fuelsurcharges" },
     { id: 5, name: "Extra Fees", link: "/pricelist/extrafees" },
