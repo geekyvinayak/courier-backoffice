@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { tokens } from "../theme";
 // import {MenuOutlinedIcon } from '@mui/icons-material'
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
-import AddLocationOutlinedIcon from '@mui/icons-material/AddLocationOutlined';
+import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -76,7 +76,7 @@ const Sidebarr = () => {
           </MenuItem>
           
           <MenuItem
-            icon={isCollapsed ? <GridViewOutlinedIcon /> : undefined}
+            icon={isCollapsed ? <DonutLargeOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
@@ -87,24 +87,24 @@ const Sidebarr = () => {
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
-                <GridViewOutlinedIcon /> {!isCollapsed && "Dashboard"}
+                <DonutLargeOutlinedIcon /> {!isCollapsed && "Dashboard"}
               </div>
             )}
           </MenuItem>
 
           <MenuItem
-            icon={isCollapsed ? <AddLocationOutlinedIcon /> : undefined}
+            icon={isCollapsed ? <LocalOfferOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
             }}
-            component={<Link to="/" />}
+            component={<Link to="/pricelist" />}
             active={selected === 'Second'}
             onClick={()=>{setIsSelected('Second')}}
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
-                <AddLocationOutlinedIcon /> {!isCollapsed && "Second"}
+                <LocalOfferOutlinedIcon /> {!isCollapsed && "Price List"}
               </div>
             )}
           </MenuItem>
