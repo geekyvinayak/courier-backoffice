@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className='flex'>
         <div className={`flex-shrink  bg-[${colors.primary[400]}] border-2`} >
         <InputBase sx={{ ml: 2, }} placeholder="Order Id" />
-        <IconButton type="button" sx={{backgroundColor:colors.blueAccent[500], borderRadius:0}} classes='bg-red-400' cl>
+        <IconButton type="button" sx={{backgroundColor:colors.blueAccent[500], borderRadius:0}} className='bg-red-400'>
           <ArrowForwardOutlined color='red'/>
         </IconButton>
       </div>
