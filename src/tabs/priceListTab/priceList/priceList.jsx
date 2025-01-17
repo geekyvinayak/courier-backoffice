@@ -1,13 +1,18 @@
 import React from 'react'
-import NewPrice from './newPrice'
 import { Link } from 'react-router-dom'
+import PriceListGrid from './priceListGrid'
 
-const Price = () => {
+const PriceList = () => {
   return (
     <div>
+      <div>
         <button><Link to={'/pricelist/create'}>Add New</Link></button>
+      </div>
+      <div>
+        <PriceListGrid />
+      </div>
     </div>
   )
 }
 
-export default Price
+export default PriceList
