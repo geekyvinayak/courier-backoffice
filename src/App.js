@@ -4,9 +4,14 @@ import { ColorModeContext , useMode } from "./theme";
 import { CssBaseline , ThemeProvider } from "@mui/material";
 import Dashboard from "./tabs/dashboardTab";
 import Sidebar from "./components/sidebar";
-import Price from "./tabs/priceListTab/priceList/price";
 import NewPrice from "./tabs/priceListTab/priceList/newPrice";
 import VehiclesTypes from "./tabs/priceListTab/vehicles/vehiclesTypes";
+import PriceList from "./tabs/priceListTab/priceList/priceList";
+import { ExtraFeesSchedule } from "./tabs/priceListTab/extraFeesSchedule/extraFeesSchedule";
+import CreateExtraFeesSchedule from "./tabs/priceListTab/extraFeesSchedule/createExtraFeesSchedule";
+import { ExtraFees } from "./tabs/priceListTab/extraFees/extraFees";
+import ExtraFeesCreate from "./tabs/priceListTab/extraFees/extraFeesCreate";
+
 
 function App() {
   const [theme , colorMode] = useMode();
@@ -22,10 +27,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/pricelist" element={<Price />} />
+        <Route path="/pricelist" element={<PriceList />} />
         <Route path="/pricelist/create" element={<NewPrice />} />
         <Route path="/pricelist/vehicles" element={<VehiclesTypes />} />
 
+        <Route path="/pricelist/extrafeesschedule" element={<ExtraFeesSchedule />} />
+        <Route path="/pricelist/extrafeesschedule/create" element={<CreateExtraFeesSchedule />} />
+        <Route path="/pricelist/extrafees" element={<ExtraFees />} />
+        <Route path="/pricelist/extrafees/create" element={<ExtraFeesCreate />} />
       </Routes>
       </main>
     </div>
