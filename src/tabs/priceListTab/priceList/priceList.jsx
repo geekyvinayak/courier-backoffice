@@ -1,12 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import PriceListGrid from './priceListGrid'
+import LinkBtn from '../../../components/linkBtn'
+import SubTabNavigator from '../../../components/subTabNavigator'
+
 
 const PriceList = () => {
   return (
     <div>
       <div>
-        <button><Link to={'/pricelist/create'}>Add New</Link></button>
+      <SubTabNavigator />
+      </div>
+      <div className='ml-4' >
+        <LinkBtn label='New Price List' url={'/pricelist/create'}/>
       </div>
       <div>
         <PriceListGrid />

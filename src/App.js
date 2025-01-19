@@ -5,12 +5,15 @@ import { CssBaseline , ThemeProvider } from "@mui/material";
 import Dashboard from "./tabs/dashboardTab";
 import Sidebar from "./components/sidebar";
 import NewPrice from "./tabs/priceListTab/priceList/newPrice";
-import VehiclesTypes from "./tabs/priceListTab/vehicles/vehiclesTypes";
+import VehiclesTypes from "./tabs/priceListTab/vehiclesTypes/vehiclesTypes";
 import PriceList from "./tabs/priceListTab/priceList/priceList";
 import { ExtraFeesSchedule } from "./tabs/priceListTab/extraFeesSchedule/extraFeesSchedule";
 import CreateExtraFeesSchedule from "./tabs/priceListTab/extraFeesSchedule/createExtraFeesSchedule";
 import { ExtraFees } from "./tabs/priceListTab/extraFees/extraFees";
 import ExtraFeesCreate from "./tabs/priceListTab/extraFees/extraFeesCreate";
+import VehicleEquivalencies from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalencies";
+import VehiclesTypesCreate from "./tabs/priceListTab/vehiclesTypes/vehiclesTypesCreate";
+import VehicleEquivalenciesCreate from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesCreate";
 
 
 function App() {
@@ -29,8 +32,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pricelist" element={<PriceList />} />
         <Route path="/pricelist/create" element={<NewPrice />} />
-        <Route path="/pricelist/vehicles" element={<VehiclesTypes />} />
-
+        <Route path="/pricelist/vehiclestype" element={<VehiclesTypes />} />
+        <Route path="/pricelist/vehiclestype/create" element={<VehiclesTypesCreate />} />
+        <Route path="/pricelist/vehicleequivalencies" element={<VehicleEquivalencies />} />
+        <Route path="/pricelist/vehicleequivalencies/create" element={<VehicleEquivalenciesCreate />} />
         <Route path="/pricelist/extrafeesschedule" element={<ExtraFeesSchedule />} />
         <Route path="/pricelist/extrafeesschedule/create" element={<CreateExtraFeesSchedule />} />
         <Route path="/pricelist/extrafees" element={<ExtraFees />} />

@@ -21,6 +21,7 @@ const columns = [
   {
     field: "name",
     headerName: "Name",
+    flex:1
   },
 ];
 
@@ -46,6 +47,17 @@ const ExtraFeesScheduleGrid = () => {
             paginationModel: {
               pageSize: 5,
             },
+          },
+        }}
+        sx={{
+          '& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ': {
+            border: '1px solid #e0e0e0', // Border between rows
+          },
+          '& .MuiDataGrid-row:nth-of-type(odd)': {
+            backgroundColor: '#f5f5f5', // Light color for odd rows
+          },
+          '& .MuiDataGrid-row:nth-of-type(even)': {
+            backgroundColor: '#ffffff', // White color for even rows
           },
         }}
         disableRowSelectionOnClick

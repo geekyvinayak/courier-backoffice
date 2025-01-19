@@ -25,7 +25,7 @@ const columns = [
 
 const ExtraFeesGrid = () => {
   return (
-    <div className="mx-auto w-[80%]">
+    <div className="mx-auto w-[80%] mt-2">
       <div>
         <DataGrid
           rows={rows}
@@ -37,6 +37,17 @@ const ExtraFeesGrid = () => {
               paginationModel: {
                 pageSize: 10,
               },
+            },
+          }}
+          sx={{
+            '& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ': {
+              border: '1px solid #e0e0e0', // Border between rows
+            },
+            '& .MuiDataGrid-row:nth-of-type(odd)': {
+              backgroundColor: '#f5f5f5', // Light color for odd rows
+            },
+            '& .MuiDataGrid-row:nth-of-type(even)': {
+              backgroundColor: '#ffffff', // White color for even rows
             },
           }}
         />
