@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { tokens } from "../theme";
 // import {MenuOutlinedIcon } from '@mui/icons-material'
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -12,7 +12,8 @@ const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [selected, setIsSelected] = useState("Dashboard");
+    const location = useLocation();
+    const currentPath = location.pathname.split("/")[1];
 
   return (
     <div className="h-[100%]">
@@ -82,8 +83,7 @@ const Sidebarr = () => {
               color: colors.grey[100],
             }}
             component={<Link to="/dashboard" />}
-            active={selected === 'Dashboard'}
-            onClick={()=>{setIsSelected('Dashboard')}}
+            active={currentPath === 'dashboard'}
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
@@ -99,8 +99,7 @@ const Sidebarr = () => {
               color: colors.grey[100],
             }}
             component={<Link to="/pricelist" />}
-            active={selected === 'Second'}
-            onClick={()=>{setIsSelected('Second')}}
+            active={currentPath === 'pricelist'}
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
