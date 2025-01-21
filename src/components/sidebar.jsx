@@ -6,14 +6,14 @@ import { Link, useLocation } from "react-router-dom";
 import { tokens } from "../theme";
 // import {MenuOutlinedIcon } from '@mui/icons-material'
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import DonutLargeOutlinedIcon from "@mui/icons-material/DonutLargeOutlined";
+import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(true);
-    const location = useLocation();
-    const currentPath = location.pathname.split("/")[1];
+  const location = useLocation();
+  const currentPath = location.pathname.split("/")[1];
 
   return (
     <div className="h-[100%]">
@@ -22,23 +22,22 @@ const Sidebarr = () => {
         rootStyles={{
           [`.ps-sidebar-container`]: {
             background: `${colors.primary[400]} !important`,
-            height:"100% !important",
+            height: "100% !important",
           },
-          ['&.ps-sidebar-root']:{
-            height:"100% !important",
+          ["&.ps-sidebar-root"]: {
+            height: "100% !important",
           },
-          
         }}
       >
         <Menu
-        rootStyles={{
+          rootStyles={{
             [`.ps-sidebar-container`]: {
               background: `${colors.primary[400]} !important`,
-              height:"100% !important",
+              height: "100% !important",
             },
-            ['&.ps-sidebar-root']:{
-              height:"100% !important",
-            }
+            ["&.ps-sidebar-root"]: {
+              height: "100% !important",
+            },
           }}
           menuItemStyles={{
             button: {
@@ -46,15 +45,15 @@ const Sidebarr = () => {
                 backgroundColor: "#13395e",
                 color: "red",
               },
-              [`&:hover`]:{
+              [`&:hover`]: {
                 // backgroundColor:"red"
-                color:`black !important`
+                color: `black !important`,
               },
 
-            ['&.ps-active']:{
-              backgroundColor: `${colors.blueAccent[300]} !important`,
-              color: `${colors.primary[400]} !important`
-            }
+              ["&.ps-active"]: {
+                backgroundColor: `${colors.blueAccent[300]} !important`,
+                color: `${colors.primary[400]} !important`,
+              },
             },
           }}
         >
@@ -68,14 +67,12 @@ const Sidebarr = () => {
           >
             {!isCollapsed && (
               <div className="flex justify-between items-center ml-[15px]">
-                <Typography variant="h3" >
-                  LOGO
-                </Typography>
-                  <MenuOutlinedIcon />
+                <Typography variant="h3">LOGO</Typography>
+                <MenuOutlinedIcon />
               </div>
             )}
           </MenuItem>
-          
+
           <MenuItem
             icon={isCollapsed ? <DonutLargeOutlinedIcon /> : undefined}
             style={{
@@ -83,7 +80,7 @@ const Sidebarr = () => {
               color: colors.grey[100],
             }}
             component={<Link to="/dashboard" />}
-            active={currentPath === 'dashboard'}
+            active={currentPath === "dashboard"}
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
@@ -99,7 +96,7 @@ const Sidebarr = () => {
               color: colors.grey[100],
             }}
             component={<Link to="/pricelist" />}
-            active={currentPath === 'pricelist'}
+            active={currentPath === "pricelist"}
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">

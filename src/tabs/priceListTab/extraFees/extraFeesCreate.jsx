@@ -23,8 +23,12 @@ const ExtraFeesCreate = () => {
       nameFr: Yup.string().required("Name (FR) is required"),
       descriptionEn: Yup.string().required("Description (EN) is required"),
       descriptionFr: Yup.string().required("Description (FR) is required"),
-      unitOfMeasureEn: Yup.string().required("Unit of Measure (EN) is required"),
-      unitOfMeasureFr: Yup.string().required("Unit of Measure (FR) is required"),
+      unitOfMeasureEn: Yup.string().required(
+        "Unit of Measure (EN) is required",
+      ),
+      unitOfMeasureFr: Yup.string().required(
+        "Unit of Measure (FR) is required",
+      ),
       reference: Yup.string().required("Reference is required"),
     }),
     onSubmit: (values) => {
@@ -72,7 +76,9 @@ const ExtraFeesCreate = () => {
               value={formik.values[field.id]}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched[field.id] && Boolean(formik.errors[field.id])}
+              error={
+                formik.touched[field.id] && Boolean(formik.errors[field.id])
+              }
               helperText={formik.touched[field.id] && formik.errors[field.id]}
             />
           </div>

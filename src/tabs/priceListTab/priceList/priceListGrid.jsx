@@ -22,12 +22,12 @@ const columns = [
   {
     field: "name",
     headerName: "Name",
-    flex:2
+    flex: 2,
   },
   {
     field: "type",
     headerName: "Type",
-    flex:1
+    flex: 1,
   },
   {
     field: "actions",
@@ -58,7 +58,6 @@ const rows = [
   { id: 6, name: "PTC - Z4S/Z3 - 1903/2532", type: "By zone", default: true },
   { id: 7, name: "PTC - Z4W/Z3 - 2204", type: "By zone", default: false },
   { id: 8, name: "PTC - Z6S/Z5 - 9251", type: "By zone", default: true },
-
 ];
 
 const PriceListGrid = () => {
@@ -75,14 +74,14 @@ const PriceListGrid = () => {
           },
         }}
         sx={{
-          '& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ': {
-            border: '1px solid #e0e0e0', // Border between rows
+          "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
+            border: "1px solid #e0e0e0", // Border between rows
           },
-          '& .MuiDataGrid-row:nth-of-type(odd)': {
-            backgroundColor: '#f5f5f5', // Light color for odd rows
+          "& .MuiDataGrid-row:nth-of-type(odd)": {
+            backgroundColor: "#f5f5f5", // Light color for odd rows
           },
-          '& .MuiDataGrid-row:nth-of-type(even)': {
-            backgroundColor: '#ffffff', // White color for even rows
+          "& .MuiDataGrid-row:nth-of-type(even)": {
+            backgroundColor: "#ffffff", // White color for even rows
           },
         }}
         disableRowSelectionOnClick

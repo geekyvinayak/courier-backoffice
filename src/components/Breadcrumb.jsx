@@ -1,6 +1,6 @@
-import React from 'react';
-import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
-import { Link } from 'react-router-dom';
+import React from "react";
+import NavigateNextOutlinedIcon from "@mui/icons-material/NavigateNextOutlined";
+import { Link } from "react-router-dom";
 const Breadcrumb = ({ items = [] }) => {
   const lastIndex = items.length - 1;
 
@@ -12,8 +12,8 @@ const Breadcrumb = ({ items = [] }) => {
             to={item.href}
             className={`hover:underline ${
               index === lastIndex
-                ? 'text-gray-600 cursor-default pointer-events-none'
-                : 'text-blue-500'
+                ? "text-gray-600 cursor-default pointer-events-none"
+                : "text-blue-500"
             }`}
             onClick={(e) => {
               if (index === lastIndex) {

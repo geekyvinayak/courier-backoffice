@@ -9,36 +9,35 @@ const columns = [
     field: "default",
     headerName: "Default",
     sortable: false,
-    filterable:false,
-    renderCell: (params) => (
+    filterable: false,
+    renderCell: (params) =>
       params.value ? (
         <StarIcon style={{ color: "#1976d2" }} />
       ) : (
         <StarOutlineIcon style={{ color: "#1976d2" }} />
-      )
-    ),
+      ),
   },
   {
     field: "name",
     headerName: "Name",
-    flex:1
+    flex: 1,
   },
 ];
 
 const rows = [
-  { id: 1, name: "PTC - DEFAULT RATE"},
-  { id: 2, name: "DISTANCE - 5000/2978"},
-  { id: 3, name: "FLAT 8 - 2925"},
-  { id: 4, name: "FLAT 8-50 - 2637/0998"},
-  { id: 5, name: "PTC - GLOBE"},
-  { id: 6, name: "PTC - Z4S/Z3 - 1903/2532"},
-  { id: 7, name: "PTC - Z4W/Z3 - 2204"},
-  { id: 8, name: "PTC - Z6S/Z5 - 9251"},
+  { id: 1, name: "PTC - DEFAULT RATE" },
+  { id: 2, name: "DISTANCE - 5000/2978" },
+  { id: 3, name: "FLAT 8 - 2925" },
+  { id: 4, name: "FLAT 8-50 - 2637/0998" },
+  { id: 5, name: "PTC - GLOBE" },
+  { id: 6, name: "PTC - Z4S/Z3 - 1903/2532" },
+  { id: 7, name: "PTC - Z4W/Z3 - 2204" },
+  { id: 8, name: "PTC - Z6S/Z5 - 9251" },
 ];
 
 const ExtraFeesScheduleGrid = () => {
   return (
-    <Box className='w-[80%] m-auto mt-8'>
+    <Box className="w-[80%] m-auto mt-8">
       <DataGrid
         rows={rows}
         columns={columns}
@@ -50,14 +49,14 @@ const ExtraFeesScheduleGrid = () => {
           },
         }}
         sx={{
-          '& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ': {
-            border: '1px solid #e0e0e0', // Border between rows
+          "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
+            border: "1px solid #e0e0e0", // Border between rows
           },
-          '& .MuiDataGrid-row:nth-of-type(odd)': {
-            backgroundColor: '#f5f5f5', // Light color for odd rows
+          "& .MuiDataGrid-row:nth-of-type(odd)": {
+            backgroundColor: "#f5f5f5", // Light color for odd rows
           },
-          '& .MuiDataGrid-row:nth-of-type(even)': {
-            backgroundColor: '#ffffff', // White color for even rows
+          "& .MuiDataGrid-row:nth-of-type(even)": {
+            backgroundColor: "#ffffff", // White color for even rows
           },
         }}
         disableRowSelectionOnClick
