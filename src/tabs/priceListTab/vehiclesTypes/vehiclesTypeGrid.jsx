@@ -22,85 +22,88 @@ const columns = [
   {
     field: "id",
     headerName: "id",
-    flex:1
-
+    flex: 1,
   },
   {
     field: "DisplayNamePrimary",
     headerName: "Name",
-    flex:2
+    flex: 2,
   },
   {
     field: "IconUrl",
     headerName: "Icon",
     sortable: false,
-    renderCell: (params) =>(
-      <img src={params.value}/>
-    )
+    renderCell: (params) => <img src={params.value} />,
   },
 ];
 
-const rows =  [
+const rows = [
   {
-      "id": "1",
-      "IsDefault": false,
-      "DisplayNameSecondary": "BK",
-      "DisplayNamePrimary": "BIKE",
-      "IconUrl": "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/bike.png",
-      "EditUrl": "/BackOffice/VehicleTypes/Edit/1",
-      "DetailsUrl": "/BackOffice/VehicleTypes/Type/1",
-      "SetDefaultUrl": "/BackOffice/VehicleTypes/SetDefault/1"
+    id: "1",
+    IsDefault: false,
+    DisplayNameSecondary: "BK",
+    DisplayNamePrimary: "BIKE",
+    IconUrl:
+      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/bike.png",
+    EditUrl: "/BackOffice/VehicleTypes/Edit/1",
+    DetailsUrl: "/BackOffice/VehicleTypes/Type/1",
+    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/1",
   },
   {
-      "id": "2",
-      "IsDefault": true,
-      "DisplayNameSecondary": "C",
-      "DisplayNamePrimary": "Car",
-      "IconUrl": "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/car.png",
-      "EditUrl": "/BackOffice/VehicleTypes/Edit/2",
-      "DetailsUrl": "/BackOffice/VehicleTypes/Type/2",
-      "SetDefaultUrl": "/BackOffice/VehicleTypes/SetDefault/2"
+    id: "2",
+    IsDefault: true,
+    DisplayNameSecondary: "C",
+    DisplayNamePrimary: "Car",
+    IconUrl:
+      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/car.png",
+    EditUrl: "/BackOffice/VehicleTypes/Edit/2",
+    DetailsUrl: "/BackOffice/VehicleTypes/Type/2",
+    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/2",
   },
   {
-      "id": "3",
-      "IsDefault": false,
-      "DisplayNameSecondary": "HB",
-      "DisplayNamePrimary": "HatchBack",
-      "IconUrl": "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/suv.png",
-      "EditUrl": "/BackOffice/VehicleTypes/Edit/3",
-      "DetailsUrl": "/BackOffice/VehicleTypes/Type/3",
-      "SetDefaultUrl": "/BackOffice/VehicleTypes/SetDefault/3"
+    id: "3",
+    IsDefault: false,
+    DisplayNameSecondary: "HB",
+    DisplayNamePrimary: "HatchBack",
+    IconUrl:
+      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/suv.png",
+    EditUrl: "/BackOffice/VehicleTypes/Edit/3",
+    DetailsUrl: "/BackOffice/VehicleTypes/Type/3",
+    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/3",
   },
   {
-      "id": "4",
-      "IsDefault": false,
-      "DisplayNameSecondary": "MV",
-      "DisplayNamePrimary": "Minivan/SUV/SmallTruck",
-      "IconUrl": "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/minivan.png",
-      "EditUrl": "/BackOffice/VehicleTypes/Edit/4",
-      "DetailsUrl": "/BackOffice/VehicleTypes/Type/4",
-      "SetDefaultUrl": "/BackOffice/VehicleTypes/SetDefault/4"
+    id: "4",
+    IsDefault: false,
+    DisplayNameSecondary: "MV",
+    DisplayNamePrimary: "Minivan/SUV/SmallTruck",
+    IconUrl:
+      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/minivan.png",
+    EditUrl: "/BackOffice/VehicleTypes/Edit/4",
+    DetailsUrl: "/BackOffice/VehicleTypes/Type/4",
+    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/4",
   },
   {
-      "id": "5",
-      "IsDefault": false,
-      "DisplayNameSecondary": "CV",
-      "DisplayNamePrimary": "CargoVan",
-      "IconUrl": "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/cargovan.png",
-      "EditUrl": "/BackOffice/VehicleTypes/Edit/5",
-      "DetailsUrl": "/BackOffice/VehicleTypes/Type/5",
-      "SetDefaultUrl": "/BackOffice/VehicleTypes/SetDefault/5"
+    id: "5",
+    IsDefault: false,
+    DisplayNameSecondary: "CV",
+    DisplayNamePrimary: "CargoVan",
+    IconUrl:
+      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/cargovan.png",
+    EditUrl: "/BackOffice/VehicleTypes/Edit/5",
+    DetailsUrl: "/BackOffice/VehicleTypes/Type/5",
+    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/5",
   },
   {
-      "id": "6",
-      "IsDefault": false,
-      "DisplayNameSecondary": "5T",
-      "DisplayNamePrimary": "5-TON",
-      "IconUrl": "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/lowdock.png",
-      "EditUrl": "/BackOffice/VehicleTypes/Edit/6",
-      "DetailsUrl": "/BackOffice/VehicleTypes/Type/6",
-      "SetDefaultUrl": "/BackOffice/VehicleTypes/SetDefault/6"
-  }
+    id: "6",
+    IsDefault: false,
+    DisplayNameSecondary: "5T",
+    DisplayNamePrimary: "5-TON",
+    IconUrl:
+      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/lowdock.png",
+    EditUrl: "/BackOffice/VehicleTypes/Edit/6",
+    DetailsUrl: "/BackOffice/VehicleTypes/Type/6",
+    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/6",
+  },
 ];
 
 const VehiclesTypeGrid = () => {
@@ -117,17 +120,16 @@ const VehiclesTypeGrid = () => {
           },
         }}
         sx={{
-          '& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ': {
-            border: '1px solid #e0e0e0', // Border between rows
+          "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
+            border: "1px solid #e0e0e0", // Border between rows
           },
-          '& .MuiDataGrid-row:nth-of-type(odd)': {
-            backgroundColor: '#f5f5f5', // Light color for odd rows
+          "& .MuiDataGrid-row:nth-of-type(odd)": {
+            backgroundColor: "#f5f5f5", // Light color for odd rows
           },
-          '& .MuiDataGrid-row:nth-of-type(even)': {
-            backgroundColor: '#ffffff', // White color for even rows
+          "& .MuiDataGrid-row:nth-of-type(even)": {
+            backgroundColor: "#ffffff", // White color for even rows
           },
         }}
-
         disableRowSelectionOnClick
       />
     </Box>
