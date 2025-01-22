@@ -1,5 +1,7 @@
-import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getRequest } from "../../../consts/apiCalls";
 
 const rows = [
   {
@@ -104,11 +106,28 @@ const columns = [
 ];
 
 const ExtraFeesGrid = () => {
+  const navigate = useNavigate();
+
+  const [extraFeesList, setExtraFeesList] = useState([]);
+
+  const fetchExtraFees = async () => {
+    try {
+      const response = await getRequest("/extraFee");
+      setExtraFeesList(response);
+    } catch (error) {
+      console.error("Error fetching Extra fees:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchExtraFees();
+  }, []);
+
   return (
     <div className="mx-auto w-[80%] mt-2">
       <div>
         <DataGrid
-          rows={rows}
+          rows={extraFeesList}
           columns={columns}
           disableColumnMenu
           disableSelectionOnClick

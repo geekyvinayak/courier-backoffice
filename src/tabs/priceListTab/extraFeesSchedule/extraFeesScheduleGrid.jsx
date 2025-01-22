@@ -1,8 +1,11 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import { useNavigate } from "react-router-dom";
+import { getRequest } from "../../../consts/apiCalls";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const columns = [
   {
@@ -36,10 +39,28 @@ const rows = [
 ];
 
 const ExtraFeesScheduleGrid = () => {
+
+  const navigate = useNavigate();
+  
+    const [priceListSchedule, setPriceListSchedule] = useState([])
+  
+    const fetchPriceListSchedule = async () => {
+      try {
+        const response = await getRequest("/extraFeeSchedule");
+        setPriceListSchedule(response);
+      } catch (error) {
+        console.error("Error fetching pricing list schedule:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchPriceListSchedule();
+    },[]);
+
   return (
     <Box className="w-[80%] m-auto mt-8">
       <DataGrid
-        rows={rows}
+        rows={priceListSchedule}
         columns={columns}
         initialState={{
           pagination: {

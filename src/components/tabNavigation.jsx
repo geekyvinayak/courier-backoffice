@@ -63,7 +63,7 @@ const TabNavigation = () => {
             key={item.id}
             className={`text-left block p-2  transition-colors font-medium focus:outline-none  focus:ring-2 focus:ring-blue-500
           ${
-            item.childPaths.includes(location?.pathname)
+            item.childPaths?.includes(location?.pathname)
               ? " text-blue-600 border-b-2 border-blue-600"
               : "text-white-700"
           }`}
