@@ -45,9 +45,6 @@ export async function postRequest(url, body = {}) {
     const response = await axios.post(`${BASE_URL}${url}`, body, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
         ...getAuthHeaders(),
       },
     });
@@ -63,9 +60,6 @@ export async function putRequest(url, body = {}) {
     const response = await axios.put(`${BASE_URL}${url}`, body, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
         ...getAuthHeaders(),
       },
     });

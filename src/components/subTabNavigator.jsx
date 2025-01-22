@@ -12,7 +12,7 @@ const SubTabNavigator = ({ data = [] }) => {
             label={ele.lable}
             url={ele.url}
             key={index}
-            filled={false}
+            filled={ele?.isFilled || false}
           />
         );
       })}
