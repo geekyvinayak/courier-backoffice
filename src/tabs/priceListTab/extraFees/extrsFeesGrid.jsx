@@ -115,7 +115,7 @@ const ExtraFeesGrid = () => {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 10,
+                pageSize: 5,
               },
             },
           }}
@@ -129,6 +129,9 @@ const ExtraFeesGrid = () => {
             "& .MuiDataGrid-row:nth-of-type(even)": {
               backgroundColor: "#ffffff", // White color for even rows
             },
+           "& .MuiDataGrid-virtualScrollerContent":{
+            maxHeight:"50vh"
+           }
           }}
         />
       </div>

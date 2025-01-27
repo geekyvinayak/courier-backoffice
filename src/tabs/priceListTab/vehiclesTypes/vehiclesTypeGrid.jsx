@@ -12,28 +12,17 @@ import { useNavigate } from "react-router-dom";
 
 const VehiclesTypeGrid = () => {
   const navigate = useNavigate();
-  const [rows, setRoiw] = useState([
-    {
-      id: 0,
-      displayId: 0,
-      name: "string",
-      optimizationProfile: "string",
-      maxNumOfPieces: 0,
-      maxVolume: 0,
-      maxWeight: 0,
-      capacityOverage: "string",
-      baseFuelMilage: 0,
-      color: "string",
-      image: "string",
-      default: true,
-    },
-  ]);
+  const [loading , setLoading] = useState(true)
+  const [rows, setRow] = useState([]);
 
   const fetchData = async () => {
-    const response = await getRequest("/vehicleType");
-    console.log("data for grid", response);
-  };
 
+    const response = await getRequest("/vehicleType").then(setLoading(false)).catch(e =>{
+      console.log(e)
+      setLoading(false)
+    });
+    setRow(response)
+  };
   const changeDefault = async (id) => {
     const response = await getRequest(`/vehicleType/makeDefualt/${id}`);
     fetchData();
@@ -58,8 +47,8 @@ const VehiclesTypeGrid = () => {
         ),
     },
     {
-      field: "id",
-      headerName: "id",
+      field: "displayId",
+      headerName: "Id",
       flex: 1,
       cellClassName: "cursor-pointer",
     },
@@ -67,6 +56,7 @@ const VehiclesTypeGrid = () => {
       field: "name",
       headerName: "Name",
       flex: 2,
+      cellClassName:'text-center'
     },
     {
       field: "image",
@@ -93,6 +83,13 @@ const VehiclesTypeGrid = () => {
         rows={rows}
         columns={columns}
         onCellClick={handleCellClick}
+        loading={loading}
+  slotProps={{
+    loadingOverlay: {
+      variant: 'linear-progress',
+      noRowsVariant: 'linear-progress',
+    },
+  }}
         initialState={{
           pagination: {
             paginationModel: {

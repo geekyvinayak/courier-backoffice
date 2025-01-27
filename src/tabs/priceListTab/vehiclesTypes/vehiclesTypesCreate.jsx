@@ -16,7 +16,8 @@ import * as Yup from "yup";
 import { getRequest, postRequest, putRequest } from "../../../consts/apiCalls";
 import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import useToast from "../../../components/toast/useToast";
 
 const validationSchema = Yup.object({
   displayId: Yup.number()
@@ -195,7 +196,8 @@ const fieldDefinitions = [
 const VehiclesTypesCreate = () => {
   const { id } = useParams();
   const [initialFormValues, setInitialFormValues] = useState(initialValues);
-
+  const { showSuccess, showError, showWarning } = useToast();
+const navigate = useNavigate();
   useEffect(() => {
     const fetchVehicleType = async () => {
       if (id) {
@@ -230,11 +232,17 @@ const VehiclesTypesCreate = () => {
 
     try {
       if (id) {
-        await putRequest(`/vehicleType/${id}`, transformedValues);
+        await putRequest(`/vehicleType/${id}`, transformedValues).then(()=>{
+          showSuccess(`vehicleType edited success`)
+        });
       } else {
-        await postRequest("/vehicleType", transformedValues);
+        await postRequest("/vehicleType", transformedValues).then(()=>{
+          showSuccess(`vehicleType add success`)
+        });
       }
+      navigate('/pricelist/vehiclestype/');
     } catch (error) {
+      showError(`something went wrong`)
       console.error("Error saving vehicle type:", error);
     }
   };
