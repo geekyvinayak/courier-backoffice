@@ -66,7 +66,7 @@ const PricingZone = () => {
         ]}
       />
       <Box sx={{ p: 2 }}>
-        <Typography variant="h5" gutterBottom fontWeight={600}>
+        <Typography variant="h6" gutterBottom fontWeight={600}>
           Zone Layout
         </Typography>
         <Select
@@ -82,7 +82,7 @@ const PricingZone = () => {
       </Box>
       <Uploadpricezone fetchData={fetchData} />
       <Box sx={{ p: 2 }}>
-        <Typography variant="h5" gutterBottom fontWeight={600}>
+        <Typography variant="h6" gutterBottom fontWeight={600}>
           Included Zones
         </Typography>
       </Box>

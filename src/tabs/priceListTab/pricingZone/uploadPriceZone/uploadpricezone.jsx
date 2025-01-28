@@ -92,7 +92,7 @@ const Uploadpricezone = ({ fetchData }) => {
   return (
     <>
       <div className="flex flex-col p-4 space-y-4 ">
-        <Typography variant="h5" gutterBottom fontWeight={600}>
+        <Typography variant="h6" gutterBottom fontWeight={600}>
           Select a Zone Definition File
         </Typography>
         <div className="ml-5 flex items-center">
