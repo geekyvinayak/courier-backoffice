@@ -69,10 +69,8 @@ function App() {
                 path="/pricelist/extrafees/create"
                 element={<ExtraFeesCreate />}
               />
-              <Route
-                path="/pricelist/pricingzones"
-                element={<PricingZone />}
-              />
+              <Route path="/pricelist/pricingzones" element={<PricingZone />} />
+            
             </Routes>
           </main>
         </div>

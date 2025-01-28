@@ -44,7 +44,7 @@ const itemsData = {
       id: 7,
       name: "Pricing Zones",
       link: "/pricelist/pricingzones",
-      childPaths: [],
+      childPaths: ["/pricelist/pricingzones","/pricelist/pricingzoneslayout"],
     },
   ],
   "/dashboard": [{ id: 1, name: "Dashboard", link: "/dashboard" }],

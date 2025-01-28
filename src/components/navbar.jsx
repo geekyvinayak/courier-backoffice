@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const generateToken = async () => {
     const token = localStorage.getItem("token");
-    
+
     if (!size(token)) {
       const response = await postRequest("/api/v1/auth/authenticate", {
         email: "dev@front.com",
@@ -30,9 +30,9 @@ const Navbar = () => {
       });
       console.log("response", response);
       localStorage.setItem("token", response.token);
-      showSuccess('token generated')
-    }else{
-      showWarning('already exists')
+      showSuccess("token generated");
+    } else {
+      showWarning("already exists");
     }
   };
 

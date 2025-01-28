@@ -197,7 +197,7 @@ const VehiclesTypesCreate = () => {
   const { id } = useParams();
   const [initialFormValues, setInitialFormValues] = useState(initialValues);
   const { showSuccess, showError, showWarning } = useToast();
-const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchVehicleType = async () => {
       if (id) {
@@ -232,17 +232,17 @@ const navigate = useNavigate();
 
     try {
       if (id) {
-        await putRequest(`/vehicleType/${id}`, transformedValues).then(()=>{
-          showSuccess(`vehicleType edited success`)
+        await putRequest(`/vehicleType/${id}`, transformedValues).then(() => {
+          showSuccess(`vehicleType edited success`);
         });
       } else {
-        await postRequest("/vehicleType", transformedValues).then(()=>{
-          showSuccess(`vehicleType add success`)
+        await postRequest("/vehicleType", transformedValues).then(() => {
+          showSuccess(`vehicleType add success`);
         });
       }
-      navigate('/pricelist/vehiclestype/');
+      navigate("/pricelist/vehiclestype/");
     } catch (error) {
-      showError(`something went wrong`)
+      showError(`something went wrong`);
       console.error("Error saving vehicle type:", error);
     }
   };

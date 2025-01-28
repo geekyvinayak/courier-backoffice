@@ -40,12 +40,14 @@ export async function getRequest(url, params = {}) {
 }
 
 // Function to make POST request
-export async function postRequest(url, body = {}) {
+export async function postRequest(url, body = {}, customHeaders = {}) {
   try {
+    console.log("customHeaders", customHeaders);
     const response = await axios.post(`${BASE_URL}${url}`, body, {
       headers: {
         "Content-Type": "application/json",
         ...getAuthHeaders(),
+        ...customHeaders,
       },
     });
     return response.data;
