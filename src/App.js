@@ -17,6 +17,8 @@ import VehicleEquivalenciesCreate from "./tabs/priceListTab/vehicleEquivalencies
 import { useEffect } from "react";
 import { postRequest } from "./consts/apiCalls";
 import size from "lodash/size";
+import ToastProvider from "./components/toast/ToastProvider";
+import PricingZone from "./tabs/priceListTab/pricingZone/pricingZone";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -43,6 +45,10 @@ function App() {
                 element={<VehiclesTypesCreate />}
               />
               <Route
+                path="/pricelist/vehiclestype/edit/:id"
+                element={<VehiclesTypesCreate />}
+              />
+              <Route
                 path="/pricelist/vehicleequivalencies"
                 element={<VehicleEquivalencies />}
               />
@@ -63,9 +69,12 @@ function App() {
                 path="/pricelist/extrafees/create"
                 element={<ExtraFeesCreate />}
               />
+              <Route path="/pricelist/pricingzones" element={<PricingZone />} />
+            
             </Routes>
           </main>
         </div>
+        <ToastProvider />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

@@ -8,6 +8,11 @@ function handleError(error) {
   console.error("API call error:", error);
   if (error.response) {
     // Server responded with a status other than 2xx
+    if(error.response.data.message ==="You must be authenticated to access this resource." && error.response.data.error == "Unauthorized" && error.response.data.status ==401){
+      localStorage.removeItem("token");
+      alert("token has expired please generate new one and refresh the page")
+    }
+
     console.error("Response data:", error.response.data);
     console.error("Response status:", error.response.status);
   } else if (error.request) {
@@ -40,15 +45,14 @@ export async function getRequest(url, params = {}) {
 }
 
 // Function to make POST request
-export async function postRequest(url, body = {}) {
+export async function postRequest(url, body = {}, customHeaders = {}) {
   try {
+    console.log("customHeaders", customHeaders);
     const response = await axios.post(`${BASE_URL}${url}`, body, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
         ...getAuthHeaders(),
+        ...customHeaders,
       },
     });
     return response.data;
@@ -63,9 +67,6 @@ export async function putRequest(url, body = {}) {
     const response = await axios.put(`${BASE_URL}${url}`, body, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
         ...getAuthHeaders(),
       },
     });

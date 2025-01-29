@@ -21,6 +21,7 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.5.1",
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.28.1",
     "react-scripts": "5.0.1",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.1",
     "prettier": "3.4.2",
