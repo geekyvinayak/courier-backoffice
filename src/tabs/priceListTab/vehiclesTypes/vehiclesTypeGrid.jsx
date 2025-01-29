@@ -9,11 +9,14 @@ import { useEffect } from "react";
 import { getRequest } from "../../../consts/apiCalls";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useToast from "../../../components/toast/useToast";
 
 const VehiclesTypeGrid = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [rows, setRow] = useState([]);
+  const { showSuccess, showError, showWarning } = useToast();
+
 
   const fetchData = async () => {
     const response = await getRequest("/vehicleType")
@@ -22,10 +25,13 @@ const VehiclesTypeGrid = () => {
         console.log(e);
         setLoading(false);
       });
+      console.log("responseresponse",response)
     setRow(response);
   };
-  const changeDefault = async (id) => {
+  
+  const changeDefault = async (id,name) => {
     const response = await getRequest(`/vehicleType/makeDefualt/${id}`);
+    showSuccess(name + ' has set as default')
     fetchData();
   };
 
@@ -42,7 +48,7 @@ const VehiclesTypeGrid = () => {
           <StarOutlineIcon
             style={{ color: "#1976d2" }}
             onClick={() => {
-              changeDefault(params.id);
+              changeDefault(params.id,params.row.name);
             }}
           />
         ),
@@ -63,14 +69,15 @@ const VehiclesTypeGrid = () => {
       field: "image",
       headerName: "Icon",
       sortable: false,
+      cellClassName:"!p-2",
       renderCell: (params) => <img src={params.value} />,
     },
   ];
 
   const handleCellClick = (params) => {
-    if (params.field === "id") {
+    if (params.field === "displayId") {
       console.log("Clicked ID:", params.value);
-      navigate(`/pricelist/vehiclestype/edit/${params.value}`);
+      navigate(`/pricelist/vehiclestype/edit/${params.id}`);
     }
   };
 
@@ -84,6 +91,7 @@ const VehiclesTypeGrid = () => {
         rows={rows}
         columns={columns}
         onCellClick={handleCellClick}
+        // slots={{ toolbar: GridToolbar }}
         loading={loading}
         slotProps={{
           loadingOverlay: {

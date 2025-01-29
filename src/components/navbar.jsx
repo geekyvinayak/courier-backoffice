@@ -31,6 +31,7 @@ const Navbar = () => {
       console.log("response", response);
       localStorage.setItem("token", response.token);
       showSuccess("token generated");
+      window?.location.reload();
     } else {
       showWarning("already exists");
     }

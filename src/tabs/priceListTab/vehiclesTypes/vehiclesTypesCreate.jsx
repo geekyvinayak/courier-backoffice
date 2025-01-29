@@ -240,7 +240,7 @@ const VehiclesTypesCreate = () => {
           showSuccess(`vehicleType add success`);
         });
       }
-      navigate("/pricelist/vehiclestype/");
+      navigate("/pricelist/vehiclestype");
     } catch (error) {
       showError(`something went wrong`);
       console.error("Error saving vehicle type:", error);
