@@ -241,9 +241,10 @@ const NewPrice = () => {
   ];
 
   return (
-    <div>
-      <Breadcrumb items={pageBreadcrums}/>
-      <div className="m-auto mt-7 max-w-[600px]">
+    <div className="pb-4">
+      <div className="mt-2">
+      <Breadcrumb items={pageBreadcrums}/></div>
+      <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <form onSubmit={formik.handleSubmit}>
           <Box
             display="flex"
@@ -254,7 +255,17 @@ const NewPrice = () => {
             <Typography variant="h4" gutterBottom>
               New Price List
             </Typography>
-            <Button type="submit">Submit</Button>
+            <Button
+                             type="submit"
+                             variant="contained"
+                             color="primary"
+                             sx={{
+                               // Red border (you can change the color)
+                               backgroundColor: "#1569CB",
+                             }}
+                           >
+                             Save
+                           </Button>
           </Box>
 
           {/* Text Field */}

@@ -14,7 +14,7 @@ const itemsData = {
       id: 1,
       name: "Price List",
       link: "/pricelist",
-      childPaths: ["/pricelist"],
+      childPaths: ["/pricelist","/pricelist/create"],
     },
     {
       id: 2,
@@ -32,7 +32,7 @@ const itemsData = {
       id: 5,
       name: "Extra Fees",
       link: "/pricelist/extrafeesschedule",
-      childPaths: ["/pricelist/extrafeesschedule", "/pricelist/extrafees"],
+      childPaths: ["/pricelist/extrafeesschedule", "/pricelist/extrafees","/pricelist/extrafeesschedule/create","/pricelist/extrafees/create"],
     },
     {
       id: 6,
