@@ -19,6 +19,8 @@ import { postRequest } from "./consts/apiCalls";
 import size from "lodash/size";
 import ToastProvider from "./components/toast/ToastProvider";
 import PricingZone from "./tabs/priceListTab/pricingZone/pricingZone";
+import { Discount } from "./tabs/priceListTab/discount/discount";
+import DiscountCreate from "./tabs/priceListTab/discount/discountCreate";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -36,6 +38,10 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pricelist" element={<PriceList />} />
               <Route path="/pricelist/create" element={<NewPrice />} />
+              <Route
+                path="/pricelist/edit/:id"
+                element={<NewPrice />}
+              />
               <Route
                 path="/pricelist/vehiclestype"
                 element={<VehiclesTypes />}
@@ -64,6 +70,10 @@ function App() {
                 path="/pricelist/extrafeesschedule/create"
                 element={<CreateExtraFeesSchedule />}
               />
+              <Route
+                path="/pricelist/extrafeesschedule/edit/:id"
+                element={<CreateExtraFeesSchedule />}
+              />
               <Route path="/pricelist/extrafees" element={<ExtraFees />} />
               <Route
                 path="/pricelist/extrafees/create"
@@ -71,6 +81,18 @@ function App() {
               />
               <Route path="/pricelist/pricingzones" element={<PricingZone />} />
             
+              <Route
+                path="/pricelist/extrafees/edit/:id"
+                element={<ExtraFeesCreate />}
+              />
+              <Route
+                path="/pricelist/discounts-surcharges"
+                element={<Discount />}
+              />
+              <Route
+                path="/pricelist/discounts-surcharges/create"
+                element={<DiscountCreate />}
+              />
             </Routes>
           </main>
         </div>

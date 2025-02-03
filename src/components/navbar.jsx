@@ -25,8 +25,8 @@ const Navbar = () => {
 
     if (!size(token)) {
       const response = await postRequest("/api/v1/auth/authenticate", {
-        email: "dev@front.com",
-        password: "Test@123",
+        email: "dev2@front.com",
+        password: "Dev@123",
       });
       console.log("response", response);
       localStorage.setItem("token", response.token);

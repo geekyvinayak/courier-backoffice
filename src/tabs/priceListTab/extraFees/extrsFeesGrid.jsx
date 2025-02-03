@@ -1,5 +1,7 @@
-import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getRequest } from "../../../consts/apiCalls";
 
 const rows = [
   {
@@ -95,21 +97,42 @@ const rows = [
 ];
 
 const columns = [
-  { field: "Id", headerName: "Id", flex: 1 },
-  { field: "nameEn", headerName: "Name (EN)", flex: 1.5 },
-  { field: "nameFr", headerName: "Name (FR)", flex: 1.5 },
-  { field: "unitEn", headerName: "Unit of Measure (EN)", flex: 1.5 },
-  { field: "unitFr", headerName: "Unit of Measure (FR)", flex: 1.5 },
+  { field: "id", headerName: "Id", flex: 1 },
+  { field: "name", headerName: "Name (EN)", flex: 1.5 },
+  { field: "unitsOfMeasure", headerName: "Unit of Measure (EN)", flex: 1.5 },
   { field: "reference", headerName: "Reference #", flex: 1 },
 ];
 
 const ExtraFeesGrid = () => {
+  const navigate = useNavigate();
+
+  const [extraFeesList, setExtraFeesList] = useState([]);
+
+  const fetchExtraFees = async () => {
+    try {
+      const response = await getRequest("/extraFee");
+      setExtraFeesList(response);
+    } catch (error) {
+      console.error("Error fetching Extra fees:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchExtraFees();
+  }, []);
+
   return (
     <div className="mx-auto w-[80%] mt-2">
       <div>
         <DataGrid
-          rows={rows}
+          rows={extraFeesList}
+          className="cursor-pointer"
           columns={columns}
+          onCellClick={(params) => {
+            if (params.field != "action") {
+              navigate(`./edit/${params.row.id}`);
+            }
+          }}
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
