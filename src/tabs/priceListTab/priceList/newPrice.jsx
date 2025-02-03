@@ -400,13 +400,13 @@ const NewPrice = () => {
                   <TableBody>
                     {vehicleType?.map((vehicle, index) => {
                       const handleInputChange = (e, chargeName, vehicleId) => {
-                        const value = e.target.value;
+                        const value = Number(e.target.value);
                         let flag = false;
                         // Update the specific vehicle surcharge data in the formik values
                         let updatedSurchargeData =
                           formik.values.vehicleTypeSurchargeDtoList.map(
                             (item) => {
-                              if (vehicleId === item.vehicleTypeId) {
+                              if (vehicleId == item.vehicleTypeId) {
                                 item[chargeName] = value; // update the specific field
                                 flag = true;
                               }
@@ -443,10 +443,9 @@ const NewPrice = () => {
                               size="small"
                               variant="outlined"
                               value={
-                                formik.vehicleTypeSurchargeDtoList?.find(
-                                  (charge) =>
-                                    charge.vehicleTypeId == vehicle.id,
-                                ).minimumSurcharge ?? 0
+                                formik.values.vehicleTypeSurchargeDtoList?.find(
+                                  (charge) => charge.vehicleTypeId === vehicle.id
+                                )?.minimumSurcharge ?? 0
                               }
                               onChange={(e) =>
                                 handleInputChange(
@@ -463,10 +462,9 @@ const NewPrice = () => {
                               size="small"
                               variant="outlined"
                               value={
-                                formik.vehicleTypeSurchargeDtoList?.find(
-                                  (charge) =>
-                                    charge.vehicleTypeId == vehicle.id,
-                                ).surcharge ?? 0
+                                formik.values.vehicleTypeSurchargeDtoList?.find(
+                                  (charge) => charge.vehicleTypeId === vehicle.id
+                                )?.surcharge ?? 0
                               }
                               onChange={(e) =>
                                 handleInputChange(e, "surcharge", vehicle.id)
