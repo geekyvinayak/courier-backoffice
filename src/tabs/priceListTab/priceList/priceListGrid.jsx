@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
 import { deleteRequest, getRequest, postRequest } from "../../../consts/apiCalls";
 import { useNavigate } from "react-router-dom";
+import { DeleteDialog } from "../../../components/deleteDialog";
 
 
 const PriceListGrid = () => {
@@ -39,16 +40,17 @@ const PriceListGrid = () => {
       headerName: "",
       sortable: false,
       renderCell: (params) => (
-        <IconButton onClick={() => handleDelete(params.row.id)}>
+        <IconButton onClick={() => {setShowDelete(true); setDeletId(params.id)}}>
           <DeleteIcon style={{ color: "#1976d2" }} />
         </IconButton>
       ),
     },
   ];
   
-  const handleDelete = async(id)=> {
+  const handleDelete = async()=> {
     try{
-      const response = await deleteRequest(`/api/pricingList/${id}`);
+      const response = await deleteRequest(`/api/pricingList/${deleteId}`);
+      setShowDelete(false);
       fetchPriceList();
     } catch(error) {
       console.log(error);
@@ -66,7 +68,9 @@ const PriceListGrid = () => {
 
   const navigate = useNavigate();
 
-  const [priceList, setPriceList] = useState([])
+  const [priceList, setPriceList] = useState([]);
+  const [showDeleteDailog, setShowDelete] = useState(false);
+  const [deleteId, setDeletId] = useState(null);
 
   const fetchPriceList = async () => {
     try {
@@ -114,6 +118,7 @@ const PriceListGrid = () => {
         className="cursor-pointer"
         disableRowSelectionOnClick
       />
+      <DeleteDialog handleClose={()=>setShowDelete(false)} handleDelete={handleDelete} open={showDeleteDailog} />
     </Box>
   );
 };
