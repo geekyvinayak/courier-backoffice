@@ -5,45 +5,64 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
-import { getRequest } from "../../../consts/apiCalls";
+import { deleteRequest, getRequest, postRequest } from "../../../consts/apiCalls";
 import { useNavigate } from "react-router-dom";
 
-const columns = [
-  {
-    field: "active",
-    headerName: "Default",
-    sortable: false,
-    filterable: false,
-    renderCell: (params) =>
-      params.value ? (
-        <StarIcon style={{ color: "#1976d2" }} />
-      ) : (
-        <StarOutlineIcon style={{ color: "#1976d2" }} />
-      ),
-  },
-  {
-    field: "name",
-    headerName: "Name",
-    flex: 2,
-  },
-  {
-    field: "type",
-    headerName: "Type",
-    flex: 1,
-  },
-  {
-    field: "actions",
-    headerName: "",
-    sortable: false,
-    renderCell: () => (
-      <IconButton>
-        <DeleteIcon style={{ color: "#1976d2" }} />
-      </IconButton>
-    ),
-  },
-];
 
 const PriceListGrid = () => {
+
+  const columns = [
+    {
+      field: "active",
+      headerName: "Default",
+      sortable: false,
+      filterable: false,
+      renderCell: (params) =>
+        params.value ? (
+          <StarIcon style={{ color: "#1976d2" }} />
+        ) : (
+          <StarOutlineIcon onClick={() => handleActive(params.row.id)} style={{ color: "#1976d2" }} />
+        ),
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 2,
+    },
+    {
+      field: "type",
+      headerName: "Type",
+      flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "",
+      sortable: false,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleDelete(params.row.id)}>
+          <DeleteIcon style={{ color: "#1976d2" }} />
+        </IconButton>
+      ),
+    },
+  ];
+  
+  const handleDelete = async(id)=> {
+    try{
+      const response = await deleteRequest(`/api/pricingList/${id}`);
+      fetchPriceList();
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  const handleActive = async(id) =>{
+    try{
+      const response = await postRequest(`/api/pricingList/makeDefault/${id}`,id);
+      fetchPriceList();
+    } catch(error) {
+      console.log(error);
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -67,7 +86,13 @@ const PriceListGrid = () => {
       <DataGrid
         rows={priceList}
         columns={columns}
-        onRowClick={(params)=>navigate(`./edit/${params.row.id}`)}
+        onCellClick={(params) => {
+          if (params.field === "actions") {
+            
+          } else if (params.field === "name") {
+            navigate(`./edit/${params.row.id}`);
+          }
+        }}
         initialState={{
           pagination: {
             paginationModel: {
@@ -86,6 +111,7 @@ const PriceListGrid = () => {
             backgroundColor: "#ffffff", // White color for even rows
           },
         }}
+        className="cursor-pointer"
         disableRowSelectionOnClick
       />
     </Box>

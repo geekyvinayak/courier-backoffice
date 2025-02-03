@@ -1,5 +1,4 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
+import { useFormik } from "formik";
 import {
   TextField,
   Checkbox,
@@ -8,31 +7,41 @@ import {
   Radio,
   FormControl,
   Box,
-  MenuItem,
-  Select,
   Button,
   Typography,
   Link,
   TextareaAutosize,
+  MenuItem,
+  Table,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow,
 } from "@mui/material";
+import { getRequest, postRequest } from "../../../consts/apiCalls";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Breadcrumb from "../../../components/Breadcrumb";
 
 const initialValues = {
   name: "",
-  checkbox: false,
-  latitude: "",
-  longitude: "",
-  excludeReturnOrders: false,
-  excludeContinuationOrders: false,
+  fuelSurcharge: false,
+  includeWarehouseTravellingDistance: false,
+  warehouseLatitude: 0,
+  warehouseLongitude: 0,
+  excludeDistanceOnReturnOrders: false,
+  excludeDistanceOnContinuationOrders: false,
   distanceFormula: "WarehouseToPickup + PickupToDelivery + DeliveryToWarehouse",
-  radioOption: "",
-  dropdown: "",
+  type: "",
+  zoneLayout: "",
+  useSymmetricalPricing: false,
+  pricingMethod: "",
+  failOverPriceListName: 0,
+  active: false,
+  vehicleTypeSurchargeDtoList: [],
 };
 
 const TravelOptions = ({ values, setFieldValue }) => {
-  const handleResetDistanceFormula = () => {
-    setFieldValue("distanceFormula", initialValues.distanceFormula); // Reset only distanceFormula value
-  };
-
   return (
     <Box
       sx={{
@@ -41,10 +50,10 @@ const TravelOptions = ({ values, setFieldValue }) => {
         padding: 2,
         border: "1px solid #cfe2f3",
         borderRadius: "4px",
-        backgroundColor: "#ffffff", // Default background for the component
+        backgroundColor: "#ffffff",
       }}
     >
-      {/* Header with blue background */}
+      {/* Header */}
       <Box
         sx={{
           backgroundColor: "#eaf4fc",
@@ -59,31 +68,35 @@ const TravelOptions = ({ values, setFieldValue }) => {
       </Box>
 
       <Box display="flex" gap={2} marginBottom={2}>
-        {/* Latitude */}
         <Box flex="1">
           <Typography variant="body1" gutterBottom>
             LATITUDE
           </Typography>
-          <Field
-            name="latitude"
-            as={TextField}
+          <TextField
             fullWidth
+            type="number"
             size="small"
             variant="outlined"
+            name="warehouseLatitude"
+            value={values.warehouseLatitude}
+            onChange={(e) => setFieldValue("warehouseLatitude", e.target.value)}
           />
         </Box>
 
-        {/* Longitude */}
         <Box flex="1">
           <Typography variant="body1" gutterBottom>
             LONGITUDE
           </Typography>
-          <Field
-            name="longitude"
-            as={TextField}
+          <TextField
             fullWidth
+            type="number"
             size="small"
             variant="outlined"
+            name="warehouseLongitude"
+            value={values.warehouseLongitude}
+            onChange={(e) =>
+              setFieldValue("warehouseLongitude", e.target.value)
+            }
           />
         </Box>
       </Box>
@@ -93,9 +106,9 @@ const TravelOptions = ({ values, setFieldValue }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={values.excludeReturnOrders}
+              checked={values.excludeDistanceOnReturnOrders}
               onChange={(e) =>
-                setFieldValue("excludeReturnOrders", e.target.checked)
+                setFieldValue("excludeDistanceOnReturnOrders", e.target.checked)
               }
             />
           }
@@ -106,9 +119,12 @@ const TravelOptions = ({ values, setFieldValue }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={values.excludeContinuationOrders}
+              checked={values.excludeDistanceOnContinuationOrders}
               onChange={(e) =>
-                setFieldValue("excludeContinuationOrders", e.target.checked)
+                setFieldValue(
+                  "excludeDistanceOnContinuationOrders",
+                  e.target.checked,
+                )
               }
             />
           }
@@ -125,7 +141,6 @@ const TravelOptions = ({ values, setFieldValue }) => {
           name="distanceFormula"
           minRows={3}
           value={values.distanceFormula}
-          variant="outlined"
           onChange={(e) => setFieldValue("distanceFormula", e.target.value)}
           style={{
             width: "100%",
@@ -138,12 +153,14 @@ const TravelOptions = ({ values, setFieldValue }) => {
         />
       </Box>
 
-      {/* Buttons */}
+      {/* Reset Button */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Button
           type="button"
           color="primary"
-          onClick={handleResetDistanceFormula}
+          onClick={() =>
+            setFieldValue("distanceFormula", initialValues.distanceFormula)
+          }
         >
           Reset to Default
         </Button>
@@ -156,112 +173,347 @@ const TravelOptions = ({ values, setFieldValue }) => {
 };
 
 const NewPrice = () => {
-  const onSubmit = (values) => {
-    console.log("Form Data", values);
-    alert(JSON.stringify(values, null, 2));
+  const { id } = useParams();
+  const [failoverPriceLists, setFailoverPriceLists] = useState([]);
+  const [vehicleType, setVehicleType] = useState([]);
+  const nav = useNavigate();
+  const formik = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      try {
+        const response = await postRequest("/api/pricingList", values);
+        console.log(response);
+        nav("/pricelist/");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+
+  const fetchPriceById = async () => {
+    try {
+      const response = await getRequest(`/api/pricingList/${id}`);
+      formik.setValues(response);
+    } catch (error) {
+      console.error("Error fetching pricing list:", error);
+    }
   };
 
+  const fetchFailoverPriceLists = async () => {
+    try {
+      const response = await getRequest("/api/pricingList"); // Get all price lists
+      const filteredLists = response?.filter((item) => item.id != id); // Exclude current id
+      setFailoverPriceLists(filteredLists);
+    } catch (error) {
+      console.error("Error fetching failover price lists:", error);
+    }
+  };
+
+  const fetchVehicleTyes = async () => {
+    try {
+      const response = await getRequest("/vehicleType");
+      setVehicleType(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      fetchPriceById();
+      fetchFailoverPriceLists();
+      fetchVehicleTyes();
+    }
+  }, [id]);
+
+  const pageBreadcrums = [
+    {
+      id: 1,
+      label: "Pricing",
+      href: "/pricelist",
+    },
+    {
+      id: 2,
+      label: "New Price List",
+      href: "",
+    },
+  ];
+
   return (
-    <div className="m-auto mt-7 max-w-[600px]">
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
-        {({ values, setFieldValue }) => (
-          <Form>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              marginBottom={2}
-            >
-              <Typography variant="h4" gutterBottom>
-                New Price List
-              </Typography>
-              <Button type="submit" variant="contained" color="primary">
-                Submit
-              </Button>
-            </Box>
+    <div>
+      <Breadcrumb items={pageBreadcrums}/>
+      <div className="m-auto mt-7 max-w-[600px]">
+        <form onSubmit={formik.handleSubmit}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            marginBottom={2}
+          >
+            <Typography variant="h4" gutterBottom>
+              New Price List
+            </Typography>
+            <Button type="submit">Submit</Button>
+          </Box>
 
-            {/* Text Field */}
-            <div style={{ marginBottom: "20px" }}>
-              <Typography variant="body1" gutterBottom>
-                Name
-              </Typography>
-              <Field
-                name="name"
-                as={TextField}
-                fullWidth
-                size="small"
-                variant="outlined"
-              />
-            </div>
+          {/* Text Field */}
+          <div style={{ marginBottom: "20px" }}>
+            <Typography variant="body1" gutterBottom>
+              Name
+            </Typography>
+            <TextField
+              name="name"
+              fullWidth
+              size="small"
+              variant="outlined"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+            />
+          </div>
 
-            {/* Checkbox with conditional TextArea */}
+          {id && (
             <div style={{ marginBottom: "20px" }}>
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={values.checkbox}
+                    checked={formik.values.fuelSurcharge}
                     onChange={(e) =>
-                      setFieldValue("checkbox", e.target.checked)
+                      formik.setFieldValue("fuelSurcharge", e.target.checked)
+                    }
+                  />
+                }
+                label="FUEL SURCHARGE"
+              />
+            </div>
+          )}
+
+          {/* Conditional Checkbox */}
+          {formik.values.type !== "Combined" && (
+            <div style={{ marginBottom: "20px" }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formik.values.includeWarehouseTravellingDistance}
+                    onChange={(e) =>
+                      formik.setFieldValue(
+                        "includeWarehouseTravellingDistance",
+                        e.target.checked,
+                      )
                     }
                   />
                 }
                 label="INCLUDE WAREHOUSE TRAVELLING DISTANCE"
               />
-              {values.checkbox && (
-                <TravelOptions values={values} setFieldValue={setFieldValue} />
+              {formik.values.includeWarehouseTravellingDistance && (
+                <TravelOptions
+                  values={formik.values}
+                  setFieldValue={formik.setFieldValue}
+                />
               )}
             </div>
+          )}
 
-            {/* Radio Buttons */}
-            <div style={{ marginBottom: "20px" }}>
-              <Typography variant="body1" gutterBottom>
-                TYPE
-              </Typography>
+          {/* Radio Buttons */}
+          <div style={{ marginBottom: "20px" }}>
+            <Typography variant="body1" gutterBottom>
+              TYPE
+            </Typography>
+            {!id ? (
               <FormControl>
                 <RadioGroup
-                  value={values.radioOption}
-                  onChange={(e) => setFieldValue("radioOption", e.target.value)}
+                  value={formik.values.type}
+                  onChange={(e) => {
+                    formik.setFieldValue("type", e.target.value);
+                    if (e.target.value === "Combined") {
+                      formik.setFieldValue(
+                        "includeWarehouseTravellingDistance",
+                        false,
+                      );
+                    }
+                  }}
                   row
                 >
                   <FormControlLabel
-                    value="option1"
+                    value="ByZone"
                     control={<Radio />}
-                    label="Option 1"
+                    label="By Zone"
                   />
                   <FormControlLabel
-                    value="option2"
+                    value="ByDistance"
                     control={<Radio />}
-                    label="Option 2"
+                    label="By Distance"
                   />
                   <FormControlLabel
-                    value="option3"
+                    value="Combined"
                     control={<Radio />}
-                    label="Option 3"
+                    label="Combined"
+                  />
+                </RadioGroup>
+              </FormControl>
+            ) : (
+              <Typography variant="body1" gutterBottom>
+                {formik.values.type}
+              </Typography>
+            )}
+          </div>
+          {id && (
+            <div style={{ marginBottom: "20px" }}>
+              <Typography variant="body1" gutterBottom>
+                PRICING METHOD
+              </Typography>
+              <FormControl>
+                <RadioGroup
+                  value={formik.values.pricingMethod}
+                  onChange={(e) => {
+                    formik.setFieldValue("pricingMethod", e.target.value);
+                  }}
+                  row
+                >
+                  <FormControlLabel
+                    value="VehicleTypeSurcharge"
+                    control={<Radio />}
+                    label="Vehicle Type Surcharge"
+                  />
+                  <FormControlLabel
+                    value="SeparatePriceSheetByVehicle"
+                    control={<Radio />}
+                    label="Separate Price Sheet By Vehicle"
                   />
                 </RadioGroup>
               </FormControl>
             </div>
+          )}
 
-            {/* Dropdown */}
+          {id && (
             <div style={{ marginBottom: "20px" }}>
-              <Typography variant="body1" gutterBottom>
-                ZONE LAYOUT
-              </Typography>
               <FormControl fullWidth>
-                <Select
-                  value={values.dropdown}
-                  size="small"
-                  onChange={(e) => setFieldValue("dropdown", e.target.value)}
-                >
-                  <MenuItem value="value1">Value 1</MenuItem>
-                  <MenuItem value="value2">Value 2</MenuItem>
-                  <MenuItem value="value3">Value 3</MenuItem>
-                </Select>
+                <Typography variant="body1" gutterBottom>
+                  VEHICLE TYPES
+                </Typography>
+                <Table>
+                  <TableHead>
+                    <TableCell>Vehicle Type</TableCell>
+                    <TableCell>Minimum Charges</TableCell>
+                    <TableCell>Surcharge</TableCell>
+                  </TableHead>
+                  <TableBody>
+                    {vehicleType?.map((vehicle, index) => {
+                      const handleInputChange = (e, chargeName, vehicleId) => {
+                        const value = e.target.value;
+                        let flag = false;
+                        // Update the specific vehicle surcharge data in the formik values
+                        let updatedSurchargeData =
+                          formik.values.vehicleTypeSurchargeDtoList.map(
+                            (item) => {
+                              if (vehicleId === item.vehicleTypeId) {
+                                item[chargeName] = value; // update the specific field
+                                flag = true;
+                              }
+                              return item;
+                            },
+                          );
+                        if (!flag) {
+                          updatedSurchargeData.push({
+                            vehicleTypeId: vehicleId,
+                            [chargeName]: value,
+                          });
+                        }
+                        console.log(formik.values.vehicleTypeSurchargeDtoList);
+                        formik.setFieldValue(
+                          "vehicleTypeSurchargeDtoList",
+                          updatedSurchargeData,
+                        );
+                      };
+
+                      return (
+                        <TableRow key={vehicle.id}>
+                          <TableCell>
+                            <TextField
+                              name={`vehicleTypeId_${vehicle.id}`}
+                              size="small"
+                              variant="outlined"
+                              value={vehicle.id}
+                              disabled
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <TextField
+                              name={`minimumSurcharge_${vehicle.id}`}
+                              size="small"
+                              variant="outlined"
+                              value={
+                                formik.vehicleTypeSurchargeDtoList?.find(
+                                  (charge) =>
+                                    charge.vehicleTypeId == vehicle.id,
+                                ).minimumSurcharge ?? 0
+                              }
+                              onChange={(e) =>
+                                handleInputChange(
+                                  e,
+                                  "minimumSurcharge",
+                                  vehicle.id,
+                                )
+                              }
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <TextField
+                              name={`surcharge_${vehicle.id}`}
+                              size="small"
+                              variant="outlined"
+                              value={
+                                formik.vehicleTypeSurchargeDtoList?.find(
+                                  (charge) =>
+                                    charge.vehicleTypeId == vehicle.id,
+                                ).surcharge ?? 0
+                              }
+                              onChange={(e) =>
+                                handleInputChange(e, "surcharge", vehicle.id)
+                              }
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
               </FormControl>
             </div>
-          </Form>
-        )}
-      </Formik>
+          )}
+
+          {id && (
+            <div style={{ marginBottom: "20px" }}>
+              <FormControl fullWidth>
+                <Typography variant="body1" gutterBottom>
+                  FAILOVER PRICE LIST
+                </Typography>
+                <TextField
+                  select
+                  name="failOverPriceListName"
+                  value={formik.values.failOverPriceListName}
+                  onChange={(e) => {
+                    formik.setFieldValue(
+                      "failOverPriceListName",
+                      e.target.value,
+                    );
+                    console.log(formik.values);
+                  }}
+                  variant="outlined"
+                  fullWidth
+                >
+                  <MenuItem value="0">None</MenuItem>
+                  {failoverPriceLists.map((list) => (
+                    <MenuItem key={list.id} value={list.id}>
+                      {list.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </FormControl>
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 };

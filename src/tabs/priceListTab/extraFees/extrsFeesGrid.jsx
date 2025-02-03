@@ -97,11 +97,9 @@ const rows = [
 ];
 
 const columns = [
-  { field: "Id", headerName: "Id", flex: 1 },
-  { field: "nameEn", headerName: "Name (EN)", flex: 1.5 },
-  { field: "nameFr", headerName: "Name (FR)", flex: 1.5 },
-  { field: "unitEn", headerName: "Unit of Measure (EN)", flex: 1.5 },
-  { field: "unitFr", headerName: "Unit of Measure (FR)", flex: 1.5 },
+  { field: "id", headerName: "Id", flex: 1 },
+  { field: "name", headerName: "Name (EN)", flex: 1.5 },
+  { field: "unitsOfMeasure", headerName: "Unit of Measure (EN)", flex: 1.5 },
   { field: "reference", headerName: "Reference #", flex: 1 },
 ];
 
@@ -128,13 +126,19 @@ const ExtraFeesGrid = () => {
       <div>
         <DataGrid
           rows={extraFeesList}
+          className="cursor-pointer"
           columns={columns}
+          onCellClick={(params) => {
+            if (params.field != "action") {
+              navigate(`./edit/${params.row.id}`);
+            }
+          }}
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 10,
+                pageSize: 5,
               },
             },
           }}
