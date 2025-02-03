@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
 import LinkBtn from "../../../components/linkBtn";
+import { Typography } from "@mui/material";
 
 const ExtraFeesCreate = () => {
   const navigate = useNavigate();
@@ -89,17 +90,24 @@ const ExtraFeesCreate = () => {
       <SubTabNavigator
         data={[
           { lable: "Extra Fee Schedules", url: "/pricelist/extrafeesschedule" },
-          { lable: "Extra Fee", url: "/pricelist/extrafees" },
+          { lable: "Extra Fee", url: "/pricelist/extrafees" ,isFilled: true},
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />
-      <div className="bg-gray-100 p-6 rounded-md max-w-3xl mx-auto shadow-md">
+      <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-lg font-bold">New Extra Fee Type</h1>
+        <Typography variant="h3" gutterBottom>New Extra Fee Type</Typography>
           <Button
             variant="contained"
             onClick={formik.handleSubmit}
             className="bg-blue-500"
+            type="submit"
+                
+                  color="primary"
+                  sx={{
+                    // Red border (you can change the color)
+                    backgroundColor: "#1569CB",
+                  }}
           >
             Save
           </Button>

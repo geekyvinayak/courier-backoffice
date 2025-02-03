@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
+import { Typography } from "@mui/material";
 
 const CreateExtraFeesSchedule = () => {
   // Formik setup
@@ -69,15 +70,20 @@ const CreateExtraFeesSchedule = () => {
     <div>
       <SubTabNavigator
         data={[
-          { lable: "Extra Fee Schedules", url: "/pricelist/extrafeesschedule" },
+          { lable: "Extra Fee Schedules", url: "/pricelist/extrafeesschedule", isFilled: true },
           { lable: "Extra Fee", url: "/pricelist/extrafees" },
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />
-      <div className="bg-gray-100 p-6 rounded-md max-w-xl mx-auto shadow-md">
+      <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-lg font-bold">New Extra Fee Schedules</h1>
-          <Button variant="contained" onClick={formik.handleSubmit}>
+        <Typography variant="h3" gutterBottom>New Extra Fee Schedules</Typography>
+          <Button variant="contained" onClick={formik.handleSubmit}  type="submit"
+                  color="primary"
+                  sx={{
+                    // Red border (you can change the color)
+                    backgroundColor: "#1569CB",
+                  }}>
             Save
           </Button>
         </div>
