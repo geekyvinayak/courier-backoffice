@@ -5,113 +5,100 @@ import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-
-const columns = [
-  {
-    field: "IsDefault",
-    headerName: "Default",
-    sortable: false,
-    filterable: false,
-    renderCell: (params) =>
-      params.value ? (
-        <StarIcon style={{ color: "#1976d2" }} />
-      ) : (
-        <StarOutlineIcon style={{ color: "#1976d2" }} />
-      ),
-  },
-  {
-    field: "id",
-    headerName: "id",
-    flex: 1,
-  },
-  {
-    field: "DisplayNamePrimary",
-    headerName: "Name",
-    flex: 2,
-  },
-  {
-    field: "IconUrl",
-    headerName: "Icon",
-    sortable: false,
-    renderCell: (params) => <img src={params.value} />,
-  },
-];
-
-const rows = [
-  {
-    id: "1",
-    IsDefault: false,
-    DisplayNameSecondary: "BK",
-    DisplayNamePrimary: "BIKE",
-    IconUrl:
-      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/bike.png",
-    EditUrl: "/BackOffice/VehicleTypes/Edit/1",
-    DetailsUrl: "/BackOffice/VehicleTypes/Type/1",
-    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/1",
-  },
-  {
-    id: "2",
-    IsDefault: true,
-    DisplayNameSecondary: "C",
-    DisplayNamePrimary: "Car",
-    IconUrl:
-      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/car.png",
-    EditUrl: "/BackOffice/VehicleTypes/Edit/2",
-    DetailsUrl: "/BackOffice/VehicleTypes/Type/2",
-    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/2",
-  },
-  {
-    id: "3",
-    IsDefault: false,
-    DisplayNameSecondary: "HB",
-    DisplayNamePrimary: "HatchBack",
-    IconUrl:
-      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/suv.png",
-    EditUrl: "/BackOffice/VehicleTypes/Edit/3",
-    DetailsUrl: "/BackOffice/VehicleTypes/Type/3",
-    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/3",
-  },
-  {
-    id: "4",
-    IsDefault: false,
-    DisplayNameSecondary: "MV",
-    DisplayNamePrimary: "Minivan/SUV/SmallTruck",
-    IconUrl:
-      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/minivan.png",
-    EditUrl: "/BackOffice/VehicleTypes/Edit/4",
-    DetailsUrl: "/BackOffice/VehicleTypes/Type/4",
-    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/4",
-  },
-  {
-    id: "5",
-    IsDefault: false,
-    DisplayNameSecondary: "CV",
-    DisplayNamePrimary: "CargoVan",
-    IconUrl:
-      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/cargovan.png",
-    EditUrl: "/BackOffice/VehicleTypes/Edit/5",
-    DetailsUrl: "/BackOffice/VehicleTypes/Type/5",
-    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/5",
-  },
-  {
-    id: "6",
-    IsDefault: false,
-    DisplayNameSecondary: "5T",
-    DisplayNamePrimary: "5-TON",
-    IconUrl:
-      "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/lowdock.png",
-    EditUrl: "/BackOffice/VehicleTypes/Edit/6",
-    DetailsUrl: "/BackOffice/VehicleTypes/Type/6",
-    SetDefaultUrl: "/BackOffice/VehicleTypes/SetDefault/6",
-  },
-];
+import { useEffect } from "react";
+import { getRequest } from "../../../consts/apiCalls";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useToast from "../../../components/toast/useToast";
 
 const VehiclesTypeGrid = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [rows, setRow] = useState([]);
+  const { showSuccess, showError, showWarning } = useToast();
+
+
+  const fetchData = async () => {
+    const response = await getRequest("/vehicleType")
+      .then(setLoading(false))
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+      });
+      console.log("responseresponse",response)
+    setRow(response);
+  };
+  
+  const changeDefault = async (id,name) => {
+    const response = await getRequest(`/vehicleType/makeDefualt/${id}`);
+    showSuccess(name + ' has set as default')
+    fetchData();
+  };
+
+  const columns = [
+    {
+      field: "default",
+      headerName: "Default",
+      sortable: false,
+      filterable: false,
+      renderCell: (params) =>
+        params.value ? (
+          <StarIcon style={{ color: "#1976d2" }} />
+        ) : (
+          <StarOutlineIcon
+            style={{ color: "#1976d2" }}
+            onClick={() => {
+              changeDefault(params.id,params.row.name);
+            }}
+          />
+        ),
+    },
+    {
+      field: "displayId",
+      headerName: "Id",
+      flex: 1,
+      cellClassName: "cursor-pointer",
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 2,
+      cellClassName: "text-center",
+    },
+    {
+      field: "image",
+      headerName: "Icon",
+      sortable: false,
+      cellClassName:"!p-2",
+      renderCell: (params) => <img src={params.value} />,
+    },
+  ];
+
+  const handleCellClick = (params) => {
+    if (params.field === "displayId") {
+      console.log("Clicked ID:", params.value);
+      navigate(`/pricelist/vehiclestype/edit/${params.id}`);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Box className="w-[80%] mx-auto mt-8">
       <DataGrid
         rows={rows}
         columns={columns}
+        onCellClick={handleCellClick}
+        // slots={{ toolbar: GridToolbar }}
+        loading={loading}
+        slotProps={{
+          loadingOverlay: {
+            variant: "linear-progress",
+            noRowsVariant: "linear-progress",
+          },
+        }}
         initialState={{
           pagination: {
             paginationModel: {

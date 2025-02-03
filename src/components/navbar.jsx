@@ -12,15 +12,17 @@ import {
 import TabNavigation from "./tabNavigation";
 import size from "lodash/size";
 import { postRequest } from "../consts/apiCalls";
+import useToast from "./toast/useToast";
 
 const Navbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const { showSuccess, showError, showWarning } = useToast();
 
   const generateToken = async () => {
     const token = localStorage.getItem("token");
-    console.log("came to me", !size(token), token);
+
     if (!size(token)) {
       const response = await postRequest("/api/v1/auth/authenticate", {
         email: "dev2@front.com",
@@ -28,6 +30,10 @@ const Navbar = () => {
       });
       console.log("response", response);
       localStorage.setItem("token", response.token);
+      showSuccess("token generated");
+      window?.location.reload();
+    } else {
+      showWarning("already exists");
     }
   };
 

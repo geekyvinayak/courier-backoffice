@@ -16,7 +16,7 @@ const Sidebarr = () => {
   const currentPath = location.pathname.split("/")[1];
 
   return (
-    <div className="h-[100%]">
+    <div className="h-[100%] relative">
       <Sidebar
         collapsed={isCollapsed}
         rootStyles={{
@@ -34,6 +34,7 @@ const Sidebarr = () => {
             [`.ps-sidebar-container`]: {
               background: `${colors.primary[400]} !important`,
               height: "100% !important",
+              position: "stick",
             },
             ["&.ps-sidebar-root"]: {
               height: "100% !important",

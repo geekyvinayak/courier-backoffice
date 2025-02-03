@@ -152,6 +152,9 @@ const ExtraFeesGrid = () => {
             "& .MuiDataGrid-row:nth-of-type(even)": {
               backgroundColor: "#ffffff", // White color for even rows
             },
+            "& .MuiDataGrid-virtualScrollerContent": {
+              maxHeight: "50vh",
+            },
           }}
         />
       </div>

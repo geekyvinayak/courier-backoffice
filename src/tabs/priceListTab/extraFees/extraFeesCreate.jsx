@@ -15,7 +15,7 @@ const ExtraFeesCreate = () => {
   // Formik setup
   const formik = useFormik({
     initialValues: {
-      id: 0,
+      // id: 0,
       displayId: "",
       name: "",
       description: "",
@@ -38,10 +38,11 @@ const ExtraFeesCreate = () => {
           const response = await putRequest(`/extraFee/${id}`, {
             ...values,
             systemExtra: false,
+            id
           });
           navigate("/pricelist/extrafees");
         } else {
-          const response = await postRequest("/extraFees", {
+          const response = await postRequest("/extraFee", {
             ...values,
             systemExtra: false,
           });
