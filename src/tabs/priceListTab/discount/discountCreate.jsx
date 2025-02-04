@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import { postRequest } from "../../../consts/apiCalls";
 
-
 const DiscountCreate = () => {
   const formik = useFormik({
     initialValues: {
@@ -24,17 +23,17 @@ const DiscountCreate = () => {
       name: "",
       description: "",
       unit: "percentage",
-      amount: 0.00,
+      amount: 0.0,
       roundingDefault: "No Rounding",
       roundingLogic: "Closest",
       applyToInvoice: false,
       applyToPriceList: false,
       applyToExtraFee: false,
     },
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       try {
-        const response = await postRequest('/discounts',values);
-      } catch(error) {
+        const response = await postRequest("/discounts", values);
+      } catch (error) {
         console.log(error);
       }
     },
@@ -102,8 +101,16 @@ const DiscountCreate = () => {
             value={formik.values.unit}
             onChange={formik.handleChange}
           >
-            <FormControlLabel value="dollar" control={<Radio />} label="Dollar ($)" />
-            <FormControlLabel value="percentage" control={<Radio />} label="Percentage (%)" />
+            <FormControlLabel
+              value="dollar"
+              control={<Radio />}
+              label="Dollar ($)"
+            />
+            <FormControlLabel
+              value="percentage"
+              control={<Radio />}
+              label="Percentage (%)"
+            />
           </RadioGroup>
         </FormControl>
 
@@ -130,10 +137,26 @@ const DiscountCreate = () => {
                 value={formik.values.roundingDefault}
                 onChange={formik.handleChange}
               >
-                <FormControlLabel value="No Rounding" control={<Radio />} label="No Rounding" />
-                <FormControlLabel value="quater" control={<Radio />} label="$0.25" />
-                <FormControlLabel value="half" control={<Radio />} label="$0.50" />
-                <FormControlLabel value="whole" control={<Radio />} label="$1.00" />
+                <FormControlLabel
+                  value="No Rounding"
+                  control={<Radio />}
+                  label="No Rounding"
+                />
+                <FormControlLabel
+                  value="quater"
+                  control={<Radio />}
+                  label="$0.25"
+                />
+                <FormControlLabel
+                  value="half"
+                  control={<Radio />}
+                  label="$0.50"
+                />
+                <FormControlLabel
+                  value="whole"
+                  control={<Radio />}
+                  label="$1.00"
+                />
               </RadioGroup>
             </FormControl>
 
@@ -145,9 +168,21 @@ const DiscountCreate = () => {
                 value={formik.values.roundingLogic}
                 onChange={formik.handleChange}
               >
-                <FormControlLabel value="Closest" control={<Radio />} label="Closest" />
-                <FormControlLabel value="Round Up" control={<Radio />} label="Round Up" />
-                <FormControlLabel value="Round Down" control={<Radio />} label="Round Down" />
+                <FormControlLabel
+                  value="Closest"
+                  control={<Radio />}
+                  label="Closest"
+                />
+                <FormControlLabel
+                  value="Round Up"
+                  control={<Radio />}
+                  label="Round Up"
+                />
+                <FormControlLabel
+                  value="Round Down"
+                  control={<Radio />}
+                  label="Round Down"
+                />
               </RadioGroup>
             </FormControl>
           </>

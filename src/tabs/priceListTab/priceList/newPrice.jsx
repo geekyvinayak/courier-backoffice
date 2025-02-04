@@ -243,7 +243,8 @@ const NewPrice = () => {
   return (
     <div className="pb-4">
       <div className="mt-2">
-      <Breadcrumb items={pageBreadcrums}/></div>
+        <Breadcrumb items={pageBreadcrums} />
+      </div>
       <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <form onSubmit={formik.handleSubmit}>
           <Box
@@ -256,16 +257,16 @@ const NewPrice = () => {
               New Price List
             </Typography>
             <Button
-                             type="submit"
-                             variant="contained"
-                             color="primary"
-                             sx={{
-                               // Red border (you can change the color)
-                               backgroundColor: "#1569CB",
-                             }}
-                           >
-                             Save
-                           </Button>
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{
+                // Red border (you can change the color)
+                backgroundColor: "#1569CB",
+              }}
+            >
+              Save
+            </Button>
           </Box>
 
           {/* Text Field */}
@@ -455,7 +456,8 @@ const NewPrice = () => {
                               variant="outlined"
                               value={
                                 formik.values.vehicleTypeSurchargeDtoList?.find(
-                                  (charge) => charge.vehicleTypeId === vehicle.id
+                                  (charge) =>
+                                    charge.vehicleTypeId === vehicle.id,
                                 )?.minimumSurcharge ?? 0
                               }
                               onChange={(e) =>
@@ -474,7 +476,8 @@ const NewPrice = () => {
                               variant="outlined"
                               value={
                                 formik.values.vehicleTypeSurchargeDtoList?.find(
-                                  (charge) => charge.vehicleTypeId === vehicle.id
+                                  (charge) =>
+                                    charge.vehicleTypeId === vehicle.id,
                                 )?.surcharge ?? 0
                               }
                               onChange={(e) =>

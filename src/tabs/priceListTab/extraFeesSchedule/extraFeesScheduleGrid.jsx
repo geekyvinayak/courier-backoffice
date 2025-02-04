@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 const ExtraFeesScheduleGrid = () => {
-
   const columns = [
     {
       field: "active",
@@ -36,14 +35,16 @@ const ExtraFeesScheduleGrid = () => {
 
   const [priceListSchedule, setPriceListSchedule] = useState([]);
 
-  const handleActive = async(id) =>{
-    try{
-      const response = await getRequest(`/extraFeeSchedule/extraFeeAvailable/${id}`);
+  const handleActive = async (id) => {
+    try {
+      const response = await getRequest(
+        `/extraFeeSchedule/extraFeeAvailable/${id}`,
+      );
       fetchPriceListSchedule();
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const fetchPriceListSchedule = async () => {
     try {

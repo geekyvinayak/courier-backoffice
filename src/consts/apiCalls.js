@@ -8,9 +8,14 @@ function handleError(error) {
   console.error("API call error:", error);
   if (error.response) {
     // Server responded with a status other than 2xx
-    if(error.response.data.message ==="You must be authenticated to access this resource." && error.response.data.error == "Unauthorized" && error.response.data.status ==401){
+    if (
+      error.response.data.message ===
+        "You must be authenticated to access this resource." &&
+      error.response.data.error == "Unauthorized" &&
+      error.response.data.status == 401
+    ) {
       localStorage.removeItem("token");
-      alert("token has expired please generate new one and refresh the page")
+      alert("token has expired please generate new one and refresh the page");
     }
 
     console.error("Response data:", error.response.data);

@@ -38,10 +38,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pricelist" element={<PriceList />} />
               <Route path="/pricelist/create" element={<NewPrice />} />
-              <Route
-                path="/pricelist/edit/:id"
-                element={<NewPrice />}
-              />
+              <Route path="/pricelist/edit/:id" element={<NewPrice />} />
               <Route
                 path="/pricelist/vehiclestype"
                 element={<VehiclesTypes />}
@@ -80,7 +77,7 @@ function App() {
                 element={<ExtraFeesCreate />}
               />
               <Route path="/pricelist/pricingzones" element={<PricingZone />} />
-            
+
               <Route
                 path="/pricelist/extrafees/edit/:id"
                 element={<ExtraFeesCreate />}
