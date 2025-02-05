@@ -6,7 +6,7 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { useEffect } from "react";
-import { getRequest } from "../../../consts/apiCalls";
+import { getRequest, postRequest } from "../../../consts/apiCalls";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToast from "../../../components/toast/useToast";
@@ -29,7 +29,7 @@ const VehiclesTypeGrid = () => {
   };
 
   const changeDefault = async (id, name) => {
-    const response = await getRequest(`/vehicleType/makeDefualt/${id}`);
+    const response = await postRequest(`/vehicleType/makeDefault/${id}`);
     showSuccess(name + " has set as default");
     fetchData();
   };

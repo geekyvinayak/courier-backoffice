@@ -1,185 +1,149 @@
-import React from "react";
-import {
-  Button,
-  TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Grid,
-  IconButton,
-  Grid2,
-} from "@mui/material";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import {
-  AccessAlarm,
-  AccountBox,
-  Alarm,
-  AttachMoney,
-} from "@mui/icons-material";
-import Breadcrumb from "../../../components/Breadcrumb";
-import SubTabNavigator from "../../../components/subTabNavigator";
+import React, { useState, useEffect } from 'react';
+import { Formik, Field, Form  } from 'formik';
+import { Checkbox, FormControl, InputLabel, MenuItem, Select, FormControlLabel, Button } from '@mui/material';
+import axios from 'axios';
+import { getRequest, postRequest } from '../../../consts/apiCalls';
 
-const VehicleEquivalenciesCreate = () => {
-  const validationSchema = Yup.object({
-    id: Yup.string().required("ID is required"),
-    nameEn: Yup.string().required("Name (English) is required"),
-    optimizationProfile: Yup.string().required(
-      "Optimization profile is required",
-    ),
-    maximumNumberofPieces: Yup.string().required(
-      "Maximum number of pieces is required",
-    ),
-    maximumVolumeFT: Yup.string().required("Maximum volume (ft³) is required"),
-    maximumWeight: Yup.string().required("Maximum weight is required"),
-    dispatchOptionOnVehicleCapacityOverage: Yup.string().required(
-      "Dispatch option on vehicle capacity overage is required",
-    ),
-    baseFuelMileage: Yup.string().required("Base fuel mileage is required"),
-    color: Yup.string().required("Color is required"),
-    icon: Yup.string().required("Icon is required"),
-  });
+const VehicleEquivalenciesForm = () => {
+  const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [selectedVehicleEquivalencies, setSelectedVehicleEquivalencies] = useState([]);
+  const [selectedVehicledDisplayId, setSelectedDisplayId] = useState(null);
+  const [equivalencies, setEquivalencies] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const formik = useFormik({
-    initialValues: {
-      id: "",
-      nameEn: "",
-      optimizationProfile: "",
-      maximumNumberofPieces: "",
-      maximumVolumeFT: "",
-      maximumWeight: "",
-      dispatchOptionOnVehicleCapacityOverage: "",
-      baseFuelMileage: "",
-      color: "",
-      icon: "",
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      console.log("Form submitted with values:", values);
-    },
-  });
+  useEffect(() => {
+    // Fetch all available vehicles initially
+    const fetchVehicles = async () => {
+      try {
+        const response = await getRequest("/vehicleType"); // API call to fetch vehicles
+        setVehicles(response);
+      } catch (error) {
+        console.error("Error fetching vehicles", error);
+      }
+    };
+    fetchVehicles();
+  }, []);
+  console.log("selected vehicle",selectedVehicledDisplayId)
+  // Function to handle vehicle selection and fetch equivalencies
+  const handleVehicleSelect = async (displayId,setFieldValue) => {
+    // Find the selected vehicle by displayId
+    const selectedVehicle = vehicles.find(vehicle => vehicle.displayId === displayId);
 
-  const options = {
-    optimizationProfile: [
-      { value: "default", label: "Default" },
-      { value: "custom", label: "Custom" },
-    ],
-    dispatchOptionOnVehicleCapacityOverage: [
-      { value: "allow", label: "Allow Overload" },
-      { value: "allowwithwarning", label: "Allow with warning" },
-      { value: "prevent", label: "Prevent" },
-    ],
-    icons: [
-      {
-        value: "bike.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/bike.png",
-      },
-      {
-        value: "car.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/car.png",
-      },
-      {
-        value: "cargovan.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/cargovan.png",
-      },
-      {
-        value: "cubevan.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/cubevan.png",
-      },
-      {
-        value: "flatbed.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/flatbed.png",
-      },
-      {
-        value: "flatbedTrailer.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/flatbedTrailer.png",
-      },
-      {
-        value: "lowdock.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/lowdock.png",
-      },
-      {
-        value: "minivan.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/minivan.png",
-      },
-      {
-        value: "moffett.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/moffett.png",
-      },
-      {
-        value: "pickupRack.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/pickupRack.png",
-      },
-      {
-        value: "pickupTrailer.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/pickupTrailer.png",
-      },
-      {
-        value: "scooter.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/scooter.png",
-      },
-      {
-        value: "semi.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/semi.png",
-      },
-      {
-        value: "suv.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/suv.png",
-      },
-      {
-        value: "walker.png",
-        src: "https://dispatchstorageprod.blob.core.windows.net/vehicle-icon/personaltouchcourier/walker.png",
-      },
-    ],
+    // Set the vehicle id for the backend API call
+    setSelectedVehicle(selectedVehicle.id);
+    setSelectedDisplayId(selectedVehicle.displayId)
+    setEquivalencies([]); // Clear previous equivalencies
+
+    try {
+      // Fetch equivalencies using the vehicle id (not displayId)
+      const response = await getRequest(`/vehicleEquivalency/availableVehicleId/${selectedVehicle.id}`);
+      const response2 = await getRequest(`/vehicleEquivalency/${selectedVehicle.displayId}`);
+      setEquivalencies(response);
+      console.log("rs",response2)
+      setSelectedVehicleEquivalencies(response2?.equivalencyIds?.split(","))
+      // Set the equivalency of the selected vehicle as checked by default
+      setFieldValue('equivalencies', [selectedVehicle.displayId.toString()]);
+    } catch (error) {
+      console.error("Error fetching equivalencies", error);
+    }
   };
 
-  const fields = [
-    { id: "id", label: "ID", type: "text" },
-    { id: "nameEn", label: "Name (EN)", type: "text" },
-    {
-      id: "optimizationProfile",
-      label: "Optimization Profile",
-      type: "select",
-      options: options.optimizationProfile,
-    },
-    {
-      id: "maximumNumberofPieces",
-      label: "Maximum Number of Pieces",
-      type: "text",
-    },
-    { id: "maximumVolumeFT", label: "Maximum Volume (ft³)", type: "text" },
-    { id: "maximumWeight", label: "Maximum Weight", type: "text" },
-    {
-      id: "dispatchOptionOnVehicleCapacityOverage",
-      label: "Dispatch Option on Vehicle Capacity Overage",
-      type: "select",
-      options: options.dispatchOptionOnVehicleCapacityOverage,
-    },
-    { id: "baseFuelMileage", label: "Base Fuel Mileage", type: "text" },
-    { id: "color", label: "Color", type: "color" },
-    { id: "icon", label: "Icon", type: "select", options: options.icons },
-  ];
-
-  const pageBreadcrums = [
-    {
-      id: 1,
-      label: "Vehicles",
-      href: "/pricelist/vehiclestype",
-    },
-    {
-      id: 2,
-      label: "New Vehicle Equivalance",
-      href: "/products",
-    },
-  ];
+  // Form submission handler
+  const handleSubmit = async (values) => {
+    console.log({
+      vehicleId: values.vehicleId,
+      equivalenciesIds: values.equivalencies.join(','),
+    });
+    setIsSubmitting(true);
+    try {
+      await postRequest('/vehicleEquivalency', {
+        vehicleId: values.vehicleId,
+        equivalencyIds: values.equivalencies.join(','),
+      });
+      alert('Data submitted successfully');
+    } catch (error) {
+      console.error("Error submitting form", error);
+      alert('Error submitting form');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div className="ml-5">
-      <Breadcrumb items={pageBreadcrums} />
-      will complete with live data
-    </div>
+    <Formik
+      initialValues={{
+        vehicleId: '',
+        equivalencies: [],
+      }}
+      onSubmit={handleSubmit}
+    >
+      {({ values, handleChange, setFieldValue }) => (
+        <Form>
+          {/* Vehicle Selection Dropdown */}
+          <FormControl fullWidth margin="normal">
+            <InputLabel>Vehicle</InputLabel>
+            <Select
+              name="vehicleId"
+              value={values.vehicleId}
+              onChange={e => {
+                handleChange(e);
+                handleVehicleSelect(e.target.value,setFieldValue);
+              }}
+            >
+              {vehicles.map((vehicle) => (
+                <MenuItem key={vehicle.id} value={vehicle.displayId}>
+                  {vehicle.name} - {vehicle.displayId}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {/* Equivalencies Checkbox */}
+          {equivalencies.length > 0 && (
+            <div>
+              {equivalencies.map((equivalency) => (
+                <FormControlLabel
+                  key={equivalency}
+                  control={
+                    <Checkbox
+                      name="equivalencies"
+                      value={equivalency}
+                      checked={values.equivalencies.includes(equivalency) || selectedVehicleEquivalencies.includes(equivalency) }
+                      onChange={(e) => {
+                        const { value, checked } = e.target;
+                        const updatedEquivalencies = checked
+                          ? [...values.equivalencies, value]
+                          : values.equivalencies.filter((v) => v !== value);
+                        setFieldValue('equivalencies', updatedEquivalencies);
+                        // Also remove from selectedVehicleEquivalencies if unchecked
+                        if (!checked) {
+                          setSelectedVehicleEquivalencies((prev) => prev.filter((v) => v !== value));
+                        }
+                      }}
+                      disabled={equivalency === selectedVehicledDisplayId?.toString()}
+                    />
+                  }
+                  label={`${equivalency}`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+            fullWidth
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-export default VehicleEquivalenciesCreate;
+export default VehicleEquivalenciesForm;

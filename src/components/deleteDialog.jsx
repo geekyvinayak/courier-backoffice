@@ -15,7 +15,7 @@ export const DeleteDialog = ({ handleDelete }) => {
     <div>
       <DeleteIcon
         onClick={() => setShowDelete(true)}
-        style={{ color: "#1976d2" }}
+        style={{ color: "#1976d2" ,fontSize:25 ,textAlign:"center",margin:"0 auto"}}
       />
       <Dialog open={showDeleteDailog} onClose={() => setShowDelete(false)}>
         <DialogTitle>Confirm Deletion</DialogTitle>

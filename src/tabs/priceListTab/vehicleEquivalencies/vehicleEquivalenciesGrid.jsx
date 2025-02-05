@@ -7,12 +7,13 @@ import { deleteRequest, getRequest } from "../../../consts/apiCalls";
 import { useState } from "react";
 import { DeleteDialog } from "../../../components/deleteDialog";
 import useToast from "../../../components/toast/useToast";
+import { useNavigate } from "react-router-dom";
 
 const VehicleEquivalenciesGrid = () => {
   const { showSuccess, showError } = useToast();
   const [loading, setLoading] = useState(true);
   const [rows, setRow] = useState([]);
-
+ const navigate = useNavigate();
   const deleteEquivalance = async (id) => {
     try {
       await deleteRequest(`/vehicleEquivalency/${id}`);
@@ -68,10 +69,18 @@ const VehicleEquivalenciesGrid = () => {
     fetchData();
   }, []);
 
+  const handleCellClick = (params) => {
+    if (params.field === "vehicleId") {
+      console.log("Clicked ID:", params.id);
+      navigate(`/pricelist/vehicleequivalency/edit/${params.id}`);
+    }
+  };
+
   return (
     <Box className="w-[90%]  mx-auto mt-8">
       <DataGrid
         rows={rows}
+        onCellClick={handleCellClick}
         columns={columns}
         loading={loading}
         initialState={{

@@ -60,6 +60,10 @@ function App() {
                 element={<VehicleEquivalenciesCreate />}
               />
               <Route
+                path="/pricelist/vehicleequivalency/edit/:id"
+                element={<VehicleEquivalenciesCreate />}
+              />
+              <Route
                 path="/pricelist/extrafeesschedule"
                 element={<ExtraFeesSchedule />}
               />
