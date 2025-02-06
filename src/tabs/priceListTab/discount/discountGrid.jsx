@@ -1,7 +1,10 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getRequest } from "../../../consts/apiCalls";
+import { deleteRequest, getRequest } from "../../../consts/apiCalls";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 const DiscountGrid = () => {
   const columns = [
@@ -9,6 +12,16 @@ const DiscountGrid = () => {
     { field: "name", headerName: "Name", flex: 1.5 },
     { field: "amount", headerName: "Amount", flex: 1.5 },
     { field: "discountType", headerName: "Type", flex: 1 },
+    {
+      field: "action",
+      headerName: "",
+      sortable: false,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleDelete(params.id)}>
+          <DeleteIcon style={{ color: "#1976d2" }} />
+        </IconButton>
+      ),
+    },
   ];
   const navigate = useNavigate();
 
@@ -20,6 +33,15 @@ const DiscountGrid = () => {
       setDiscount(response);
     } catch (error) {
       console.error("Error fetching Extra fees:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await deleteRequest(`/discounts/${id}`);
+      fetchDiscounts();
+    } catch (error) {
+      console.log(error);
     }
   };
 

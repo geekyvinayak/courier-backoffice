@@ -93,6 +93,10 @@ function App() {
                 path="/pricelist/discounts-surcharges/create"
                 element={<DiscountCreate />}
               />
+              <Route
+                path="/pricelist/discounts-surcharges/edit/:id"
+                element={<DiscountCreate />}
+              />
             </Routes>
           </main>
         </div>
