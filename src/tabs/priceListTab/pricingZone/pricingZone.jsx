@@ -103,7 +103,7 @@ const PricingZone = () => {
               placeholder="Search"
               value={searchTerm}
               onChange={handleSearch}
-              sx={{ mb: 2, flex: 1 ,maxWidth:"45%",justifySelf:"end" }}
+              sx={{ mb: 2, flex: 1, maxWidth: "45%", justifySelf: "end" }}
             />
           </div>
           <Box

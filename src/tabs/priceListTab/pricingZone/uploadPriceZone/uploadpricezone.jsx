@@ -137,20 +137,21 @@ const Uploadpricezone = ({ fetchData }) => {
           </div>
         </div>
         <div className="flex gap-4 bg-[#d9edf7] p-4 rounded-md items-start max-w-[600px]">
-      
-      <p className="text-gray-700 text-sm ">
-        Zones can be defined by importing a KML file. To create your KML file, use{' '}
-        <a
-          href="https://www.google.com/mymaps"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-700 underline"
-        >
-          Google MyMaps
-        </a>
-        , or a KML-generating mapping tool of your choice. A single KML file is required for each Zone.
-      </p>
-    </div>
+          <p className="text-gray-700 text-sm ">
+            Zones can be defined by importing a KML file. To create your KML
+            file, use{" "}
+            <a
+              href="https://www.google.com/mymaps"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-700 underline"
+            >
+              Google MyMaps
+            </a>
+            , or a KML-generating mapping tool of your choice. A single KML file
+            is required for each Zone.
+          </p>
+        </div>
       </div>
     </>
   );

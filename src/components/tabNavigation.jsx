@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useLocation,
-} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // JSON Data
 const itemsData = {
@@ -14,7 +8,7 @@ const itemsData = {
       id: 1,
       name: "Price List",
       link: "/pricelist",
-      childPaths: ["/pricelist","/pricelist/create"],
+      childPaths: ["/pricelist", "/pricelist/create"],
     },
     {
       id: 2,
@@ -23,7 +17,8 @@ const itemsData = {
       childPaths: [
         "/pricelist/vehiclestype",
         "/pricelist/vehicleequivalencies",
-        "/pricelist/vehiclestype/create",
+        "/pricelist/vehiclestype/create/",
+        "/pricelist/vehicleequivalency/edit"
       ],
     },
     // { id: 3, name: "Service Levels", link: "/pricelist/servicelevels" },
@@ -32,7 +27,12 @@ const itemsData = {
       id: 5,
       name: "Extra Fees",
       link: "/pricelist/extrafeesschedule",
-      childPaths: ["/pricelist/extrafeesschedule", "/pricelist/extrafees","/pricelist/extrafeesschedule/create","/pricelist/extrafees/create"],
+      childPaths: [
+        "/pricelist/extrafeesschedule",
+        "/pricelist/extrafees",
+        "/pricelist/extrafeesschedule/create",
+        "/pricelist/extrafees/create",
+      ],
     },
     {
       id: 6,
@@ -44,7 +44,7 @@ const itemsData = {
       id: 7,
       name: "Pricing Zones",
       link: "/pricelist/pricingzones",
-      childPaths: ["/pricelist/pricingzones","/pricelist/pricingzoneslayout"],
+      childPaths: ["/pricelist/pricingzones", "/pricelist/pricingzoneslayout"],
     },
   ],
   "/dashboard": [{ id: 1, name: "Dashboard", link: "/dashboard" }],

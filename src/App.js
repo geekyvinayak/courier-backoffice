@@ -21,6 +21,7 @@ import ToastProvider from "./components/toast/ToastProvider";
 import PricingZone from "./tabs/priceListTab/pricingZone/pricingZone";
 import { Discount } from "./tabs/priceListTab/discount/discount";
 import DiscountCreate from "./tabs/priceListTab/discount/discountCreate";
+import VehicleEquivalenciesEditForm from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesEdit";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -38,10 +39,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pricelist" element={<PriceList />} />
               <Route path="/pricelist/create" element={<NewPrice />} />
-              <Route
-                path="/pricelist/edit/:id"
-                element={<NewPrice />}
-              />
+              <Route path="/pricelist/edit/:id" element={<NewPrice />} />
               <Route
                 path="/pricelist/vehiclestype"
                 element={<VehiclesTypes />}
@@ -63,6 +61,10 @@ function App() {
                 element={<VehicleEquivalenciesCreate />}
               />
               <Route
+                path="/pricelist/vehicleequivalency/edit/:id"
+                element={<VehicleEquivalenciesEditForm />}
+              />
+              <Route
                 path="/pricelist/extrafeesschedule"
                 element={<ExtraFeesSchedule />}
               />
@@ -80,7 +82,7 @@ function App() {
                 element={<ExtraFeesCreate />}
               />
               <Route path="/pricelist/pricingzones" element={<PricingZone />} />
-            
+
               <Route
                 path="/pricelist/extrafees/edit/:id"
                 element={<ExtraFeesCreate />}

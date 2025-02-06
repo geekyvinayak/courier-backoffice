@@ -1,10 +1,23 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import React from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import React, { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export const DeleteDialog = ({handleDelete,handleClose,open}) => {
+export const DeleteDialog = ({ handleDelete }) => {
+  const [showDeleteDailog, setShowDelete] = useState(false);
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <DeleteIcon
+        onClick={() => setShowDelete(true)}
+        style={{ color: "#1976d2" ,fontSize:25 ,textAlign:"center",margin:"0 auto"}}
+      />
+      <Dialog open={showDeleteDailog} onClose={() => setShowDelete(false)}>
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -12,10 +25,16 @@ export const DeleteDialog = ({handleDelete,handleClose,open}) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} className="!bg-primary">
+          <Button onClick={() => setShowDelete(false)} className="!bg-primary">
             Cancel
           </Button>
-          <Button onClick={handleDelete} className="!bg-red-800 !text-white">
+          <Button
+            onClick={async () => {
+              await handleDelete();
+              setShowDelete(false);
+            }}
+            className="!bg-red-800 !text-white"
+          >
             Delete
           </Button>
         </DialogActions>

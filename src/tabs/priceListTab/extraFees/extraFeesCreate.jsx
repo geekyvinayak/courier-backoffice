@@ -39,7 +39,7 @@ const ExtraFeesCreate = () => {
           const response = await putRequest(`/extraFee/${id}`, {
             ...values,
             systemExtra: false,
-            id
+            id,
           });
           navigate("/pricelist/extrafees");
         } else {
@@ -90,24 +90,25 @@ const ExtraFeesCreate = () => {
       <SubTabNavigator
         data={[
           { lable: "Extra Fee Schedules", url: "/pricelist/extrafeesschedule" },
-          { lable: "Extra Fee", url: "/pricelist/extrafees" ,isFilled: true},
+          { lable: "Extra Fee", url: "/pricelist/extrafees", isFilled: true },
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />
       <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
-        <Typography variant="h3" gutterBottom>New Extra Fee Type</Typography>
+          <Typography variant="h3" gutterBottom>
+            New Extra Fee Type
+          </Typography>
           <Button
             variant="contained"
             onClick={formik.handleSubmit}
             className="bg-blue-500"
             type="submit"
-                
-                  color="primary"
-                  sx={{
-                    // Red border (you can change the color)
-                    backgroundColor: "#1569CB",
-                  }}
+            color="primary"
+            sx={{
+              // Red border (you can change the color)
+              backgroundColor: "#1569CB",
+            }}
           >
             Save
           </Button>
