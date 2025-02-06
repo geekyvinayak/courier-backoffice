@@ -30,7 +30,7 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
       type: "rated",
       separateSheetPerVehicleType: false,
       rate: 0,
-      per: 10,
+      per: 0,
       max: 0,
       included: 0,
       defaultQuantity: 0,
@@ -45,6 +45,7 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
       priority: 0,
       extraFeeScheduleId: 0,
       extraFeeId: 0,
+      file:'',
     },
     validationSchema: Yup.object({
       rate: Yup.number().min(0, "Rate must be positive").required("Required"),
