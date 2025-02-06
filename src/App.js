@@ -21,6 +21,7 @@ import ToastProvider from "./components/toast/ToastProvider";
 import PricingZone from "./tabs/priceListTab/pricingZone/pricingZone";
 import { Discount } from "./tabs/priceListTab/discount/discount";
 import DiscountCreate from "./tabs/priceListTab/discount/discountCreate";
+import VehicleEquivalenciesEditForm from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesEdit";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -61,7 +62,7 @@ function App() {
               />
               <Route
                 path="/pricelist/vehicleequivalency/edit/:id"
-                element={<VehicleEquivalenciesCreate />}
+                element={<VehicleEquivalenciesEditForm />}
               />
               <Route
                 path="/pricelist/extrafeesschedule"

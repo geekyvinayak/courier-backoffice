@@ -32,6 +32,7 @@ const VehicleEquivalenciesGrid = () => {
       width: 150,
       sortable: false,
       text: "center",
+      cellClassName: "cursor-pointer",
     },
     {
       field: "equivalencyIds",

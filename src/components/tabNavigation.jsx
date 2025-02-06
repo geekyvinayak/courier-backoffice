@@ -17,7 +17,8 @@ const itemsData = {
       childPaths: [
         "/pricelist/vehiclestype",
         "/pricelist/vehicleequivalencies",
-        "/pricelist/vehiclestype/create",
+        "/pricelist/vehiclestype/create/",
+        "/pricelist/vehicleequivalency/edit"
       ],
     },
     // { id: 3, name: "Service Levels", link: "/pricelist/servicelevels" },

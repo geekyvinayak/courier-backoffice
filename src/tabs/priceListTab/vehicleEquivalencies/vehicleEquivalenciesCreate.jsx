@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form  } from 'formik';
-import { Checkbox, FormControl, InputLabel, MenuItem, Select, FormControlLabel, Button } from '@mui/material';
+import { Checkbox, FormControl, InputLabel, MenuItem, Select, FormControlLabel, Button, Typography, Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 import axios from 'axios';
 import { getRequest, postRequest } from '../../../consts/apiCalls';
+import SubTabNavigator from '../../../components/subTabNavigator';
+import { useNavigate } from 'react-router-dom';
+import useToast from '../../../components/toast/useToast';
 
 const VehicleEquivalenciesForm = () => {
+   const nav = useNavigate();
+   const { showSuccess, showError } = useToast();
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [selectedVehicleEquivalencies, setSelectedVehicleEquivalencies] = useState([]);
@@ -24,7 +29,6 @@ const VehicleEquivalenciesForm = () => {
     };
     fetchVehicles();
   }, []);
-  console.log("selected vehicle",selectedVehicledDisplayId)
   // Function to handle vehicle selection and fetch equivalencies
   const handleVehicleSelect = async (displayId,setFieldValue) => {
     // Find the selected vehicle by displayId
@@ -40,7 +44,6 @@ const VehicleEquivalenciesForm = () => {
       const response = await getRequest(`/vehicleEquivalency/availableVehicleId/${selectedVehicle.id}`);
       const response2 = await getRequest(`/vehicleEquivalency/${selectedVehicle.displayId}`);
       setEquivalencies(response);
-      console.log("rs",response2)
       setSelectedVehicleEquivalencies(response2?.equivalencyIds?.split(","))
       // Set the equivalency of the selected vehicle as checked by default
       setFieldValue('equivalencies', [selectedVehicle.displayId.toString()]);
@@ -51,26 +54,39 @@ const VehicleEquivalenciesForm = () => {
 
   // Form submission handler
   const handleSubmit = async (values) => {
-    console.log({
-      vehicleId: values.vehicleId,
-      equivalenciesIds: values.equivalencies.join(','),
-    });
     setIsSubmitting(true);
     try {
       await postRequest('/vehicleEquivalency', {
         vehicleId: values.vehicleId,
         equivalencyIds: values.equivalencies.join(','),
       });
-      alert('Data submitted successfully');
+      nav("/pricelist/vehicleequivalencies");
+      showSuccess("vehicleEquivalency Added");
     } catch (error) {
       console.error("Error submitting form", error);
-      alert('Error submitting form');
+      showError("something went wrong please try again")
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
+    <div className='pb-4'>
+    <SubTabNavigator
+    data={[
+      {
+        lable: "Vehicle Types",
+        url: "/pricelist/vehiclestype",
+        
+      },
+      {
+        lable: "Vehicle Equivalencies",
+        url: "/pricelist/vehicleequivalencies",
+        isFilled: true,
+      },
+    ]}
+  />
+  <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
     <Formik
       initialValues={{
         vehicleId: '',
@@ -80,9 +96,34 @@ const VehicleEquivalenciesForm = () => {
     >
       {({ values, handleChange, setFieldValue }) => (
         <Form>
+          <Box
+                marginBottom={2}
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+              >
+                <Typography variant="h3" gutterBottom>
+                  Vehicle Information
+                </Typography>
+                {/* Submit Button */}
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    // Red border (you can change the color)
+                    backgroundColor: "#1569CB",
+                  }}
+                >
+                  Save
+                </Button>
+              </Box>
           {/* Vehicle Selection Dropdown */}
           <FormControl fullWidth margin="normal">
-            <InputLabel>Vehicle</InputLabel>
+          <Typography variant="subtitle1" gutterBottom>
+          Vehicle Types
+          </Typography>
             <Select
               name="vehicleId"
               value={values.vehicleId}
@@ -90,6 +131,7 @@ const VehicleEquivalenciesForm = () => {
                 handleChange(e);
                 handleVehicleSelect(e.target.value,setFieldValue);
               }}
+              fullWidth
             >
               {vehicles.map((vehicle) => (
                 <MenuItem key={vehicle.id} value={vehicle.displayId}>
@@ -102,10 +144,22 @@ const VehicleEquivalenciesForm = () => {
           {/* Equivalencies Checkbox */}
           {equivalencies.length > 0 && (
             <div>
+              <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Vehicle Type</TableCell>
+            <TableCell>Equivalencies</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
               {equivalencies.map((equivalency) => (
+                <TableRow key={equivalency}>
+                  <TableCell style={{ padding: '8px' }}>
                 <FormControlLabel
                   key={equivalency}
                   control={
+                    
                     <Checkbox
                       name="equivalencies"
                       value={equivalency}
@@ -123,26 +177,22 @@ const VehicleEquivalenciesForm = () => {
                       }}
                       disabled={equivalency === selectedVehicledDisplayId?.toString()}
                     />
-                  }
-                  label={`${equivalency}`}
-                />
+                   }
+                /></TableCell>
+                 <TableCell style={{ padding: '8px' }}>{equivalency}</TableCell>
+                </TableRow>
               ))}
+              </TableBody>
+              </Table>
+              </TableContainer>
             </div>
           )}
 
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-            fullWidth
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
-          </Button>
         </Form>
       )}
     </Formik>
+    </div>
+    </div>
   );
 };
 

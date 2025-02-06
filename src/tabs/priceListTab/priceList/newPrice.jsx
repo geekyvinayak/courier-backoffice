@@ -184,7 +184,7 @@ const NewPrice = () => {
       try {
         const response = await postRequest("/api/pricingList", values);
         console.log(response);
-        nav("/pricelist/");
+        nav("/pricelist");
       } catch (error) {
         console.log(error);
       }
