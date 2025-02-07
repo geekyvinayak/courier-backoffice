@@ -23,6 +23,7 @@ const Sidebarr = () => {
           [`.ps-sidebar-container`]: {
             background: `${colors.primary[400]} !important`,
             height: "100% !important",
+            position:"fixed",
           },
           ["&.ps-sidebar-root"]: {
             height: "100% !important",
