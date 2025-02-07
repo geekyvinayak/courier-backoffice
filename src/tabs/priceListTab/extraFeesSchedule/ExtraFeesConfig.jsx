@@ -51,8 +51,8 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
       rate: Yup.number().min(0, "Rate must be positive").required("Required"),
       per: Yup.number().required("Required"),
       max: Yup.number().nullable(),
-      driverCommission: Yup.number().required("Required"),
-      salesCommission: Yup.number().required("Required"),
+      driverCommissionable: Yup.number().required("Required"),
+      salesCommissionable: Yup.number().required("Required"),
     }),
     onSubmit: (values) => {
       console.log("Form Data:", values);
