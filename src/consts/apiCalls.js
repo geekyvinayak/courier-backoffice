@@ -15,7 +15,8 @@ function handleError(error) {
       error.response.data.status == 401
     ) {
       localStorage.removeItem("token");
-      alert("token has expired please generate new one and refresh the page");
+      window.history.replaceState(null, "", "/login");
+      window.location.href = "/login";
     }
 
     console.error("Response data:", error.response.data);
