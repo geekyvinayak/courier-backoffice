@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { Upload, Download } from 'lucide-react';
 import { Button, Typography } from "@mui/material";
 import { postRequest } from "../../../consts/apiCalls";
 import axios from "axios";
@@ -25,11 +24,9 @@ const PricingFileOperations = ({ fetchData, id }) => {
 
     setIsLoading(true);
     try {
-      // Create FormData object
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      // Use your postRequest function
       const response = await postRequest("/priceZone/upload", formData, {
         "Content-Type": "multipart/form-data",
       });
@@ -53,25 +50,21 @@ const PricingFileOperations = ({ fetchData, id }) => {
         method: "GET",
         responseType: "blob",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Adjust based on your auth method
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           Accept: "*/*",
         },
       });
 
-      // Get filename from content-disposition header if available
       const contentDisposition = response.headers["content-disposition"];
-      let filename = ""; // No default filename
+      let filename = "";
 
       if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(
-          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
-        );
+        const filenameMatch = contentDisposition.match(/filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/);
         if (filenameMatch && filenameMatch[1]) {
-          filename = decodeURIComponent(filenameMatch[1]); // Decode in case of URL encoding
+          filename = decodeURIComponent(filenameMatch[1]);
         }
       }
 
-      // Create download link
       const url = window.URL.createObjectURL(response.data);
       const a = document.createElement("a");
       a.href = url;
@@ -79,7 +72,6 @@ const PricingFileOperations = ({ fetchData, id }) => {
       document.body.appendChild(a);
       a.click();
 
-      // Cleanup
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
       showSuccess("File downloaded successfully!");
@@ -99,23 +91,21 @@ const PricingFileOperations = ({ fetchData, id }) => {
         method: "GET",
         responseType: "blob",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Adjust based on your auth method
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           Accept: "*/*",
         },
       });
 
-      // Get filename from content-disposition header if available
       const contentDisposition = response.headers["content-disposition"];
-      let filename = ""; // No default filename
+      let filename = "";
 
       if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(/filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,);
+        const filenameMatch = contentDisposition.match(/filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/);
         if (filenameMatch && filenameMatch[1]) {
-          filename = decodeURIComponent(filenameMatch[1]); // Decode in case of URL encoding
+          filename = decodeURIComponent(filenameMatch[1]);
         }
       }
 
-      // Create download link
       const url = window.URL.createObjectURL(response.data);
       const a = document.createElement("a");
       a.href = url;
@@ -123,7 +113,6 @@ const PricingFileOperations = ({ fetchData, id }) => {
       document.body.appendChild(a);
       a.click();
 
-      // Cleanup
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
       showSuccess("File downloaded successfully!");
@@ -135,66 +124,87 @@ const PricingFileOperations = ({ fetchData, id }) => {
     }
   };
 
-  // Rest of the component remains the same
   return (
-    <>
-      <div className="p-4 space-y-4">
-        <Typography variant="h6" gutterBottom fontWeight={600}>
-          Select a Zone Definition File
+    <div className="max-w-xl mx-auto p-6 bg-white rounded-lg ">
+      <Typography variant="h6" className="mb-6">
+        Prices
+      </Typography>
+
+      {/* Upload Area */}
+      <div 
+        className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-4 text-center cursor-pointer hover:bg-gray-50"
+        onClick={() => document.getElementById('fileInput').click()}
+      >
+        <div className="text-gray-600">
+          <Typography variant="body1" className="font-medium mb-2">
+            Drag & Drop file here
+          </Typography>
+          <Typography variant="body2" className="mb-4">
+            {selectedFile ? `Selected: ${selectedFile.name}` : 'or click to upload'}
+          </Typography>
+        </div>
+        
+        <input
+          id="fileInput"
+          type="file"
+          onChange={handleFileSelect}
+          className="hidden"
+        />
+      </div>
+
+      {/* Upload Button */}
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={handleUpload}
+        disabled={!selectedFile || isLoading}
+        className="mb-4"
+        sx={{
+          backgroundColor: "#1976d2",
+          '&:hover': {
+            backgroundColor: "#1565c0"
+          }
+        }}
+      >
+        Upload
+      </Button>
+
+      {/* Warning Message */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+        <Typography variant="body2" className="text-yellow-800">
+          The last uploaded file will not reflect changes made on vehicles, service levels and/or zones. 
+          To make changes to the price list, either add the missing vehicles, service levels and/or zones manually 
+          in the existing price list or download the Template File to generate a valid empty price list.
         </Typography>
-        <div className="ml-5 flex items-center">
-          <div className="flex items-center space-x-4">
-            <input
-              type="file"
-              onChange={handleFileSelect}
-              className="block w-full text-sm text-gray-500
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-md file:border-0
-              file:text-sm file:font-semibold
-              file:bg-blue-50 file:text-blue-700
-              hover:file:bg-blue-100"
-            />
-          </div>
+      </div>
 
-          <div className="flex space-x-4 h-full justify-center items-center ">
-            <Button
-              onClick={handleUpload}
-              disabled={!selectedFile || isLoading}
-              className="flex items-center space-x-2"
-              variant="contained"
-              color="primary"
-              sx={{
-                // Red border (you can change the color)
-                backgroundColor: "#1569CB",
-              }}
-            >
-              {/* <Upload className="w-4 h-4" /> */}
-              <span>Import Kml File</span>
-            </Button>
-
-            <Button
-              onClick={handleDownload}
-              disabled={isLoading}
-              variant="outline"
-              className="flex items-center space-x-2"
-            >
-              {/* <Download className="w-4 h-4" /> */}
-              <span>Download</span>
-            </Button>
-
-            <Button
-              onClick={handleDownloadTemplate}
-              disabled={isLoading}
-              variant="outline"
-              className="flex items-center space-x-2"
-            >
-              {/* <Download className="w-4 h-4" /> */}
-              <span>Download Template</span>
-            </Button>
-          </div>
+      {/* Download Section */}
+      <div className="text-center">
+        <Typography variant="subtitle2" className="mb-4">
+          DOWNLOAD LAST UPLOADED PRICE LIST
+        </Typography>
+        <div className="space-y-2">
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={handleDownload}
+            disabled={isLoading}
+            className="mb-2"
+          >
+            Price file
+          </Button>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={handleDownloadTemplate}
+            disabled={isLoading}
+          >
+            Template file
+          </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

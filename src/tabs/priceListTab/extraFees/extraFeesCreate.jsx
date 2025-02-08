@@ -96,7 +96,7 @@ const ExtraFeesCreate = () => {
       <Breadcrumb items={pageBreadcrums} />
       <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
-          <Typography variant="h3" gutterBottom>
+            <Typography variant="h3" gutterBottom>
             New Extra Fee Type
           </Typography>
           <Button

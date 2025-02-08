@@ -22,6 +22,8 @@ import PricingZone from "./tabs/priceListTab/pricingZone/pricingZone";
 import { Discount } from "./tabs/priceListTab/discount/discount";
 import DiscountCreate from "./tabs/priceListTab/discount/discountCreate";
 import VehicleEquivalenciesEditForm from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesEdit";
+import Login from "./components/login";
+import ProtectedRoute from "./components/protectedRoute";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -30,11 +32,19 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
+        <Routes>
+        <Route path="/login" element={<Login/>} />
+      
+           
+            <Route
+                path="/*"
+                element={
+                  <ProtectedRoute>
+                      <div className="app">
           <Sidebar />
           <main className="content">
             <Navbar />
-            <Routes>
+                    <Routes>
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pricelist" element={<PriceList />} />
@@ -100,8 +110,10 @@ function App() {
                 element={<DiscountCreate />}
               />
             </Routes>
-          </main>
-        </div>
+            </main></div>
+            </ProtectedRoute>} />
+           
+        </Routes>
         <ToastProvider />
       </ThemeProvider>
     </ColorModeContext.Provider>

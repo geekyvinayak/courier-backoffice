@@ -13,35 +13,22 @@ import TabNavigation from "./tabNavigation";
 import size from "lodash/size";
 import { postRequest } from "../consts/apiCalls";
 import useToast from "./toast/useToast";
-
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 const Navbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const { showSuccess, showError, showWarning } = useToast();
 
-  const generateToken = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!size(token)) {
-      const response = await postRequest("/api/v1/auth/authenticate", {
-        email: "dev2@front.com",
-        password: "Dev@123",
-      });
-      console.log("response", response);
-      localStorage.setItem("token", response.token);
-      showSuccess("token generated");
-      window?.location.reload();
-    } else {
-      showWarning("already exists");
-    }
+  const handleLogout = async () => {
+    localStorage.removeItem("token");
+    window.history.replaceState(null, "", "/login");
+    window.location.href = "/login";
   };
 
   return (
     <div className="flex justify-between p-2 items-center border-b-2">
-      <div>
         <TabNavigation />
-      </div>
       <div className="flex">
         <div className={`flex-shrink  bg-[${colors.primary[400]}] border-2`}>
           <InputBase sx={{ ml: 2 }} placeholder="Order Id" />
@@ -60,8 +47,8 @@ const Navbar = () => {
             <DarkModeOutlined />
           )}
         </IconButton>
-        <IconButton onClick={generateToken}>
-          <PersonOutline />
+        <IconButton onClick={handleLogout}>
+          <LogoutOutlinedIcon />
         </IconButton>
       </div>
     </div>

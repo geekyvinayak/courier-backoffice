@@ -246,7 +246,7 @@ const NewPrice = () => {
       <div className="mt-2">
         <Breadcrumb items={pageBreadcrums} />
       </div>
-      <div className="flex justify-between">
+      <div className="flex gap-10">
         <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
           <form onSubmit={formik.handleSubmit}>
             <Box
@@ -255,7 +255,7 @@ const NewPrice = () => {
               alignItems="center"
               marginBottom={2}
             >
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h3" gutterBottom>
                 New Price List
               </Typography>
               <Button
@@ -272,7 +272,7 @@ const NewPrice = () => {
             </Box>
 
             {/* Text Field */}
-            <div style={{ marginBottom: "20px" }}>
+            <div style={{ marginBottom: "10px" }}>
               <Typography variant="body1" gutterBottom>
                 Name
               </Typography>
@@ -287,7 +287,7 @@ const NewPrice = () => {
             </div>
 
             {id && (
-              <div style={{ marginBottom: "20px" }}>
+              <div style={{ marginBottom: "10px" }}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -304,7 +304,7 @@ const NewPrice = () => {
 
             {/* Conditional Checkbox */}
             {formik.values.type !== "Combined" && (
-              <div style={{ marginBottom: "20px" }}>
+              <div style={{ marginBottom: "10px" }}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -329,7 +329,7 @@ const NewPrice = () => {
             )}
 
             {/* Radio Buttons */}
-            <div style={{ marginBottom: "20px" }}>
+            <div style={{ marginBottom: "10px" }}>
               <Typography variant="body1" gutterBottom>
                 TYPE
               </Typography>
@@ -372,7 +372,7 @@ const NewPrice = () => {
               )}
             </div>
             {id && (
-              <div style={{ marginBottom: "20px" }}>
+              <div style={{ marginBottom: "10px" }}>
                 <Typography variant="body1" gutterBottom>
                   PRICING METHOD
                 </Typography>
@@ -400,7 +400,7 @@ const NewPrice = () => {
             )}
 
             {id && (
-              <div style={{ marginBottom: "20px" }}>
+              <div style={{ marginBottom: "10px" }}>
                 <FormControl fullWidth>
                   <Typography variant="body1" gutterBottom>
                     VEHICLE TYPES
@@ -503,7 +503,7 @@ const NewPrice = () => {
           )}
 
             {id && (
-              <div style={{ marginBottom: "20px" }}>
+              <div style={{ marginBottom: "10px" }}>
                 <FormControl fullWidth>
                   <Typography variant="body1" gutterBottom>
                     FAILOVER PRICE LIST
@@ -534,7 +534,7 @@ const NewPrice = () => {
             )}
           </form>
         </div>
-        <div className="border border-gray shadow-md mr-4 mt-4">
+        <div className="">
           {id && <PricingFileOperations id={id} fetchData={fetchPriceById} />}
         </div>
       </div>

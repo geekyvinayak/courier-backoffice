@@ -105,7 +105,9 @@ const VehicleEquivalenciesEditForm = () => {
               </Box>
           {/* Vehicle Selection Dropdown */}
           <FormControl fullWidth margin="normal">
-            <InputLabel>Vehicle</InputLabel>
+             <Typography variant="subtitle1" gutterBottom>
+                      Vehicle Types
+                      </Typography>
             <Select
               name="vehicleId"
               value={values.vehicleId}

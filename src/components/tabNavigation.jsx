@@ -17,8 +17,9 @@ const itemsData = {
       childPaths: [
         "/pricelist/vehiclestype",
         "/pricelist/vehicleequivalencies",
-        "/pricelist/vehiclestype/create/",
-        "/pricelist/vehicleequivalency/edit"
+        "/pricelist/vehiclestype/create",
+        "/pricelist/vehicleequivalencies/create",
+        "/pricelist/vehicleequivalency/edit/"
       ],
     },
     // { id: 3, name: "Service Levels", link: "/pricelist/servicelevels" },
@@ -38,7 +39,7 @@ const itemsData = {
       id: 6,
       name: "Discounts/Surcharges",
       link: "/pricelist/discounts-surcharges",
-      childPaths: [],
+      childPaths: ["/pricelist/discounts-surcharges","/pricelist/discounts-surcharges/create"],
     },
     {
       id: 7,
@@ -47,7 +48,7 @@ const itemsData = {
       childPaths: ["/pricelist/pricingzones", "/pricelist/pricingzoneslayout"],
     },
   ],
-  "/dashboard": [{ id: 1, name: "Dashboard", link: "/dashboard" }],
+  "/dashboard": [{ id: 1, name: "Dashboard", link: "/dashboard" ,childPaths:["/dashboard"]}],
 };
 
 // Component to display items based on the current route
@@ -57,15 +58,14 @@ const TabNavigation = () => {
   const items = itemsData[`/${currentPath}`] || []; // Get items based on the current route
 
   return (
-    <div>
-      <ul className="flex">
+      <ul className="flex w-[55%] justify-between">
         {items.map((item) => (
           <li
             key={item.id}
-            className={`text-left block p-2  transition-colors font-medium focus:outline-none  focus:ring-2 focus:ring-blue-500
+            className={`block p-2 text-center flex-1 transition-colors focus:outline-none font-semibold focus:ring-2 focus:ring-blue-500
           ${
             item?.childPaths?.includes(location?.pathname)
-              ? " text-blue-600 border-b-2 border-blue-600"
+              ? " text-black border-b-4 border-[#494fb5] font-bold rounded"
               : "text-white-700"
           }`}
           >
@@ -73,7 +73,6 @@ const TabNavigation = () => {
           </li>
         ))}
       </ul>
-    </div>
   );
 };
 

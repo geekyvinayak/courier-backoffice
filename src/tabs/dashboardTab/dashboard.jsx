@@ -443,7 +443,7 @@ const LastOrders = () => {
         {orders.map(order => (
           <Box key={order.id} sx={{ 
             display: 'flex', 
-            justifyContent: 'space-between',
+            // justifyContent: 'space-between',
             borderBottom: '1px solid #e0e0e0',
             pb: 2
           }}>
