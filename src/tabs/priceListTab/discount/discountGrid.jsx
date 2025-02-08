@@ -5,7 +5,6 @@ import { deleteRequest, getRequest } from "../../../consts/apiCalls";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 const DiscountGrid = () => {
   const columns = [
     { field: "id", headerName: "Id", flex: 1 },
@@ -50,7 +49,7 @@ const DiscountGrid = () => {
   }, []);
 
   return (
-    <div className="mx-auto w-[80%] mt-2">
+    <div className="mx-auto w-[90%] mt-5">
       <div>
         <DataGrid
           rows={discountList}
@@ -79,6 +78,10 @@ const DiscountGrid = () => {
             },
             "& .MuiDataGrid-row:nth-of-type(even)": {
               backgroundColor: "#ffffff", // White color for even rows
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              fontWeight: "bold", // Bold text
+              fontSize: "16px", // Increase font size
             },
           }}
         />

@@ -78,7 +78,7 @@ const VehicleEquivalenciesGrid = () => {
   };
 
   return (
-    <Box className="w-[90%]  mx-auto mt-8">
+    <Box className="mx-auto w-[90%] mt-5">
       <DataGrid
         rows={rows}
         onCellClick={handleCellClick}
@@ -102,6 +102,10 @@ const VehicleEquivalenciesGrid = () => {
           },
           "& .MuiDataGrid-row:nth-of-type(even)": {
             backgroundColor: "#ffffff", // White color for even rows
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            fontWeight: "bold", // Bold text
+            fontSize: "16px", // Increase font size
           },
         }}
       />

@@ -17,15 +17,15 @@ import {
   Paper,
 } from "@mui/material";
 import { useEffect } from "react";
-import { getRequest } from "../../../consts/apiCalls";
+import { getRequest, postRequest } from "../../../consts/apiCalls";
+import axios from "axios";
+import useToast from "../../../components/toast/useToast";
 
-const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
-
-  const [extraFees,setExtraFees] = useState([]);
+const ExtraFeesConfig = ({ open, handleClose, id }) => {
+  const [extraFees, setExtraFees] = useState([]);
 
   const formik = useFormik({
     initialValues: {
-      id: "",
       extraFeeName: "",
       type: "rated",
       separateSheetPerVehicleType: false,
@@ -43,9 +43,10 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
       visibilitySelfServe: "",
       visibilityDriver: "",
       priority: 0,
-      extraFeeScheduleId: 0,
+      extraFeeScheduleId: id,
       extraFeeId: 0,
-      file:'',
+      slidingFeeDetailsList:[],
+      file: "",
     },
     validationSchema: Yup.object({
       rate: Yup.number().min(0, "Rate must be positive").required("Required"),
@@ -54,20 +55,75 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
       driverCommissionable: Yup.number().required("Required"),
       salesCommissionable: Yup.number().required("Required"),
     }),
-    onSubmit: (values) => {
-      console.log("Form Data:", values);
+    onSubmit: async(values) => {
+      console.log("Form Data:", values,id);
+      const response = await postRequest(
+            `/extraFeeSchedule/extraFee/${id}`,
+            {extraFeeConfigDto:values},
+            {
+              "Content-Type": "multipart/form-data",
+            },
+          );
+          console.log(response)
       // submitForm(values);
     },
   });
 
+  const { showSuccess, showError, showWarning } = useToast();
+
   const fetchExtraFees = async () => {
     try {
-      const response = await getRequest(`/extraFeeSchedule/extraFeeAvailable/${id}`);
+      const response = await getRequest(
+        `/extraFeeSchedule/extraFeeAvailable/${id}`,
+      );
       setExtraFees(response);
     } catch (error) {
       console.error("Error fetching pricing list:", error);
     }
   };
+
+  const handdleTemplteDownload = async()=>{
+    try {
+      const response = await axios({
+        url: `${process.env.REACT_APP_BACKEND_URL}/extraFeeSchedule/template?isSeparateVehicle=true`,
+        method: "GET",
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Adjust based on your auth method
+          Accept: "*/*",
+        },
+      });
+
+      // Get filename from content-disposition header if available
+      const contentDisposition = response.headers["content-disposition"];
+      let filename = ""; // No default filename
+
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+        );
+        if (filenameMatch && filenameMatch[1]) {
+          filename = decodeURIComponent(filenameMatch[1]); // Decode in case of URL encoding
+        }
+      }
+
+      // Create download link
+      const url = window.URL.createObjectURL(response.data);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+
+      // Cleanup
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      showSuccess("File downloaded successfully!");
+    } catch (error) {
+      showError("Error downloading file ");
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     if (id) {
@@ -88,10 +144,9 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
               value={formik.values.extraFeeName}
               onChange={formik.handleChange}
             >
-              {extraFees.map((fees)=>{
-                return <MenuItem value={fees.name}>{fees.name}</MenuItem>
+              {extraFees.map((fees) => {
+                return <MenuItem value={fees.name}>{fees.name}</MenuItem>;
               })}
-              
             </Select>
           </FormControl>
 
@@ -138,7 +193,7 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      name="separateSheet"
+                      name="separateSheetPerVehicleType"
                       checked={formik.values.separateSheetPerVehicleType}
                       onChange={formik.handleChange}
                     />
@@ -149,7 +204,7 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
                 <br />
 
                 {/* Download Template Button */}
-                <Button variant="outlined" sx={{ mb: 2 }}>
+                <Button onClick={handdleTemplteDownload} variant="outlined" sx={{ mb: 2 }}>
                   Download Template
                 </Button>
               </>
@@ -231,7 +286,7 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
               <FormLabel>TOTAL PRICE CALCULATION METHOD</FormLabel>
               <RadioGroup
                 row
-                name="roundingMethod"
+                name="calculationMethod"
                 value={formik.values.calculationMethod}
                 onChange={formik.handleChange}
               >
@@ -303,10 +358,53 @@ const ExtraFeesConfig = ({ open, handleClose, submitForm, id }) => {
               value={formik.values.priority}
               onChange={formik.handleChange}
             />
+            {/* Find the selected fee object */}
+            {extraFees.find((fee) => fee.name === formik.values.extraFeeName)
+              ?.systemExtra && (
+              <FormControl fullWidth sx={{ mb: 2 }}>
+                <Select
+                  label="VISIBILITY FOR INTERNAL USERS"
+                  name="additionalOption"
+                  value={formik.values.visibilityForInternalUser}
+                  onChange={formik.handleChange}
+                >
+                  <MenuItem value="RestrictedUsersOnly">
+                    Restricted Users Only
+                  </MenuItem>
+                  <MenuItem value="Optional">Optional</MenuItem>
+                  <MenuItem value="Required">Required</MenuItem>
+                </Select>
+                <Select
+                  label="visibilitySelfServe"
+                  name="visibilitySelfServe"
+                  value={formik.values.visibilitySelfServe}
+                  onChange={formik.handleChange}
+                >
+                  <MenuItem value="Hidden">Hidden</MenuItem>
+                  <MenuItem value="Optional">Optional</MenuItem>
+                  <MenuItem value="Required">Required</MenuItem>
+                </Select>
+                <Select
+                  label="visibilityDriver"
+                  name="visibilityDriver"
+                  value={formik.values.visibilityDriver}
+                  onChange={formik.handleChange}
+                >
+                  <MenuItem value="Hidden">Hidden</MenuItem>
+                  <MenuItem value="Optional">Optional</MenuItem>
+                  <MenuItem value="Required">Required</MenuItem>
+                </Select>
+              </FormControl>
+            )}
           </Paper>
 
           {/* Submit Button */}
-          <Button type="submit" onClick={formik.handleSubmit} variant="contained" color="primary">
+          <Button
+            type="submit"
+            onClick={formik.handleSubmit}
+            variant="contained"
+            color="primary"
+          >
             Save
           </Button>
         </form>
