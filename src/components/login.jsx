@@ -36,38 +36,44 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <div className='flex justify-center items-center h-[100%] login'>
       <Box
         sx={{
-          marginTop: 8,
+          justifyContent:"center",
+          alignContent:"center",
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
         <img src="/loginLogo.png" alt="Personal Touch Courier" height={"250px"}  width={"250px"} style={{ marginBottom: 3 }} />
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h3" fontWeight={500}>
           Log in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+           <Box>
+          <Typography variant="subtitle1" gutterBottom fontWeight={600} marginBottom={"-8px"} marginLeft={"8px"}>
+          Email Address 
+                  </Typography>
           <TextField
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
             name="email"
             autoComplete="email"
             autoFocus
             value={formData.email}
             onChange={handleChange}
-          />
+          /></Box>
+          <Typography variant="subtitle1" gutterBottom fontWeight={600} marginBottom={"-8px"} marginLeft={"8px"}>
+          Password
+                  </Typography>
           <TextField
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -84,7 +90,7 @@ const Login = () => {
           </Button>
         </Box>
       </Box>
-    </Container>
+    </div>
   );
 };
 

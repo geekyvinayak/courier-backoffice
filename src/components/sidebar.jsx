@@ -7,7 +7,8 @@ import { tokens } from "../theme";
 // import {MenuOutlinedIcon } from '@mui/icons-material'
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import DonutLargeOutlinedIcon from "@mui/icons-material/DonutLargeOutlined";
-import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -35,10 +36,13 @@ const Sidebarr = () => {
             [`.ps-sidebar-container`]: {
               background: `${colors.primary[400]} !important`,
               height: "100% !important",
+              width:"190px !important",
               position: "stick",
             },
             ["&.ps-sidebar-root"]: {
               height: "100% !important",
+              width:"190px !important",
+              maxWidth:"190px !important"
             },
           }}
           menuItemStyles={{
@@ -69,14 +73,14 @@ const Sidebarr = () => {
           >
             {!isCollapsed && (
               <div className="flex justify-between items-center ml-[15px]">
-                <Typography variant="h3">LOGO</Typography>
+                  <img src="/loginLogo.png" width={"80px"} className="mr-2"/>
                 <MenuOutlinedIcon />
               </div>
             )}
           </MenuItem>
 
           <MenuItem
-            icon={isCollapsed ? <DonutLargeOutlinedIcon /> : undefined}
+            icon={isCollapsed ? <SpaceDashboardOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
@@ -86,13 +90,12 @@ const Sidebarr = () => {
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
-                <DonutLargeOutlinedIcon /> {!isCollapsed && "Dashboard"}
+                <SpaceDashboardOutlinedIcon /> {!isCollapsed && "Dashboard"}
               </div>
             )}
           </MenuItem>
-
           <MenuItem
-            icon={isCollapsed ? <LocalOfferOutlinedIcon /> : undefined}
+            icon={isCollapsed ? <AttachMoneyOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
@@ -102,7 +105,7 @@ const Sidebarr = () => {
           >
             {!isCollapsed && (
               <div className="flex gap-2 items-center ml-[15px]">
-                <LocalOfferOutlinedIcon /> {!isCollapsed && "Price List"}
+                <AttachMoneyOutlinedIcon /> {!isCollapsed && "Price List"}
               </div>
             )}
           </MenuItem>

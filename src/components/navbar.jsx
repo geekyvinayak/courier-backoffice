@@ -13,7 +13,7 @@ import TabNavigation from "./tabNavigation";
 import size from "lodash/size";
 import { postRequest } from "../consts/apiCalls";
 import useToast from "./toast/useToast";
-
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 const Navbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -28,9 +28,7 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-between p-2 items-center border-b-2">
-      <div>
         <TabNavigation />
-      </div>
       <div className="flex">
         <div className={`flex-shrink  bg-[${colors.primary[400]}] border-2`}>
           <InputBase sx={{ ml: 2 }} placeholder="Order Id" />
@@ -50,7 +48,7 @@ const Navbar = () => {
           )}
         </IconButton>
         <IconButton onClick={handleLogout}>
-          <PersonOutline />
+          <LogoutOutlinedIcon />
         </IconButton>
       </div>
     </div>

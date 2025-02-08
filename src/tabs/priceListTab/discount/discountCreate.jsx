@@ -68,7 +68,7 @@ const DiscountCreate = () => {
     <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4" >
       <form onSubmit={formik.handleSubmit}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="h5">New Discount/Surcharge</Typography>
+            <Typography variant="h3" gutterBottom>New Discount/Surcharge</Typography>
           <Box display="flex" gap={2}>
             <Button type="submit"
                 variant="contained"
@@ -78,10 +78,7 @@ const DiscountCreate = () => {
                   backgroundColor: "#1569CB",
                 }}>
               Save
-            </Button>
-            <Button variant="outlined" type="button">
-              Cancel
-            </Button>
+            </Button> 
           </Box>
         </Box>
 
