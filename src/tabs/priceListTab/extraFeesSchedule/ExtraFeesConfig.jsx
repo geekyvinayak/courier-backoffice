@@ -57,9 +57,11 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
     }),
     onSubmit: async(values) => {
       console.log("Form Data:", values,id);
+      const file = values.file;
+      delete values.file;
       const response = await postRequest(
             `/extraFeeSchedule/extraFee/${id}`,
-            {extraFeeConfigDto:values},
+            {extraFeeConfigDto:values,file},
             {
               "Content-Type": "multipart/form-data",
             },
@@ -85,7 +87,7 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
   const handdleTemplteDownload = async()=>{
     try {
       const response = await axios({
-        url: `${process.env.REACT_APP_BACKEND_URL}/extraFeeSchedule/template?isSeparateVehicle=true`,
+        url: `${process.env.REACT_APP_BACKEND_URL}/extraFeeSchedule/template?isSeparateVehicle=${formik.values.separateSheetPerVehicleType}`,
         method: "GET",
         responseType: "blob",
         headers: {

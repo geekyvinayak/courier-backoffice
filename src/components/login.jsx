@@ -59,6 +59,7 @@ const Login = () => {
             margin="normal"
             required
             fullWidth
+            size='small'
             id="email"
             name="email"
             autoComplete="email"
@@ -74,6 +75,7 @@ const Login = () => {
             required
             fullWidth
             name="password"
+            size='small'
             type="password"
             id="password"
             autoComplete="current-password"
