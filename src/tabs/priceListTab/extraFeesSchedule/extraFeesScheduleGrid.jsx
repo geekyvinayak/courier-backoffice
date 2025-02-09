@@ -37,9 +37,7 @@ const ExtraFeesScheduleGrid = () => {
 
   const handleActive = async (id) => {
     try {
-      const response = await postRequest(
-        `/extraFeeSchedule/makeDefault/${id}`,
-      );
+      const response = await postRequest(`/extraFeeSchedule/makeDefault/${id}`);
       fetchPriceListSchedule();
     } catch (error) {
       console.log(error);

@@ -45,7 +45,7 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
       priority: 0,
       extraFeeScheduleId: id,
       extraFeeId: 0,
-      slidingFeeDetailsList:[],
+      slidingFeeDetailsList: [],
       file: "",
     },
     validationSchema: Yup.object({
@@ -55,18 +55,18 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
       driverCommissionable: Yup.number().required("Required"),
       salesCommissionable: Yup.number().required("Required"),
     }),
-    onSubmit: async(values) => {
-      console.log("Form Data:", values,id);
+    onSubmit: async (values) => {
+      console.log("Form Data:", values, id);
       const file = values.file;
       delete values.file;
       const response = await postRequest(
-            `/extraFeeSchedule/extraFee/${id}`,
-            {extraFeeConfigDto:values,file},
-            {
-              "Content-Type": "multipart/form-data",
-            },
-          );
-          console.log(response)
+        `/extraFeeSchedule/extraFee/${id}`,
+        { extraFeeConfigDto: values, file },
+        {
+          "Content-Type": "multipart/form-data",
+        },
+      );
+      console.log(response);
       // submitForm(values);
     },
   });
@@ -84,7 +84,7 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
     }
   };
 
-  const handdleTemplteDownload = async()=>{
+  const handdleTemplteDownload = async () => {
     try {
       const response = await axios({
         url: `${process.env.REACT_APP_BACKEND_URL}/extraFeeSchedule/template?isSeparateVehicle=${formik.values.separateSheetPerVehicleType}`,
@@ -125,7 +125,7 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
       showError("Error downloading file ");
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (id) {
@@ -206,7 +206,11 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
                 <br />
 
                 {/* Download Template Button */}
-                <Button onClick={handdleTemplteDownload} variant="outlined" sx={{ mb: 2 }}>
+                <Button
+                  onClick={handdleTemplteDownload}
+                  variant="outlined"
+                  sx={{ mb: 2 }}
+                >
                   Download Template
                 </Button>
               </>

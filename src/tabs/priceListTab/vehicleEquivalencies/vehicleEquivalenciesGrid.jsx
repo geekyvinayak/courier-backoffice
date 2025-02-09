@@ -13,7 +13,7 @@ const VehicleEquivalenciesGrid = () => {
   const { showSuccess, showError } = useToast();
   const [loading, setLoading] = useState(true);
   const [rows, setRow] = useState([]);
- const navigate = useNavigate();
+  const navigate = useNavigate();
   const deleteEquivalance = async (id) => {
     try {
       await deleteRequest(`/vehicleEquivalency/${id}`);

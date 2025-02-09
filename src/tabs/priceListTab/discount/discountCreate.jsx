@@ -21,7 +21,7 @@ import { useEffect } from "react";
 
 const DiscountCreate = () => {
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       discountType: "Discount",
@@ -42,7 +42,7 @@ const DiscountCreate = () => {
         } else {
           const response = await postRequest("/discounts", values);
         }
-        navigate('/pricelist/discounts-surcharges');
+        navigate("/pricelist/discounts-surcharges");
       } catch (error) {
         console.log(error);
       }
@@ -65,20 +65,24 @@ const DiscountCreate = () => {
   }, [id]);
 
   return (
-    <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4" >
+    <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
       <form onSubmit={formik.handleSubmit}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Typography variant="h3" gutterBottom>New Discount/Surcharge</Typography>
+          <Typography variant="h3" gutterBottom>
+            New Discount/Surcharge
+          </Typography>
           <Box display="flex" gap={2}>
-            <Button type="submit"
-                variant="contained"
-                color="primary"
-                sx={{
-                  // Red border (you can change the color)
-                  backgroundColor: "#1569CB",
-                }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{
+                // Red border (you can change the color)
+                backgroundColor: "#1569CB",
+              }}
+            >
               Save
-            </Button> 
+            </Button>
           </Box>
         </Box>
 
@@ -203,17 +207,29 @@ const DiscountCreate = () => {
               >
                 <FormControlLabel
                   value="Closest"
-                  control={<Radio disabled={formik.values.roundingDefault === 'No Rounding'} />}
+                  control={
+                    <Radio
+                      disabled={formik.values.roundingDefault === "No Rounding"}
+                    />
+                  }
                   label="Closest"
                 />
                 <FormControlLabel
                   value="Round Up"
-                  control={<Radio disabled={formik.values.roundingDefault === 'No Rounding'} />}
+                  control={
+                    <Radio
+                      disabled={formik.values.roundingDefault === "No Rounding"}
+                    />
+                  }
                   label="Round Up"
                 />
                 <FormControlLabel
                   value="Round Down"
-                  control={<Radio disabled={formik.values.roundingDefault === 'No Rounding'} />}
+                  control={
+                    <Radio
+                      disabled={formik.values.roundingDefault === "No Rounding"}
+                    />
+                  }
                   label="Round Down"
                 />
               </RadioGroup>

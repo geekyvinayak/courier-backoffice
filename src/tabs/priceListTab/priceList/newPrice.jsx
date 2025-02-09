@@ -446,61 +446,61 @@ const NewPrice = () => {
                           );
                         };
 
-                      return (
-                        <TableRow key={vehicle.id}>
-                          <TableCell>
-                            <TextField
-                              name={`vehicleTypeId_${vehicle.id}`}
-                              size="small"
-                              variant="outlined"
-                              value={vehicle.id}
-                              disabled
-                            />
-                          </TableCell>
-                          <TableCell>
-                            <TextField
-                              name={`minimumSurcharge_${vehicle.id}`}
-                              size="small"
-                              variant="outlined"
-                              value={
-                                formik.values.vehicleTypeSurchargeDtoList?.find(
-                                  (charge) =>
-                                    charge.vehicleTypeId === vehicle.id,
-                                )?.minimumSurcharge ?? 0
-                              }
-                              onChange={(e) =>
-                                handleInputChange(
-                                  e,
-                                  "minimumSurcharge",
-                                  vehicle.id,
-                                )
-                              }
-                            />
-                          </TableCell>
-                          <TableCell>
-                            <TextField
-                              name={`surcharge_${vehicle.id}`}
-                              size="small"
-                              variant="outlined"
-                              value={
-                                formik.values.vehicleTypeSurchargeDtoList?.find(
-                                  (charge) =>
-                                    charge.vehicleTypeId === vehicle.id,
-                                )?.surcharge ?? 0
-                              }
-                              onChange={(e) =>
-                                handleInputChange(e, "surcharge", vehicle.id)
-                              }
-                            />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </FormControl>
-            </div>
-          )}
+                        return (
+                          <TableRow key={vehicle.id}>
+                            <TableCell>
+                              <TextField
+                                name={`vehicleTypeId_${vehicle.id}`}
+                                size="small"
+                                variant="outlined"
+                                value={vehicle.id}
+                                disabled
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <TextField
+                                name={`minimumSurcharge_${vehicle.id}`}
+                                size="small"
+                                variant="outlined"
+                                value={
+                                  formik.values.vehicleTypeSurchargeDtoList?.find(
+                                    (charge) =>
+                                      charge.vehicleTypeId === vehicle.id,
+                                  )?.minimumSurcharge ?? 0
+                                }
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    e,
+                                    "minimumSurcharge",
+                                    vehicle.id,
+                                  )
+                                }
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <TextField
+                                name={`surcharge_${vehicle.id}`}
+                                size="small"
+                                variant="outlined"
+                                value={
+                                  formik.values.vehicleTypeSurchargeDtoList?.find(
+                                    (charge) =>
+                                      charge.vehicleTypeId === vehicle.id,
+                                  )?.surcharge ?? 0
+                                }
+                                onChange={(e) =>
+                                  handleInputChange(e, "surcharge", vehicle.id)
+                                }
+                              />
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </FormControl>
+              </div>
+            )}
 
             {id && (
               <div style={{ marginBottom: "10px" }}>
