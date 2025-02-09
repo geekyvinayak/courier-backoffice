@@ -13,7 +13,7 @@ body,
   font-family: "Inter", serif;
 }
 .login{
-  background-image: url('https://personaltouchcourier.dsapp.io/images/ds-map-background-texture.png');
+  background-image: './bg-img.png';
 }
 .app {
   display: flex;

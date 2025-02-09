@@ -94,7 +94,7 @@ const PriceListGrid = () => {
   }, []);
 
   return (
-    <Box className="w-[80%]  mx-auto mt-8">
+    <Box className="mx-auto w-[90%] mt-5">
       <DataGrid
         rows={priceList}
         columns={columns}
@@ -120,6 +120,10 @@ const PriceListGrid = () => {
           },
           "& .MuiDataGrid-row:nth-of-type(even)": {
             backgroundColor: "#ffffff", // White color for even rows
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            fontWeight: "bold", // Bold text
+            fontSize: "16px", // Increase font size
           },
         }}
         className="cursor-pointer"

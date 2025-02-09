@@ -17,24 +17,29 @@ const CreateExtraFeesSchedule = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [extraConfig, setExtraConfig] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false);
 
   const formik = useFormik({
     initialValues: {
       name: "",
       id: "",
-      extraFeeConfigs:[],
+      extraFeeConfigs: [],
+      active: false,
     },
+    enableReinitialize: true,
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
     }),
     onSubmit: async (values) => {
       try {
-        const response = await postRequest("/extraFeeSchedule", {
-          extraFeeConfigs: [],
-          active: false,
-          ...values,
-        });
+        if (id) {
+          const response = await postRequest(
+            `/extraFeeSchedule/extraFee/${id}`,
+            values,
+          );
+        } else {
+          const response = await postRequest("/extraFeeSchedule", values);
+        }
         navigate("/pricelist/extrafeesschedule");
       } catch (error) {
         console.log(error);
@@ -50,6 +55,42 @@ const CreateExtraFeesSchedule = () => {
     } catch (error) {
       console.error("Error fetching pricing list:", error);
     }
+  };
+
+  const handleExtraConfig = async (configJson) => {
+    console.log("form", formik.values);
+    const existingConfigs = formik.values.extraFeeConfigs || [];
+
+    const updatedConfigs = existingConfigs.some(
+      (config) => config.id === configJson.id,
+    )
+      ? existingConfigs.map((config) =>
+          config.id === configJson.id ? configJson : config,
+        )
+      : [...existingConfigs, configJson];
+    formik.setFieldValue("extraFeeConfigs", updatedConfigs);
+    // setOpenDialog(false);
+    let body = {
+      name: formik.values.name,
+      id,
+      extraFeeConfigs: updatedConfigs,
+      active: formik.values.active,
+      file: "null",
+    };
+    console.log("bdy", body);
+    const response = await postRequest(
+      `/extraFeeSchedule/extraFee/${id}`,
+      body,
+      {
+        "Content-Type": "multipart/form-data",
+      },
+    );
+    // console.log("dss",formik.values.extraFeeConfigs);
+    // updateVale(formik.values);
+  };
+
+  const updateVale = (data) => {
+    console.log(formik.values);
   };
 
   useEffect(() => {
@@ -84,7 +125,7 @@ const CreateExtraFeesSchedule = () => {
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />
-      <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
+      <div className="max-w-[600px] p-4 border border-gray ml-4 mt-4 mb-4">
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h3" gutterBottom>
             New Extra Fee Schedules
@@ -115,6 +156,7 @@ const CreateExtraFeesSchedule = () => {
               id="name"
               name="name"
               variant="outlined"
+              size="small"
               fullWidth
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -125,15 +167,29 @@ const CreateExtraFeesSchedule = () => {
           </div>
         </form>
       </div>
-      <div>{id && <ExtraConfigGrid console={extraConfig} setOpenDialog={setOpenDialog} />}</div>
-      {id &&<ExtraFeesConfig open={openDialog} handleClose={()=>setOpenDialog(false)} submitForm={()=>console.log('hello')} id={id} />}
+      <div>
+        {id && (
+          <ExtraConfigGrid
+            console={extraConfig}
+            setOpenDialog={setOpenDialog}
+          />
+        )}
+      </div>
+      {id && openDialog && (
+        <ExtraFeesConfig
+          open={openDialog}
+          handleClose={() => setOpenDialog(false)}
+          // submitForm={handleExtraConfig}
+          id={id}
+        />
+      )}
     </div>
   );
 };
 
 export default CreateExtraFeesSchedule;
 
-const ExtraConfigGrid = ({ ConfigData,setOpenDialog }) => {
+const ExtraConfigGrid = ({ ConfigData, setOpenDialog }) => {
   const columns = [
     {
       field: "extraFeeName",
@@ -213,11 +269,14 @@ const ExtraConfigGrid = ({ ConfigData,setOpenDialog }) => {
   ];
 
   return (
-    <Box className="w-[80%] m-auto mt-8">
+    <Box className="mx-auto w-[90%] mt-5">
       {/* Header Section */}
       <Box className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Configuration Data</h2>
-        <button onClick={()=>setOpenDialog(true)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        <button
+          onClick={() => setOpenDialog(true)}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        >
           Add New
         </button>
       </Box>
@@ -244,6 +303,10 @@ const ExtraConfigGrid = ({ ConfigData,setOpenDialog }) => {
           },
           "& .MuiDataGrid-row:nth-of-type(even)": {
             backgroundColor: "#ffffff", // White color for even rows
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            fontWeight: "bold", // Bold text
+            fontSize: "16px", // Increase font size
           },
         }}
         disableRowSelectionOnClick

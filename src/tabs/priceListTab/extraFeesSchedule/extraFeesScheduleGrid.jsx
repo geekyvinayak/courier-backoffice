@@ -37,8 +37,8 @@ const ExtraFeesScheduleGrid = () => {
 
   const handleActive = async (id) => {
     try {
-      const response = await getRequest(
-        `/extraFeeSchedule/extraFeeAvailable/${id}`,
+      const response = await postRequest(
+        `/extraFeeSchedule/makeDefault/${id}`,
       );
       fetchPriceListSchedule();
     } catch (error) {
@@ -60,7 +60,7 @@ const ExtraFeesScheduleGrid = () => {
   }, []);
 
   return (
-    <Box className="w-[80%] m-auto mt-8">
+    <Box className="mx-auto w-[90%] mt-5">
       <DataGrid
         rows={priceListSchedule}
         columns={columns}
@@ -86,6 +86,10 @@ const ExtraFeesScheduleGrid = () => {
           },
           "& .MuiDataGrid-row:nth-of-type(even)": {
             backgroundColor: "#ffffff", // White color for even rows
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            fontWeight: "bold", // Bold text
+            fontSize: "16px", // Increase font size
           },
         }}
         disableRowSelectionOnClick

@@ -122,7 +122,7 @@ const ExtraFeesGrid = () => {
   }, []);
 
   return (
-    <div className="mx-auto w-[80%] mt-2">
+    <div className="mx-auto w-[90%] mt-5">
       <div>
         <DataGrid
           rows={extraFeesList}
@@ -154,6 +154,10 @@ const ExtraFeesGrid = () => {
             },
             "& .MuiDataGrid-virtualScrollerContent": {
               maxHeight: "50vh",
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              fontWeight: "bold", // Bold text
+              fontSize: "16px", // Increase font size
             },
           }}
         />
