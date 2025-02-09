@@ -64,19 +64,22 @@ const Sidebarr = () => {
           }}
         >
           <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            // onClick={() => setIsCollapsed(!isCollapsed)}
+            // icon={isCollapsed ?<img src="/loginLogo.png" width={"100px"} className="mr-2" /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
+              display:'flex',
+              justifyContent:"center",
+              alignItems:"center"
             }}
           >
-            {!isCollapsed && (
-              <div className="flex justify-between items-center ml-[15px]">
-                <img src="/loginLogo.png" width={"80px"} className="mr-2" />
-                <MenuOutlinedIcon />
+            {/* {!isCollapsed && (
+              <div className="flex justify-between items-center ml-[15px]"> */}
+                <img src="/loginLogo.png" width={"35px"}/>
+                {/* <MenuOutlinedIcon />
               </div>
-            )}
+            )} */}
           </MenuItem>
 
           <MenuItem

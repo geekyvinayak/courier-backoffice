@@ -40,6 +40,7 @@ const VehiclesTypeGrid = () => {
       headerName: "Default",
       sortable: false,
       filterable: false,
+      cellClassName:'!flex !justify-center !items-center',
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
@@ -101,7 +102,7 @@ const VehiclesTypeGrid = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 7,
             },
           },
         }}
@@ -119,8 +120,13 @@ const VehiclesTypeGrid = () => {
             fontWeight: "bold", // Bold text
             fontSize: "16px", // Increase font size
           },
+          "& .MuiDataGrid-virtualScrollerContent":{
+            fontWeight: "500", // Bold text
+            fontSize: "14px",
+          },
         }}
         disableRowSelectionOnClick
+         className="!h-[70vh]"
       />
     </Box>
   );

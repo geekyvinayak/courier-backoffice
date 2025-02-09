@@ -72,7 +72,7 @@ const TabNavigation = () => {
       {items.map((item) => (
         <li
           key={item.id}
-          className={`block p-2 text-center flex-1 transition-colors focus:outline-none font-semibold focus:ring-2 focus:ring-blue-500
+          className={`block p-2 text-center flex-1 transition-colors max-w-[165px] focus:outline-none font-semibold focus:ring-2 focus:ring-blue-500
           ${
             item?.childPaths?.includes(location?.pathname)
               ? " text-black border-b-4 border-[#494fb5] font-bold rounded"

@@ -52,7 +52,7 @@ const OrderDashboard = () => {
   );
 
   return (
-    <div className="flex p-4 justify-between">
+    <div className="flex p-4 gap-20">
       <div
         style={{
           display: "flex",
@@ -60,7 +60,7 @@ const OrderDashboard = () => {
           flexDirection: "column",
           gap: "1rem",
           maxWidth: "45%",
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
         }}
       >
         {/* <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
@@ -450,8 +450,8 @@ const LastOrders = () => {
   };
 
   return (
-    <div className="w-[50%]">
-      <Card sx={{ p: 2 }}>
+    <div className="w-[35%]">
+      <Card sx={{ p: 2  }}>
         <CardHeader title="Last Orders Created" sx={{ p: 1, pb: 2 }} />
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {orders.map((order) => (
@@ -459,12 +459,12 @@ const LastOrders = () => {
               key={order.id}
               sx={{
                 display: "flex",
-                // justifyContent: 'space-between',
                 borderBottom: "1px solid #e0e0e0",
                 pb: 2,
+                backgroundColor:"#f7f7f7" ,p:2
               }}
             >
-              <Box sx={{ display: "flex", gap: 2, flex: 1 }}>
+              <Box sx={{ display: "flex", gap: 2, flex: 1}}>
                 <Box>
                   <Typography
                     variant="subtitle1"

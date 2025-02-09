@@ -47,7 +47,7 @@ const VehicleEquivalenciesGrid = () => {
       headerName: "",
       sortable: false,
       filterable: false,
-      cellClassName: "cursor-pointer !text-center",
+      cellClassName:'flex !justify-center cursor-pointer',
       renderCell: (params) => (
         <IconButton>
           <DeleteDialog handleDelete={() => deleteEquivalance(params.id)} />
@@ -87,12 +87,13 @@ const VehicleEquivalenciesGrid = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 6,
+              pageSize: 7,
             },
           },
         }}
         disableRowSelectionOnClick
         getRowId={(row) => row.vehicleId}
+         className="!h-[70vh]"
         sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
@@ -106,6 +107,10 @@ const VehicleEquivalenciesGrid = () => {
           "& .MuiDataGrid-columnHeaders": {
             fontWeight: "bold", // Bold text
             fontSize: "16px", // Increase font size
+          },
+          "& .MuiDataGrid-virtualScrollerContent":{
+            fontWeight: "500", // Bold text
+            fontSize: "14px",
           },
         }}
       />

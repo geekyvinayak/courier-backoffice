@@ -14,6 +14,7 @@ const ExtraFeesScheduleGrid = () => {
       headerName: "Default",
       sortable: false,
       filterable: false,
+      cellClassName:'!flex !justify-center !items-center',
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
@@ -67,11 +68,11 @@ const ExtraFeesScheduleGrid = () => {
             navigate(`./edit/${params.row.id}`);
           }
         }}
-        className="cursor-pointer"
+        className="cursor-pointer !h-[70vh]"
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 7,
             },
           },
         }}
@@ -88,6 +89,10 @@ const ExtraFeesScheduleGrid = () => {
           "& .MuiDataGrid-columnHeaders": {
             fontWeight: "bold", // Bold text
             fontSize: "16px", // Increase font size
+          },
+          "& .MuiDataGrid-virtualScrollerContent":{
+            fontWeight: "500", // Bold text
+            fontSize: "14px",
           },
         }}
         disableRowSelectionOnClick
