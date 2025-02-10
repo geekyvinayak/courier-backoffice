@@ -16,6 +16,7 @@ const DiscountGrid = () => {
       field: "action",
       headerName: "",
       sortable: false,
+      cellClassName:'flex !justify-center',
       renderCell: (params) => (
         <IconButton>
            <DeleteDialog handleDelete={() => handleDelete(params.id)} />
