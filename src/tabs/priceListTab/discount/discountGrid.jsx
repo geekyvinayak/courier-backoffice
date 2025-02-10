@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteRequest, getRequest } from "../../../consts/apiCalls";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { DeleteDialog } from "../../../components/deleteDialog";
 
 const DiscountGrid = () => {
   const columns = [
@@ -15,9 +16,10 @@ const DiscountGrid = () => {
       field: "action",
       headerName: "",
       sortable: false,
+      cellClassName:'flex !justify-center',
       renderCell: (params) => (
-        <IconButton onClick={() => handleDelete(params.id)}>
-          <DeleteIcon style={{ color: "#1976d2" }} />
+        <IconButton>
+           <DeleteDialog handleDelete={() => handleDelete(params.id)} />
         </IconButton>
       ),
     },
