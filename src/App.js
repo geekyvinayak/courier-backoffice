@@ -33,86 +33,96 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
-        <Route path="/login" element={<Login/>} />
-      
-           
-            <Route
-                path="/*"
-                element={
-                  <ProtectedRoute>
-                      <div className="app">
-          <Sidebar />
-          <main className="content">
-            <Navbar />
-                    <Routes>
-              <Route path="/" element={<Navigate to="/dashboard" />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/pricelist" element={<PriceList />} />
-              <Route path="/pricelist/create" element={<NewPrice />} />
-              <Route path="/pricelist/edit/:id" element={<NewPrice />} />
-              <Route
-                path="/pricelist/vehiclestype"
-                element={<VehiclesTypes />}
-              />
-              <Route
-                path="/pricelist/vehiclestype/create"
-                element={<VehiclesTypesCreate />}
-              />
-              <Route
-                path="/pricelist/vehiclestype/edit/:id"
-                element={<VehiclesTypesCreate />}
-              />
-              <Route
-                path="/pricelist/vehicleequivalencies"
-                element={<VehicleEquivalencies />}
-              />
-              <Route
-                path="/pricelist/vehicleequivalencies/create"
-                element={<VehicleEquivalenciesCreate />}
-              />
-              <Route
-                path="/pricelist/vehicleequivalency/edit/:id"
-                element={<VehicleEquivalenciesEditForm />}
-              />
-              <Route
-                path="/pricelist/extrafeesschedule"
-                element={<ExtraFeesSchedule />}
-              />
-              <Route
-                path="/pricelist/extrafeesschedule/create"
-                element={<CreateExtraFeesSchedule />}
-              />
-              <Route
-                path="/pricelist/extrafeesschedule/edit/:id"
-                element={<CreateExtraFeesSchedule />}
-              />
-              <Route path="/pricelist/extrafees" element={<ExtraFees />} />
-              <Route
-                path="/pricelist/extrafees/create"
-                element={<ExtraFeesCreate />}
-              />
-              <Route path="/pricelist/pricingzones" element={<PricingZone />} />
+          <Route path="/login" element={<Login />} />
 
-              <Route
-                path="/pricelist/extrafees/edit/:id"
-                element={<ExtraFeesCreate />}
-              />
-              <Route
-                path="/pricelist/discounts-surcharges"
-                element={<Discount />}
-              />
-              <Route
-                path="/pricelist/discounts-surcharges/create"
-                element={<DiscountCreate />}
-              />
-              <Route
-                path="/pricelist/discounts-surcharges/edit/:id"
-                element={<DiscountCreate />}
-              />
-            </Routes>
-            </main></div>
-            </ProtectedRoute>} />
-           
+          <Route
+            path="/*"
+            element={
+              <ProtectedRoute>
+                <div className="app">
+                  <Sidebar />
+                  <main className="content">
+                    <Navbar />
+                    <Routes>
+                      <Route path="/" element={<Navigate to="/dashboard" />} />
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/pricelist" element={<PriceList />} />
+                      <Route path="/pricelist/create" element={<NewPrice />} />
+                      <Route
+                        path="/pricelist/edit/:id"
+                        element={<NewPrice />}
+                      />
+                      <Route
+                        path="/pricelist/vehiclestype"
+                        element={<VehiclesTypes />}
+                      />
+                      <Route
+                        path="/pricelist/vehiclestype/create"
+                        element={<VehiclesTypesCreate />}
+                      />
+                      <Route
+                        path="/pricelist/vehiclestype/edit/:id"
+                        element={<VehiclesTypesCreate />}
+                      />
+                      <Route
+                        path="/pricelist/vehicleequivalencies"
+                        element={<VehicleEquivalencies />}
+                      />
+                      <Route
+                        path="/pricelist/vehicleequivalencies/create"
+                        element={<VehicleEquivalenciesCreate />}
+                      />
+                      <Route
+                        path="/pricelist/vehicleequivalency/edit/:id"
+                        element={<VehicleEquivalenciesEditForm />}
+                      />
+                      <Route
+                        path="/pricelist/extrafeesschedule"
+                        element={<ExtraFeesSchedule />}
+                      />
+                      <Route
+                        path="/pricelist/extrafeesschedule/create"
+                        element={<CreateExtraFeesSchedule />}
+                      />
+                      <Route
+                        path="/pricelist/extrafeesschedule/edit/:id"
+                        element={<CreateExtraFeesSchedule />}
+                      />
+                      <Route
+                        path="/pricelist/extrafees"
+                        element={<ExtraFees />}
+                      />
+                      <Route
+                        path="/pricelist/extrafees/create"
+                        element={<ExtraFeesCreate />}
+                      />
+                      <Route
+                        path="/pricelist/pricingzones"
+                        element={<PricingZone />}
+                      />
+
+                      <Route
+                        path="/pricelist/extrafees/edit/:id"
+                        element={<ExtraFeesCreate />}
+                      />
+                      <Route
+                        path="/pricelist/discounts-surcharges"
+                        element={<Discount />}
+                      />
+                      <Route
+                        path="/pricelist/discounts-surcharges/create"
+                        element={<DiscountCreate />}
+                      />
+                      <Route
+                        path="/pricelist/discounts-surcharges/edit/:id"
+                        element={<DiscountCreate />}
+                      />
+                    </Routes>
+                  </main>
+                </div>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <ToastProvider />
       </ThemeProvider>

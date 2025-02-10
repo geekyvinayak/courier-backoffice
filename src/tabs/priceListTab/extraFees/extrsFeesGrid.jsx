@@ -126,19 +126,20 @@ const ExtraFeesGrid = () => {
       <div>
         <DataGrid
           rows={extraFeesList}
-          className="cursor-pointer"
+          className="cursor-pointer !h-[70vh]"
           columns={columns}
           onCellClick={(params) => {
             if (params.field != "action") {
               navigate(`./edit/${params.row.id}`);
             }
           }}
+          
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 7,
               },
             },
           }}
@@ -159,6 +160,10 @@ const ExtraFeesGrid = () => {
               fontWeight: "bold", // Bold text
               fontSize: "16px", // Increase font size
             },
+            "& .MuiDataGrid-virtualScrollerContent":{
+            fontWeight: "500", // Bold text
+            fontSize: "14px",
+          },
           }}
         />
       </div>

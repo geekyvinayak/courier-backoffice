@@ -59,7 +59,9 @@ const PricingFileOperations = ({ fetchData, id }) => {
       let filename = "";
 
       if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(/filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/);
+        const filenameMatch = contentDisposition.match(
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+        );
         if (filenameMatch && filenameMatch[1]) {
           filename = decodeURIComponent(filenameMatch[1]);
         }
@@ -100,7 +102,9 @@ const PricingFileOperations = ({ fetchData, id }) => {
       let filename = "";
 
       if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(/filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/);
+        const filenameMatch = contentDisposition.match(
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+        );
         if (filenameMatch && filenameMatch[1]) {
           filename = decodeURIComponent(filenameMatch[1]);
         }
@@ -131,19 +135,21 @@ const PricingFileOperations = ({ fetchData, id }) => {
       </Typography>
 
       {/* Upload Area */}
-      <div 
+      <div
         className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-4 text-center cursor-pointer hover:bg-gray-50"
-        onClick={() => document.getElementById('fileInput').click()}
+        onClick={() => document.getElementById("fileInput").click()}
       >
         <div className="text-gray-600">
           <Typography variant="body1" className="font-medium mb-2">
             Drag & Drop file here
           </Typography>
           <Typography variant="body2" className="mb-4">
-            {selectedFile ? `Selected: ${selectedFile.name}` : 'or click to upload'}
+            {selectedFile
+              ? `Selected: ${selectedFile.name}`
+              : "or click to upload"}
           </Typography>
         </div>
-        
+
         <input
           id="fileInput"
           type="file"
@@ -162,9 +168,9 @@ const PricingFileOperations = ({ fetchData, id }) => {
         className="mb-4"
         sx={{
           backgroundColor: "#1976d2",
-          '&:hover': {
-            backgroundColor: "#1565c0"
-          }
+          "&:hover": {
+            backgroundColor: "#1565c0",
+          },
         }}
       >
         Upload
@@ -173,9 +179,11 @@ const PricingFileOperations = ({ fetchData, id }) => {
       {/* Warning Message */}
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
         <Typography variant="body2" className="text-yellow-800">
-          The last uploaded file will not reflect changes made on vehicles, service levels and/or zones. 
-          To make changes to the price list, either add the missing vehicles, service levels and/or zones manually 
-          in the existing price list or download the Template File to generate a valid empty price list.
+          The last uploaded file will not reflect changes made on vehicles,
+          service levels and/or zones. To make changes to the price list, either
+          add the missing vehicles, service levels and/or zones manually in the
+          existing price list or download the Template File to generate a valid
+          empty price list.
         </Typography>
       </div>
 

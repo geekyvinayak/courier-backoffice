@@ -7,8 +7,8 @@ import { tokens } from "../theme";
 // import {MenuOutlinedIcon } from '@mui/icons-material'
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import DonutLargeOutlinedIcon from "@mui/icons-material/DonutLargeOutlined";
-import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
-import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
+import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
+import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -24,7 +24,7 @@ const Sidebarr = () => {
           [`.ps-sidebar-container`]: {
             background: `${colors.primary[400]} !important`,
             height: "100% !important",
-            position:"fixed",
+            position: "fixed",
           },
           ["&.ps-sidebar-root"]: {
             height: "100% !important",
@@ -36,13 +36,13 @@ const Sidebarr = () => {
             [`.ps-sidebar-container`]: {
               background: `${colors.primary[400]} !important`,
               height: "100% !important",
-              width:"190px !important",
+              width: "190px !important",
               position: "stick",
             },
             ["&.ps-sidebar-root"]: {
               height: "100% !important",
-              width:"190px !important",
-              maxWidth:"190px !important"
+              width: "190px !important",
+              maxWidth: "190px !important",
             },
           }}
           menuItemStyles={{
@@ -64,19 +64,22 @@ const Sidebarr = () => {
           }}
         >
           <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            // onClick={() => setIsCollapsed(!isCollapsed)}
+            // icon={isCollapsed ?<img src="/loginLogo.png" width={"100px"} className="mr-2" /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
+              display:'flex',
+              justifyContent:"center",
+              alignItems:"center"
             }}
           >
-            {!isCollapsed && (
-              <div className="flex justify-between items-center ml-[15px]">
-                  <img src="/loginLogo.png" width={"80px"} className="mr-2"/>
-                <MenuOutlinedIcon />
+            {/* {!isCollapsed && (
+              <div className="flex justify-between items-center ml-[15px]"> */}
+                <img src="/loginLogo.png" width={"35px"}/>
+                {/* <MenuOutlinedIcon />
               </div>
-            )}
+            )} */}
           </MenuItem>
 
           <MenuItem

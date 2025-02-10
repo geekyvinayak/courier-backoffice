@@ -21,13 +21,14 @@ const PriceListGrid = () => {
       headerName: "Default",
       sortable: false,
       filterable: false,
+      cellClassName:'!flex !justify-center !items-center',
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
         ) : (
           <StarOutlineIcon
             onClick={() => handleActive(params.row.id)}
-            style={{ color: "#1976d2" }}
+            style={{ color: "#1976d2",justifySelf:"center",alignSelf:"center" }}
           />
         ),
     },
@@ -45,6 +46,7 @@ const PriceListGrid = () => {
       field: "actions",
       headerName: "",
       sortable: false,
+      cellClassName:'flex !justify-center',
       renderCell: (params) => (
         <IconButton>
           <DeleteDialog handleDelete={() => handleDelete(params.id)} />
@@ -94,7 +96,7 @@ const PriceListGrid = () => {
   }, []);
 
   return (
-    <Box className="mx-auto w-[90%] mt-5">
+    <Box className="mx-auto w-[90%] mt-5 !flex-1">
       <DataGrid
         rows={priceList}
         columns={columns}
@@ -107,7 +109,7 @@ const PriceListGrid = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 7,
             },
           },
         }}
@@ -125,8 +127,12 @@ const PriceListGrid = () => {
             fontWeight: "bold", // Bold text
             fontSize: "16px", // Increase font size
           },
+          "& .MuiDataGrid-virtualScrollerContent":{
+            fontWeight: "500", // Bold text
+            fontSize: "14px",
+          },
         }}
-        className="cursor-pointer"
+        className="cursor-pointer !h-[70vh]"
         disableRowSelectionOnClick
       />
     </Box>

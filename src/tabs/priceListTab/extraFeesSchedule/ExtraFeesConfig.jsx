@@ -45,7 +45,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
       priority: 0,
       extraFeeScheduleId: id,
       extraFeeId: 0,
-      slidingFeeDetailsList:[],
+      slidingFeeDetailsList: [],
       file: "",
     },
     validationSchema: Yup.object({
@@ -88,7 +88,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
     }
   };
 
-  const handdleTemplteDownload = async()=>{
+  const handdleTemplteDownload = async () => {
     try {
       const response = await axios({
         url: `${process.env.REACT_APP_BACKEND_URL}/extraFeeSchedule/template?isSeparateVehicle=${formik.values.separateSheetPerVehicleType}`,
@@ -225,7 +225,11 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                 <br />
 
                 {/* Download Template Button */}
-                <Button onClick={handdleTemplteDownload} variant="outlined" sx={{ mb: 2 }}>
+                <Button
+                  onClick={handdleTemplteDownload}
+                  variant="outlined"
+                  sx={{ mb: 2 }}
+                >
                   Download Template
                 </Button>
               </>

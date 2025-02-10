@@ -10,7 +10,7 @@ const PriceList = () => {
       <div>
         <SubTabNavigator />
       </div>
-      <div className="ml-4">
+      <div className="ml-4 ">
         <LinkBtn label="New Price List" url={"/pricelist/create"} />
       </div>
       <div>

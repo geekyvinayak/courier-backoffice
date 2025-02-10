@@ -19,7 +19,7 @@ const itemsData = {
         "/pricelist/vehicleequivalencies",
         "/pricelist/vehiclestype/create",
         "/pricelist/vehicleequivalencies/create",
-        "/pricelist/vehicleequivalency/edit/"
+        "/pricelist/vehicleequivalency/edit/",
       ],
     },
     // { id: 3, name: "Service Levels", link: "/pricelist/servicelevels" },
@@ -39,7 +39,10 @@ const itemsData = {
       id: 6,
       name: "Discounts/Surcharges",
       link: "/pricelist/discounts-surcharges",
-      childPaths: ["/pricelist/discounts-surcharges","/pricelist/discounts-surcharges/create"],
+      childPaths: [
+        "/pricelist/discounts-surcharges",
+        "/pricelist/discounts-surcharges/create",
+      ],
     },
     {
       id: 7,
@@ -48,7 +51,14 @@ const itemsData = {
       childPaths: ["/pricelist/pricingzones", "/pricelist/pricingzoneslayout"],
     },
   ],
-  "/dashboard": [{ id: 1, name: "Dashboard", link: "/dashboard" ,childPaths:["/dashboard"]}],
+  "/dashboard": [
+    {
+      id: 1,
+      name: "Dashboard",
+      link: "/dashboard",
+      childPaths: ["/dashboard"],
+    },
+  ],
 };
 
 // Component to display items based on the current route
@@ -58,21 +68,21 @@ const TabNavigation = () => {
   const items = itemsData[`/${currentPath}`] || []; // Get items based on the current route
 
   return (
-      <ul className="flex w-[55%] justify-between">
-        {items.map((item) => (
-          <li
-            key={item.id}
-            className={`block p-2 text-center flex-1 transition-colors focus:outline-none font-semibold focus:ring-2 focus:ring-blue-500
+    <ul className="flex w-[55%] justify-between">
+      {items.map((item) => (
+        <li
+          key={item.id}
+          className={`block p-2 text-center flex-1 transition-colors max-w-[165px] focus:outline-none font-semibold focus:ring-2 focus:ring-blue-500
           ${
             item?.childPaths?.includes(location?.pathname)
               ? " text-black border-b-4 border-[#494fb5] font-bold rounded"
               : "text-white-700"
           }`}
-          >
-            <Link to={item.link}>{item.name}</Link>
-          </li>
-        ))}
-      </ul>
+        >
+          <Link to={item.link}>{item.name}</Link>
+        </li>
+      ))}
+    </ul>
   );
 };
 
