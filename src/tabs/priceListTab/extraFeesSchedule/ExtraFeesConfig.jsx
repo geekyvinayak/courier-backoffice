@@ -21,7 +21,7 @@ import { getRequest, postRequest } from "../../../consts/apiCalls";
 import axios from "axios";
 import useToast from "../../../components/toast/useToast";
 
-const ExtraFeesConfig = ({ open, handleClose, id }) => {
+const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
   const [extraFees, setExtraFees] = useState([]);
 
   const formik = useFormik({
@@ -56,17 +56,21 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
       salesCommissionable: Yup.number().required("Required"),
     }),
     onSubmit: async(values) => {
-      console.log("Form Data:", values,id);
-      const file = values.file;
+      const file = values.file?values.file:"null";
       delete values.file;
-      const response = await postRequest(
-            `/extraFeeSchedule/extraFee/${id}`,
-            {extraFeeConfigDto:values,file},
-            {
-              "Content-Type": "multipart/form-data",
-            },
-          );
-          console.log(response)
+      try{
+        const response = await postRequest(
+          `/extraFeeSchedule/extraFee/${id}`,
+          {extraFeeConfigDto:JSON.stringify(values),file},
+          {
+            "Content-Type": "multipart/form-data",
+          },
+        );
+        showSuccess('Config Added');
+        handleClose();
+      } catch(error){
+        showError("Something went wrong")
+      }
       // submitForm(values);
     },
   });
@@ -80,7 +84,7 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
       );
       setExtraFees(response);
     } catch (error) {
-      console.error("Error fetching pricing list:", error);
+      console.error("Error fetching:", error);
     }
   };
 
@@ -127,11 +131,24 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
     }
   }
 
+  const fetchExtraFeeConfigById = async()=>{
+    try{
+      const response = await getRequest(`/extraFeeSchedule/getExtraFeeConfigById/${configId}`);
+      formik.setValues(response);
+    } catch(error) {
+      showError("Some Thing Went Wrong.");
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    if (id) {
+    if (id && !configId) {
       fetchExtraFees();
     }
-  }, [id]);
+    if(configId) {
+      fetchExtraFeeConfigById();
+    }
+  }, [id,configId]);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -143,12 +160,14 @@ const ExtraFeesConfig = ({ open, handleClose, id }) => {
             <FormLabel>EXTRA FEE TYPE</FormLabel>
             <Select
               name="extraFeeName"
+              disabled={configId}
               value={formik.values.extraFeeName}
               onChange={formik.handleChange}
             >
-              {extraFees.map((fees) => {
+              {!configId&&extraFees.map((fees) => {
                 return <MenuItem value={fees.name}>{fees.name}</MenuItem>;
               })}
+              {configId&&<MenuItem value={formik.values.extraFeeName}>{formik.values.extraFeeName}</MenuItem>}
             </Select>
           </FormControl>
 

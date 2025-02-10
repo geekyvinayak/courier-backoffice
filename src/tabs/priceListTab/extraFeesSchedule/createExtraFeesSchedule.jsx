@@ -32,14 +32,14 @@ const CreateExtraFeesSchedule = () => {
     }),
     onSubmit: async (values) => {
       try {
-        if (id) {
-          const response = await postRequest(
-            `/extraFeeSchedule/extraFee/${id}`,
-            values,
-          );
-        } else {
+        // if (id) {
+        //   const response = await postRequest(
+        //     `/extraFeeSchedule/extraFee/${id}`,
+        //     values,
+        //   );
+        // } else {
           const response = await postRequest("/extraFeeSchedule", values);
-        }
+        // }
         navigate("/pricelist/extrafeesschedule");
       } catch (error) {
         console.log(error);
@@ -58,7 +58,6 @@ const CreateExtraFeesSchedule = () => {
   };
 
   const handleExtraConfig = async (configJson) => {
-    console.log("form", formik.values);
     const existingConfigs = formik.values.extraFeeConfigs || [];
 
     const updatedConfigs = existingConfigs.some(
@@ -77,7 +76,6 @@ const CreateExtraFeesSchedule = () => {
       active: formik.values.active,
       file: "null",
     };
-    console.log("bdy", body);
     const response = await postRequest(
       `/extraFeeSchedule/extraFee/${id}`,
       body,
@@ -85,12 +83,6 @@ const CreateExtraFeesSchedule = () => {
         "Content-Type": "multipart/form-data",
       },
     );
-    // console.log("dss",formik.values.extraFeeConfigs);
-    // updateVale(formik.values);
-  };
-
-  const updateVale = (data) => {
-    console.log(formik.values);
   };
 
   useEffect(() => {
@@ -111,6 +103,8 @@ const CreateExtraFeesSchedule = () => {
       href: "",
     },
   ];
+
+  const [configId,setConfigId] = useState();
 
   return (
     <div>
@@ -170,17 +164,18 @@ const CreateExtraFeesSchedule = () => {
       <div>
         {id && (
           <ExtraConfigGrid
-            console={extraConfig}
+            ConfigData={extraConfig}
             setOpenDialog={setOpenDialog}
+            setConfigId={setConfigId}
           />
         )}
       </div>
       {id && openDialog && (
         <ExtraFeesConfig
           open={openDialog}
-          handleClose={() => setOpenDialog(false)}
-          // submitForm={handleExtraConfig}
+          handleClose={() => {setOpenDialog(false);fetchExtraFeesSchedule()}}
           id={id}
+          configId={configId}
         />
       )}
     </div>
@@ -189,7 +184,7 @@ const CreateExtraFeesSchedule = () => {
 
 export default CreateExtraFeesSchedule;
 
-const ExtraConfigGrid = ({ ConfigData, setOpenDialog }) => {
+const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
   const columns = [
     {
       field: "extraFeeName",
@@ -274,7 +269,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog }) => {
       <Box className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Configuration Data</h2>
         <button
-          onClick={() => setOpenDialog(true)}
+          onClick={() => {setOpenDialog(true);setConfigId(null)}}
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
           Add New
@@ -285,7 +280,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog }) => {
       <DataGrid
         rows={ConfigData}
         columns={columns}
-        onCellClick={(params) => {}}
+        onCellClick={(params) => {setOpenDialog(true);setConfigId(params.id)}}
         className="cursor-pointer"
         initialState={{
           pagination: {
