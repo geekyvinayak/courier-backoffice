@@ -13,7 +13,7 @@ body,
   font-family: "Inter", serif;
 }
 .login {
-  background-image: url("/bg-img.png");
+  background-image: url("../public/bg-img.png");
 }
 .app {
   display: flex;
