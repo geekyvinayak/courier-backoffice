@@ -58,14 +58,14 @@ const PricingZone = () => {
   };
 
   return (
-    <div className="ml-2 pb-2">
+    <div className="wraper-container">
       <SubTabNavigator
         data={[
           { lable: "Zone", url: "/pricelist/pricingzones" },
           // { lable: "Zone Layout", url: "/pricelist/pricingzoneslayout" },
         ]}
       />
-      <Box sx={{ p: 2 }}>
+      <Box>
         <Typography variant="h6" gutterBottom fontWeight={600}>
           Zone Layout
         </Typography>
@@ -81,7 +81,7 @@ const PricingZone = () => {
         </Select>
       </Box>
       <Uploadpricezone fetchData={fetchData} />
-      <Box sx={{ p: 2 }}>
+      <Box>
         <Typography variant="h6" gutterBottom fontWeight={600}>
           Included Zones
         </Typography>
@@ -90,13 +90,11 @@ const PricingZone = () => {
         elevation={4}
         sx={{
           maxWidth: 600,
-          marginLeft: "20px",
-          // padding: "20px",
           height: "auto",
           maxHeight: 500,
         }}
       >
-        <Box sx={{ p: 2 }}>
+        <Box>
           <div className="flex justify-end p-2 gap-11 items-center border-b border-gray-500 mb-2">
             <TextField
               size="small"

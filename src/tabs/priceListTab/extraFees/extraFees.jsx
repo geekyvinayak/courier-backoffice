@@ -6,14 +6,14 @@ import LinkBtn from "../../../components/linkBtn";
 import SubTabNavigator from "../../../components/subTabNavigator";
 export const ExtraFees = () => {
   return (
-    <div>
+    <div className="wraper-container">
       <SubTabNavigator
         data={[
           { lable: "Extra Fee Schedules", url: "/pricelist/extrafeesschedule" },
           { lable: "Extra Fee", url: "/pricelist/extrafees" },
         ]}
       />
-      <div className="ml-4">
+      <div>
         <LinkBtn
           label="Add Extra Fees Type"
           url={"/pricelist/extrafees/create"}
