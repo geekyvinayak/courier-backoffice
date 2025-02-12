@@ -122,7 +122,7 @@ const CreateExtraFeesSchedule = () => {
       <div className="max-w-[600px] p-4 border border-gray ml-4 mt-4 mb-4">
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h3" gutterBottom>
-            New Extra Fee Schedules
+            {id?"Edit":"New"} Extra Fee Schedules
           </Typography>
           <Button
             variant="contained"
@@ -142,7 +142,7 @@ const CreateExtraFeesSchedule = () => {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm text-gray-700 mb-1 font-semibold"
             >
               NAME
             </label>

@@ -13,6 +13,7 @@ const SubTabNavigator = ({ data = [] }) => {
             url={ele.url}
             key={index}
             filled={ele?.isFilled || false}
+            customClass="!text-[12px]"
           />
         );
       })}

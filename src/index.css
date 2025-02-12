@@ -19,12 +19,29 @@ body,
 .Mui-checked {
   color: #3e4396 !important;
 }
-
+.MuiButton-root {
+  text-transform: capitalize !important;
+}
+.MuiTypography-body1{
+  font: bold !important;
+  font-weight: 600 !important;
+}
 .app {
   display: flex;
   position: relative;
 }
 
+.MuiSelect-select.Mui-disabled {
+  background-color: #e6e5e5 !important;
+  color: black  !important;
+  font-weight: 500  !important;
+  cursor: no-drop !important;
+}
+.MuiButton-root {
+  background-color: #3e4396 !important;
+  color: white !important;
+  border-color: #3e4396 !important;
+} 
 ::-webkit-scrollbar {
   width: 10px;
 }
