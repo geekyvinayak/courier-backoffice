@@ -27,7 +27,7 @@ const PricingFileOperations = ({ fetchData, id }) => {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const response = await postRequest("/priceZone/upload", formData, {
+      const response = await postRequest(`/api/pricingList/upload/${id}`, formData, {
         "Content-Type": "multipart/form-data",
       });
       console.log("response file", response);
