@@ -201,7 +201,12 @@ const PricingFileOperations = ({ fetchData, id }) => {
             fullWidth
             onClick={handleDownload}
             disabled={isLoading}
-            className="mb-2 max-w-[150px] gap-2"
+            sx={{
+              backgroundColor: 'transparent !important', // Custom color for this specific button
+              color: 'black !important',
+              border: "1px solid black !important"
+            }}
+            className="mb-2 max-w-[150px] gap-2 !bg-white "
           >
            <FileDownloadOutlinedIcon/>   Price file
           </Button>
@@ -213,6 +218,11 @@ const PricingFileOperations = ({ fetchData, id }) => {
             fullWidth
             onClick={handleDownloadTemplate}
             disabled={isLoading}
+            sx={{
+              backgroundColor: 'transparent !important', // Custom color for this specific button
+              color: 'black !important',
+              border: "1px solid black !important"
+            }}
             className="mb-2 max-w-[150px] gap-1 !capitalize"
           >
            <FileDownloadOutlinedIcon/> Template file
