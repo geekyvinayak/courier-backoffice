@@ -59,7 +59,7 @@ const ExtraFeesScheduleGrid = () => {
   }, []);
 
   return (
-    <Box className="mx-auto w-[90%] mt-5">
+    <Box className="w-[90%] mt-5">
       <DataGrid
         rows={priceListSchedule}
         columns={columns}

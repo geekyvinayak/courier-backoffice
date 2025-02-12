@@ -5,7 +5,7 @@ import VehiclesTypeGrid from "./vehiclesTypeGrid";
 
 const VehiclesTypes = () => {
   return (
-    <div className="ml-2">
+    <div className="wraper-container">
       <SubTabNavigator
         data={[
           { lable: "Vehicle Types", url: "/pricelist/vehiclestype" },
@@ -15,7 +15,7 @@ const VehiclesTypes = () => {
           },
         ]}
       />
-      <div className="ml-4">
+      <div>
         <LinkBtn
           label="New Vehicle Type"
           url={"/pricelist/vehiclestype/create"}

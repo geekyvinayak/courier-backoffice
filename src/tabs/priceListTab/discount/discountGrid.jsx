@@ -51,7 +51,7 @@ const DiscountGrid = () => {
   }, []);
 
   return (
-    <div className="mx-auto w-[90%] mt-5">
+    <div className="mt-5">
       <div>
         <DataGrid
           rows={discountList}

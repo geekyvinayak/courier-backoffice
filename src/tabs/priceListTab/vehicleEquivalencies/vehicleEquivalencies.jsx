@@ -5,7 +5,7 @@ import VehicleEquivalenciesGrid from "./vehicleEquivalenciesGrid";
 
 const VehicleEquivalencies = () => {
   return (
-    <>
+    <div className="wraper-container">
       <SubTabNavigator
         data={[
           { lable: "Vehicle Types", url: "/pricelist/vehiclestype" },
@@ -15,14 +15,14 @@ const VehicleEquivalencies = () => {
           },
         ]}
       />
-      <div className="ml-4">
+      <div>
         <LinkBtn
           label="New Vehicle Equivalency"
           url={"/pricelist/vehicleequivalencies/create"}
         />
       </div>
       <VehicleEquivalenciesGrid />
-    </>
+    </div>
   );
 };
 

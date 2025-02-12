@@ -3,8 +3,8 @@ import DiscountGrid from "./discountGrid";
 
 export const Discount = () => {
   return (
-    <div>
-      <div className="ml-4 mt-4">
+    <div className="wraper-container">
+      <div>
         <LinkBtn
           label="New Discount/Surcharge"
           url={"/pricelist/discounts-surcharges/create"}

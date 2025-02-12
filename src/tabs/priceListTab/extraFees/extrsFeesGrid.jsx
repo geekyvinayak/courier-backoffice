@@ -122,7 +122,7 @@ const ExtraFeesGrid = () => {
   }, []);
 
   return (
-    <div className="mx-auto w-[90%] mt-5">
+    <div className="w-[90%] mt-5">
       <div>
         <DataGrid
           rows={extraFeesList}
