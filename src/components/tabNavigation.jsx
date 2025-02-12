@@ -66,10 +66,10 @@ const TabNavigation = () => {
   const location = useLocation();
   const currentPath = location.pathname.split("/")[1]; // Get the base route (e.g., "price" or "dashboard")
   const items = itemsData[`/${currentPath}`] || []; // Get items based on the current route
-const isActive = item?.childPaths?.some(path => {
-  const regex = new RegExp(`^${path}(/\\d+)?$`); // Allows optional "/id" at the end
-  return regex.test(location?.pathname);
-});
+// const isActive = item?.childPaths?.some(path => {
+//   const regex = new RegExp(`^${path}(/\\d+)?$`); // Allows optional "/id" at the end
+//   return regex.test(location?.pathname);
+// });
   return (
     <ul className="flex w-[55%] justify-between">
       {items.map((item) => (
@@ -77,7 +77,10 @@ const isActive = item?.childPaths?.some(path => {
           key={item.id}
           className={`block p-2 text-center flex-1 transition-colors max-w-[165px] focus:outline-none font-semibold focus:ring-2 focus:ring-blue-500
           ${
-            isActive
+           item?.childPaths?.some(path => {
+  const regex = new RegExp(`^${path}(/\\d+)?$`) // Allows optional "/id" at the end
+  return regex.test(location?.pathname)
+})
               ? " text-black border-b-4 border-[#494fb5] font-bold rounded"
               : "text-white-700"
           }`}
