@@ -157,7 +157,9 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
         <form onSubmit={formik.handleSubmit}>
           {/* Extra Fee Type */}
           <FormControl fullWidth sx={{ mb: 2 }}>
-            <FormLabel>EXTRA FEE TYPE</FormLabel>
+          <Typography variant="body1" gutterBottom>
+          EXTRA FEE TYPE
+              </Typography>
             <Select
               name="extraFeeName"
               disabled={configId}
@@ -173,10 +175,13 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
           {/* Configuration Section */}
           <Paper variant="outlined" sx={{ padding: 2, mb: 2 }}>
-            <Typography variant="subtitle1">Configuration</Typography>
+            <Typography variant="h5">Configuration</Typography>
             {/* Type */}
             <FormControl component="fieldset" sx={{ mb: 2 }}>
-              <FormLabel>TYPE</FormLabel>
+            <Typography variant="body1" gutterBottom className="!mt-4">
+            TYPE
+              </Typography>
+             
               <RadioGroup
                 row
                 name="type"
@@ -349,7 +354,10 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
           {/* Commissions Section */}
           <Paper variant="outlined" sx={{ padding: 2, mb: 2 }}>
-            <Typography variant="subtitle1">Commissions</Typography>
+          <Typography variant="body1" gutterBottom className="!mb-4">
+          Commissions
+              </Typography>
+           
             <TextField
               fullWidth
               size="small"
@@ -374,7 +382,10 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
           {/* Visibility Section */}
           <Paper variant="outlined" sx={{ padding: 2, mb: 2 }}>
-            <Typography variant="subtitle1">Visibility</Typography>
+          <Typography variant="body1" gutterBottom className="!mb-4">
+          Visibility
+              </Typography>
+           
             <TextField
               fullWidth
               label="RANK"

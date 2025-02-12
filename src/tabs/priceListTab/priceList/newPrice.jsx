@@ -256,7 +256,7 @@ const NewPrice = () => {
               marginBottom={2}
             >
               <Typography variant="h3" gutterBottom>
-                New Price List
+                {id? 'Edit':"New"} Price List
               </Typography>
               <Button
                 type="submit"

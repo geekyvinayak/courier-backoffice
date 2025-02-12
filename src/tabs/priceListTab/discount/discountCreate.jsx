@@ -69,7 +69,7 @@ const DiscountCreate = () => {
       <form onSubmit={formik.handleSubmit}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h3" gutterBottom>
-            New Discount/Surcharge
+            {id?"Edit":"New"} Discount/Surcharge
           </Typography>
           <Box display="flex" gap={2}>
             <Button
@@ -87,7 +87,7 @@ const DiscountCreate = () => {
         </Box>
 
         <FormControl fullWidth margin="normal">
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             Type
           </Typography>
           <Select
@@ -104,7 +104,7 @@ const DiscountCreate = () => {
         </FormControl>
 
         <Box marginY={2}>
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             Name
           </Typography>
           <TextField
@@ -117,7 +117,7 @@ const DiscountCreate = () => {
         </Box>
 
         <Box marginY={2}>
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             Description
           </Typography>
           <TextField
@@ -151,7 +151,7 @@ const DiscountCreate = () => {
         </FormControl>
 
         <Box marginY={2}>
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             Amount ({formik.values.unit === "percentage" ? "%" : "$"})
           </Typography>
           <TextField

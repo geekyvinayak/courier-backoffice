@@ -23,6 +23,7 @@ import { getRequest, postRequest } from "../../../consts/apiCalls";
 import SubTabNavigator from "../../../components/subTabNavigator";
 import { useNavigate } from "react-router-dom";
 import useToast from "../../../components/toast/useToast";
+import Breadcrumb from "../../../components/Breadcrumb";
 
 const VehicleEquivalenciesForm = () => {
   const nav = useNavigate();
@@ -106,6 +107,15 @@ const VehicleEquivalenciesForm = () => {
             lable: "Vehicle Equivalencies",
             url: "/pricelist/vehicleequivalencies",
             isFilled: true,
+          },
+        ]}
+      />
+      <Breadcrumb
+        items={[
+          { label: "Vehicles", href: "/pricelist/vehiclestype" },
+          {
+            label:  "New Vehicle Equivalencies",
+            href: "", // Conditional href
           },
         ]}
       />

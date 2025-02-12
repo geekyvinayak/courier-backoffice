@@ -75,11 +75,11 @@ const TabNavigation = () => {
 //   return regex.test(location?.pathname);
 // });
   return (
-    <ul className="flex w-[55%] justify-between">
+    <ul className="flex w-[50%] ">
       {items.map((item) => (
         <li
           key={item.id}
-          className={`block p-2 text-center flex-1 transition-colors max-w-[165px] focus:outline-none font-semibold focus:ring-2 focus:ring-blue-500
+          className={`block p-2 text-center flex-1 transition-colors max-w-[150px] focus:outline-none font-medium focus:ring-2 focus:ring-blue-500
           ${
            item?.childPaths?.some(path => {
   const regex = new RegExp(`^${path}(/\\d+)?$`) // Allows optional "/id" at the end
