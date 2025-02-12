@@ -13,7 +13,7 @@ const LinkBtn = ({ label = "", url = "/", size = "large", filled = true }) => {
   };
   const location = useLocation();
   const currentPath = location.pathname;
-  console.log("currentPath", currentPath);
+  
   return (
     <Stack spacing={2} direction="row">
       <Button
@@ -31,7 +31,7 @@ const LinkBtn = ({ label = "", url = "/", size = "large", filled = true }) => {
             border: `2px solid #1569CB`,
           },
         }}
-        className={`px-4 py-2 font-semibold rounded shadow focus:outline-none focus:ring ${
+        className={`px-4 py-2 font-semibold !capitalize rounded shadow focus:outline-none focus:ring ${
           currentPath == url ? "active" : ""
         } ${filled ? "active" : ""}`}
         onClick={() => handleNavigation(url)}

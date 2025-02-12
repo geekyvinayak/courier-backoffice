@@ -4,7 +4,7 @@ import LinkBtn from "./linkBtn";
 
 const SubTabNavigator = ({ data = [] }) => {
   return (
-    <Stack spacing={2} direction="row" padding={2}>
+    <Stack spacing={2} direction="row" paddingBottom={'1rem'}>
       {data.map((ele, index) => {
         return (
           <LinkBtn

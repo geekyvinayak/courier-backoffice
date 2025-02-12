@@ -96,7 +96,7 @@ const PriceListGrid = () => {
   }, []);
 
   return (
-    <Box className="mx-auto w-[90%] mt-5 !flex-1">
+    <Box className="w-[90%] mt-5">
       <DataGrid
         rows={priceList}
         columns={columns}
