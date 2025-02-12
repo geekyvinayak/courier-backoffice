@@ -19,7 +19,7 @@ const itemsData = {
         "/pricelist/vehicleequivalencies",
         "/pricelist/vehiclestype/create",
         "/pricelist/vehicleequivalencies/create",
-        "/pricelist/vehicleequivalency/edit/",
+        "/pricelist/vehicleequivalency/edit",
       ],
     },
     // { id: 3, name: "Service Levels", link: "/pricelist/servicelevels" },
