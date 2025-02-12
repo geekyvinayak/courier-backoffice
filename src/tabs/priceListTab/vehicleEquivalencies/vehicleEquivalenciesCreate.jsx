@@ -134,10 +134,10 @@ const VehicleEquivalenciesForm = () => {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  sx={{
-                    // Red border (you can change the color)
-                    backgroundColor: "#1569CB",
-                  }}
+                  // sx={{
+                  //   // Red border (you can change the color)
+                  //   backgroundColor: "#1569CB",
+                  // }}
                 >
                   Save
                 </Button>

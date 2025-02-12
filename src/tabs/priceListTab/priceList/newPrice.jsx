@@ -247,7 +247,7 @@ const NewPrice = () => {
         <Breadcrumb items={pageBreadcrums} />
       </div>
       <div className="flex gap-10">
-        <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
+        <div className="max-w-[600px] w-full p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
           <form onSubmit={formik.handleSubmit}>
             <Box
               display="flex"
@@ -264,7 +264,7 @@ const NewPrice = () => {
                 color="primary"
                 sx={{
                   // Red border (you can change the color)
-                  backgroundColor: "#1569CB",
+                  backgroundColor: "#3e4396",
                 }}
               >
                 Save

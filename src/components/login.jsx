@@ -57,11 +57,11 @@ const Login = () => {
         <img
           src="/loginLogo.png"
           alt="Personal Touch Courier"
-          height={"250px"}
-          width={"250px"}
-          style={{ marginBottom: 3 }}
+          height={"350px"}
+          width={"350px"}
+          style={{ marginBottom: 10 }}
         />
-        <Typography component="h1" variant="h3" fontWeight={500}>
+        <Typography component="h1" variant="h3" fontWeight={500} fontSize={"30px"}>
           Log in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -69,9 +69,10 @@ const Login = () => {
             <Typography
               variant="subtitle1"
               gutterBottom
-              fontWeight={600}
+              fontWeight={500}
+              fontSize={"16px"}
               marginBottom={"-8px"}
-              marginLeft={"8px"}
+              marginLeft={"4px"}
             >
               Email Address
             </Typography>
@@ -93,7 +94,8 @@ const Login = () => {
             gutterBottom
             fontWeight={600}
             marginBottom={"-8px"}
-            marginLeft={"8px"}
+            marginLeft={"4px"}
+            fontSize={"16px"}
           >
             Password
           </Typography>
@@ -113,7 +115,7 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2 , backgroundColor:"#065607",textTransform:"unset",fontSize:"14px !important" }}
           >
             Log In
           </Button>
