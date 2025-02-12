@@ -11,10 +11,15 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Inter", serif;
+  /* background-color: #f1f3f6; */
 }
 .login {
   background-image: url("../public/bg-img.png");
 }
+.Mui-checked {
+  color: #3e4396 !important;
+}
+
 .app {
   display: flex;
   position: relative;
