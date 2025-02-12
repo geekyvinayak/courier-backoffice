@@ -8,7 +8,7 @@ const itemsData = {
       id: 1,
       name: "Price List",
       link: "/pricelist",
-      childPaths: ["/pricelist", "/pricelist/create"],
+      childPaths: ["/pricelist", "/pricelist/create","/pricelist/edit"],
     },
     {
       id: 2,
@@ -18,6 +18,7 @@ const itemsData = {
         "/pricelist/vehiclestype",
         "/pricelist/vehicleequivalencies",
         "/pricelist/vehiclestype/create",
+        "/pricelist/vehiclestype/edit",
         "/pricelist/vehicleequivalencies/create",
         "/pricelist/vehicleequivalency/edit",
       ],
@@ -32,7 +33,9 @@ const itemsData = {
         "/pricelist/extrafeesschedule",
         "/pricelist/extrafees",
         "/pricelist/extrafeesschedule/create",
+        "/pricelist/extrafeesschedule/edit",
         "/pricelist/extrafees/create",
+        "/pricelist/extrafees/edit",
       ],
     },
     {
@@ -42,6 +45,7 @@ const itemsData = {
       childPaths: [
         "/pricelist/discounts-surcharges",
         "/pricelist/discounts-surcharges/create",
+          "/pricelist/discounts-surcharges/edit",
       ],
     },
     {
