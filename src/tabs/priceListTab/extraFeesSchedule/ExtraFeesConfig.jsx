@@ -356,6 +356,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                       </Typography>
                     </Box>
                   }
+                  arrow
                 >
                   <IconButton>
                     <InfoRounded className="text-[#3e4396]" />
