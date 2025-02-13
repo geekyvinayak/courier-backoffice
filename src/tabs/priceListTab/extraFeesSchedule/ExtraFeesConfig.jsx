@@ -1,4 +1,11 @@
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Tooltip,
+  IconButton,
+  Box,
+} from "@mui/material";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -20,6 +27,7 @@ import { useEffect } from "react";
 import { getRequest, postRequest } from "../../../consts/apiCalls";
 import axios from "axios";
 import useToast from "../../../components/toast/useToast";
+import { InfoRounded } from "@mui/icons-material";
 
 const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
   const [extraFees, setExtraFees] = useState([]);
@@ -55,21 +63,21 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
       driverCommissionable: Yup.number().required("Required"),
       salesCommissionable: Yup.number().required("Required"),
     }),
-    onSubmit: async(values) => {
-      const file = values.file?values.file:"null";
+    onSubmit: async (values) => {
+      const file = values.file ? values.file : "null";
       delete values.file;
-      try{
+      try {
         const response = await postRequest(
           `/extraFeeSchedule/extraFee/${id}`,
-          {extraFeeConfigDto:JSON.stringify(values),file},
+          { extraFeeConfigDto: JSON.stringify(values), file },
           {
             "Content-Type": "multipart/form-data",
           },
         );
-        showSuccess('Config Added');
+        showSuccess("Config Added");
         handleClose();
-      } catch(error){
-        showError("Something went wrong")
+      } catch (error) {
+        showError("Something went wrong");
       }
       // submitForm(values);
     },
@@ -129,26 +137,28 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
       showError("Error downloading file ");
       console.log(error);
     }
-  }
+  };
 
-  const fetchExtraFeeConfigById = async()=>{
-    try{
-      const response = await getRequest(`/extraFeeSchedule/getExtraFeeConfigById/${configId}`);
+  const fetchExtraFeeConfigById = async () => {
+    try {
+      const response = await getRequest(
+        `/extraFeeSchedule/getExtraFeeConfigById/${configId}`,
+      );
       formik.setValues(response);
-    } catch(error) {
+    } catch (error) {
       showError("Some Thing Went Wrong.");
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (id && !configId) {
       fetchExtraFees();
     }
-    if(configId) {
+    if (configId) {
       fetchExtraFeeConfigById();
     }
-  }, [id,configId]);
+  }, [id, configId]);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -157,19 +167,24 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
         <form onSubmit={formik.handleSubmit}>
           {/* Extra Fee Type */}
           <FormControl fullWidth sx={{ mb: 2 }}>
-          <Typography variant="body1" gutterBottom>
-          EXTRA FEE TYPE
-              </Typography>
+            <Typography variant="body1" gutterBottom>
+              EXTRA FEE TYPE
+            </Typography>
             <Select
               name="extraFeeName"
               disabled={configId}
               value={formik.values.extraFeeName}
               onChange={formik.handleChange}
             >
-              {!configId&&extraFees.map((fees) => {
-                return <MenuItem value={fees.name}>{fees.name}</MenuItem>;
-              })}
-              {configId&&<MenuItem value={formik.values.extraFeeName}>{formik.values.extraFeeName}</MenuItem>}
+              {!configId &&
+                extraFees.map((fees) => {
+                  return <MenuItem value={fees.name}>{fees.name}</MenuItem>;
+                })}
+              {configId && (
+                <MenuItem value={formik.values.extraFeeName}>
+                  {formik.values.extraFeeName}
+                </MenuItem>
+              )}
             </Select>
           </FormControl>
 
@@ -178,10 +193,10 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
             <Typography variant="h5">Configuration</Typography>
             {/* Type */}
             <FormControl component="fieldset" sx={{ mb: 2 }}>
-            <Typography variant="body1" gutterBottom className="!mt-4">
-            TYPE
+              <Typography variant="body1" gutterBottom className="!mt-4">
+                TYPE
               </Typography>
-             
+
               <RadioGroup
                 row
                 name="type"
@@ -324,17 +339,81 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                   value="roundup"
                   control={<Radio />}
                   label="ROUND UP"
+                  className="!mr-2"
                 />
+                <Tooltip
+                  title={
+                    <Box sx={{ maxWidth: 250, p: 1 }}>
+                      <Typography variant="subtitle2" fontWeight="bold">
+                        Round Up
+                      </Typography>
+                      <Typography variant="body2">
+                        Round up the quantity to the next 'Per unit' value.
+                      </Typography>
+                      <Typography variant="body2" sx={{ mt: 1 }}>
+                        Eg: [Quantity: 0.05] x [Per: 1.00] x [Unit Price: 1000]
+                        = [Total Price: 1000] (Quantity was rounded up to 1.00).
+                      </Typography>
+                    </Box>
+                  }
+                >
+                  <IconButton>
+                    <InfoRounded className="text-[#3e4396]" />
+                  </IconButton>
+                </Tooltip>
                 <FormControlLabel
                   value="norounding"
                   control={<Radio />}
                   label="NO ROUNDING"
                 />
+                <Tooltip
+                  title={
+                    <Box sx={{ maxWidth: 250, p: 1 }}>
+                      <Typography variant="subtitle2" fontWeight="bold">
+                        No Rounding
+                      </Typography>
+                      <Typography variant="body2">
+                        Quantity will be calculated as entered with no rounding.
+                      </Typography>
+                      <Typography variant="body2" sx={{ mt: 1 }}>
+                        Eg: [Quantity: 0.05] x [Per: 1.00] x [Unit Price: 1000]
+                        = [Total Price: 50] (Quantity was kept to 0.05).
+                      </Typography>
+                    </Box>
+                  }
+                  arrow
+                >
+                  <IconButton>
+                    <InfoRounded className="text-[#3e4396]" />
+                  </IconButton>
+                </Tooltip>
                 <FormControlLabel
                   value="rounddown"
                   control={<Radio />}
                   label="ROUND DOWN"
                 />
+                <Tooltip
+                  title={
+                    <Box sx={{ maxWidth: 250, p: 1 }}>
+                      <Typography variant="subtitle2" fontWeight="bold">
+                        Round Down
+                      </Typography>
+                      <Typography variant="body2">
+                        Round down the quantity to the previous 'Per unit'
+                        value.
+                      </Typography>
+                      <Typography variant="body2" sx={{ mt: 1 }}>
+                        Eg: [Quantity: 0.05] × [Per: 1.00] × [Unit Price: 1000]
+                        = [Total Price: 0] (Quantity was rounded down to 0.00).
+                      </Typography>
+                    </Box>
+                  }
+                  arrow
+                >
+                  <IconButton>
+                    <InfoRounded className="text-[#3e4396]" />
+                  </IconButton>
+                </Tooltip>
               </RadioGroup>
             </FormControl>
 
@@ -354,10 +433,10 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
           {/* Commissions Section */}
           <Paper variant="outlined" sx={{ padding: 2, mb: 2 }}>
-          <Typography variant="body1" gutterBottom className="!mb-4">
-          Commissions
-              </Typography>
-           
+            <Typography variant="body1" gutterBottom className="!mb-4">
+              Commissions
+            </Typography>
+
             <TextField
               fullWidth
               size="small"
@@ -382,10 +461,10 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
           {/* Visibility Section */}
           <Paper variant="outlined" sx={{ padding: 2, mb: 2 }}>
-          <Typography variant="body1" gutterBottom className="!mb-4">
-          Visibility
-              </Typography>
-           
+            <Typography variant="body1" gutterBottom className="!mb-4">
+              Visibility
+            </Typography>
+
             <TextField
               fullWidth
               label="RANK"

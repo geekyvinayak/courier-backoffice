@@ -23,6 +23,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import PricingFileOperations from "./pricingFileOperations";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { InfoRounded } from "@mui/icons-material";
 
 const initialValues = {
   name: "",
@@ -63,7 +66,7 @@ const TravelOptions = ({ values, setFieldValue }) => {
           marginBottom: 2,
         }}
       >
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="body1" gutterBottom>
           Travelling Distance Options
         </Typography>
       </Box>
@@ -318,7 +321,14 @@ const NewPrice = () => {
                     />
                   }
                   label="INCLUDE WAREHOUSE TRAVELLING DISTANCE"
+                  className="!mr-0"
                 />
+                <Tooltip title="Customize how the distance portion of the pricing is calculated by using the travelling distance from and to the warehouse.">
+                  <IconButton>
+                    <InfoRounded className="text-[#3e4396]" />
+                  </IconButton>
+                </Tooltip>
+
                 {formik.values.includeWarehouseTravellingDistance && (
                   <TravelOptions
                     values={formik.values}
@@ -505,9 +515,16 @@ const NewPrice = () => {
             {id && (
               <div style={{ marginBottom: "10px" }}>
                 <FormControl fullWidth>
-                  <Typography variant="body1" gutterBottom>
-                    FAILOVER PRICE LIST
-                  </Typography>
+                  <div className="flex items-center space-x-2">
+                    <Typography variant="body1" gutterBottom className="!mb-0">
+                      FAILOVER PRICE LIST
+                    </Typography>
+                    <Tooltip title="This price list will be used when no price is found. Order price may not calculate if the Failover Price List is not setup for all Service Levels and Vehicles.">
+                      <IconButton size="small">
+                        <InfoRounded className="text-[#3e4396]" />
+                      </IconButton>
+                    </Tooltip>
+                  </div>
                   <TextField
                     select
                     name="failOverPriceListName"

@@ -190,6 +190,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
       field: "extraFeeName",
       headerName: "Name",
       flex: 1,
+      cellClassName:"!text-[#3e4396]",
     },
     {
       field: "type",
@@ -289,6 +290,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
             },
           },
         }}
+        rowHeight={45}
         sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
@@ -301,8 +303,12 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
           },
           "& .MuiDataGrid-columnHeaders": {
             fontWeight: "bold", // Bold text
-            fontSize: "16px", // Increase font size
+            fontSize: "14px", // Increase font size
           },
+          "& .MuiDataGrid-virtualScrollerContent":{
+            fontWeight: "500", // Bold text
+            fontSize: "12px",
+          }
         }}
         disableRowSelectionOnClick
       />

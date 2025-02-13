@@ -8,8 +8,7 @@ import { DeleteDialog } from "../../../components/deleteDialog";
 
 const DiscountGrid = () => {
   const columns = [
-    { field: "id", headerName: "Id", flex: 1 },
-    { field: "name", headerName: "Name", flex: 1.5 },
+    { field: "name", cellClassName:"!text-[#3e4396]" , headerName: "Name", flex: 1.5 },
     { field: "amount", headerName: "Amount", flex: 1.5 },
     { field: "discountType", headerName: "Type", flex: 1 },
     {
@@ -62,6 +61,7 @@ const DiscountGrid = () => {
               navigate(`./edit/${params.row.id}`);
             }
           }}
+          rowHeight={45}
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
@@ -83,11 +83,11 @@ const DiscountGrid = () => {
             },
             "& .MuiDataGrid-columnHeaders": {
               fontWeight: "bold", // Bold text
-              fontSize: "16px", // Increase font size
+              fontSize: "14px", // Increase font size
             },
             "& .MuiDataGrid-virtualScrollerContent":{
               fontWeight: "500", // Bold text
-              fontSize: "14px",
+              fontSize: "12px",
             }
           }}
         />
