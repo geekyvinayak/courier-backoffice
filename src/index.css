@@ -19,12 +19,45 @@ body,
 .Mui-checked {
   color: #3e4396 !important;
 }
-
+.MuiButton-root {
+  text-transform: capitalize !important;
+}
+.MuiTypography-body1{
+  font: bold !important;
+  font-weight: 600 !important;
+}
 .app {
   display: flex;
   position: relative;
 }
 
+.MuiSelect-select.Mui-disabled {
+  background-color: #e6e5e5 !important;
+  color: black  !important;
+  font-weight: 500  !important;
+  cursor: no-drop !important;
+}
+.MuiInputBase-root.Mui-disabled {
+  background-color: #f0f0f0 !important; /* Custom background */
+  color: #a0a0a0 !important; /* Optional: Change text color */
+}
+
+.MuiButton.Mui-disabled {
+  background-color: #e6e5e5 !important;
+  color: black  !important;
+  font-weight: 500  !important;
+  cursor: no-drop !important;
+}
+.MuiButton-root.Mui-disabled {
+  background-color: #f0f0f0 !important; /* Change to your desired color */
+  color: #a0a0a0 !important; /* Optional: Change text color */
+}
+
+.MuiButton-root {
+  background-color: #3e4396 !important;
+  color: white !important;
+  border-color: #3e4396 !important;
+} 
 ::-webkit-scrollbar {
   width: 10px;
 }

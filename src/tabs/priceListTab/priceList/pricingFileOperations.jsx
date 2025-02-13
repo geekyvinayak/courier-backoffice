@@ -131,10 +131,12 @@ const PricingFileOperations = ({ fetchData, id }) => {
 
   return (
     <div className="max-w-[400px] w-full p-4 border border-gray shadow-md ml-4 mt-4 mb-4 items-center flex flex-col">
-      <Typography variant="h3" className="mb-4 self-start">
+      <Typography variant="h3" className="!mb-5 self-start">
         Prices
       </Typography>
-
+      <Typography variant="h5" className=" ">
+      Upload Price File
+      </Typography>
       {/* Upload Area */}
       <div
         className="mt-4 border-2 w-full border-dashed border-gray-300 rounded-lg p-8 mb-4 text-center cursor-pointer hover:bg-gray-50"
@@ -158,7 +160,7 @@ const PricingFileOperations = ({ fetchData, id }) => {
           className="hidden"
         />
       </div>
-
+      
       {/* Upload Button */}
       <Button
         variant="contained"
@@ -180,7 +182,7 @@ const PricingFileOperations = ({ fetchData, id }) => {
       {/* Warning Message */}
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 mt-4">
         <Typography variant="body2" className="text-yellow-800">
-          The last uploaded file will not reflect changes made on vehicles,
+         <span className="text-xl">⚠️</span> The last uploaded file will not reflect changes made on vehicles,
           service levels and/or zones. To make changes to the price list, either
           add the missing vehicles, service levels and/or zones manually in the
           existing price list or download the Template File to generate a valid
@@ -190,8 +192,8 @@ const PricingFileOperations = ({ fetchData, id }) => {
 
       {/* Download Section */}
       <div className="text-center">
-        <Typography variant="subtitle2" className="mb-4">
-          DOWNLOAD LAST UPLOADED PRICE LIST
+        <Typography variant="h5" className="mb-4">
+        Download Price File
         </Typography>
         <div className="space-y-2 flex flex-col justify-center items-center">
           <Button
@@ -199,15 +201,28 @@ const PricingFileOperations = ({ fetchData, id }) => {
             fullWidth
             onClick={handleDownload}
             disabled={isLoading}
-            className="mb-2 max-w-[150px] gap-2"
+            sx={{
+              backgroundColor: 'transparent !important', // Custom color for this specific button
+              color: 'black !important',
+              border: "1px solid black !important"
+            }}
+            className="mb-2 max-w-[150px] gap-2 !bg-white "
           >
            <FileDownloadOutlinedIcon/>   Price file
           </Button>
+          <Typography variant="h5" className="!mt-2">
+          Download
+        </Typography>
           <Button
             variant="outlined"
             fullWidth
             onClick={handleDownloadTemplate}
             disabled={isLoading}
+            sx={{
+              backgroundColor: 'transparent !important', // Custom color for this specific button
+              color: 'black !important',
+              border: "1px solid black !important"
+            }}
             className="mb-2 max-w-[150px] gap-1 !capitalize"
           >
            <FileDownloadOutlinedIcon/> Template file

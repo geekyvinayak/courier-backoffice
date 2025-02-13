@@ -15,6 +15,7 @@ import {
 import { getRequest, postRequest } from "../../../consts/apiCalls";
 import SubTabNavigator from "../../../components/subTabNavigator";
 import useToast from "../../../components/toast/useToast";
+import Breadcrumb from "../../../components/Breadcrumb";
 
 const VehicleEquivalenciesEditForm = () => {
   const nav = useNavigate();
@@ -82,6 +83,15 @@ const VehicleEquivalenciesEditForm = () => {
             lable: "Vehicle Equivalencies",
             url: "/pricelist/vehicleequivalencies",
             isFilled: true,
+          },
+        ]}
+      />
+      <Breadcrumb
+        items={[
+          { label: "Vehicles", href: "/pricelist/vehiclestype" },
+          {
+            label:  "Vehicle Equivalencies",
+            href: "", // Conditional href
           },
         ]}
       />

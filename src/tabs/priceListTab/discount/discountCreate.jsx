@@ -74,7 +74,7 @@ const DiscountCreate = () => {
             alignItems="center"
           >
             <Typography variant="h3" gutterBottom>
-              New Discount/Surcharge
+              {id?"Edit":"New"} Discount/Surcharge
             </Typography>
             <Box display="flex" gap={2}>
               <Button
@@ -91,49 +91,48 @@ const DiscountCreate = () => {
             </Box>
           </Box>
 
-          <FormControl fullWidth margin="normal">
-            <Typography variant="subtitle1" gutterBottom>
-              Type
-            </Typography>
-            <Select
-              name="type"
-              value={formik.values.discountType}
-              onChange={formik.handleChange}
-              fullWidth
-              size="small"
-              className={id ? "bg-grey-100" : ""}
-              disabled={id ? true : false}
-            >
-              <MenuItem value="Discount">Discount</MenuItem>
-              <MenuItem value="Surcharge">Surcharge</MenuItem>
-            </Select>
-          </FormControl>
+        <FormControl fullWidth margin="normal">
+          <Typography variant="body1" gutterBottom>
+            Type
+          </Typography>
+          <Select
+            name="type"
+            value={formik.values.discountType}
+            onChange={formik.handleChange}
+            fullWidth
+            size="small"
+            disabled={id ? true : false}
+          >
+            <MenuItem value="Discount">Discount</MenuItem>
+            <MenuItem value="Surcharge">Surcharge</MenuItem>
+          </Select>
+        </FormControl>
 
-          <Box marginY={2}>
-            <Typography variant="subtitle1" gutterBottom>
-              Name
-            </Typography>
-            <TextField
-              name="name"
-              size="small"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              fullWidth
-            />
-          </Box>
+        <Box marginY={2}>
+          <Typography variant="subtitle1" gutterBottom>
+            Name
+          </Typography>
+          <TextField
+            name="name"
+            size="small"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            fullWidth
+          />
+        </Box>
 
-          <Box marginY={2}>
-            <Typography variant="subtitle1" gutterBottom>
-              Description
-            </Typography>
-            <TextField
-              name="description"
-              size="small"
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              fullWidth
-            />
-          </Box>
+        <Box marginY={2}>
+          <Typography variant="subtitle1" gutterBottom>
+            Description
+          </Typography>
+          <TextField
+            name="description"
+            size="small"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            fullWidth
+          />
+        </Box>
 
           <FormControl component="fieldset" margin="normal">
             <FormLabel component="legend">Unit</FormLabel>
@@ -156,19 +155,19 @@ const DiscountCreate = () => {
             </RadioGroup>
           </FormControl>
 
-          <Box marginY={2}>
-            <Typography variant="subtitle1" gutterBottom>
-              Amount ({formik.values.unit === "percentage" ? "%" : "$"})
-            </Typography>
-            <TextField
-              name="amount"
-              size="small"
-              type="number"
-              value={formik.values.amount}
-              onChange={formik.handleChange}
-              fullWidth
-            />
-          </Box>
+        <Box marginY={2}>
+          <Typography variant="body1" gutterBottom>
+            Amount ({formik.values.unit === "percentage" ? "%" : "$"})
+          </Typography>
+          <TextField
+            name="amount"
+            size="small"
+            type="number"
+            value={formik.values.amount}
+            onChange={formik.handleChange}
+            fullWidth
+          />
+        </Box>
 
           {formik.values.unit === "percentage" && (
             <>

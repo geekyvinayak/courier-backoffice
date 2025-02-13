@@ -97,7 +97,7 @@ const ExtraFeesCreate = () => {
       <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
           <Typography variant="h3" gutterBottom>
-            New Extra Fee Type
+            {id?"Edit":"New"} Extra Fee Type
           </Typography>
           <Button
             variant="contained"
@@ -129,7 +129,7 @@ const ExtraFeesCreate = () => {
             <div key={field.id}>
               <label
                 htmlFor={field.id}
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm text-gray-700 mb-1 font-semibold"
               >
                 {field.label}
               </label>
