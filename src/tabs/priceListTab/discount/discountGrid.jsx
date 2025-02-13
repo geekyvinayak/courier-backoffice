@@ -83,7 +83,7 @@ const DiscountGrid = () => {
             },
             "& .MuiDataGrid-columnHeaders": {
               fontWeight: "bold", // Bold text
-              fontSize: "16px", // Increase font size
+              fontSize: "14px", // Increase font size
             },
             "& .MuiDataGrid-virtualScrollerContent":{
               fontWeight: "500", // Bold text

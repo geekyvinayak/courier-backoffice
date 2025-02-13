@@ -36,6 +36,7 @@ const PriceListGrid = () => {
       field: "name",
       headerName: "Name",
       flex: 2,
+      cellClassName:"!text-[#3e4396]",
     },
     {
       field: "type",
@@ -113,6 +114,7 @@ const PriceListGrid = () => {
             },
           },
         }}
+        rowHeight={45}
         sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
@@ -125,12 +127,12 @@ const PriceListGrid = () => {
           },
           "& .MuiDataGrid-columnHeaders": {
             fontWeight: "bold", // Bold text
-            fontSize: "16px", // Increase font size
+            fontSize: "14px", // Increase font size
           },
           "& .MuiDataGrid-virtualScrollerContent":{
             fontWeight: "500", // Bold text
-            fontSize: "14px",
-          },
+            fontSize: "12px",
+          }
         }}
         className="cursor-pointer !h-[70vh]"
         disableRowSelectionOnClick

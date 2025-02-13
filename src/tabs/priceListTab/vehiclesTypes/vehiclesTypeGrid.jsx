@@ -57,7 +57,7 @@ const VehiclesTypeGrid = () => {
       field: "displayId",
       headerName: "Id",
       flex: 1,
-      cellClassName: "cursor-pointer",
+      cellClassName: "cursor-pointer !text-[#3e4396]",
     },
     {
       field: "name",
@@ -106,6 +106,7 @@ const VehiclesTypeGrid = () => {
             },
           },
         }}
+        rowHeight={45}
         sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
@@ -118,12 +119,12 @@ const VehiclesTypeGrid = () => {
           },
           "& .MuiDataGrid-columnHeaders": {
             fontWeight: "bold", // Bold text
-            fontSize: "16px", // Increase font size
+            fontSize: "14px", // Increase font size
           },
           "& .MuiDataGrid-virtualScrollerContent":{
             fontWeight: "500", // Bold text
-            fontSize: "14px",
-          },
+            fontSize: "12px",
+          }
         }}
         disableRowSelectionOnClick
          className="!h-[70vh]"

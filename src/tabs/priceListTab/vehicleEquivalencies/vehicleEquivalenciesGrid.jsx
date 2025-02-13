@@ -32,7 +32,7 @@ const VehicleEquivalenciesGrid = () => {
       width: 150,
       sortable: false,
       text: "center",
-      cellClassName: "cursor-pointer",
+      cellClassName: "cursor-pointer !text-[#3e4396]",
     },
     {
       field: "equivalencyIds",
@@ -92,9 +92,10 @@ const VehicleEquivalenciesGrid = () => {
           },
         }}
         disableRowSelectionOnClick
+        rowHeight={45}
         getRowId={(row) => row.vehicleId}
          className="!h-[70vh]"
-        sx={{
+         sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
           },
@@ -106,12 +107,12 @@ const VehicleEquivalenciesGrid = () => {
           },
           "& .MuiDataGrid-columnHeaders": {
             fontWeight: "bold", // Bold text
-            fontSize: "16px", // Increase font size
+            fontSize: "14px", // Increase font size
           },
           "& .MuiDataGrid-virtualScrollerContent":{
             fontWeight: "500", // Bold text
-            fontSize: "14px",
-          },
+            fontSize: "12px",
+          }
         }}
       />
     </Box>
