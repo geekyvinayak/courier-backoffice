@@ -72,7 +72,7 @@ const DiscountCreate = () => {
     },
     {
       id: 2,
-      label: `${id ? 'Edit ' : 'New '} + Discount/Surcharge`,
+      label: `${id ? 'Edit ' : 'New '} Discount/Surcharge`,
       href: "",
     },
   ];
