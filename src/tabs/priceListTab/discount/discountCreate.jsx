@@ -18,7 +18,7 @@ import { postRequest } from "../../../consts/apiCalls";
 import { useParams, useNavigate } from "react-router-dom";
 import { getRequest, putRequest } from "../../../consts/apiCalls";
 import { useEffect } from "react";
-
+import Breadcrumb from "../../../components/Breadcrumb";
 const DiscountCreate = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -64,8 +64,22 @@ const DiscountCreate = () => {
     }
   }, [id]);
 
+    const pageBreadcrums = [
+    {
+      id: 1,
+      label: "Discount/Surcharge",
+      href: "/pricelist/discounts-surcharges",
+    },
+    {
+      id: 2,
+      label: `${id ? 'Edit ' : 'New '} + Discount/Surcharge",
+      href: "",
+    },
+  ];
+
   return (
     <div className="wraper-container">
+      <Breadcrumb items={pageBreadcrums} />
       <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
         <form onSubmit={formik.handleSubmit}>
           <Box
