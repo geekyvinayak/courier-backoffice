@@ -86,7 +86,7 @@ const ExtraFeesCreate = () => {
   ];
 
   return (
-    <div className="wraper-container"
+    <div className="wraper-container">
       <SubTabNavigator
         data={[
           { lable: "Extra Fee Schedules", url: "/pricelist/extrafeesschedule" },
