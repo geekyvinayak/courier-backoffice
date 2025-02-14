@@ -5,7 +5,7 @@ const Breadcrumb = ({ items = [] }) => {
   const lastIndex = items.length - 1;
 
   return (
-    <nav className="flex items-center space-x-2 ml-4">
+    <nav className="flex items-center space-x-2">
       {items.map((item, index) => (
         <React.Fragment key={item.id}>
           <Link
