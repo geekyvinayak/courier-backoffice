@@ -248,6 +248,7 @@ const VehiclesTypesCreate = () => {
   };
 
   return (
+    <div className="wraper-container">
     <div className="pb-4">
       <SubTabNavigator
         data={[
@@ -407,6 +408,7 @@ const VehiclesTypesCreate = () => {
         </Formik>
       </div>
     </div>
+      </div>
   );
 };
 
