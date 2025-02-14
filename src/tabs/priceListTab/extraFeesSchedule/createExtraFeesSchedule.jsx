@@ -190,91 +190,91 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
       field: "extraFeeName",
       headerName: "Name",
       flex: 1,
-      minWidth: 350, 
+      minWidth: 150, 
       cellClassName:"!text-[#3e4396]",
     },
     {
       field: "type",
       headerName: "Type",
-      minWidth: 350, 
+     minWidth: 150, 
       flex: 1,
     },
     {
       field: "rate",
       headerName: "Rate",
-      minWidth: 350, 
+      minWidth: 150, 
       flex: 1,
     },
     {
       field: "per",
       headerName: "Per",
-      minWidth: 350, 
+      minWidth: 150, 
       flex: 1,
     },
     {
       field: "max",
       headerName: "Max",
-      minWidth: 350, 
+    minWidth: 150, 
       flex: 1,
     },
     {
       field: "included",
       headerName: "Included",
-      minWidth: 350, 
+    minWidth: 150, 
       flex: 1,
     },
     {
       field: "defaultQuantity",
       headerName: "Default Quantity",
-      minWidth: 350, 
+    minWidth: 150, 
       flex: 1,
     },
     {
       field: "hideDefaultPriceQuantity",
       headerName: "Hide Quantity and Unit Price",
-      minWidth: 350, 
+    minWidth: 150, 
       flex: 1,
     },
     {
       field: "driverCommissionable",
       headerName: "Driver Commissionable",
-      minWidth: 350, 
+  minWidth: 150, 
       flex: 1,
     },
     {
       field: "salesCommissionable",
       headerName: "Sales Commissionable",
-      minWidth: 350, 
+  minWidth: 150, 
       flex: 1,
     },
     {
       field: "visibilityForInternalUser",
       headerName: "Visibility For InternalUser",
-      minWidth: 350, 
+     minWidth: 150, 
       flex: 1,
     },
     {
       field: "visibilitySelfServe",
       headerName: "Visibility for SelfServe",
-      minWidth: 350, 
+    minWidth: 150, 
       flex: 1,
     },
     {
       field: "visibilityDriver",
       headerName: "Visibility for Driver",
-      minWidth: 350, 
+     minWidth: 150, 
       flex: 1,
     },
     {
       field: "fuelSurcharge",
       headerName: "fuelSurcharge",
-      minWidth: 350, 
+     minWidth: 150, 
       flex: 1,
     },
     {
       field: "priority",
       headerName: "Priority",
-      minWidth: 350, 
+      minWidth: 150, 
       flex: 1,
     },
   ];
@@ -288,7 +288,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
           onClick={() => {setOpenDialog(true);setConfigId(null)}}
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
-          Add New
+          Add New Config
         </button>
       </Box>
 
