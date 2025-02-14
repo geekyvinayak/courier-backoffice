@@ -41,6 +41,7 @@ const ExtraFeesGrid = () => {
             }
           }}
           rowHeight={45}
+           columnHeaderHeight={45}
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
