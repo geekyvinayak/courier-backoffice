@@ -232,13 +232,13 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
     {
       field: "hideDefaultPriceQuantity",
       headerName: "Hide Quantity and Unit Price",
-    minWidth: 150, 
+    minWidth: 350, 
       flex: 1,
     },
     {
       field: "driverCommissionable",
       headerName: "Driver Commissionable",
-  minWidth: 150, 
+  minWidth: 250, 
       flex: 1,
     },
     {
@@ -250,7 +250,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
     {
       field: "visibilityForInternalUser",
       headerName: "Visibility For InternalUser",
-     minWidth: 150, 
+     minWidth: 350, 
       flex: 1,
     },
     {
