@@ -96,6 +96,7 @@ const VehicleEquivalenciesForm = () => {
   };
 
   return (
+    <div className="wraper-container">
     <div className="pb-4">
       <SubTabNavigator
         data={[
@@ -119,7 +120,7 @@ const VehicleEquivalenciesForm = () => {
           },
         ]}
       />
-      <div className="max-w-[600px] p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
+      <div className="max-w-[600px] p-4 border border-gray shadow-md mt-4 mb-4">
         <Formik
           initialValues={{
             vehicleId: "",
@@ -245,6 +246,7 @@ const VehicleEquivalenciesForm = () => {
         </Formik>
       </div>
     </div>
+      </div>
   );
 };
 
