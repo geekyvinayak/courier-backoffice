@@ -70,6 +70,7 @@ const ExtraFeesScheduleGrid = () => {
           }
         }}
         rowHeight={45}
+         columnHeaderHeight={45}
         className="cursor-pointer !h-[70vh]"
         initialState={{
           pagination: {
