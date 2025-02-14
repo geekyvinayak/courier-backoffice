@@ -134,6 +134,7 @@ const PriceListGrid = () => {
             fontSize: "12px",
           }
         }}
+        columnHeaderHeight={28}
         className="cursor-pointer !h-[70vh]"
         disableRowSelectionOnClick
       />
