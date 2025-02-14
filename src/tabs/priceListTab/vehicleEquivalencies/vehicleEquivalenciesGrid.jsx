@@ -93,6 +93,7 @@ const VehicleEquivalenciesGrid = () => {
         }}
         disableRowSelectionOnClick
         rowHeight={45}
+         columnHeaderHeight={45}
         getRowId={(row) => row.vehicleId}
          className="!h-[70vh]"
          sx={{
