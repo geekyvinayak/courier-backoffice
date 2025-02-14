@@ -115,7 +115,7 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 , backgroundColor:"#065607",textTransform:"unset",fontSize:"14px !important" }}
+            sx={{ mt: 3, mb: 2 , backgroundColor:"#065607 !important",textTransform:"unset",fontSize:"14px !important" }}
           >
             Log In
           </Button>
