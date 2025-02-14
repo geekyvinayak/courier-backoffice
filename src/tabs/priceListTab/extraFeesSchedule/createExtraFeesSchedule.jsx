@@ -283,6 +283,11 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
         columns={columns}
         onCellClick={(params) => {setOpenDialog(true);setConfigId(params.id)}}
         className="cursor-pointer"
+        autosizeOptions={{
+    columns: columns,
+    includeOutliers: true,
+    includeHeaders: true,
+  }}
         initialState={{
           pagination: {
             paginationModel: {
