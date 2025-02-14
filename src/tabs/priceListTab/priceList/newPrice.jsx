@@ -245,12 +245,13 @@ const NewPrice = () => {
   ];
 
   return (
+    <div className="wraper-container">
     <div className="pb-4">
       <div className="mt-2">
         <Breadcrumb items={pageBreadcrums} />
       </div>
       <div className="flex gap-10">
-        <div className="max-w-[600px] w-full p-4 border border-gray shadow-md ml-4 mt-4 mb-4">
+        <div className="max-w-[600px] w-full p-4 border border-gray shadow-md mt-4 mb-4">
           <form onSubmit={formik.handleSubmit}>
             <Box
               display="flex"
@@ -555,6 +556,7 @@ const NewPrice = () => {
           {id && <PricingFileOperations id={id} fetchData={fetchPriceById} />}
         </div>
       </div>
+    </div>
     </div>
   );
 };
