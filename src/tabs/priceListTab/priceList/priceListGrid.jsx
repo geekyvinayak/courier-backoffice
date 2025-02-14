@@ -114,8 +114,8 @@ const PriceListGrid = () => {
             },
           },
         }}
-        rowHeight={35}
-        columnHeaderHeight={40}
+        rowHeight={45}
+        columnHeaderHeight={50}
         sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
