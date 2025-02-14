@@ -15,7 +15,7 @@ const LinkBtn = ({ label = "", url = "/", size = "large", filled = true ,customC
   const currentPath = location.pathname;
   
   return (
-    <Stack  direction="row">
+    <Stack   spacing={2}  direction="row">
       <Button
         size={size}
         sx={{
