@@ -107,7 +107,7 @@ const CreateExtraFeesSchedule = () => {
   const [configId,setConfigId] = useState();
 
   return (
-    <div>
+    <div className="wraper-container">
       <SubTabNavigator
         data={[
           {
@@ -119,7 +119,7 @@ const CreateExtraFeesSchedule = () => {
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />
-      <div className="max-w-[600px] p-4 border border-gray ml-4 mt-4 mb-4">
+      <div className="max-w-[600px] p-4 border border-gray mt-4 mb-4">
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h3" gutterBottom>
             {id?"Edit":"New"} Extra Fee Schedules
