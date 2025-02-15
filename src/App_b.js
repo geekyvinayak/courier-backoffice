@@ -24,8 +24,6 @@ import DiscountCreate from "./tabs/priceListTab/discount/discountCreate";
 import VehicleEquivalenciesEditForm from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesEdit";
 import Login from "./components/login";
 import ProtectedRoute from "./components/protectedRoute";
-import Forget from "./components/forget";
-import { ResetPassword } from "./components/resetPassword";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -36,8 +34,7 @@ function App() {
         <CssBaseline />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/forget-password" element={<Forget/>} />
-          <Route path="/reset-password" element={<ResetPassword/>} />
+
           <Route
             path="/*"
             element={
