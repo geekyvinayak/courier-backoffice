@@ -12,7 +12,7 @@ import {
 import TabNavigation from "./tabNavigation";
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { postRequest } from "../consts/apiCalls";
+import { getRequest, postRequest } from "../consts/apiCalls";
 import useToast from "./toast/useToast";
 
 const Navbar = () => {
@@ -21,6 +21,7 @@ const Navbar = () => {
   const colorMode = useContext(ColorModeContext);
   const { showSuccess, showError, showWarning } = useToast();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const[userData,setUserData] = useState(null)
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
@@ -38,6 +39,18 @@ const Navbar = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showProfileMenu]);
+
+  const fetchUserData= async ()=>{
+    const response = await getRequest('/users/profile')
+    setUserData(response)
+    console.log("resp",response)
+  }
+
+  useEffect(() => {
+    if(userData == null){
+    fetchUserData();
+    }
+  });
 
   return (
     <div className="flex justify-between p-1 items-center border-b-2">
@@ -76,11 +89,11 @@ const Navbar = () => {
               <div className="px-4 py-2 border-b">
                 <div className="flex items-center gap-2">
                   <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
-                    <span className="text-gray-600">TT</span>
+                    {userData?<span className="text-gray-600 uppercase">{userData?.firstName[0]+userData?.lastName[0]}</span>:<span className="inline-block animate-pulse bg-slate-200 rounded w-6 h-4"></span>}
                   </div>
                   <div>
-                    <div className="text-sm font-medium">Test3 Test3</div>
-                    <div className="text-xs text-gray-500">Test3@ptc.ptc</div>
+                    {userData?<div className="text-sm font-medium capitalize">{userData?.firstName + " " +userData?.lastName}</div>:<span className="inline-block animate-pulse bg-slate-200 rounded h-4 min-w-full"></span>}
+                    {userData?<div className="text-xs text-gray-500">{userData?.email}</div>:<span className="inline-block animate-pulse bg-slate-200 rounded min-w-24 h-4 "></span>}
                   </div>
                 </div>
               </div>
