@@ -158,7 +158,16 @@ export const ResetPassword = () => {
             helperText={formik.touched.otp && formik.errors.otp}
           />
 
-          <Button type="submit" fullWidth variant="contained" color="primary">
+          <Button
+            sx={{
+              backgroundColor: "#065607 !important",
+              textTransform: "unset",
+              fontSize: "14px !important",
+            }}
+            type="submit"
+            fullWidth
+            variant="contained"
+          >
             Reset Password
           </Button>
         </form>
