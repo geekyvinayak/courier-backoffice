@@ -1,23 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Container,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
-import { postRequest } from "../consts/apiCalls";
+import { useNavigate } from "react-router-dom";
+import { Box, TextField, Button, Typography } from "@mui/material";
+import { getRequest } from "../consts/apiCalls";
+import useToast from "./toast/useToast";
 
-const Login = () => {
+const Forget = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
-    rememberMe: false,
   });
+  const { showSuccess, showError, showWarning } = useToast();
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
@@ -30,16 +22,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await postRequest("/api/v1/auth/authenticate", {
-        email: formData.email,
-        password: formData.password,
-      });
-
-      localStorage.setItem("token", response.token);
-      navigate("/dashboard");
+      const response = await getRequest(
+        `/api/v1//forgot-password?email=${formData.email}`,
+      );
+      showSuccess("Check your mail for OTP");
+      navigate("/reset-password");
     } catch (error) {
       console.error("Login failed:", error);
-      // Handle error (you can use your showWarning here)
+      showError(error.message);
     }
   };
 
@@ -51,7 +41,7 @@ const Login = () => {
           alignContent: "center",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          // alignItems: "center",
         }}
       >
         <img
@@ -61,8 +51,13 @@ const Login = () => {
           width={"350px"}
           style={{ marginBottom: 10 }}
         />
-        <Typography component="h1" variant="h3" fontWeight={500} fontSize={"30px"}>
-          Log in
+        <Typography
+          component="h1"
+          variant="h3"
+          fontWeight={500}
+          fontSize={"30px"}
+        >
+          Request New Password
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <Box>
@@ -89,43 +84,24 @@ const Login = () => {
               onChange={handleChange}
             />
           </Box>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            fontWeight={600}
-            marginBottom={"-8px"}
-            marginLeft={"4px"}
-            fontSize={"16px"}
-          >
-            Password
-          </Typography>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            size="small"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={formData.password}
-            onChange={handleChange}
-          />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 , backgroundColor:"#065607 !important",textTransform:"unset",fontSize:"14px !important" }}
+            sx={{
+              mt: 3,
+              mb: 2,
+              backgroundColor: "#065607 !important",
+              textTransform: "unset",
+              fontSize: "14px !important",
+            }}
           >
-            Log In
+            Submit
           </Button>
-          <Link to={'/forget-password'} className="text-green-700 hover:underline">
-            Forgot password?
-          </Link>
         </Box>
       </Box>
     </div>
   );
 };
 
-export default Login;
+export default Forget;

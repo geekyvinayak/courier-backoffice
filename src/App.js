@@ -24,6 +24,9 @@ import DiscountCreate from "./tabs/priceListTab/discount/discountCreate";
 import VehicleEquivalenciesEditForm from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesEdit";
 import Login from "./components/login";
 import ProtectedRoute from "./components/protectedRoute";
+import Forget from "./components/forget";
+import { ResetPassword } from "./components/resetPassword";
+import { ChangePassword } from "./components/changePassword";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -34,7 +37,8 @@ function App() {
         <CssBaseline />
         <Routes>
           <Route path="/login" element={<Login />} />
-
+          <Route path="/forget-password" element={<Forget/>} />
+          <Route path="/reset-password" element={<ResetPassword/>} />
           <Route
             path="/*"
             element={
@@ -45,6 +49,7 @@ function App() {
                     <Navbar />
                     <Routes>
                       <Route path="/" element={<Navigate to="/dashboard" />} />
+                      <Route path='/change-password' element={<ChangePassword />} />
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/pricelist" element={<PriceList />} />
                       <Route path="/pricelist/create" element={<NewPrice />} />
