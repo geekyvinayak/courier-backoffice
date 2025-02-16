@@ -14,6 +14,7 @@ import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { postRequest } from "../consts/apiCalls";
 import useToast from "./toast/useToast";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -21,6 +22,7 @@ const Navbar = () => {
   const colorMode = useContext(ColorModeContext);
   const { showSuccess, showError, showWarning } = useToast();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
@@ -94,6 +96,13 @@ const Navbar = () => {
                 <div className="text-sm text-gray-700">Time Zone</div>
                 <div className="text-sm text-gray-500">Eastern Standard Time</div>
               </div>
+
+              {/* <button
+                onClick={()=>navigate('/change-password')}
+                className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+              >
+                Change password
+              </button> */}
               
               <button
                 onClick={handleLogout}
