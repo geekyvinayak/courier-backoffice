@@ -87,7 +87,7 @@ const Navbar = () => {
           </IconButton>
           
           {showProfileMenu && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+            <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg py-1 z-50">
               <div className="px-4 py-2 border-b">
                 <div className="flex items-center gap-2">
                   <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
