@@ -41,7 +41,7 @@ const Forget = () => {
           alignContent: "center",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          // alignItems: "center",
         }}
       >
         <img

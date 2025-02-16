@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   TextField,
@@ -119,6 +119,9 @@ const Login = () => {
           >
             Log In
           </Button>
+          <Link to={'/forget-password'} className="text-green-700 hover:underline">
+            Forgot password?
+          </Link>
         </Box>
       </Box>
     </div>

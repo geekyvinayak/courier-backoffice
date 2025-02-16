@@ -26,6 +26,7 @@ import Login from "./components/login";
 import ProtectedRoute from "./components/protectedRoute";
 import Forget from "./components/forget";
 import { ResetPassword } from "./components/resetPassword";
+import { ChangePassword } from "./components/changePassword";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -48,6 +49,7 @@ function App() {
                     <Navbar />
                     <Routes>
                       <Route path="/" element={<Navigate to="/dashboard" />} />
+                      <Route path='/change-password' element={<ChangePassword />} />
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/pricelist" element={<PriceList />} />
                       <Route path="/pricelist/create" element={<NewPrice />} />
