@@ -23,8 +23,6 @@ const itemsData = {
         "/pricelist/vehicleequivalency/edit",
       ],
     },
-    // { id: 3, name: "Service Levels", link: "/pricelist/servicelevels" },
-    // { id: 4, name: "Fuel Surcharges", link: "/pricelist/fuelsurcharges" },
     {
       id: 5,
       name: "Extra Fees",
@@ -45,7 +43,7 @@ const itemsData = {
       childPaths: [
         "/pricelist/discounts-surcharges",
         "/pricelist/discounts-surcharges/create",
-          "/pricelist/discounts-surcharges/edit",
+        "/pricelist/discounts-surcharges/edit",
       ],
     },
     {
@@ -63,35 +61,58 @@ const itemsData = {
       childPaths: ["/dashboard"],
     },
   ],
+  "/accounts": [
+    {
+      id: 1,
+      name: "Accounts",
+      link: "/accounts",
+      childPaths: ["/accounts"],
+    },
+    {
+      id: 2,
+      name: "Master Accounts",
+      link: "/accounts/masteraccounts",
+      childPaths: ["/accounts/masteraccounts"],
+    },
+    {
+      id: 3,
+      name: "Transactions",
+      link: "/accounts/transactions",
+      childPaths: ["/accounts/transactions"],
+    },
+  ],
 };
 
 // Component to display items based on the current route
 const TabNavigation = () => {
   const location = useLocation();
-  const currentPath = location.pathname.split("/")[1]; // Get the base route (e.g., "price" or "dashboard")
-  const items = itemsData[`/${currentPath}`] || []; // Get items based on the current route
-// const isActive = item?.childPaths?.some(path => {
-//   const regex = new RegExp(`^${path}(/\\d+)?$`); // Allows optional "/id" at the end
-//   return regex.test(location?.pathname);
-// });
+  const currentPath = location.pathname.split("/")[1]; // Get base route
+  const items = itemsData[`/${currentPath}`] || []; // Get items based on route
+
   return (
-    <ul className="flex w-[50%] ">
-      {items.map((item) => (
-        <li
-          key={item.id}
-          className={`block p-2 text-center flex-1 transition-colors max-w-[150px] focus:outline-none font-medium focus:ring-2 focus:ring-blue-500
-          ${
-           item?.childPaths?.some(path => {
-  const regex = new RegExp(`^${path}(/\\d+)?$`) // Allows optional "/id" at the end
-  return regex.test(location?.pathname)
-})
-              ? " text-black border-b-4 border-[#494fb5] font-bold rounded"
-              : "text-white-700"
-          }`}
-        >
-          <Link to={item.link}>{item.name}</Link>
-        </li>
-      ))}
+    <ul className="flex w-[50%] justify-between rounded-lg p-2">
+      {items.map((item) => {
+        const isActive = item?.childPaths?.some((path) => {
+          const regex = new RegExp(`^${path}(/\\d+)?$`); // Allows optional "/id" at the end
+          return regex.test(location?.pathname);
+        });
+
+        return (
+          <li
+            key={item.id}
+            className={`relative flex-1 text-center max-w-[150px] font-medium transition-all duration-300 ease-in-out 
+              ${
+                isActive
+                  ? "text-black border-b-4 border-[#494fb5] font-bold bg-gray-100 shadow-md rounded-t-md"
+                  : "text-gray-700 hover:bg-gray-200 hover:shadow-sm hover:rounded-md"
+              }`}
+          >
+            <Link to={item.link} className="block p-2 w-full">
+              {item.name}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 };
