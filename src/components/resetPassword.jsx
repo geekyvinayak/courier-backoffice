@@ -81,7 +81,7 @@ export const ResetPassword = () => {
           <Typography variant="subtitle1"
             gutterBottom
             fontWeight={600}
-            marginBottom={"-8px"}
+            
             marginLeft={"4px"}
             fontSize={"16px"}>
             NEW PASSWORD
@@ -127,7 +127,7 @@ export const ResetPassword = () => {
           <Typography variant="subtitle1"
             gutterBottom
             fontWeight={600}
-            marginBottom={"-8px"}
+            
             marginLeft={"4px"}
             fontSize={"16px"}>
             CONFIRM NEW PASSWORD
@@ -154,7 +154,7 @@ export const ResetPassword = () => {
           <Typography variant="subtitle1"
             gutterBottom
             fontWeight={600}
-            marginBottom={"-8px"}
+            
             marginLeft={"4px"}
             fontSize={"16px"}>
             OTP
