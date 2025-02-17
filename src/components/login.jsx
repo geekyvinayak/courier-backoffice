@@ -69,10 +69,10 @@ const Login = () => {
             <Typography
               variant="subtitle1"
               gutterBottom
-              fontWeight={500}
-              fontSize={"16px"}
+              fontWeight={600}
               marginBottom={"-8px"}
               marginLeft={"4px"}
+              fontSize={"16px"}
             >
               Email Address
             </Typography>

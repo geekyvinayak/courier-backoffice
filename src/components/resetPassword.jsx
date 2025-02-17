@@ -78,7 +78,12 @@ export const ResetPassword = () => {
           Request New Password
         </Typography>
         <form onSubmit={formik.handleSubmit} className="mt-5">
-          <Typography variant="body2" fontWeight="bold" gutterBottom>
+          <Typography variant="subtitle1"
+            gutterBottom
+            fontWeight={600}
+            marginBottom={"-8px"}
+            marginLeft={"4px"}
+            fontSize={"16px"}>
             NEW PASSWORD
             <Tooltip
               title={
@@ -119,7 +124,12 @@ export const ResetPassword = () => {
             helperText={formik.touched.newPassword && formik.errors.newPassword}
           />
 
-          <Typography variant="body2" fontWeight="bold" gutterBottom>
+          <Typography variant="subtitle1"
+            gutterBottom
+            fontWeight={600}
+            marginBottom={"-8px"}
+            marginLeft={"4px"}
+            fontSize={"16px"}>
             CONFIRM NEW PASSWORD
           </Typography>
           <TextField
@@ -141,7 +151,12 @@ export const ResetPassword = () => {
             }
           />
 
-          <Typography variant="body2" fontWeight="bold" gutterBottom>
+          <Typography variant="subtitle1"
+            gutterBottom
+            fontWeight={600}
+            marginBottom={"-8px"}
+            marginLeft={"4px"}
+            fontSize={"16px"}>
             OTP
           </Typography>
           <TextField

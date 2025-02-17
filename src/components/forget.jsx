@@ -62,12 +62,12 @@ const Forget = () => {
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <Box>
             <Typography
-              variant="subtitle1"
-              gutterBottom
-              fontWeight={500}
-              fontSize={"16px"}
-              marginBottom={"-8px"}
-              marginLeft={"4px"}
+             variant="subtitle1"
+             gutterBottom
+             fontWeight={600}
+             marginBottom={"-8px"}
+             marginLeft={"4px"}
+             fontSize={"16px"}
             >
               Email Address
             </Typography>
