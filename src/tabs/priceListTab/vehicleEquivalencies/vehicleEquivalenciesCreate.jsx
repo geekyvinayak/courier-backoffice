@@ -40,7 +40,7 @@ const VehicleEquivalenciesForm = () => {
     // Fetch all available vehicles initially
     const fetchVehicles = async () => {
       try {
-        const response = await getRequest("/vehicleType"); // API call to fetch vehicles
+        const response = await getRequest("/vehicleEquivalency/availableVehicles"); // API call to fetch vehicles
         setVehicles(response);
       } catch (error) {
         console.error("Error fetching vehicles", error);
@@ -113,7 +113,7 @@ const VehicleEquivalenciesForm = () => {
       />
       <Breadcrumb
         items={[
-          { label: "Vehicles", href: "/pricelist/vehiclestype" },
+          { label: "Vehicles Equivalencies", href: "/pricelist/vehicleequivalencies" },
           {
             label:  "New Vehicle Equivalencies",
             href: "", // Conditional href
@@ -189,7 +189,7 @@ const VehicleEquivalenciesForm = () => {
                       <TableBody>
                         {equivalencies.map((equivalency) => (
                           <TableRow key={equivalency}>
-                            <TableCell style={{ padding: "8px" }}>
+                            <TableCell style={{ padding: "8px", paddingLeft:"50px" }}>
                               <FormControlLabel
                                 key={equivalency}
                                 control={
@@ -231,7 +231,7 @@ const VehicleEquivalenciesForm = () => {
                                 }
                               />
                             </TableCell>
-                            <TableCell style={{ padding: "8px" }}>
+                            <TableCell style={{ padding: "8px", paddingLeft:"50px" }}>
                               {equivalency}
                             </TableCell>
                           </TableRow>

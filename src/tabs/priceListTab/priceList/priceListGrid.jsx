@@ -15,6 +15,7 @@ import useToast from "../../../components/toast/useToast";
 
 const PriceListGrid = () => {
   const { showSuccess, showError } = useToast();
+  const [loading,setLoading] = useState(true)
   const columns = [
     {
       field: "active",
@@ -85,10 +86,15 @@ const PriceListGrid = () => {
   const [priceList, setPriceList] = useState([]);
   const fetchPriceList = async () => {
     try {
-      const response = await getRequest("/api/pricingList");
-      setPriceList(response);
+      
+      const response = await getRequest("/api/pricingList").then((response)=>{
+        setPriceList(response);
+      setLoading(false)
+      });
+      
     } catch (error) {
       console.error("Error fetching pricing list:", error);
+      setLoading(false)
     }
   };
 
@@ -101,6 +107,13 @@ const PriceListGrid = () => {
       <DataGrid
         rows={priceList}
         columns={columns}
+        loading={loading}
+        slotProps={{
+          loadingOverlay: {
+            variant: 'circular-progress',
+            noRowsVariant: 'circular-progress',
+          },
+        }}
         onCellClick={(params) => {
           if (params.field === "actions") {
           } else if (params.field === "name") {
@@ -110,7 +123,7 @@ const PriceListGrid = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 7,
+              pageSize: 8,
             },
           },
         }}

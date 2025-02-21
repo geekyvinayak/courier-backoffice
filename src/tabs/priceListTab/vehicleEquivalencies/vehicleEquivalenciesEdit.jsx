@@ -11,6 +11,13 @@ import {
   Button,
   Box,
   Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Paper,
 } from "@mui/material";
 import { getRequest, postRequest } from "../../../consts/apiCalls";
 import SubTabNavigator from "../../../components/subTabNavigator";
@@ -89,9 +96,9 @@ const VehicleEquivalenciesEditForm = () => {
       />
       <Breadcrumb
         items={[
-          { label: "Vehicles", href: "/pricelist/vehiclestype" },
+          { label: "Vehicles Equivalencies", href: "/pricelist/vehicleequivalencies" },
           {
-            label:  "Vehicle Equivalencies",
+            label:  "Edit Vehicle Equivalencies " + id,
             href: "", // Conditional href
           },
         ]}
@@ -152,7 +159,18 @@ const VehicleEquivalenciesEditForm = () => {
               {/* Equivalencies Checkbox */}
               {equivalencies.length > 0 && (
                 <div>
+                  <TableContainer component={Paper}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Vehicle Type</TableCell>
+                          <TableCell>Equivalencies</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
                   {equivalencies.map((equivalency) => (
+                     <TableRow key={equivalency}>
+                            <TableCell style={{ padding: "8px" , paddingLeft:"50px" }}>
                     <FormControlLabel
                       key={equivalency}
                       control={
@@ -173,11 +191,19 @@ const VehicleEquivalenciesEditForm = () => {
                             );
                           }}
                         />
+                        
                       }
-                      label={`${equivalency}`}
                       disabled={equivalency == selectedVehicle?.toString()}
                     />
+                    </TableCell>
+                            <TableCell style={{ padding: "8px" , paddingLeft:"50px"}}>
+                              {equivalency}
+                            </TableCell>
+                          </TableRow>
                   ))}
+                   </TableBody>
+                    </Table>
+                  </TableContainer>
                 </div>
               )}
             </Form>

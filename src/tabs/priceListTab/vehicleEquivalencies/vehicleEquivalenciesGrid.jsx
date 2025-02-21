@@ -57,13 +57,12 @@ const VehicleEquivalenciesGrid = () => {
   ];
   const fetchData = async () => {
     const response = await getRequest("/vehicleEquivalency")
-      .then(setLoading(false))
+      .then((response)=>{setRow(response);setLoading(false)})
       .catch((e) => {
         console.log(e);
         setLoading(false);
       });
-    console.log("fl", response);
-    setRow(response);
+    
   };
 
   useEffect(() => {
@@ -87,8 +86,14 @@ const VehicleEquivalenciesGrid = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 7,
+              pageSize: 8,
             },
+          },
+        }}
+        slotProps={{
+          loadingOverlay: {
+            variant: 'circular-progress',
+            noRowsVariant: 'circular-progress',
           },
         }}
         disableRowSelectionOnClick
