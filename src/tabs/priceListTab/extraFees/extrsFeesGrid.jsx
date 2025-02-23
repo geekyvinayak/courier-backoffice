@@ -14,12 +14,15 @@ const ExtraFeesGrid = () => {
   const navigate = useNavigate();
 
   const [extraFeesList, setExtraFeesList] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const fetchExtraFees = async () => {
     try {
       const response = await getRequest("/extraFee");
       setExtraFeesList(response);
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
+
       console.error("Error fetching Extra fees:", error);
     }
   };
@@ -40,6 +43,13 @@ const ExtraFeesGrid = () => {
               navigate(`./edit/${params.row.id}`);
             }
           }}
+          loading={loading}
+        slotProps={{
+          loadingOverlay: {
+            variant: 'circular-progress',
+            noRowsVariant: 'circular-progress',
+          },
+        }}
           rowHeight={45}
            columnHeaderHeight={45}
           disableColumnMenu

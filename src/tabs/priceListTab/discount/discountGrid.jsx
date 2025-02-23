@@ -26,12 +26,14 @@ const DiscountGrid = () => {
   const navigate = useNavigate();
 
   const [discountList, setDiscount] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const fetchDiscounts = async () => {
     try {
       const response = await getRequest("/discounts");
       setDiscount(response);
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.error("Error fetching Extra fees:", error);
     }
   };
@@ -61,6 +63,13 @@ const DiscountGrid = () => {
               navigate(`./edit/${params.row.id}`);
             }
           }}
+          loading={loading}
+        slotProps={{
+          loadingOverlay: {
+            variant: 'circular-progress',
+            noRowsVariant: 'circular-progress',
+          },
+        }}
           rowHeight={45}
            columnHeaderHeight={45}
           disableColumnMenu

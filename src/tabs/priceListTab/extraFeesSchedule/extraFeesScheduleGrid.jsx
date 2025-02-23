@@ -36,7 +36,7 @@ const ExtraFeesScheduleGrid = () => {
   const navigate = useNavigate();
 
   const [priceListSchedule, setPriceListSchedule] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const handleActive = async (id) => {
     try {
       const response = await postRequest(`/extraFeeSchedule/makeDefault/${id}`);
@@ -50,8 +50,10 @@ const ExtraFeesScheduleGrid = () => {
     try {
       const response = await getRequest("/extraFeeSchedule");
       setPriceListSchedule(response);
+      setLoading(false)
     } catch (error) {
       console.error("Error fetching pricing list schedule:", error);
+      setLoading(false)
     }
   };
 
@@ -68,6 +70,13 @@ const ExtraFeesScheduleGrid = () => {
           if (params.field === "name") {
             navigate(`./edit/${params.row.id}`);
           }
+        }}
+        loading={loading}
+        slotProps={{
+          loadingOverlay: {
+            variant: 'circular-progress',
+            noRowsVariant: 'circular-progress',
+          },
         }}
         rowHeight={45}
          columnHeaderHeight={45}

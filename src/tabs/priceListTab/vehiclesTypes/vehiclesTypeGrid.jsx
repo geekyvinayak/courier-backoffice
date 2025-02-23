@@ -19,13 +19,13 @@ const VehiclesTypeGrid = () => {
 
   const fetchData = async () => {
     const response = await getRequest("/vehicleType")
-      .then(setLoading(false))
+      .then((response)=>{setRow(response);setLoading(false)})
       .catch((e) => {
         console.log(e);
         setLoading(false);
       });
     console.log("responseresponse", response);
-    setRow(response);
+    
   };
 
   const changeDefault = async (id, name) => {
@@ -95,14 +95,14 @@ const VehiclesTypeGrid = () => {
         loading={loading}
         slotProps={{
           loadingOverlay: {
-            variant: "linear-progress",
-            noRowsVariant: "linear-progress",
+            variant: 'circular-progress',
+            noRowsVariant: 'circular-progress',
           },
         }}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 7,
+              pageSize: 8,
             },
           },
         }}
