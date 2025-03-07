@@ -80,6 +80,18 @@ const itemsData = {
       link: "/accounts/transactions",
       childPaths: ["/accounts/transactions"],
     },
+    {
+      id: 4,
+      name: "Profiles",
+      link: "/accounts/profiles",
+      childPaths: ["/accounts/profiles"],
+    },
+    {
+      id: 5,
+      name: "Notifications",
+      link: "/accounts/notifications",
+      childPaths: ["/accounts/notifications"],
+    },
   ],
 };
 
@@ -90,7 +102,7 @@ const TabNavigation = () => {
   const items = itemsData[`/${currentPath}`] || []; // Get items based on route
 
   return (
-    <ul className="flex w-[50%] justify-between rounded-lg p-2">
+    <ul className="flex w-[50%] justify-start gap-x-4 rounded-lg p-2">
       {items.map((item) => {
         const isActive = item?.childPaths?.some((path) => {
           const regex = new RegExp(`^${path}(/\\d+)?$`); // Allows optional "/id" at the end
