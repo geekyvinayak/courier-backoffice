@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { getRequest } from "../../../consts/apiCalls";
 
 const columns = [
-  { field: "id", headerName: "Id", cellClassName:"!text-[#3e4396]", flex: 1 },
-  { field: "name", headerName: "Name (EN)", flex: 1.5 },
-  { field: "unitsOfMeasure", headerName: "Unit of Measure (EN)", flex: 1.5 },
+  { field: "displayId", headerName: "Display Id", cellClassName:"!text-[#3e4396]", flex: 1 },
+  { field: "name", headerName: "Name", flex: 1.5 },
+  { field: "unitsOfMeasure", headerName: "Unit of Measure", flex: 1.5 },
   { field: "reference", headerName: "Reference #", flex: 1 },
 ];
 

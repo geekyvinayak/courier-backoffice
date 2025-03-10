@@ -19,6 +19,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getRequest, putRequest } from "../../../consts/apiCalls";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
+
 const DiscountCreate = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -112,7 +113,7 @@ const DiscountCreate = () => {
           <Select
             name="type"
             value={formik.values.discountType}
-            onChange={formik.handleChange}
+            onChange={(event) => formik.setFieldValue("discountType", event.target.value)}
             fullWidth
             size="small"
             disabled={id ? true : false}

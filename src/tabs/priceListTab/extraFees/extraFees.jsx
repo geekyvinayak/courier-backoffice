@@ -10,7 +10,7 @@ export const ExtraFees = () => {
       <SubTabNavigator
         data={[
           { lable: "Extra Fee Schedules", url: "/pricelist/extrafeesschedule" },
-          { lable: "Extra Fee", url: "/pricelist/extrafees" },
+          { lable: "Extra Fee Types", url: "/pricelist/extrafees" },
         ]}
       />
       <div>

@@ -89,7 +89,7 @@ const initialValues = {
   maxNumOfPieces: "",
   maxVolume: "",
   maxWeight: "",
-  capacityOverage: "",
+  capacityOverage: "allow",
   baseFuelMilage: "",
   color: "#000000",
   image: "",
