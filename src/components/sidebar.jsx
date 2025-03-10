@@ -9,17 +9,17 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import DonutLargeOutlinedIcon from "@mui/icons-material/DonutLargeOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(true);
   const location = useLocation();
   const currentPath = location.pathname.split("/")[1];
 
   return (
     <div className="h-[100%] relative">
       <Sidebar
-        collapsed={isCollapsed}
+        collapsed={true}
         rootStyles={{
           [`.ps-sidebar-container`]: {
             background: `${colors.primary[400]} !important`,
@@ -64,54 +64,45 @@ const Sidebarr = () => {
           }}
         >
           <MenuItem
-            // onClick={() => setIsCollapsed(!isCollapsed)}
-            // icon={isCollapsed ?<img src="/loginLogo.png" width={"100px"} className="mr-2" /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
-              display:'flex',
-              justifyContent:"center",
-              alignItems:"center"
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {/* {!isCollapsed && (
-              <div className="flex justify-between items-center ml-[15px]"> */}
-                <img src="/loginLogo.png" width={"35px"}/>
-                {/* <MenuOutlinedIcon />
-              </div>
-            )} */}
+            <img src="/loginLogo.png" width={"35px"} />
           </MenuItem>
 
           <MenuItem
-            icon={isCollapsed ? <SpaceDashboardOutlinedIcon /> : undefined}
+            icon={<SpaceDashboardOutlinedIcon />}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
             }}
             component={<Link to="/dashboard" />}
             active={currentPath === "dashboard"}
-          >
-            {!isCollapsed && (
-              <div className="flex gap-2 items-center ml-[15px]">
-                <SpaceDashboardOutlinedIcon /> {!isCollapsed && "Dashboard"}
-              </div>
-            )}
-          </MenuItem>
+          ></MenuItem>
           <MenuItem
-            icon={isCollapsed ? <AttachMoneyOutlinedIcon /> : undefined}
+            icon={<AttachMoneyOutlinedIcon />}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
             }}
             component={<Link to="/pricelist" />}
             active={currentPath === "pricelist"}
-          >
-            {!isCollapsed && (
-              <div className="flex gap-2 items-center ml-[15px]">
-                <AttachMoneyOutlinedIcon /> {!isCollapsed && "Price List"}
-              </div>
-            )}
-          </MenuItem>
+          ></MenuItem>
+
+          <MenuItem
+            icon={<AccountCircleOutlinedIcon />}
+            style={{
+              margin: "10px 0 20px 0",
+              color: colors.grey[100],
+            }}
+            component={<Link to="/accounts" />}
+            active={currentPath === "accounts"}
+          ></MenuItem>
         </Menu>
       </Sidebar>
     </div>
