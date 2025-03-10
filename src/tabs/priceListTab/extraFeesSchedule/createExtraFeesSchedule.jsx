@@ -99,7 +99,7 @@ const CreateExtraFeesSchedule = () => {
     },
     {
       id: 2,
-      label: "New Extra Fee Schedules",
+      label: id?"Edit Extra Fee Schedules":"New Extra Fee Schedules",
       href: "",
     },
   ];

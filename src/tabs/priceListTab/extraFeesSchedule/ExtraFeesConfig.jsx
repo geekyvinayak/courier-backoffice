@@ -162,7 +162,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add New Entry</DialogTitle>
+      <DialogTitle>{configId?'Edit Extra Config':'Add Extra Config'}</DialogTitle>
       <DialogContent>
         <form onSubmit={formik.handleSubmit}>
           {/* Extra Fee Type */}

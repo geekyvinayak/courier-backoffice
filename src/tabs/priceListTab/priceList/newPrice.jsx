@@ -239,7 +239,7 @@ const NewPrice = () => {
     },
     {
       id: 2,
-      label: "New Price List",
+      label: id?"Edit Price List":"New Price List",
       href: "",
     },
   ];
@@ -260,7 +260,7 @@ const NewPrice = () => {
               marginBottom={2}
             >
               <Typography variant="h3" gutterBottom>
-                {id? 'Edit':"New"} Price List
+                {id? `Edit ${formik.values.name}`:"New Price List"}
               </Typography>
               <Button
                 type="submit"
@@ -419,8 +419,8 @@ const NewPrice = () => {
                   <Table>
                     <TableHead>
                       <TableCell>Vehicle Type</TableCell>
-                      <TableCell>Minimum Charges</TableCell>
-                      <TableCell>Surcharge</TableCell>
+                      {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>Minimum Charges</TableCell>}
+                      {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>Surcharge</TableCell>}
                     </TableHead>
                     <TableBody>
                       {vehicleType?.map((vehicle, index) => {
@@ -463,12 +463,13 @@ const NewPrice = () => {
                               <TextField
                                 name={`vehicleTypeId_${vehicle.id}`}
                                 size="small"
+                                fullWidth
                                 variant="outlined"
                                 value={vehicle.id}
                                 disabled
                               />
                             </TableCell>
-                            <TableCell>
+                            {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>
                               <TextField
                                 name={`minimumSurcharge_${vehicle.id}`}
                                 size="small"
@@ -487,8 +488,8 @@ const NewPrice = () => {
                                   )
                                 }
                               />
-                            </TableCell>
-                            <TableCell>
+                            </TableCell>}
+                            {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>
                               <TextField
                                 name={`surcharge_${vehicle.id}`}
                                 size="small"
@@ -503,7 +504,7 @@ const NewPrice = () => {
                                   handleInputChange(e, "surcharge", vehicle.id)
                                 }
                               />
-                            </TableCell>
+                            </TableCell>}
                           </TableRow>
                         );
                       })}
