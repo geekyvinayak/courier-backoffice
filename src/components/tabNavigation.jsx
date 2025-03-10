@@ -93,6 +93,45 @@ const itemsData = {
       childPaths: ["/accounts/notifications"],
     },
   ],
+  "/settings":[
+    {
+      id:1,
+      name:"Checkpoints",
+      link:"/settings/checkpoints",
+      childPaths:[]
+    },
+    {
+      id:2,
+      name:"Zones",
+      link:"/settings/zones",
+      childPaths:[]
+    },
+    {
+      id:3,
+      name:"Companies",
+      link:"/settings/companies",
+      childPaths:[]
+    },
+    {
+      id:4,
+      name:"Configurations",
+      link:"/settings/configurations",
+      childPaths:[]
+    },
+    {
+      id:5,
+      name:"System",
+      link:"/settings/system/users",
+      childPaths:[
+        "/settings/system/users",
+        "/settings/system/address",
+        "/settings/system/reports",
+        "/settings/system/anonymize",
+        "/settings/system/application-logs",
+        "/settings/system/audit"
+      ]
+    },
+  ]
 };
 
 // Component to display items based on the current route

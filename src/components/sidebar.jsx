@@ -6,10 +6,10 @@ import { Link, useLocation } from "react-router-dom";
 import { tokens } from "../theme";
 // import {MenuOutlinedIcon } from '@mui/icons-material'
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import DonutLargeOutlinedIcon from "@mui/icons-material/DonutLargeOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import SettingCircleOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 const Sidebarr = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -94,7 +94,7 @@ const Sidebarr = () => {
             active={currentPath === "pricelist"}
           ></MenuItem>
 
-          <MenuItem
+          {/* <MenuItem
             icon={<AccountCircleOutlinedIcon />}
             style={{
               margin: "10px 0 20px 0",
@@ -102,6 +102,15 @@ const Sidebarr = () => {
             }}
             component={<Link to="/accounts" />}
             active={currentPath === "accounts"}
+          ></MenuItem> */}
+          <MenuItem
+            icon={<SettingCircleOutlinedIcon />}
+            style={{
+              margin: "10px 0 20px 0",
+              color: colors.grey[100],
+            }}
+            component={<Link to="/settings" />}
+            active={currentPath === "settings"}
           ></MenuItem>
         </Menu>
       </Sidebar>
