@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { getRequest, postRequest } from "../../../consts/apiCalls";
+import { deleteRequest, getRequest, postRequest } from "../../../consts/apiCalls";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
@@ -11,7 +11,9 @@ import SubTabNavigator from "../../../components/subTabNavigator";
 import { Box, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import ExtraFeesConfig from "./ExtraFeesConfig";
-
+import IconButton from "@mui/material/IconButton";
+import { DeleteDialog } from "../../../components/deleteDialog";
+import useToast from "../../../components/toast/useToast";
 const CreateExtraFeesSchedule = () => {
   // Formik setup
   const navigate = useNavigate();
@@ -161,15 +163,17 @@ const CreateExtraFeesSchedule = () => {
           </div>
         </form>
       </div>
-      <div>
+     
         {id && (
           <ExtraConfigGrid
             ConfigData={extraConfig}
             setOpenDialog={setOpenDialog}
             setConfigId={setConfigId}
+            sheduleId={id}
+            refetchFunction={fetchExtraFeesSchedule}
           />
         )}
-      </div>
+      
       {id && openDialog && (
         <ExtraFeesConfig
           open={openDialog}
@@ -184,7 +188,21 @@ const CreateExtraFeesSchedule = () => {
 
 export default CreateExtraFeesSchedule;
 
-const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
+const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId,sheduleId,refetchFunction }) => {
+
+    const { showSuccess, showError } = useToast();
+    const deleteEquivalance = async (id) => {
+      try {
+        await deleteRequest(`/extraFeeSchedule/${sheduleId}/${id}`);
+        showSuccess("Price list deleted");
+        refetchFunction();
+      } catch (error) {
+        showError("Something went wrong!");
+        console.log("error", error);
+      }
+    };
+  
+
   const columns = [
     {
       field: "extraFeeName",
@@ -277,10 +295,22 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
       minWidth: 150, 
       flex: 1,
     },
+    {
+      field: "action",
+      headerName: "",
+      sortable: false,
+      filterable: false,
+      cellClassName:'flex !justify-center cursor-pointer',
+      renderCell: (params) => (
+        <IconButton>
+          <DeleteDialog handleDelete={() => deleteEquivalance(params.id)} />
+        </IconButton>
+      ),
+    },
   ];
 
   return (
-    <Box className="mx-auto w-[90%] mt-5">
+    <Box className=" w-[90%] mt-5">
       {/* Header Section */}
       <Box className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Configuration Data</h2>
@@ -296,7 +326,11 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId }) => {
       <DataGrid
         rows={ConfigData}
         columns={columns}
-        onCellClick={(params) => {setOpenDialog(true);setConfigId(params.id)}}
+        onCellClick={(params) => {
+          if(params?.field !== 'action'){
+          setOpenDialog(true);setConfigId(params.id)}
+          }
+          }
         className="cursor-pointer"
         scroll={{ x: true }}
         initialState={{
