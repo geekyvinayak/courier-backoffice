@@ -27,6 +27,8 @@ import ProtectedRoute from "./components/protectedRoute";
 import Forget from "./components/forget";
 import { ResetPassword } from "./components/resetPassword";
 import { ChangePassword } from "./components/changePassword";
+import { Users } from "./tabs/systemTab/users/users";
+import CreateUser from "./tabs/systemTab/users/createUser";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -121,6 +123,14 @@ function App() {
                       <Route
                         path="/pricelist/discounts-surcharges/edit/:id"
                         element={<DiscountCreate />}
+                      />
+                      <Route
+                        path="/settings/system/users"
+                        element={<Users />}
+                      />
+                      <Route
+                        path="/settings/system/users/create"
+                        element={<CreateUser />}
                       />
                     </Routes>
                   </main>
