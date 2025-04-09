@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   Button,
   TextField,
@@ -36,6 +37,12 @@ const DiscountCreate = () => {
       applyToPriceList: false,
       applyToExtraFee: false,
     },
+    validationSchema: Yup.object({
+      name: Yup.string().required("First name is required"),
+      description: Yup.string().required("Description is required"),
+      amount: Yup.number()
+        .typeError("Amount must be a number"),
+    }),
     onSubmit: async (values) => {
       try {
         if (id) {
@@ -65,7 +72,7 @@ const DiscountCreate = () => {
     }
   }, [id]);
 
-    const pageBreadcrums = [
+  const pageBreadcrums = [
     {
       id: 1,
       label: "Discount/Surcharge",
@@ -73,7 +80,7 @@ const DiscountCreate = () => {
     },
     {
       id: 2,
-      label: `${id ? 'Edit ' : 'New '} Discount/Surcharge`,
+      label: `${id ? "Edit " : "New "} Discount/Surcharge`,
       href: "",
     },
   ];
@@ -89,7 +96,7 @@ const DiscountCreate = () => {
             alignItems="center"
           >
             <Typography variant="h3" gutterBottom>
-              {id?"Edit":"New"} Discount/Surcharge
+              {id ? "Edit" : "New"} Discount/Surcharge
             </Typography>
             <Box display="flex" gap={2}>
               <Button
@@ -106,48 +113,62 @@ const DiscountCreate = () => {
             </Box>
           </Box>
 
-        <FormControl fullWidth margin="normal">
-          <Typography variant="body1" gutterBottom>
-            Type
-          </Typography>
-          <Select
-            name="type"
-            value={formik.values.discountType}
-            onChange={(event) => formik.setFieldValue("discountType", event.target.value)}
-            fullWidth
-            size="small"
-            disabled={id ? true : false}
-          >
-            <MenuItem value="Discount">Discount</MenuItem>
-            <MenuItem value="Surcharge">Surcharge</MenuItem>
-          </Select>
-        </FormControl>
+          <FormControl fullWidth margin="normal">
+            <Typography variant="body1" gutterBottom>
+              Type
+            </Typography>
+            <Select
+              name="type"
+              value={formik.values.discountType}
+              onChange={(event) =>
+                formik.setFieldValue("discountType", event.target.value)
+              }
+              fullWidth
+              size="small"
+              disabled={id ? true : false}
+            >
+              <MenuItem value="Discount">Discount</MenuItem>
+              <MenuItem value="Surcharge">Surcharge</MenuItem>
+            </Select>
+          </FormControl>
 
-        <Box marginY={2}>
-          <Typography variant="subtitle1" gutterBottom>
-            Name
-          </Typography>
-          <TextField
-            name="name"
-            size="small"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            fullWidth
-          />
-        </Box>
+          <Box marginY={2}>
+            <Typography variant="subtitle1" gutterBottom>
+              Name
+            </Typography>
+            <TextField
+              name="name"
+              size="small"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              fullWidth
+              onBlur={formik.handleBlur}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+              FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+            />
+          </Box>
 
-        <Box marginY={2}>
-          <Typography variant="subtitle1" gutterBottom>
-            Description
-          </Typography>
-          <TextField
-            name="description"
-            size="small"
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            fullWidth
-          />
-        </Box>
+          <Box marginY={2}>
+            <Typography variant="subtitle1" gutterBottom>
+              Description
+            </Typography>
+            <TextField
+              name="description"
+              size="small"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              fullWidth
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.description && Boolean(formik.errors.description)
+              }
+              helperText={
+                formik.touched.description && formik.errors.description
+              }
+              FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+            />
+          </Box>
 
           <FormControl component="fieldset" margin="normal">
             <FormLabel component="legend">Unit</FormLabel>
@@ -170,19 +191,23 @@ const DiscountCreate = () => {
             </RadioGroup>
           </FormControl>
 
-        <Box marginY={2}>
-          <Typography variant="body1" gutterBottom>
-            Amount ({formik.values.unit === "percentage" ? "%" : "$"})
-          </Typography>
-          <TextField
-            name="amount"
-            size="small"
-            type="number"
-            value={formik.values.amount}
-            onChange={formik.handleChange}
-            fullWidth
-          />
-        </Box>
+          <Box marginY={2}>
+            <Typography variant="body1" gutterBottom>
+              Amount ({formik.values.unit === "percentage" ? "%" : "$"})
+            </Typography>
+            <TextField
+              name="amount"
+              size="small"
+              type="number"
+              value={formik.values.amount}
+              onChange={formik.handleChange}
+              fullWidth
+              onBlur={formik.handleBlur}
+              error={formik.touched.amount && Boolean(formik.errors.amount)}
+              helperText={formik.touched.amount && formik.errors.amount}
+              FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+            />
+          </Box>
 
           {formik.values.unit === "percentage" && (
             <>
