@@ -8,12 +8,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
-import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, IconButton, MenuItem, Tooltip, Typography } from "@mui/material";
 import useToast from "../../../components/toast/useToast";
 import InfoIcon from "@mui/icons-material/Info";
 
 const CreateUser = () => {
+
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   // Formik setup
   const formik = useFormik({
     initialValues: {
@@ -22,9 +24,9 @@ const CreateUser = () => {
       email: "",
       phone: "",
       password: "",
-      contactLanguage: "",
+      contactLanguage: "en",
       subscribeToTechnicalNotification: "",
-      role: "",
+      role: "ADMIN",
       archive: false,
     },
     validationSchema: Yup.object({
@@ -49,21 +51,17 @@ const CreateUser = () => {
     onSubmit: async (values) => {
       try {
         if (id) {
-          const response = await putRequest(`/users/${id}`, {
-            ...values,
-            systemExtra: false,
-            id,
-          });
+          const response = await putRequest(`/users/${id}`, values);
+          showSuccess("User Updated");
           navigate("/settings/system/users");
         } else {
-          const response = await postRequest("/users", {
-            ...values,
-            systemExtra: false,
-          });
+          const response = await postRequest("/users", values);
+          showSuccess("User Added")
           navigate("/settings/system/users");
         }
       } catch (error) {
         console.log(error);
+        showError(error.message);
       }
     },
   });
@@ -72,7 +70,7 @@ const CreateUser = () => {
 
   const getUser = async () => {
     try {
-      const response = await getRequest(`/extraFee/${id}`);
+      const response = await getRequest(`/users/${id}`);
       formik.setValues(response);
     } catch (error) {
       console.log(error);
@@ -136,7 +134,7 @@ const CreateUser = () => {
               htmlFor="firstName"
               className="block text-sm text-gray-700 mb-1 font-semibold"
             >
-              FIRST NAME
+              First Name
             </label>
             <TextField
               id="firstName"
@@ -159,7 +157,7 @@ const CreateUser = () => {
               htmlFor="lastName"
               className="block text-sm text-gray-700 mb-1 font-semibold"
             >
-              LAST NAME
+              Last Name
             </label>
             <TextField
               id="lastName"
@@ -177,10 +175,52 @@ const CreateUser = () => {
           </div>
           <div>
             <label
+              htmlFor="email"
+              className="block text-sm text-gray-700 mb-1 font-semibold"
+            >
+              Email
+            </label>
+            <TextField
+              id="email"
+              name="email"
+              variant="outlined"
+              size="small"
+              fullWidth
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="phone"
+              className="block text-sm text-gray-700 mb-1 font-semibold"
+            >
+              Phone
+            </label>
+            <TextField
+              id="phone"
+              name="phone"
+              variant="outlined"
+              size="small"
+              fullWidth
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.phone && Boolean(formik.errors.phone)}
+              helperText={formik.touched.phone && formik.errors.phone}
+              FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+            />
+          </div>
+          <div>
+            <label
               htmlFor="lastName"
               className="block text-sm text-gray-700 mb-1 font-semibold"
             >
-              PASSWORD
+              Password
               <Tooltip
                 arrow
                 title={
@@ -219,6 +259,71 @@ const CreateUser = () => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="contactLanguage"
+              className="block text-sm text-gray-700 mb-1 font-semibold"
+            >
+              Contact Language
+            </label>
+            <TextField
+              select
+              id="contactLanguage"
+              name="contactLanguage"
+              variant="outlined"
+              size="small"
+              fullWidth
+              value={formik.values.contactLanguage}
+              onChange={formik.handleChange}
+            >
+              <MenuItem value="en">English</MenuItem>
+              <MenuItem value="fr">French</MenuItem>
+            </TextField>
+          </div>
+          <div>
+            <label
+              htmlFor="role"
+              className="block text-sm text-gray-700 mb-1 font-semibold"
+            >
+              Role
+            </label>
+            <TextField
+              select
+              id="role"
+              name="role"
+              variant="outlined"
+              size="small"
+              fullWidth
+              value={formik.values.role}
+              onChange={formik.handleChange}
+            >
+              <MenuItem value="ADMIN">Admin</MenuItem>
+            </TextField>
+          </div>
+          <div>
+            <label
+              htmlFor="subscribeToTechnicalNotification"
+              className="block text-sm text-gray-700 mb-1 font-semibold"
+            >
+              Communication Preferences
+            </label>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="subscribeToTechnicalNotification"
+                  name="subscribeToTechnicalNotification"
+                  checked={formik.values.subscribeToTechnicalNotification}
+                  onChange={(event) =>
+                    formik.setFieldValue(
+                      "subscribeToTechnicalNotification",
+                      event.target.checked
+                    )
+                  }
+                />
+              }
+              label={<span className="text-xs font-normal">Subscribe user to received Dispatch Science emails and notification of a technical nature (best for Administrators and power users)</span>}
             />
           </div>
         </form>

@@ -3,42 +3,38 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRequest } from "../../../consts/apiCalls";
 
-const columns = [
-  { field: "name", headerName: "Name", flex: 1.5,renderCell: (params) => {
-    return `${params.row.firstName || ""} ${params.row.lastName || ""}`.trim();
-  },},
-  { field: "email", headerName: "Email", flex: 1.5 },
-  { field: "phone", headerName: "Phone", flex: 1.5 },
-  { field: "contactLanguage", headerName: "Contact Language", flex: 1.5 },
-  { field: "role", headerName: "Role", flex: 1.5 },
-  { field: "subscribeToTechnicalNotification", headerName: "Subscribed to Technical Emails", flex: 1.5 },
-];
+const ServiceLevelsGrid = () => {
 
-const UserGrid = ({showAchive}) => {
+  const columns = [
+    { field: "name", headerName: "Name", flex: 1.5 },
+    { field: "description", headerName: "description", flex: 1.5 },
+  ];
+
   const navigate = useNavigate();
 
-  const [users, setUsers] = useState([]);
+  const [serviceLevelsList, setServiceLevelsList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const fetchExtraFees = async () => {
+
+  const fetchServiceLevels = async () => {
     try {
-      const response = await getRequest(`/users?showDeleted=${showAchive}`);
-      setUsers(response);
-      setLoading(false)
+      const response = await getRequest("/api/service-level");
+      setServiceLevelsList(response);
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.error("Error fetching Extra fees:", error);
     }
   };
 
   useEffect(() => {
-    fetchExtraFees();
-  }, [showAchive]);
+    fetchServiceLevels();
+  }, []);
 
   return (
     <div className="w-[90%] mt-5">
       <div>
         <DataGrid
-          rows={users}
+          rows={serviceLevelsList}
           className="cursor-pointer !h-[70vh]"
           columns={columns}
           onCellClick={(params) => {
@@ -47,14 +43,14 @@ const UserGrid = ({showAchive}) => {
             }
           }}
           loading={loading}
-        slotProps={{
-          loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
-          },
-        }}
+          slotProps={{
+            loadingOverlay: {
+              variant: "circular-progress",
+              noRowsVariant: "circular-progress",
+            },
+          }}
           rowHeight={45}
-           columnHeaderHeight={45}
+          columnHeaderHeight={45}
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
@@ -78,10 +74,10 @@ const UserGrid = ({showAchive}) => {
               fontWeight: "bold", // Bold text
               fontSize: "14px", // Increase font size
             },
-            "& .MuiDataGrid-virtualScrollerContent":{
+            "& .MuiDataGrid-virtualScrollerContent": {
               fontWeight: "500", // Bold text
               fontSize: "12px",
-            }
+            },
           }}
         />
       </div>
@@ -89,4 +85,4 @@ const UserGrid = ({showAchive}) => {
   );
 };
 
-export default UserGrid;
+export default ServiceLevelsGrid;

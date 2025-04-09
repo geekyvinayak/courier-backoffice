@@ -24,6 +24,19 @@ const itemsData = {
       ],
     },
     {
+      id: 3,
+      name: "Service Levels",
+      link: "/pricelist/servicelevelschedule",
+      childPaths: [
+        "/pricelist/servicelevelschedule",
+        "/pricelist/servicelevels",
+        "/pricelist/servicelevelschedule/create",
+        "/pricelist/servicelevelschedule/edit",
+        "/pricelist/servicelevels/create",
+        "/pricelist/servicelevels/edit",
+      ],
+    },
+    {
       id: 5,
       name: "Extra Fees",
       link: "/pricelist/extrafeesschedule",
@@ -141,7 +154,7 @@ const TabNavigation = () => {
   const items = itemsData[`/${currentPath}`] || []; // Get items based on route
 
   return (
-    <ul className="flex w-[50%] justify-start gap-x-4 rounded-lg p-2">
+    <ul className="flex w-[60%] justify-start gap-x-4 rounded-lg p-2">
       {items.map((item) => {
         const isActive = item?.childPaths?.some((path) => {
           const regex = new RegExp(`^${path}(/\\d+)?$`); // Allows optional "/id" at the end

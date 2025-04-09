@@ -20,6 +20,7 @@ import size from "lodash/size";
 import ToastProvider from "./components/toast/ToastProvider";
 import PricingZone from "./tabs/priceListTab/pricingZone/pricingZone";
 import { Discount } from "./tabs/priceListTab/discount/discount";
+import { ServicelevelSchedule } from "./tabs/priceListTab/serviceLevelSchedule/serviceLevelSchedule";
 import DiscountCreate from "./tabs/priceListTab/discount/discountCreate";
 import VehicleEquivalenciesEditForm from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesEdit";
 import Login from "./components/login";
@@ -29,6 +30,9 @@ import { ResetPassword } from "./components/resetPassword";
 import { ChangePassword } from "./components/changePassword";
 import { Users } from "./tabs/systemTab/users/users";
 import CreateUser from "./tabs/systemTab/users/createUser";
+import { Servicelevels } from "./tabs/priceListTab/serviceLevels/serviceLevels";
+import CreateServiceLevel from "./tabs/priceListTab/serviceLevels/createSeviceLevel";
+import CreateServiceLevelSchedule from "./tabs/priceListTab/serviceLevelSchedule/createServiceLevelSchedule";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -125,11 +129,39 @@ function App() {
                         element={<DiscountCreate />}
                       />
                       <Route
+                        path="/pricelist/servicelevelschedule"
+                        element={<ServicelevelSchedule />}
+                      />
+                      <Route
+                        path="/pricelist/servicelevelschedule/create"
+                        element={<CreateServiceLevelSchedule />}
+                      />
+                      <Route
+                        path="/pricelist/servicelevelschedule/edit/:id"
+                        element={<CreateServiceLevelSchedule />}
+                      />
+                      <Route
+                        path="/pricelist/servicelevels"
+                        element={<Servicelevels />}
+                      />
+                      <Route
+                        path="/pricelist/servicelevels/create"
+                        element={<CreateServiceLevel />}
+                      />
+                      <Route
+                        path="/pricelist/servicelevels/edit/:id"
+                        element={<CreateServiceLevel />}
+                      />
+                      <Route
                         path="/settings/system/users"
                         element={<Users />}
                       />
                       <Route
                         path="/settings/system/users/create"
+                        element={<CreateUser />}
+                      />
+                      <Route
+                        path="settings/system/users/edit/:id"
                         element={<CreateUser />}
                       />
                     </Routes>
