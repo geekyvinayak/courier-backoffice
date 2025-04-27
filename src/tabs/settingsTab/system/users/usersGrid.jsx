@@ -1,7 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getRequest } from "../../../consts/apiCalls";
+import { getRequest } from "../../../../consts/apiCalls";
 
 const columns = [
   { field: "name", headerName: "Name", flex: 1.5,renderCell: (params) => {

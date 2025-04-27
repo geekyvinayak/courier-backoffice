@@ -28,11 +28,13 @@ import ProtectedRoute from "./components/protectedRoute";
 import Forget from "./components/forget";
 import { ResetPassword } from "./components/resetPassword";
 import { ChangePassword } from "./components/changePassword";
-import { Users } from "./tabs/systemTab/users/users";
-import CreateUser from "./tabs/systemTab/users/createUser";
+import { Users } from "./tabs/settingsTab/system/users/users";
+import CreateUser from "./tabs/settingsTab/system/users/createUser";
 import { Servicelevels } from "./tabs/priceListTab/serviceLevels/serviceLevels";
 import CreateServiceLevel from "./tabs/priceListTab/serviceLevels/createSeviceLevel";
 import CreateServiceLevelSchedule from "./tabs/priceListTab/serviceLevelSchedule/createServiceLevelSchedule";
+import { Address } from "./tabs/settingsTab/system/address/address";
+import CreateAddress from "./tabs/settingsTab/system/address/createAddress";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -163,6 +165,14 @@ function App() {
                       <Route
                         path="settings/system/users/edit/:id"
                         element={<CreateUser />}
+                      />
+                      <Route
+                        path="settings/system/address"
+                        element={<Address />}
+                      />
+                      <Route
+                        path="/settings/system/address/create/:form"
+                        element={<CreateAddress />}
                       />
                     </Routes>
                   </main>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import LinkBtn from "../../../components/linkBtn";
-import SubTabNavigator from "../../../components/subTabNavigator";
+import LinkBtn from "../../../../components/linkBtn";
+import SubTabNavigator from "../../../../components/subTabNavigator";
 import UserGrid from "./usersGrid";
 import { Checkbox, FormControlLabel } from "@mui/material";
 

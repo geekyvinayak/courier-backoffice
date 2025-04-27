@@ -137,11 +137,16 @@ const itemsData = {
       link:"/settings/system/users",
       childPaths:[
         "/settings/system/users",
+        "/settings/system/users/create",
         "/settings/system/address",
         "/settings/system/reports",
         "/settings/system/anonymize",
         "/settings/system/application-logs",
-        "/settings/system/audit"
+        "/settings/system/audit",
+        "/settings/system/address/create/NewHub",
+        "/settings/system/address/create/NewContact",
+        "/settings/system/address/create/NewGlobalAddress",
+
       ]
     },
   ]
