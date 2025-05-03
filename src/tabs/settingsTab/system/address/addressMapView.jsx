@@ -14,8 +14,7 @@ function AddressMapView({
   const mapContainerRef = useRef();
 
   useEffect(() => {
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoiZ2Vla3l2aW5heWFrIiwiYSI6ImNtOTZsdnppazFkZzEyc3B6YW91MzV4MmsifQ.guLPUvm-CfIopI9x_SpvbA";
+    mapboxgl.accessToken = process.env.REACT_APP_MAP_ACCESS_TOKEN
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       center: [longitude, latitude],
