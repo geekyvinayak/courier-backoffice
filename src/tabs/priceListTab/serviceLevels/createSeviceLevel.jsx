@@ -84,7 +84,7 @@ const CreateServiceLevel = () => {
             lable: "Service Level Schedules",
             url: "/pricelist/servicelevelschedule",
           },
-          { lable: "Service Levels", url: "/pricelist/servicelevels" },
+          { lable: "Service Levels", url: "/pricelist/servicelevels",isFilled:true },
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />

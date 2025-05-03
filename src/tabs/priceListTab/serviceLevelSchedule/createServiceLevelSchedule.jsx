@@ -80,6 +80,7 @@ const CreateServiceLevelSchedule = () => {
           {
             lable: "Service Level Schedules",
             url: "/pricelist/servicelevelschedule",
+            isFilled:true
           },
           { lable: "Service Levels", url: "/pricelist/servicelevels" },
         ]}
