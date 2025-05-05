@@ -190,6 +190,7 @@ const CreateAddress = () => {
   // Initial values based on form type - updated to match schema
   const getInitialValues = () => {
     const baseValues = {
+      type: formType.charAt(0).toUpperCase() + formType.slice(1),
       companyName: "",
       addressLine1: "",
       city: "",
@@ -230,7 +231,7 @@ const CreateAddress = () => {
     try {
       const response = await postRequest("/address", values);
       console.log("resp", response);
-      showSuccess("User Added");
+      showSuccess(getFormTitle() +" Added");
       navigate("/settings/system/address");
     } catch (error) {
       console.error(error);

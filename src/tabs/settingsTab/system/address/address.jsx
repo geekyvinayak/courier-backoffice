@@ -47,7 +47,7 @@ export const Address = () => {
          <Link to={'create/NewGlobalAddress'}><MenuItem onClick={() => handleClose('Global')}>Global</MenuItem></Link>
       </Menu>
     </div>
-     {/* <AddresGrid /> */}
+     <AddresGrid />
     </div>
   );
 };
