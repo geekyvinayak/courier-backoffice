@@ -12,9 +12,9 @@ export const Users = () => {
         data={[
           { lable: "Users", url: "/settings/system/users" },
           { lable: "Address", url: "/settings/system/address" },
-          { lable: "Report", url: "/settings/system/report" },
-          { lable: "Anonymize", url: "/settings/system/Anonymize" },
-          { lable: "Audit", url: "/settings/system/audit" },
+          // { lable: "Report", url: "/settings/system/report" },
+          // { lable: "Anonymize", url: "/settings/system/Anonymize" },
+          // { lable: "Audit", url: "/settings/system/audit" },
         ]}
       />
       <div>

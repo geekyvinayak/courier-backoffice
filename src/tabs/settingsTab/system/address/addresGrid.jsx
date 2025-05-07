@@ -1,6 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getRequest } from "../../../../consts/apiCalls";
 
 const columns = [
   { field: "type", headerName: "Type", flex: 1,minWidth: 100 },
@@ -58,62 +59,16 @@ const AddressGrid = ({ showArchive }) => {
   // Replace with your actual API call
   const fetchContacts = async () => {
     try {
-      // In a real app, this would be your API call
-      // const response = await getRequest(`/contacts?page=0&size=10&sort=id`);
-      
-      // Demo data for illustration
-      const demoData = [
-        {
-          "id": 52,
-          "type": "Contact",
-          "accountId": 11,
-          "accountantUserId": 12,
-          "companyName": "abc",
-          "contactName": "xyz",
-          "phoneNo": null,
-          "email": "test@test.com",
-          "contactLanguage": "ENGLISH",
-          "postalCode": "M5S 1A1",
-          "addressLine1": "University of Toronto, 27 King's College Cir, Toronto, ON M5S 1A1, Canada",
-          "city": "Toronto",
-          "state": "Ontario",
-          "latitude": 43.66095,
-          "longitude": -79.39605,
-          "suiteApartment": "fdc",
-          "loadUnloadMinutes": 1,
-          "defaultContact": true,
-          "note": "ewzdfbv"
-        },
-        {
-          "id": 53,
-          "type": "Contact",
-          "accountId": 11,
-          "accountantUserId": 12,
-          "companyName": "des",
-          "contactName": "fdgb",
-          "phoneNo": null,
-          "email": "sdfvb@f.com",
-          "contactLanguage": "ENGLISH",
-          "postalCode": "K1N 6N5",
-          "addressLine1": "University of Ottawa, 75 Laurier Ave E, Ottawa, ON K1N 6N5, Canada",
-          "city": "Ottawa",
-          "state": "Ontario",
-          "latitude": 45.42414,
-          "longitude": -75.68599,
-          "suiteApartment": "22",
-          "loadUnloadMinutes": 22,
-          "defaultContact": true,
-          "note": "wdsf"
-        }
-      ];
-      
-      setContacts(demoData);
+      const response = await getRequest(`/address?page=0`);
+      setContacts(response);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error("Error fetching contacts:", error);
     }
   };
+
+
 
   useEffect(() => {
     fetchContacts();
