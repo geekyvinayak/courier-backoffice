@@ -174,6 +174,10 @@ function App() {
                         path="/settings/system/address/create/:form"
                         element={<CreateAddress />}
                       />
+                      <Route
+                        path="/settings/system/address/edit/:form/:id"
+                        element={<CreateAddress />}
+                      />
                     </Routes>
                   </main>
                 </div>

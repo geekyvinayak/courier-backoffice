@@ -23,13 +23,17 @@ import {
   DialogContent,
 } from "@mui/material";
 import useToast from "../../../../components/toast/useToast";
-import { getRequest, postRequest } from "../../../../consts/apiCalls";
+import {
+  getRequest,
+  postRequest,
+  putRequest,
+} from "../../../../consts/apiCalls";
 import AddressMapView from "./addressMapView";
 
 const CreateAddress = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { form } = useParams();
+  const { form, id } = useParams();
   const { showSuccess, showError } = useToast();
   // Determine form type based on URL path
   const [formType, setFormType] = useState("");
@@ -102,6 +106,22 @@ const CreateAddress = () => {
     };
   }, []);
 
+  const getAddress = async () => {
+    try {
+      const response = await getRequest(`/address/${id}`);
+      formik.setValues(response);
+      setInputValue(response.addressLine1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getAddress();
+    }
+  }, [id]);
+
   // Handle suggestion click
   const handleSuggestionClick = (suggestion) => {
     const address = suggestion.address;
@@ -131,21 +151,21 @@ const CreateAddress = () => {
 
   useEffect(() => {
     const path = location.pathname;
-    if (path.endsWith("/NewContact")) setFormType("contact");
-    else if (path.endsWith("/NewHub")) setFormType("hub");
-    else if (path.endsWith("/NewGlobalAddress")) setFormType("global");
+    if (path.includes("/NewContact")) setFormType("contact");
+    else if (path.includes("/NewHub")) setFormType("hub");
+    else if (path.includes("/NewGlobal")) setFormType("global");
   }, [location]);
 
   const getFormTitle = () => {
     switch (formType) {
       case "contact":
-        return "New Contact";
+        return id ? "Edit Contact":"New Contact";
       case "hub":
-        return "New Hub Address";
+        return  id ? "Edit Hub Address":"New Hub Address";
       case "global":
-        return "New Global Address";
+        return id ? "Edit Global Address":"New Global Address" ;
       default:
-        return "New Address";
+        return id ? "Edit Address":"New Address";
     }
   };
 
@@ -229,10 +249,15 @@ const CreateAddress = () => {
 
   const handleSubmit = async (values) => {
     try {
-      const response = await postRequest("/address", values);
-      console.log("resp", response);
-      showSuccess(getFormTitle() +" Added");
-      navigate("/settings/system/address");
+      if (id) {
+        const response = await putRequest(`/address/${id}`, values);
+        showSuccess("Address Updated");
+        navigate("/settings/system/address");
+      } else {
+        const response = await postRequest("/address", values);
+        showSuccess(getFormTitle() + " Added");
+        navigate("/settings/system/address");
+      }
     } catch (error) {
       console.error(error);
       showError(error.message);
@@ -391,12 +416,18 @@ const CreateAddress = () => {
             >
               <FormControlLabel
                 value="ENGLISH"
-                control={<Radio />}
+                control={
+                  <Radio
+                    checked={formik.values.contactLanguage === "ENGLISH"}
+                  />
+                }
                 label="ENGLISH"
               />
               <FormControlLabel
                 value="FRENCH"
-                control={<Radio />}
+                control={
+                  <Radio checked={formik.values.contactLanguage === "FRENCH"} />
+                }
                 label="FRENCH"
               />
             </RadioGroup>
@@ -408,7 +439,7 @@ const CreateAddress = () => {
                 <Checkbox
                   id="defaultContact"
                   name="defaultContact"
-                  checked={formik.values.defaultContact}
+                  checked={Boolean(formik.values.defaultContact)}
                   onChange={formik.handleChange}
                 />
               }
@@ -769,12 +800,12 @@ const CreateAddress = () => {
           >
             <FormControlLabel
               value="ENGLISH"
-              control={<Radio />}
+              control={<Radio  checked={formik.values.contactLanguage === "ENGLISH"}/>}
               label="ENGLISH"
             />
             <FormControlLabel
               value="FRENCH"
-              control={<Radio />}
+              control={<Radio  checked={formik.values.contactLanguage === "FRENCH"}/>}
               label="FRENCH"
             />
           </RadioGroup>
