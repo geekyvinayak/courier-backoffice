@@ -14,9 +14,6 @@ import ExtraFeesCreate from "./tabs/priceListTab/extraFees/extraFeesCreate";
 import VehicleEquivalencies from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalencies";
 import VehiclesTypesCreate from "./tabs/priceListTab/vehiclesTypes/vehiclesTypesCreate";
 import VehicleEquivalenciesCreate from "./tabs/priceListTab/vehicleEquivalencies/vehicleEquivalenciesCreate";
-import { useEffect } from "react";
-import { postRequest } from "./consts/apiCalls";
-import size from "lodash/size";
 import ToastProvider from "./components/toast/ToastProvider";
 import PricingZone from "./tabs/priceListTab/pricingZone/pricingZone";
 import { Discount } from "./tabs/priceListTab/discount/discount";
@@ -35,6 +32,8 @@ import CreateServiceLevel from "./tabs/priceListTab/serviceLevels/createSeviceLe
 import CreateServiceLevelSchedule from "./tabs/priceListTab/serviceLevelSchedule/createServiceLevelSchedule";
 import { Address } from "./tabs/settingsTab/system/address/address";
 import CreateAddress from "./tabs/settingsTab/system/address/createAddress";
+import { FuleSurchargesCalculator } from "./tabs/priceListTab/fuleSurcharges/fuleSurchargesCalculator";
+import FuleSurchargesCalculatorCreate from "./tabs/priceListTab/fuleSurcharges/fuleSurchargeCalculatorCreate";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -173,6 +172,14 @@ function App() {
                       <Route
                         path="/settings/system/address/create/:form"
                         element={<CreateAddress />}
+                      />
+                      <Route
+                        path="/pricelist/surcharge-calculator"
+                        element={<FuleSurchargesCalculator />}
+                      />
+                      <Route
+                        path="/pricelist/surcharge-calculator/create"
+                        element={<FuleSurchargesCalculatorCreate />}
                       />
                     </Routes>
                   </main>

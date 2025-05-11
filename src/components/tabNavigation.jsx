@@ -65,6 +65,16 @@ const itemsData = {
       link: "/pricelist/pricingzones",
       childPaths: ["/pricelist/pricingzones", "/pricelist/pricingzoneslayout"],
     },
+    {
+      id:8,
+      name: "Fule Surcharges",
+      link: "/pricelist/surcharge-calculator",
+      childPaths: [
+        "/pricelist/surcharge-calculator",
+        "/pricelist/surcharge-calculator/create",
+        "/pricelist/surcharge-calculator/edit",
+      ]
+    }
   ],
   "/dashboard": [
     {
