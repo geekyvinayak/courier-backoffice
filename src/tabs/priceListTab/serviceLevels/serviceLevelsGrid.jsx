@@ -6,7 +6,7 @@ import { getRequest } from "../../../consts/apiCalls";
 const ServiceLevelsGrid = () => {
 
   const columns = [
-    { field: "name", headerName: "Name", flex: 1.5 },
+    { field: "name", headerName: "Name", flex: 1.5 ,cellClassName: "text-center cursor-pointer !text-[#3e4396]",},
     { field: "description", headerName: "description", flex: 1.5 },
   ];
 
@@ -35,10 +35,10 @@ const ServiceLevelsGrid = () => {
       <div>
         <DataGrid
           rows={serviceLevelsList}
-          className="cursor-pointer !h-[70vh]"
+          className="!h-[70vh]"
           columns={columns}
           onCellClick={(params) => {
-            if (params.field != "action") {
+            if (params.field == "name") {
               navigate(`./edit/${params.row.id}`);
             }
           }}

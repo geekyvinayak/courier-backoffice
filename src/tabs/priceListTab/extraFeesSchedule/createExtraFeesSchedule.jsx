@@ -59,33 +59,33 @@ const CreateExtraFeesSchedule = () => {
     }
   };
 
-  const handleExtraConfig = async (configJson) => {
-    const existingConfigs = formik.values.extraFeeConfigs || [];
+  // const handleExtraConfig = async (configJson) => {
+  //   const existingConfigs = formik.values.extraFeeConfigs || [];
 
-    const updatedConfigs = existingConfigs.some(
-      (config) => config.id === configJson.id,
-    )
-      ? existingConfigs.map((config) =>
-          config.id === configJson.id ? configJson : config,
-        )
-      : [...existingConfigs, configJson];
-    formik.setFieldValue("extraFeeConfigs", updatedConfigs);
-    // setOpenDialog(false);
-    let body = {
-      name: formik.values.name,
-      id,
-      extraFeeConfigs: updatedConfigs,
-      active: formik.values.active,
-      file: "null",
-    };
-    const response = await postRequest(
-      `/extraFeeSchedule/extraFee/${id}`,
-      body,
-      {
-        "Content-Type": "multipart/form-data",
-      },
-    );
-  };
+  //   const updatedConfigs = existingConfigs.some(
+  //     (config) => config.id === configJson.id,
+  //   )
+  //     ? existingConfigs.map((config) =>
+  //         config.id === configJson.id ? configJson : config,
+  //       )
+  //     : [...existingConfigs, configJson];
+  //   formik.setFieldValue("extraFeeConfigs", updatedConfigs);
+  //   // setOpenDialog(false);
+  //   let body = {
+  //     name: formik.values.name,
+  //     id,
+  //     extraFeeConfigs: updatedConfigs,
+  //     active: formik.values.active,
+  //     file: "null",
+  //   };
+  //   const response = await postRequest(
+  //     `/extraFeeSchedule/extraFee/${id}`,
+  //     body,
+  //     {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   );
+  // };
 
   useEffect(() => {
     if (id) {
