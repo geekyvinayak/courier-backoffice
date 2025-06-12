@@ -68,12 +68,13 @@ export async function postRequest(url, body = {}, customHeaders = {}) {
 }
 
 // Function to make PUT request
-export async function putRequest(url, body = {}) {
+export async function putRequest(url, body = {}, customHeaders = {}) {
   try {
     const response = await axios.put(`${BASE_URL}${url}`, body, {
       headers: {
         "Content-Type": "application/json",
         ...getAuthHeaders(),
+        ...customHeaders,
       },
     });
     return response.data;

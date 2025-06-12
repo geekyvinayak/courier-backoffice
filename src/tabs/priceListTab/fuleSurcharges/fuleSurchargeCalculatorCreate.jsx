@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
@@ -7,6 +7,7 @@ import { getRequest, postRequest, putRequest } from "../../../consts/apiCalls";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SubTabNavigator from "../../../components/subTabNavigator";
 import {
   Box,
@@ -21,32 +22,68 @@ import {
   Typography,
 } from "@mui/material";
 import useToast from "../../../components/toast/useToast";
+import axios from "axios";
 
-const FuleSurchargesCalculatorCreate = () => {
+const FuelSurchargesCalculatorCreate = () => {
   const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+
   // Formik setup
   const formik = useFormik({
     initialValues: {
       name: "",
       type: "Formula",
       formula: "",
+      sheetContent: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
-      formula: Yup.string().required("Formula is required"),
+      formula: Yup.string().when("type", {
+        is: "Formula",
+        then: () => Yup.string().required("Formula is required"),
+        otherwise: () => Yup.string(),
+      }),
+      sheetContent: Yup.string().when("type", {
+        is: "Sheet",
+        then: () =>
+          Yup.string().required(
+            "Sheet content is required when no file is uploaded",
+          ),
+        otherwise: () => Yup.string(),
+      }),
     }),
 
     onSubmit: async (values) => {
       try {
+        const dto = JSON.stringify({
+          name: values.name,
+          type: values.type,
+          formula: values.formula,
+        })
+
         if (id) {
-          const response = await putRequest(`/users/${id}`, values);
-          showSuccess("User Updated");
-          navigate("/settings/system/users");
+          const response = await putRequest(
+            `/surcharge-calculators/${id}`,
+            {
+              dto: dto,
+              sheetContent: values.sheetContent,
+            },
+            { "Content-Type": "multipart/form-data" }
+          );
+          showSuccess("Surcharge Calculator Updated");
+          navigate("/pricelist/surcharge-calculator");
         } else {
-          const response = await postRequest("/users", values);
-          showSuccess("User Added");
-          navigate("/settings/system/users");
+          const response = await postRequest(
+            "/surcharge-calculators",
+            {
+              dto: dto,
+              sheetContent: values.sheetContent,
+            },
+            { "Content-Type": "multipart/form-data" }
+          );
+          showSuccess("Surcharge Calculator Added");
+          navigate("/pricelist/surcharge-calculator");
         }
       } catch (error) {
         console.log(error);
@@ -57,18 +94,65 @@ const FuleSurchargesCalculatorCreate = () => {
 
   const { id } = useParams();
 
-  const getUser = async () => {
+  const getCalculatorsData = async () => {
     try {
-      const response = await getRequest(`/users/${id}`);
+      const response = await getRequest(`/surcharge-calculators/${id}`);
+      setIsLoading(true)
       formik.setValues(response);
     } catch (error) {
       console.log(error);
+    }
+    setIsLoading(false)
+  };
+
+  const handleDownloadTemplate = async () => {
+
+    setIsLoading(true);
+    try {
+      const response = await axios({
+        url: id?`${process.env.REACT_APP_BACKEND_URL}/surcharge-calculators/${id}/download-sheet`:
+        `${process.env.REACT_APP_BACKEND_URL}/surcharge-calculators/download-template`,
+        method: "GET",
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Accept: "*/*",
+        },
+      });
+
+      const contentDisposition = response.headers["content-disposition"];
+      let filename = "";
+
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+        );
+        if (filenameMatch && filenameMatch[1]) {
+          filename = decodeURIComponent(filenameMatch[1]);
+        }
+      }
+
+      const url = window.URL.createObjectURL(response.data);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      showSuccess("File downloaded successfully!");
+    } catch (error) {
+      showError("Error downloading file ");
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     if (id) {
-      getUser();
+      getCalculatorsData();
     }
   }, [id]);
 
@@ -76,7 +160,7 @@ const FuleSurchargesCalculatorCreate = () => {
     {
       id: 1,
       label: "Surcharges Calculator",
-      href: "/pricelist/system/users",
+      href: "/pricelist/surcharge-calculator",
     },
     {
       id: 2,
@@ -90,13 +174,13 @@ const FuleSurchargesCalculatorCreate = () => {
       <SubTabNavigator
         data={[
           {
-            lable: "Fule Surcharges Schedules",
+            lable: "Fuel Surcharges Schedules",
             url: "/pricelist/extrafeesschedule",
           },
-          { lable: "Fule Surcharges Table", url: "/pricelist/extrafees" },
-          { lable: "Fule Prices", url: "/pricelist/extrafees" },
+          { lable: "Fuel Surcharges Table", url: "/pricelist/extrafees" },
+          { lable: "Fuel Prices", url: "/pricelist/extrafees" },
           {
-            lable: "Fule Surcharges Calculator",
+            lable: "Fuel Surcharges Calculator",
             url: "/pricelist/surcharge-calculator",
             isFilled: true,
           },
@@ -115,7 +199,6 @@ const FuleSurchargesCalculatorCreate = () => {
             type="submit"
             color="primary"
             sx={{
-              // Red border (you can change the color)
               backgroundColor: "#1569CB",
             }}
           >
@@ -126,7 +209,7 @@ const FuleSurchargesCalculatorCreate = () => {
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
             <label
-              htmlFor="firstName"
+              htmlFor="name"
               className="block text-sm text-gray-700 mb-1 font-semibold"
             >
               Name
@@ -140,8 +223,8 @@ const FuleSurchargesCalculatorCreate = () => {
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.firstName && Boolean(formik.errors.name)}
-              helperText={formik.touched.firstName && formik.errors.name}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
             />
           </div>
@@ -170,10 +253,72 @@ const FuleSurchargesCalculatorCreate = () => {
               </RadioGroup>
             </FormControl>
           </div>
+
+          {/* Conditional rendering based on selected type */}
+          {formik.values.type === "Formula" ? (
+            <div>
+              <label
+                htmlFor="formula"
+                className="block text-sm text-gray-700 mb-1 font-semibold"
+              >
+                Formula
+              </label>
+              <TextField
+                id="formula"
+                name="formula"
+                variant="outlined"
+                size="small"
+                fullWidth
+                multiline
+                rows={4}
+                value={formik.values.formula}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.formula && Boolean(formik.errors.formula)}
+                helperText={formik.touched.formula && formik.errors.formula}
+                FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+              />
+            </div>
+          ) : (
+            <div>
+              <div className="mt-4">
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <label>FILE</label>
+                  <input
+                    type="file"
+                    name="sheetContent"
+                    onChange={(event) =>
+                      formik.setFieldValue(
+                        "sheetContent",
+                        event.currentTarget.files[0],
+                      )
+                    }
+                  />
+                </FormControl>
+                {/* <FileUploadComponent onFileSelect={handleFileSelect} /> */}
+              </div>
+              <div className="justify-center">
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  onClick={handleDownloadTemplate}
+                  disabled={isLoading}
+                  sx={{
+                    backgroundColor: "transparent !important", // Custom color for this specific button
+                    color: "black !important",
+                    border: "1px solid black !important",
+                  }}
+                  className="mb-2 max-w-fit gap-2 !bg-white "
+                >
+                  <FileDownloadOutlinedIcon /> {id?'Download File':'Download Template'}
+                </Button>
+              </div>
+            </div>
+          )}
         </form>
       </div>
     </div>
   );
 };
 
-export default FuleSurchargesCalculatorCreate;
+export default FuelSurchargesCalculatorCreate;

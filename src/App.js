@@ -34,6 +34,8 @@ import { Address } from "./tabs/settingsTab/system/address/address";
 import CreateAddress from "./tabs/settingsTab/system/address/createAddress";
 import { FuleSurchargesCalculator } from "./tabs/priceListTab/fuleSurcharges/fuleSurchargesCalculator";
 import FuleSurchargesCalculatorCreate from "./tabs/priceListTab/fuleSurcharges/fuleSurchargeCalculatorCreate";
+import {FuelPrices} from "./tabs/priceListTab/fulePrices/fulePrices";
+import CreateFuelPrice from "./tabs/priceListTab/fulePrices/createFuelPrice";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -180,6 +182,22 @@ function App() {
                       <Route
                         path="/pricelist/surcharge-calculator/create"
                         element={<FuleSurchargesCalculatorCreate />}
+                      />
+                      <Route
+                        path="/pricelist/surcharge-calculator/create/:id"
+                        element={<FuleSurchargesCalculatorCreate />}
+                      />
+                      <Route
+                        path="/pricelist/fuel-prices"
+                        element={<FuelPrices />}
+                      />
+                      <Route
+                        path="/pricelist/fuel-prices/create"
+                        element={<CreateFuelPrice />}
+                      />
+                      <Route
+                        path="/pricelist/fuel-prices/create/:id"
+                        element={<CreateFuelPrice />}
                       />
                     </Routes>
                   </main>

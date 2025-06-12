@@ -9,7 +9,7 @@ import useToast from "../../../components/toast/useToast";
 import { IconButton } from "@mui/material";
 import { DeleteDialog } from "../../../components/deleteDialog";
 
-const FuleSurchargesCalculatorGrid = () => {
+const FuelPricesGrid = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [rows, setRow] = useState([]);
@@ -17,7 +17,7 @@ const FuleSurchargesCalculatorGrid = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    const response = await getRequest("/surcharge-calculators")
+    const response = await getRequest("/fuel-prices")
       .then((response) => {
         setRow(response);
         setLoading(false);
@@ -37,12 +37,6 @@ const FuleSurchargesCalculatorGrid = () => {
       cellClassName: "text-center cursor-pointer !text-[#3e4396]",
     },
     {
-      field: "type",
-      headerName: "Type",
-      flex: 2,
-      cellClassName: "text-center",
-    },
-    {
       field: "action",
       headerName: "",
       sortable: false,
@@ -56,18 +50,18 @@ const FuleSurchargesCalculatorGrid = () => {
   ];
 
   const handleCellClick = (params) => {
-    navigate(`/pricelist/surcharge-calculator/create/${params}`);
+    navigate(`/pricelist/fuel-prices/create/${params}`);
   };
 
   const handleDelete = async (id) => {
     try {
       setLoading(true);
-      const response = await deleteRequest(`/surcharge-calculators/${id}`);
+      const response = await deleteRequest(`/fuel-prices/${id}`);
       fetchData();
-      setLoading(false);
     } catch (error) {
       console.log(error);
       showError("Something went wrong");
+    } finally {
       setLoading(false);
     }
   };
@@ -128,4 +122,4 @@ const FuleSurchargesCalculatorGrid = () => {
   );
 };
 
-export default FuleSurchargesCalculatorGrid;
+export default FuelPricesGrid;

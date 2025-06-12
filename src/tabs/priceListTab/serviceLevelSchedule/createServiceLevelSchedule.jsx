@@ -8,9 +8,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
-import { Select, Typography } from "@mui/material";
+import { Select, Typography, MenuItem } from "@mui/material";
 import useToast from "../../../components/toast/useToast";
-import { MenuItem } from "react-pro-sidebar";
 
 const CreateServiceLevelSchedule = () => {
   const navigate = useNavigate();
@@ -47,7 +46,8 @@ const CreateServiceLevelSchedule = () => {
 
   const getServiceLevel = async () => {
     try {
-      const response = await getRequest(`/api/service-level-schedule/${id}`);
+      const response = await getRequest(`/api/service-level-schedule/${id}/vehicle-first-service-level/availableVehicle`);
+      console.log(response)
       formik.setValues(response);
     } catch (error) {
       console.log(error);

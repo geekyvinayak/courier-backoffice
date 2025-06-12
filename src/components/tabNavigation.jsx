@@ -37,6 +37,19 @@ const itemsData = {
       ],
     },
     {
+      id:4,
+      name: "Fule Surcharges",
+      link: "/pricelist/surcharge-calculator",
+      childPaths: [
+        "/pricelist/surcharge-calculator",
+        "/pricelist/surcharge-calculator/create",
+        "/pricelist/surcharge-calculator/edit",
+        "/pricelist/fuel-prices",
+        "/pricelist/fuel-prices/create",
+        "/pricelist/fuel-prices/edit"
+      ]
+    },
+    {
       id: 5,
       name: "Extra Fees",
       link: "/pricelist/extrafeesschedule",
@@ -64,16 +77,6 @@ const itemsData = {
       name: "Pricing Zones",
       link: "/pricelist/pricingzones",
       childPaths: ["/pricelist/pricingzones", "/pricelist/pricingzoneslayout"],
-    },
-    {
-      id:8,
-      name: "Fule Surcharges",
-      link: "/pricelist/surcharge-calculator",
-      childPaths: [
-        "/pricelist/surcharge-calculator",
-        "/pricelist/surcharge-calculator/create",
-        "/pricelist/surcharge-calculator/edit",
-      ]
     }
   ],
   "/dashboard": [

@@ -8,10 +8,10 @@ export const FuleSurchargesCalculator = () => {
     <div className="wraper-container">
       <SubTabNavigator
         data={[
-          { lable: "Fule Surcharges Schedules", url: "/pricelist/extrafeesschedule" },
-          { lable: "Fule Surcharges Table", url: "/pricelist/extrafees" },
-          { lable: "Fule Prices", url: "/pricelist/extrafees" },
-          { lable: "Fule Surcharges Calculator", url: "/pricelist/surcharge-calculator" },
+          { lable: "Fuel Surcharges Schedules", url: "/pricelist/fuel-surcharges-schedule" },
+          { lable: "Fuel Surcharges Table", url: "/pricelist/fuel-surcharges-table" },
+          { lable: "Fuel Prices", url: "/pricelist/fuel-prices" },
+          { lable: "Fuel Surcharges Calculator", url: "/pricelist/surcharge-calculator" },
         ]}
       />
       <div>

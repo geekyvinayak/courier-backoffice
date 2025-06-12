@@ -72,7 +72,7 @@ const ServiceLevelScheduleGrid = () => {
           className="cursor-pointer !h-[70vh]"
           columns={columns}
           onCellClick={(params) => {
-            if (params.field != "action") {
+            if (params.field == "name") {
               navigate(`./edit/${params.row.id}`);
             }
           }}
