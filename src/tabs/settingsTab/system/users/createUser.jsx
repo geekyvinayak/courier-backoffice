@@ -102,9 +102,9 @@ const CreateUser = () => {
         data={[
           { lable: "Users", url: "/settings/system/users" , isFilled: true },
           { lable: "Address", url: "/settings/system/address" },
-          { lable: "Report", url: "/settings/system/report" },
-          { lable: "Anonymize", url: "/settings/system/Anonymize" },
-          { lable: "Audit", url: "/settings/system/audit" },
+          // { lable: "Report", url: "/settings/system/report" },
+          // { lable: "Anonymize", url: "/settings/system/Anonymize" },
+          // { lable: "Audit", url: "/settings/system/audit" },
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />

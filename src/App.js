@@ -199,6 +199,10 @@ function App() {
                         path="/pricelist/fuel-prices/create/:id"
                         element={<CreateFuelPrice />}
                       />
+                      <Route
+                        path="/settings/system/address/edit/:form/:id"
+                        element={<CreateAddress />}
+                      />
                     </Routes>
                   </main>
                 </div>

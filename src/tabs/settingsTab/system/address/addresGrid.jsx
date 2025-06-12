@@ -1,113 +1,101 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { deleteRequest, getRequest } from "../../../../consts/apiCalls";
+import { IconButton } from "@mui/material";
+import { DeleteDialog } from "../../../../components/deleteDialog";
+import useToast from "../../../../components/toast/useToast";
 
-const columns = [
-  { field: "type", headerName: "Type", flex: 1,minWidth: 100 },
-  { field: "accountId", headerName: "Account ID", flex: 1 ,minWidth: 100},
-  { field: "accountantUserId", headerName: "Account Name", flex: 1 ,minWidth: 150},
-  { field: "companyName", headerName: "Company Name", flex: 1.5,minWidth: 150 },
-  { field: "contactName", headerName: "Contact Name", flex: 1.5 ,minWidth: 150},
-  { field: "email", headerName: "Contact Email", flex: 1.5 ,minWidth: 150},
-  { field: "phoneNo", headerName: "Contact Phone", flex: 1 ,minWidth: 150},
-  { field: "suiteApartment", headerName: "Suite/Apt", flex: 1 ,minWidth: 100},
-  { field: "postalCode", headerName: "ZIP/Postal Code", flex: 1 ,minWidth: 150},
-  { field: "city", headerName: "City", flex: 1 ,minWidth: 100},
-  { field: "state", headerName: "State/Province", flex: 1 ,minWidth: 150},
-  { 
-    field: "defaultContact", 
-    headerName: "Default", 
-    flex: 1,
-    renderCell: (params) => {
-      return params.value ? "Yes" : "No";
-    },
-    minWidth: 100
-  },
-  { field: "latitude", headerName: "Latitude", flex: 1,minWidth: 100 },
-  { field: "longitude", headerName: "Longitude", flex: 1 ,minWidth: 100},
-  { 
-    field: "contactLanguage", 
-    headerName: "Contact Language", 
-    flex: 1.5,
-    renderCell: (params) => {
-      return params.value ? params.value.charAt(0).toUpperCase() + params.value.slice(1).toLowerCase() : "";
-    },
-    minWidth: 150
-  },
-  {
-    field: "addressLine1",
-    headerName: "Address",
-    flex: 2,
-    minWidth: 350
-  },
-  {
-    field: "loadUnloadMinutes",
-    headerName: "Load/Unload Minutes",
-    flex: 1,
-    minWidth: 200
-  }
-];
 
-const AddressGrid = ({ showArchive }) => {
+
+
+const AddressGrid = () => {
   const navigate = useNavigate();
-
+  const { showSuccess, showError, showWarning } = useToast();
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const columns = [
+    { field: "type", headerName: "Type", flex: 1,minWidth: 100 },
+    { field: "accountId", headerName: "Account ID", flex: 1 ,minWidth: 100,renderCell: (params) => {
+      return params.value === 0 ? null : params.value;
+    }},
+    { field: "accountantUserId", headerName: "Account Name", flex: 1 ,minWidth: 150,renderCell: (params) => {
+      return params.value === 0 ? null : params.value;
+    }},
+    { field: "companyName", headerName: "Company Name", flex: 1.5,minWidth: 150 },
+    { field: "contactName", headerName: "Contact Name", flex: 1.5 ,minWidth: 150},
+    { field: "email", headerName: "Contact Email", flex: 1.5 ,minWidth: 150},
+    { field: "phoneNo", headerName: "Contact Phone", flex: 1 ,minWidth: 150},
+    { field: "suiteApartment", headerName: "Suite/Apt", flex: 1 ,minWidth: 100},
+    { field: "postalCode", headerName: "ZIP/Postal Code", flex: 1 ,minWidth: 150},
+    { field: "city", headerName: "City", flex: 1 ,minWidth: 100},
+    { field: "state", headerName: "State/Province", flex: 1 ,minWidth: 150},
+    { 
+      field: "defaultContact", 
+      headerName: "Default", 
+      flex: 1,
+      renderCell: (params) => {
+        return params.value ? "Yes" : "No";
+      },
+      minWidth: 100
+    },
+    { field: "latitude", headerName: "Latitude", flex: 1,minWidth: 100 },
+    { field: "longitude", headerName: "Longitude", flex: 1 ,minWidth: 100},
+    { 
+      field: "contactLanguage", 
+      headerName: "Contact Language", 
+      flex: 1.5,
+      renderCell: (params) => {
+        return params.value ? params.value.charAt(0).toUpperCase() + params.value.slice(1).toLowerCase() : "";
+      },
+      minWidth: 150
+    },
+    {
+      field: "addressLine1",
+      headerName: "Address",
+      flex: 2,
+      minWidth: 350
+    },
+    {
+      field: "loadUnloadMinutes",
+      headerName: "Load/Unload Minutes",
+      flex: 1,
+      minWidth: 200
+    },
+    {
+      field: "action",
+      headerName: "",
+      sortable: false,
+      filterable: false,
+      cellClassName:'flex !justify-center cursor-pointer',
+      renderCell: (params) => (
+        <IconButton>
+          <DeleteDialog handleDelete={() => deleteAddress(params.id)} />
+        </IconButton>
+      ),
+    },
+  ];
+
+  const deleteAddress = async (id) => {
+    try {
+      await deleteRequest(`/address/${id}`);
+      showSuccess("Address deleted");
+      fetchContacts();
+    } catch (error) {
+      showError("Something went wrong!");
+      console.log("error", error);
+    }
+  };
+
 
   // Mock fetch function for demonstration
   // Replace with your actual API call
   const fetchContacts = async () => {
+    setLoading(true)
     try {
-      // In a real app, this would be your API call
-      // const response = await getRequest(`/contacts?page=0&size=10&sort=id`);
-      
-      // Demo data for illustration
-      const demoData = [
-        {
-          "id": 52,
-          "type": "Contact",
-          "accountId": 11,
-          "accountantUserId": 12,
-          "companyName": "abc",
-          "contactName": "xyz",
-          "phoneNo": null,
-          "email": "test@test.com",
-          "contactLanguage": "ENGLISH",
-          "postalCode": "M5S 1A1",
-          "addressLine1": "University of Toronto, 27 King's College Cir, Toronto, ON M5S 1A1, Canada",
-          "city": "Toronto",
-          "state": "Ontario",
-          "latitude": 43.66095,
-          "longitude": -79.39605,
-          "suiteApartment": "fdc",
-          "loadUnloadMinutes": 1,
-          "defaultContact": true,
-          "note": "ewzdfbv"
-        },
-        {
-          "id": 53,
-          "type": "Contact",
-          "accountId": 11,
-          "accountantUserId": 12,
-          "companyName": "des",
-          "contactName": "fdgb",
-          "phoneNo": null,
-          "email": "sdfvb@f.com",
-          "contactLanguage": "ENGLISH",
-          "postalCode": "K1N 6N5",
-          "addressLine1": "University of Ottawa, 75 Laurier Ave E, Ottawa, ON K1N 6N5, Canada",
-          "city": "Ottawa",
-          "state": "Ontario",
-          "latitude": 45.42414,
-          "longitude": -75.68599,
-          "suiteApartment": "22",
-          "loadUnloadMinutes": 22,
-          "defaultContact": true,
-          "note": "wdsf"
-        }
-      ];
-      
-      setContacts(demoData);
+      const response = await getRequest(`/address?page=${page}`);
+      setContacts(response);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -115,9 +103,10 @@ const AddressGrid = ({ showArchive }) => {
     }
   };
 
+
   useEffect(() => {
     fetchContacts();
-  }, [showArchive]);
+  }, [page]);
 
   return (
     <div className="w-[90%] mt-5">
@@ -128,7 +117,7 @@ const AddressGrid = ({ showArchive }) => {
           columns={columns}
           onCellClick={(params) => {
             if (params.field !== "action") {
-              navigate(`./edit/${params.row.id}`);
+              navigate(`./edit/New${params.row.type}/${params.row.id}`);
             }
           }}
           scroll={{ x: true }}
