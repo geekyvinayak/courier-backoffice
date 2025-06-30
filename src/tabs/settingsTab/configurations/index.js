@@ -6,7 +6,10 @@ import {
   ListItemButton,
   ListItemText,
   Paper,
-  Box
+  Box,
+  Typography,
+  Card,
+  CardContent,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import OrderTab from "./orders";
@@ -83,15 +86,30 @@ const ConfigrationsTab = () => {
     setSelectedIndex(index);
   };
 
+  const GenericContent = ({ title, description }) => (
+  <Card sx={{ minHeight: 200,maxWidth:"75%", display:"flex",justifyContent:"center",alignItems:"center  " }}>
+    <CardContent>
+      <Typography variant="h6" gutterBottom>
+        {title} - section will go here
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {description}
+      </Typography>
+      {/* Add specific content for each configuration type */}
+    </CardContent>
+  </Card>
+);
+
+
   const renderContent = () => {
     const selectedItem = menuItems[selectedIndex];
     
     // Order tab specific content components
-    if (currentConfigType === "order") {
-        return <OrderTab  selectedItem={selectedItem}/>;
-    }
+    // if (currentConfigType === "order") {
+    //     return <OrderTab  selectedItem={selectedItem}/>;
+    // }
 
-    return <OrderTab  selectedItem={selectedItem}/>;
+    return <GenericContent  title={selectedItem}/>;
   };
 
   return (
