@@ -124,31 +124,38 @@ const itemsData = {
       id:1,
       name:"Checkpoints",
       link:"/settings/checkpoints",
-      childPaths:[]
+      childPaths:["/settings/checkpoints"]
     },
     {
       id:2,
       name:"Zones",
       link:"/settings/zones",
-      childPaths:[]
+      childPaths:["/settings/zones"]
     },
     {
       id:3,
       name:"Companies",
       link:"/settings/companies",
-      childPaths:[]
+      childPaths:["/settings/companies"]
     },
     {
       id:4,
       name:"Configurations",
-      link:"/settings/configurations",
-      childPaths:[]
+      link:"/settings/configurations/order",
+      childPaths:[
+        "/settings/configurations/order",
+        "/settings/configurations/driver",
+        "/settings/configurations/account",
+        "/settings/configurations/accounting",
+        "/settings/configurations/system",
+      ]
     },
     {
       id:5,
       name:"System",
       link:"/settings/system/users",
       childPaths:[
+        "/settings/system/*",
         "/settings/system/users",
         "/settings/system/users/create",
         "/settings/system/address",
@@ -159,7 +166,6 @@ const itemsData = {
         "/settings/system/address/create/NewHub",
         "/settings/system/address/create/NewContact",
         "/settings/system/address/create/NewGlobalAddress",
-
       ]
     },
   ]

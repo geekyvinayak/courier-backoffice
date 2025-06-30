@@ -1362,7 +1362,7 @@ const CreateAddress = () => {
       <Breadcrumb items={pageBreadcrums} />
       <div className="max-w-[1000px] p-4 border border-gray shadow-md mt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h3" gutterBottom>
             {getFormTitle()}
           </Typography>
           <Button

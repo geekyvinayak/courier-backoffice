@@ -36,6 +36,10 @@ import { FuleSurchargesCalculator } from "./tabs/priceListTab/fuleSurcharges/ful
 import FuleSurchargesCalculatorCreate from "./tabs/priceListTab/fuleSurcharges/fuleSurchargeCalculatorCreate";
 import {FuelPrices} from "./tabs/priceListTab/fulePrices/fulePrices";
 import CreateFuelPrice from "./tabs/priceListTab/fulePrices/createFuelPrice";
+import ConfigrationsTab from "./tabs/settingsTab/configurations";
+import CompaniesTab from "./tabs/settingsTab/Companies";
+import ZonesTab from "./tabs/settingsTab/Zones";
+import CheckpointsTab from "./tabs/settingsTab/Checkpoints";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -202,6 +206,22 @@ function App() {
                       <Route
                         path="/settings/system/address/edit/:form/:id"
                         element={<CreateAddress />}
+                      />
+                      <Route
+                        path="/settings/configurations/*"
+                        element={<ConfigrationsTab />}
+                      />
+                      <Route
+                        path="/settings/companies/*"
+                        element={<CompaniesTab />}
+                      />
+                       <Route
+                        path="/settings/zones/*"
+                        element={<ZonesTab />}
+                      />
+                       <Route
+                        path="/settings/checkpoints/*"
+                        element={<CheckpointsTab />}
                       />
                     </Routes>
                   </main>
