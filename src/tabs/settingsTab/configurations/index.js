@@ -103,11 +103,11 @@ const ConfigrationsTab = () => {
 
   const renderContent = () => {
     const selectedItem = menuItems[selectedIndex];
-    
+    console.log("first",selectedItem)
     // Order tab specific content components
-    // if (currentConfigType === "order") {
-    //     return <OrderTab  selectedItem={selectedItem}/>;
-    // }
+    if (currentConfigType === "order") {
+        return <OrderTab  selectedItem={selectedItem}/>;
+    }
 
     return <GenericContent  title={selectedItem}/>;
   };

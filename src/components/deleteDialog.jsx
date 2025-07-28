@@ -9,20 +9,34 @@ import {
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const DeleteDialog = ({ handleDelete }) => {
+export const DeleteDialog = ({ handleDelete, trigger }) => {
   const [showDeleteDailog, setShowDelete] = useState(false);
+
+  const handleOpen = () => setShowDelete(true);
+  const handleClose = () => setShowDelete(false);
+
   return (
     <div>
-      <DeleteIcon
-        onClick={() => setShowDelete(true)}
-        style={{
-          color: "#1976d2",
-          fontSize: 25,
-          textAlign: "center",
-          margin: "0 auto",
-        }}
-      />
-      <Dialog open={showDeleteDailog} onClose={() => setShowDelete(false)}>
+      {trigger ? (
+        // If custom trigger is passed, render it
+        <span onClick={handleOpen} style={{ cursor: "pointer" }}>
+          {trigger}
+        </span>
+      ) : (
+        // Default trigger: delete icon
+        <DeleteIcon
+          onClick={handleOpen}
+          style={{
+            color: "#1976d2",
+            fontSize: 25,
+            textAlign: "center",
+            margin: "0 auto",
+            cursor: "pointer",
+          }}
+        />
+      )}
+
+      <Dialog open={showDeleteDailog} onClose={handleClose}>
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -30,13 +44,20 @@ export const DeleteDialog = ({ handleDelete }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowDelete(false)} className="!bg-primary">
+          <Button onClick={handleClose} className="!bg-primary">
             Cancel
           </Button>
           <Button
             onClick={async () => {
               await handleDelete();
-              setShowDelete(false);
+              handleClose();
+            }}
+            sx={{
+              backgroundColor: "#d32f2f !important", // red shade
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#9a0007",
+              },
             }}
             className="!bg-red-800 !text-white"
           >
