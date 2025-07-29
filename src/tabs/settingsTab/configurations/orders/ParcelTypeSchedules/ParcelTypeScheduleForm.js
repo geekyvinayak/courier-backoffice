@@ -158,11 +158,7 @@ const ParcelTypeScheduleForm = ({
         />
       </Box>
 
-      {loading ? (
-        <Box display="flex" justifyContent="center" height="80px">
-          <CircularProgress />
-        </Box>
-      ) : (
+      
         <Box
           sx={{
             backgroundColor: "white",
@@ -201,7 +197,12 @@ const ParcelTypeScheduleForm = ({
                 Save
               </Button>
             </Box>
-
+              
+               {loading ? 
+        <Box display="flex" justifyContent="center" height="80px">
+          <CircularProgress />
+        </Box>
+       :<>
             <Box mb={3}>
               <Typography variant="body1" sx={{ mb: 1, fontWeight: 500 }}>
                 NAME
@@ -419,9 +420,10 @@ const ParcelTypeScheduleForm = ({
                 </TableContainer>
               </Box>
             )}
+            </>}
           </form>
         </Box>
-      )}
+      
     </Box>
   );
 };

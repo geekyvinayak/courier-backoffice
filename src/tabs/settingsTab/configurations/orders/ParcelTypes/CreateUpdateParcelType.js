@@ -8,6 +8,8 @@ import {
   Checkbox,
   MenuItem,
   CircularProgress,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -20,6 +22,7 @@ import {
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 import useToast from "../../../../../components/toast/useToast";
+import { InfoRounded } from "@mui/icons-material";
 
 const CreateUpdateParcelType = ({
   editingId,
@@ -266,6 +269,11 @@ const CreateUpdateParcelType = ({
                   }
                   label="Customizable"
                 />
+                <Tooltip title="Allows the dimension to be customized on an order parcel.">
+                  <IconButton>
+                    <InfoRounded fontSize="small" className="text-[#3e4396]" />
+                  </IconButton>
+                </Tooltip>
               </Box>
 
               {/* Dimensions */}
@@ -350,9 +358,18 @@ const CreateUpdateParcelType = ({
                   }
                   label="Is Dimensional Weight"
                 />
+                <Tooltip title="Dimensional weight is used as the minimum weight and is calculated from the dimension and the dimensional factor.">
+                                  <IconButton>
+                                    <InfoRounded fontSize="small"  className="text-[#3e4396]" />
+                                  </IconButton>
+                                </Tooltip>
                 <Box flex="1">
                   <Typography variant="body1" gutterBottom>
-                    Dimensional Factor
+                    Dimensional Factor <Tooltip title="The dimensional factor is used to calculate the dimensional weight (used as minimum weight) of a package from the cubic size divided by the dimensional factor.">
+                  <IconButton>
+                    <InfoRounded fontSize="small"  className="text-[#3e4396]" />
+                  </IconButton>
+                </Tooltip>
                   </Typography>
                   <TextField
                     name="dimensionalFactor"
@@ -382,7 +399,11 @@ const CreateUpdateParcelType = ({
                 </Box>
                 <Box flex="1">
                   <Typography variant="body1" gutterBottom>
-                    Total Unit Factor{" "}
+                    Total Unit Factor{" "}<Tooltip title="The unit factor is the intelligent quantity of a parcel type used to calculate the Number of Pieces extra fee and if order will fit within a vehicle capacity.">
+                  <IconButton>
+                    <InfoRounded fontSize="small"  className="text-[#3e4396]" />
+                  </IconButton>
+                </Tooltip>
                   </Typography>
                   <TextField
                     name="totalUnitFactor"
