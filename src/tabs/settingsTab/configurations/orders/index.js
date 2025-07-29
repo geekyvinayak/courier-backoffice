@@ -1,6 +1,6 @@
 import HoldReasonsContent from "./HoldReasonsTemplates/HoldReasonsContent";
 import ParcelTypesContent from "./ParcelTypes/ParcelTypesContent";
-import ParcelTypesSchedulesContent from "./ParcelTypesSchedulesContent";
+import ParcelTypesSchedulesContent from "./ParcelTypeSchedules/ParcelTypesSchedulesContent";
 import StatusColorContent from "./StatusColorContent";
 import RulesContent from "./RulesContent";
 
