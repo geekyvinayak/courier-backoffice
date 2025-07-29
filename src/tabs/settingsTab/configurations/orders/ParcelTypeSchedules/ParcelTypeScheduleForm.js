@@ -1,3 +1,4 @@
+// ParcelTypeScheduleForm.js
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -18,9 +19,10 @@ import {
   Checkbox,
   IconButton,
 } from "@mui/material";
-import { 
+import {
   Delete as DeleteIcon,
-  Search as SearchIcon 
+  Search as SearchIcon,
+  Add as AddIcon,
 } from "@mui/icons-material";
 import { postRequest, getRequest, putRequest } from "../../../../../consts/apiCalls";
 
@@ -43,8 +45,8 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
       try {
         const submitData = {
           name: values.name,
-          selectedParcelTypes: selectedParcelTypes,
-          default: false // You can add UI for this if needed
+          selectedParcelTypes,
+          default: false,
         };
 
         if (isEditMode && editingId) {
@@ -59,7 +61,6 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
     },
   });
 
-  // Fetch all parcel types
   const fetchParcelTypes = async () => {
     try {
       const response = await getRequest("/parcelType");
@@ -70,28 +71,23 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
     }
   };
 
-  // Fetch existing schedule data for edit mode
   const fetchScheduleById = async () => {
     try {
       const response = await getRequest(`/parcel-type-schedules/${editingId}`);
-      formik.setValues({
-        name: response.name || "",
-      });
+      formik.setValues({ name: response.name || "" });
       setSelectedParcelTypes(response.selectedParcelTypes || []);
     } catch (error) {
       console.error("Error fetching schedule:", error);
     }
   };
 
-  // Update available parcel types based on selected ones
   useEffect(() => {
-    const selectedIds = selectedParcelTypes.map(item => item.id);
-    const available = allParcelTypes.filter(item => !selectedIds.includes(item.id));
+    const selectedIds = selectedParcelTypes.map((item) => item.id);
+    const available = allParcelTypes.filter((item) => !selectedIds.includes(item.id));
     setAvailableParcelTypes(available);
   }, [allParcelTypes, selectedParcelTypes]);
 
-  // Filter available items based on search
-  const filteredAvailable = availableParcelTypes.filter(item =>
+  const filteredAvailable = availableParcelTypes.filter((item) =>
     item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.displayId?.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -109,24 +105,22 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
   }, [editingId, isEditMode]);
 
   const handleAvailableCheck = (id) => {
-    setCheckedAvailable(prev => 
-      prev.includes(id) 
-        ? prev.filter(itemId => itemId !== id)
-        : [...prev, id]
+    setCheckedAvailable((prev) =>
+      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
     );
   };
 
   const handleAddSelected = () => {
-    const itemsToAdd = availableParcelTypes.filter(item => 
+    const itemsToAdd = availableParcelTypes.filter((item) =>
       checkedAvailable.includes(item.id)
     );
-    setSelectedParcelTypes(prev => [...prev, ...itemsToAdd]);
+    setSelectedParcelTypes((prev) => [...prev, ...itemsToAdd]);
     setCheckedAvailable([]);
-    setSearchTerm("")
+    setSearchTerm("");
   };
 
   const handleRemoveSelected = (id) => {
-    setSelectedParcelTypes(prev => prev.filter(item => item.id !== id));
+    setSelectedParcelTypes((prev) => prev.filter((item) => item.id !== id));
   };
 
   if (loading) {
@@ -139,14 +133,8 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
 
   return (
     <Box sx={{ width: "100%", padding: 2 }}>
-      {/* Breadcrumb Navigation */}
       <Breadcrumbs sx={{ marginBottom: 2 }}>
-        <Link
-          underline="hover"
-          color="primary"
-          onClick={onBack}
-          sx={{ cursor: "pointer" }}
-        >
+        <Link underline="hover" color="primary" onClick={onBack} sx={{ cursor: "pointer" }}>
           Parcel Type Schedules
         </Link>
         <Typography color="text.primary">
@@ -154,42 +142,41 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
         </Typography>
       </Breadcrumbs>
 
-      {/* Form Container */}
       <Box
         sx={{
           backgroundColor: "white",
-          border: "1px solid #ddd",
-          borderRadius: 1,
+          border: "1px solid #e0e0e0",
+          borderRadius: 2,
           padding: 3,
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+          boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)",
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={3}
-          >
-            <Typography variant="h6" sx={{ fontWeight: 500 }}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
               Parcel Type Schedule
             </Typography>
             <Button
               type="submit"
               variant="contained"
-              color="primary"
               sx={{
-                backgroundColor: "#1569CB",
+                backgroundColor: "#1976d2",
                 textTransform: "none",
+                borderRadius: 1,
+                paddingX: 3,
+                paddingY: 1,
+                fontWeight: 500,
+                "&:hover": {
+                  backgroundColor: "#1565c0",
+                },
               }}
             >
               Save
             </Button>
           </Box>
 
-          {/* Name Field */}
-          <Box marginY={3}>
-            <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
+          <Box mb={3}>
+            <Typography variant="body1" sx={{ mb: 1, fontWeight: 500 }}>
               NAME
             </Typography>
             <TextField
@@ -201,7 +188,6 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
               onBlur={formik.handleBlur}
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
-              FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   backgroundColor: "white",
@@ -210,42 +196,51 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
             />
           </Box>
 
-          {/* Selected Parcel Types Section */}
+          {/* Selected Table */}
           {selectedParcelTypes.length > 0 && (
-            <Box marginY={3}>
-              <TableContainer component={Paper} sx={{ boxShadow: 1, marginBottom: 2 }}>
-                <Table size="small">
+            <Box mb={3}>
+              <TableContainer component={Paper} sx={{ boxShadow: 1, border: "1px solid #ddd" }}>
+                <Table size="small" sx={{ "& th": { backgroundColor: "#f0f4f8", fontWeight: 600 } }}>
                   <TableHead>
-                    <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                      <TableCell sx={{ fontWeight: "bold", width: "60px" }}>Id</TableCell>
-                      <TableCell sx={{ fontWeight: "bold", width: "120px" }}>Customizable</TableCell>
-                      <TableCell sx={{ fontWeight: "bold", width: "80px" }}>Rank</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Name (EN)</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Name (FR)</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Dimensions</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Weight Type</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Dimensional Factor</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Weight</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Total Unit Factor</TableCell>
-                      <TableCell sx={{ fontWeight: "bold", width: "60px" }}>Actions</TableCell>
+                    <TableRow>
+                      <TableCell>Id</TableCell>
+                      <TableCell>Customizable</TableCell>
+                      <TableCell>Rank</TableCell>
+                      <TableCell>Name (EN)</TableCell>
+                      <TableCell>Name (FR)</TableCell>
+                      <TableCell>Dimensions</TableCell>
+                      <TableCell>Weight Type</TableCell>
+                      <TableCell>Dimensional Factor</TableCell>
+                      <TableCell>Weight</TableCell>
+                      <TableCell>Total Unit Factor</TableCell>
+                      <TableCell>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {selectedParcelTypes.map((item) => { console.log("item",item) 
-                    return(
+                    {selectedParcelTypes.map((item) => (
                       <TableRow key={item.id}>
-                        <TableCell>{item.displayId}</TableCell>
+                        <TableCell>
+                          <Typography
+                            sx={{
+                              color: "#1976d2",
+                              textDecoration: "underline",
+                              cursor: "pointer",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {item.displayId}
+                          </Typography>
+                        </TableCell>
                         <TableCell>{item.customizable ? "Yes" : "No"}</TableCell>
                         <TableCell>-</TableCell>
                         <TableCell>{item.name}</TableCell>
                         <TableCell>-</TableCell>
                         <TableCell>
-                          {item.length && item.width && item.height 
-                            ? `${item.length} x ${item.width} x ${item.height} ${item.unitOfLength || 'in'}`
-                            : '-'
-                          }
+                          {item.length && item.width && item.height
+                            ? `${item.length} x ${item.width} x ${item.height} ${item.unitOfLength || "in"}`
+                            : "-"}
                         </TableCell>
-                        <TableCell>{item.dimensionalWeight ?  "Dimensional":"Actual"}</TableCell>
+                        <TableCell>{item.dimensionalWeight ? "Dimensional" : "Actual"}</TableCell>
                         <TableCell>{item.dimensionalFactor || "0.000"}</TableCell>
                         <TableCell>{item.weight ? `${item.weight} lbs` : "0 lbs"}</TableCell>
                         <TableCell>{item.totalUnitFactor || "0.000"}</TableCell>
@@ -259,57 +254,63 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
                           </IconButton>
                         </TableCell>
                       </TableRow>
-                    )})}
+                    ))}
                   </TableBody>
                 </Table>
               </TableContainer>
             </Box>
           )}
 
-          {/* Available Parcel Types Section */}
+          {/* Available Table */}
           {filteredAvailable.length > 0 && (
-            <Box marginY={3}>
-              <Typography variant="h6" sx={{ marginBottom: 2, fontWeight: 500 }}>
+            <Box mb={3}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
                 Available
               </Typography>
-              
-              {/* Search Box */}
-              <Box sx={{ display: "flex", gap: 2, marginBottom: 2, alignItems: "center" }}>
+
+              <Box display="flex" gap={2} mb={2} alignItems="center">
                 <TextField
                   size="small"
                   placeholder="Search"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  sx={{ width: 200 }}
+                  sx={{
+                    width: 200,
+                    "& .MuiOutlinedInput-root": {
+                      backgroundColor: "white",
+                      borderRadius: 1,
+                    },
+                  }}
                   InputProps={{
-                    startAdornment: <SearchIcon sx={{ color: "#666", marginRight: 1 }} />,
+                    startAdornment: <SearchIcon sx={{ color: "#888", mr: 1 }} />,
                   }}
                 />
                 <Button
                   variant="contained"
                   color="success"
+                  startIcon={<AddIcon />}
                   onClick={handleAddSelected}
                   disabled={checkedAvailable.length === 0}
-                  sx={{ textTransform: "none" }}
+                  sx={{ textTransform: "none", fontWeight: 500 }}
                 >
                   Add
                 </Button>
               </Box>
 
-              <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
-                <Table size="small">
+              <TableContainer component={Paper} sx={{ boxShadow: 1, border: "1px solid #ddd" }}>
+                <Table size="small" sx={{ "& th": { backgroundColor: "#f0f4f8", fontWeight: 600 } }}>
                   <TableHead>
-                    <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                      <TableCell sx={{ width: "50px" }}></TableCell>
-                      <TableCell sx={{ fontWeight: "bold", width: "60px" }}>Id</TableCell>
-                      <TableCell sx={{ fontWeight: "bold", width: "120px" }}>Customizable</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Name (EN)</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Name (FR)</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Dimensions</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Weight Type</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Dimensional Factor</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Weight</TableCell>
-                      <TableCell sx={{ fontWeight: "bold" }}>Total Unit Factor</TableCell>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell>Id</TableCell>
+                      <TableCell>Customizable</TableCell>
+                      <TableCell>Name (EN)</TableCell>
+                      <TableCell>Name (FR)</TableCell>
+                      <TableCell>Dimensions</TableCell>
+                      <TableCell>Weight Type</TableCell>
+                      <TableCell>Dimensional Factor</TableCell>
+                      <TableCell>Weight</TableCell>
+                      <TableCell>Total Unit Factor</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -323,12 +324,12 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
                           />
                         </TableCell>
                         <TableCell>
-                          <Typography 
-                            variant="body2" 
-                            sx={{ 
-                              color: "#1569CB", 
+                          <Typography
+                            sx={{
+                              color: "#1976d2",
                               textDecoration: "underline",
-                              cursor: "pointer"
+                              cursor: "pointer",
+                              fontWeight: 500,
                             }}
                           >
                             {item.displayId}
@@ -338,10 +339,9 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
                         <TableCell>{item.name}</TableCell>
                         <TableCell>-</TableCell>
                         <TableCell>
-                          {item.length && item.width && item.height 
-                            ? `${item.length}×${item.width}×${item.height} ${item.unitOfLength || 'in'}`
-                            : '-'
-                          }
+                          {item.length && item.width && item.height
+                            ? `${item.length}×${item.width}×${item.height} ${item.unitOfLength || "in"}`
+                            : "-"}
                         </TableCell>
                         <TableCell>{item.dimensionalWeight ? "Dimensional" : "Actual"}</TableCell>
                         <TableCell>{item.dimensionalFactor || "0.000"}</TableCell>
