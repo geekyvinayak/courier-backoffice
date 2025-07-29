@@ -1,6 +1,6 @@
 import HoldReasonsContent from "./HoldReasonsTemplates/HoldReasonsContent";
 import ParcelTypesContent from "./ParcelTypes/ParcelTypesContent";
-import ParcelTypesSchedulesContent from "./ParcelTypeSchedules/ParcelTypesSchedulesContent";
+import ParcelTypeSchedulesContent from "./ParcelTypeSchedules/ParcelTypeSchedulesContent";
 import StatusColorContent from "./StatusColorContent";
 import RulesContent from "./RulesContent";
 
@@ -11,7 +11,7 @@ const OrderTab = ({ selectedItem }) => {
     case "Parcel Types":
       return <ParcelTypesContent />;
     case "Parcel Types Schedules":
-      return <ParcelTypesSchedulesContent />;
+      return <ParcelTypeSchedulesContent />;
     case "Status Color":
       return <StatusColorContent />;
     case "Rules":
