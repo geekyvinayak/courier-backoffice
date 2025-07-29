@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
-  Button,
   Box,
+  Button,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   IconButton,
 } from "@mui/material";
-import { 
-  Star as StarIcon, 
-  StarBorder as StarBorderIcon,
-  FilterList as FilterListIcon 
-} from "@mui/icons-material";
-import { getRequest } from '../../../../../consts/apiCalls';
-import ParcelTypeScheduleForm from './ParcelTypeScheduleForm';
+import { DataGrid } from "@mui/x-data-grid";
+import { getRequest } from "../../../../../consts/apiCalls";
+import ParcelTypeScheduleForm from "./ParcelTypeScheduleForm";
+import StarIcon from "@mui/icons-material/Star";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
 
 const ParcelTypeSchedulesContent = () => {
   const [schedules, setSchedules] = useState([]);
@@ -60,16 +51,13 @@ const ParcelTypeSchedulesContent = () => {
     setShowForm(false);
     setEditingId(null);
     setIsEditMode(false);
-    // Refresh the list after form operations
     fetchSchedules();
   };
 
   const handleFormSuccess = () => {
-    // Called when form is successfully submitted
     handleBackToList();
   };
 
-  // If showing form, render the form component
   if (showForm) {
     return (
       <ParcelTypeScheduleForm
@@ -81,125 +69,96 @@ const ParcelTypeSchedulesContent = () => {
     );
   }
 
-  // Otherwise, render the list view
+  const columns = [
+    {
+      field: "default",
+      headerName: "Default",
+      width: 100,
+      cellClassName:'!flex !justify-center !items-center',
+      renderHeader: () => (
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          Default
+        </Box>
+      ),
+     renderCell: (params) =>
+        params.value ? (
+          <StarIcon style={{ color: "#1976d2" }} />
+        ) : (
+          <StarOutlineIcon
+            onClick={() => console.log("handle active at line 87 ")}
+            style={{ color: "#1976d2",justifySelf:"center",alignSelf:"center" }}
+          />
+        ),
+      sortable: false,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+      renderHeader: () => (
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          Name
+        </Box>
+      ),
+      renderCell: (params) => params.value || "-",
+    },
+  ];
+
   return (
-    <Box sx={{ width: "100%", padding: 2 }}>
-      {/* Header with New Button */}
+    <Box sx={{ width: "100%" }}>
       <Box sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}>
         <Button
           variant="contained"
           color="primary"
           onClick={handleNewSchedule}
-          sx={{
-            backgroundColor: "#1569CB",
-            textTransform: "none",
-          }}
+          sx={{ backgroundColor: "#1569CB", textTransform: "none" }}
         >
           New Schedule
         </Button>
       </Box>
-
-      {/* Data Grid */}
-      <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
-        <Table>
-          <TableHead>
-            <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-              <TableCell sx={{ fontWeight: "bold", width: "80px" }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  Default
-                  <IconButton size="small" sx={{ color: "#666" }}>
-                    <FilterListIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-              </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  Name
-                  <IconButton size="small" sx={{ color: "#666" }}>
-                    <FilterListIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {loading ? (
-              <TableRow>
-                <TableCell colSpan={2} sx={{ textAlign: "center", padding: 4 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    Loading...
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ) : schedules.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={2} sx={{ textAlign: "center", padding: 4 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    No parcel type schedules found
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ) : (
-              schedules.map((schedule) => (
-                <TableRow
-                  key={schedule.id}
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "#f9f9f9",
-                      cursor: "pointer",
-                    },
-                  }}
-                  onClick={() => handleEdit(schedule.id)}
-                >
-                  <TableCell sx={{ width: "80px", textAlign: "center" }}>
-                    {schedule.default ? (
-                      <StarIcon 
-                        sx={{ 
-                          color: "#1569CB", 
-                          fontSize: "20px" 
-                        }} 
-                      />
-                    ) : (
-                      <StarBorderIcon 
-                        sx={{ 
-                          color: "#ccc", 
-                          fontSize: "20px" 
-                        }} 
-                      />
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <Typography 
-                      variant="body2" 
-                      sx={{ 
-                        color: "#1569CB", 
-                        textDecoration: "underline",
-                        cursor: "pointer"
-                      }}
-                    >
-                      {schedule.name}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      {/* Footer with item count */}
-      {!loading && schedules.length > 0 && (
-        <Box sx={{ 
-          display: "flex", 
-          justifyContent: "flex-end", 
-          marginTop: 1,
-          paddingRight: 1 
-        }}>
-          <Typography variant="body2" color="text.secondary">
-            1 - {schedules.length} of {schedules.length} items
-          </Typography>
-        </Box>
-      )}
+       <Box className="w-[90%]">
+      <DataGrid
+        rows={schedules}
+        columns={columns}
+        loading={loading}
+        onCellClick={(params) => handleEdit(params.id)}
+        getRowId={(row) => row.id}
+         slotProps={{
+          loadingOverlay: {
+            variant: 'circular-progress',
+            noRowsVariant: 'circular-progress',
+          },
+        }}
+       initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        rowHeight={45}
+        columnHeaderHeight={45}
+        sx={{
+          "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
+            border: "1px solid #e0e0e0", // Border between rows
+          },
+          "& .MuiDataGrid-row:nth-of-type(odd)": {
+            backgroundColor: "#f5f5f5", // Light color for odd rows
+          },
+          "& .MuiDataGrid-row:nth-of-type(even)": {
+            backgroundColor: "#ffffff", // White color for even rows
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            fontWeight: "bold", // Bold text
+            fontSize: "14px", // Increase font size
+          },
+          "& .MuiDataGrid-virtualScrollerContent":{
+            fontWeight: "500", // Bold text
+            fontSize: "12px",
+          }
+        }}
+        className="cursor-pointer !h-[48vh]"
+      /></Box>
     </Box>
   );
 };

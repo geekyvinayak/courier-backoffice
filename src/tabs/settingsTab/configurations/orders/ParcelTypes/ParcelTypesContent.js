@@ -2,20 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   Box,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  IconButton,
 } from "@mui/material";
-import {
-  Edit as EditIcon,
-  ArrowBack as ArrowBackIcon,
-} from "@mui/icons-material";
 import { getRequest } from "../../../../../consts/apiCalls";
 import { DataGrid } from "@mui/x-data-grid";
 import CreateUpdateParcelType from "./CreateUpdateParcelType";
