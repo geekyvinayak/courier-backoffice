@@ -2,38 +2,39 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
-import SettlementCycleForm from "./SettlementCycleForm";
+import DocumentsForm from "./DocumentsForm";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { deleteRequest, getRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import useToast from "../../../../../components/toast/useToast";
 
-const SettlementCycle = () => {
-  const [settlementCycle, setSettlementCycle] = useState([]);
+const Documents = () => {
+  const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const { showSuccess, showError } = useToast();
-  const fetchSettlementCycle = async () => {
+
+  const fetchDocuments = async () => {
     try {
       setLoading(true);
-      const response = await getRequest("/settlement-cycles");
-      setSettlementCycle(response || []);
+      const response = await getRequest("/documents");
+      setDocuments(response || []);
     } catch (error) {
-      console.error("Error fetching parcel type schedules:", error);
-      setSettlementCycle([]);
+      console.error("Error fetching documents :", error);
+      setDocuments([]);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchSettlementCycle();
+    fetchDocuments();
   }, []);
 
-  const handleNewSchedule = () => {
+  const handleNewdocuments = () => {
     setEditingId(null);
     setIsEditMode(false);
     setShowForm(true);
@@ -47,9 +48,9 @@ const SettlementCycle = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await deleteRequest(`/settlement-cycles/${id}`);
-      showSuccess("Settlement Cycle deleted");
-      fetchSettlementCycle();
+      const response = await deleteRequest(`/documents/${id}`);
+      showSuccess("Documents deleted");
+      fetchDocuments();
     } catch (error) {
       showError("Something went wrong!");
       console.log(error);
@@ -60,7 +61,7 @@ const SettlementCycle = () => {
     setShowForm(false);
     setEditingId(null);
     setIsEditMode(false);
-    fetchSettlementCycle();
+    fetchDocuments();
   };
 
   const handleFormSuccess = () => {
@@ -69,7 +70,7 @@ const SettlementCycle = () => {
 
   if (showForm) {
     return (
-      <SettlementCycleForm
+      <DocumentsForm
         editingId={editingId}
         isEditMode={isEditMode}
         onBack={handleBackToList}
@@ -80,45 +81,18 @@ const SettlementCycle = () => {
 
   const columns = [
     {
-      field: "isDefault",
-      headerName: "Default",
+      field: "displayId",
+      headerName: "ID",
       width: 100,
-      cellClassName: "!flex !justify-center !items-center",
-     
-      renderCell: (params) =>
-        params.value ? (
-          <StarIcon style={{ color: "#1976d2" }} />
-        ) : (
-          <StarOutlineIcon
-            onClick={() => console.log("handle active at line 87 ")}
-            style={{
-              color: "#1976d2",
-              justifySelf: "center",
-              alignSelf: "center",
-            }}
-          />
-        ),
+      cellClassName: "!text-[#3e4396]",
+      renderCell: (params) => params.value || "-",
       sortable: false,
     },
     {
-      field: "descriptionEn",
-      headerName: "Description",
+      field: "name",
+      headerName: "Name",
       flex: 1,
       renderCell: (params) => params.value || "-",
-    },
-    {
-      field: "actions",
-      headerName: "",
-      sortable: false,
-      cellClassName: "flex !justify-center",
-      renderCell: (params) => (
-        <IconButton>
-          <DeleteDialog
-            key={params.id}
-            handleDelete={() => handleDelete(params.id)}
-          />
-        </IconButton>
-      ),
     },
   ];
 
@@ -130,22 +104,18 @@ const SettlementCycle = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleNewSchedule}
+          onClick={handleNewdocuments}
           sx={{ backgroundColor: "#1569CB", textTransform: "none" }}
         >
-          New Schedule
+          New Document
         </Button>
       </Box>
       <Box className="w-[90%]">
         <DataGrid
-          rows={settlementCycle}
+          rows={documents}
           columns={columns}
           loading={loading}
-          onCellClick={(params, event) => {
-            if (params.field !== "actions") {
-              handleEdit(params.id);
-            }
-          }}
+          onCellClick={(params, event) => {handleEdit(params.id);}}
           getRowId={(row) => row.id}
           slotProps={{
             loadingOverlay: {
@@ -188,4 +158,4 @@ const SettlementCycle = () => {
   );
 };
 
-export default SettlementCycle;
+export default Documents;
