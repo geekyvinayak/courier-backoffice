@@ -2,22 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, TextField, Box, Typography } from "@mui/material";
-import {
-  postRequest,
-  getRequest,
-  putRequest,
-  deleteRequest,
-} from "../../../../../consts/apiCalls";
+import { postRequest, getRequest, putRequest, deleteRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 import useToast from "../../../../../components/toast/useToast";
 import { CircularProgress } from "@mui/material";
-const SettlementCycleForm = ({
-  editingId,
-  isEditMode,
-  onBack,
-  onSuccess,
-}) => {
+const SettlementCycleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
   const { showSuccess, showError } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -60,7 +50,6 @@ const SettlementCycleForm = ({
     }
   };
 
-
   useEffect(() => {
     if (isEditMode && editingId) {
       fetchSettlementCyclesById();
@@ -73,9 +62,7 @@ const SettlementCycleForm = ({
         items={[
           { label: "Settlement Cycle", onClick: onBack },
           {
-            label: isEditMode
-              ? `Settlement Cycle '${editingId}'`
-              : "New Settlement Cycle",
+            label: isEditMode ? `Settlement Cycle '${editingId}'` : "New Settlement Cycle",
           },
         ]}
       />
@@ -91,14 +78,9 @@ const SettlementCycleForm = ({
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={3}
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={3}>
             <Typography variant="h5" sx={{ fontWeight: 500 }}>
-             Settlement Cycle
+              Settlement Cycle
             </Typography>
             <Box display="flex" gap={1}>
               <Button
@@ -116,20 +98,12 @@ const SettlementCycleForm = ({
           </Box>
 
           {isLoading ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="80px"
-            >
+            <Box display="flex" justifyContent="center" alignItems="center" height="80px">
               <CircularProgress />
             </Box>
           ) : (
             <Box marginY={3}>
-              <Typography
-                variant="body1"
-                sx={{ marginBottom: 1, fontWeight: 500 }}
-              >
+              <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
                 Description
               </Typography>
               <TextField

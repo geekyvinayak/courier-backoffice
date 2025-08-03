@@ -14,7 +14,7 @@ const ExtraFeesScheduleGrid = () => {
       headerName: "Default",
       sortable: false,
       filterable: false,
-      cellClassName:'!flex !justify-center !items-center',
+      cellClassName: "!flex !justify-center !items-center",
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
@@ -29,7 +29,7 @@ const ExtraFeesScheduleGrid = () => {
       field: "name",
       headerName: "Name",
       flex: 1,
-      cellClassName:"!text-[#3e4396]",
+      cellClassName: "!text-[#3e4396]",
     },
   ];
 
@@ -50,10 +50,10 @@ const ExtraFeesScheduleGrid = () => {
     try {
       const response = await getRequest("/extraFeeSchedule");
       setPriceListSchedule(response);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching pricing list schedule:", error);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -74,12 +74,12 @@ const ExtraFeesScheduleGrid = () => {
         loading={loading}
         slotProps={{
           loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
+            variant: "circular-progress",
+            noRowsVariant: "circular-progress",
           },
         }}
         rowHeight={45}
-         columnHeaderHeight={45}
+        columnHeaderHeight={45}
         className="cursor-pointer !h-[70vh]"
         initialState={{
           pagination: {
@@ -102,10 +102,10 @@ const ExtraFeesScheduleGrid = () => {
             fontWeight: "bold", // Bold text
             fontSize: "14px", // Increase font size
           },
-          "& .MuiDataGrid-virtualScrollerContent":{
+          "& .MuiDataGrid-virtualScrollerContent": {
             fontWeight: "500", // Bold text
             fontSize: "12px",
-          }
+          },
         }}
         disableRowSelectionOnClick
       />

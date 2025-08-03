@@ -6,7 +6,6 @@ import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 
 const ServiceLevelScheduleGrid = () => {
-
   const columns = [
     {
       field: "active",
@@ -50,10 +49,7 @@ const ServiceLevelScheduleGrid = () => {
 
   const handleActive = async (id) => {
     try {
-      const response = await postRequest(
-        `/api/service-level-schedule/makeDefault/${id}`,
-        id,
-      );
+      const response = await postRequest(`/api/service-level-schedule/makeDefault/${id}`, id);
       fetchServiceLevelSchedule();
     } catch (error) {
       console.log(error);

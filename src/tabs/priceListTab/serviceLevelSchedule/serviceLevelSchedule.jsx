@@ -13,10 +13,7 @@ export const ServicelevelSchedule = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="New Schedule"
-          url={"/pricelist/servicelevelschedule/create"}
-        />
+        <LinkBtn label="New Schedule" url={"/pricelist/servicelevelschedule/create"} />
       </div>
       <ServiceLevelScheduleGrid />
     </div>

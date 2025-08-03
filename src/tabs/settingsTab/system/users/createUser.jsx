@@ -8,12 +8,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../../components/Breadcrumb";
 import SubTabNavigator from "../../../../components/subTabNavigator";
-import { Box, Checkbox, FormControlLabel, IconButton, MenuItem, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  MenuItem,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import useToast from "../../../../components/toast/useToast";
 import InfoIcon from "@mui/icons-material/Info";
 
 const CreateUser = () => {
-
   const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
   // Formik setup
@@ -32,18 +39,13 @@ const CreateUser = () => {
     validationSchema: Yup.object({
       firstName: Yup.string().required("First name is required"),
       lastName: Yup.string().required("Last name is required"),
-      email: Yup.string()
-        .email("Invalid email format")
-        .required("Email is required"),
+      email: Yup.string().email("Invalid email format").required("Email is required"),
       phone: Yup.string().required("Phone number is required"),
       password: Yup.string()
         .required("Password is required")
         .min(12, "Password must be at least 12 characters.")
         .matches(/\d/, "Password must have at least one digit ('0'-'9').")
-        .matches(
-          /[^a-zA-Z0-9]/,
-          "Password must have at least one non-alphanumeric character.",
-        )
+        .matches(/[^a-zA-Z0-9]/, "Password must have at least one non-alphanumeric character.")
         .matches(/[a-z]/, "Password must have at least one lowercase letter."),
       role: Yup.string().required("Role is required"),
     }),
@@ -56,7 +58,7 @@ const CreateUser = () => {
           navigate("/settings/system/users");
         } else {
           const response = await postRequest("/users", values);
-          showSuccess("User Added")
+          showSuccess("User Added");
           navigate("/settings/system/users");
         }
       } catch (error) {
@@ -100,7 +102,7 @@ const CreateUser = () => {
     <div className="wraper-container">
       <SubTabNavigator
         data={[
-          { lable: "Users", url: "/settings/system/users" , isFilled: true },
+          { lable: "Users", url: "/settings/system/users", isFilled: true },
           { lable: "Address", url: "/settings/system/address" },
           // { lable: "Report", url: "/settings/system/report" },
           // { lable: "Anonymize", url: "/settings/system/Anonymize" },
@@ -130,10 +132,7 @@ const CreateUser = () => {
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="firstName"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="firstName" className="block text-sm text-gray-700 mb-1 font-semibold">
               First Name
             </label>
             <TextField
@@ -145,18 +144,13 @@ const CreateUser = () => {
               value={formik.values.firstName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
+              error={formik.touched.firstName && Boolean(formik.errors.firstName)}
               helperText={formik.touched.firstName && formik.errors.firstName}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
             />
           </div>
           <div>
-            <label
-              htmlFor="lastName"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="lastName" className="block text-sm text-gray-700 mb-1 font-semibold">
               Last Name
             </label>
             <TextField
@@ -174,10 +168,7 @@ const CreateUser = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="email" className="block text-sm text-gray-700 mb-1 font-semibold">
               Email
             </label>
             <TextField
@@ -195,10 +186,7 @@ const CreateUser = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="phone"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="phone" className="block text-sm text-gray-700 mb-1 font-semibold">
               Phone
             </label>
             <TextField
@@ -216,10 +204,7 @@ const CreateUser = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="lastName"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="lastName" className="block text-sm text-gray-700 mb-1 font-semibold">
               Password
               <Tooltip
                 arrow
@@ -231,8 +216,7 @@ const CreateUser = () => {
                     <Typography variant="body2">
                       Passwords must have at least one digit ('0'-'9').
                       <br />
-                      Passwords must have at least one non-alphanumeric
-                      character.
+                      Passwords must have at least one non-alphanumeric character.
                       <br />
                       Passwords must be at least 12 characters.
                       <br />
@@ -283,10 +267,7 @@ const CreateUser = () => {
             </TextField>
           </div>
           <div>
-            <label
-              htmlFor="role"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="role" className="block text-sm text-gray-700 mb-1 font-semibold">
               Role
             </label>
             <TextField
@@ -316,14 +297,16 @@ const CreateUser = () => {
                   name="subscribeToTechnicalNotification"
                   checked={formik.values.subscribeToTechnicalNotification}
                   onChange={(event) =>
-                    formik.setFieldValue(
-                      "subscribeToTechnicalNotification",
-                      event.target.checked
-                    )
+                    formik.setFieldValue("subscribeToTechnicalNotification", event.target.checked)
                   }
                 />
               }
-              label={<span className="text-xs font-normal">Subscribe user to received Dispatch Science emails and notification of a technical nature (best for Administrators and power users)</span>}
+              label={
+                <span className="text-xs font-normal">
+                  Subscribe user to received Dispatch Science emails and notification of a technical
+                  nature (best for Administrators and power users)
+                </span>
+              }
             />
           </div>
         </form>

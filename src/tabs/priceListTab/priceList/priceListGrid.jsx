@@ -4,32 +4,28 @@ import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
-import {
-  deleteRequest,
-  getRequest,
-  postRequest,
-} from "../../../consts/apiCalls";
+import { deleteRequest, getRequest, postRequest } from "../../../consts/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { DeleteDialog } from "../../../components/deleteDialog";
 import useToast from "../../../components/toast/useToast";
 
 const PriceListGrid = () => {
   const { showSuccess, showError } = useToast();
-  const [loading,setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const columns = [
     {
       field: "active",
       headerName: "Default",
       sortable: false,
       filterable: false,
-      cellClassName:'!flex !justify-center !items-center',
+      cellClassName: "!flex !justify-center !items-center",
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
         ) : (
           <StarOutlineIcon
             onClick={() => handleActive(params.row.id)}
-            style={{ color: "#1976d2",justifySelf:"center",alignSelf:"center" }}
+            style={{ color: "#1976d2", justifySelf: "center", alignSelf: "center" }}
           />
         ),
     },
@@ -37,7 +33,7 @@ const PriceListGrid = () => {
       field: "name",
       headerName: "Name",
       flex: 2,
-      cellClassName:"!text-[#3e4396]",
+      cellClassName: "!text-[#3e4396]",
     },
     {
       field: "type",
@@ -48,7 +44,7 @@ const PriceListGrid = () => {
       field: "actions",
       headerName: "",
       sortable: false,
-      cellClassName:'flex !justify-center',
+      cellClassName: "flex !justify-center",
       renderCell: (params) => (
         <IconButton>
           <DeleteDialog handleDelete={() => handleDelete(params.id)} />
@@ -71,10 +67,7 @@ const PriceListGrid = () => {
 
   const handleActive = async (id) => {
     try {
-      const response = await postRequest(
-        `/api/pricingList/makeDefault/${id}`,
-        id,
-      );
+      const response = await postRequest(`/api/pricingList/makeDefault/${id}`, id);
       fetchPriceList();
     } catch (error) {
       console.log(error);
@@ -86,15 +79,13 @@ const PriceListGrid = () => {
   const [priceList, setPriceList] = useState([]);
   const fetchPriceList = async () => {
     try {
-      
-      const response = await getRequest("/api/pricingList").then((response)=>{
+      const response = await getRequest("/api/pricingList").then((response) => {
         setPriceList(response);
-      setLoading(false)
+        setLoading(false);
       });
-      
     } catch (error) {
       console.error("Error fetching pricing list:", error);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -110,8 +101,8 @@ const PriceListGrid = () => {
         loading={loading}
         slotProps={{
           loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
+            variant: "circular-progress",
+            noRowsVariant: "circular-progress",
           },
         }}
         onCellClick={(params) => {
@@ -143,10 +134,10 @@ const PriceListGrid = () => {
             fontWeight: "bold", // Bold text
             fontSize: "14px", // Increase font size
           },
-          "& .MuiDataGrid-virtualScrollerContent":{
+          "& .MuiDataGrid-virtualScrollerContent": {
             fontWeight: "500", // Bold text
             fontSize: "12px",
-          }
+          },
         }}
         className="cursor-pointer !h-[70vh]"
         disableRowSelectionOnClick

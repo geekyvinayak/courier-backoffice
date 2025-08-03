@@ -4,7 +4,6 @@ import ParcelTypesContent from "./ParcelTypes/ParcelTypesContent";
 import ParcelTypeSchedulesContent from "./ParcelTypeSchedules/ParcelTypeSchedulesContent";
 import StatusColorContent from "./StatusColor/StatusColorContent";
 
-
 const OrderTab = ({ selectedItem }) => {
   switch (selectedItem) {
     case "Hold Reasons":

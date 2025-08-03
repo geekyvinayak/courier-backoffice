@@ -23,11 +23,7 @@ import {
   DialogContent,
 } from "@mui/material";
 import useToast from "../../../../components/toast/useToast";
-import {
-  getRequest,
-  postRequest,
-  putRequest,
-} from "../../../../consts/apiCalls";
+import { getRequest, postRequest, putRequest } from "../../../../consts/apiCalls";
 import AddressMapView from "./addressMapView";
 
 const CreateAddress = () => {
@@ -54,7 +50,7 @@ const CreateAddress = () => {
     setLoading(true);
     try {
       const response = await getRequest(
-        `/address/suggest-place?query=${encodeURIComponent(query)}`,
+        `/address/suggest-place?query=${encodeURIComponent(query)}`
       );
       // const response = await fetch(`${API_URL}?query=${encodeURIComponent(query)}`);
 
@@ -159,13 +155,13 @@ const CreateAddress = () => {
   const getFormTitle = () => {
     switch (formType) {
       case "contact":
-        return id ? "Edit Contact":"New Contact";
+        return id ? "Edit Contact" : "New Contact";
       case "hub":
-        return  id ? "Edit Hub Address":"New Hub Address";
+        return id ? "Edit Hub Address" : "New Hub Address";
       case "global":
-        return id ? "Edit Global Address":"New Global Address" ;
+        return id ? "Edit Global Address" : "New Global Address";
       default:
-        return id ? "Edit Address":"New Address";
+        return id ? "Edit Address" : "New Address";
     }
   };
 
@@ -196,9 +192,7 @@ const CreateAddress = () => {
         ...baseSchema,
         contactName: Yup.string().required("Contact name is required"),
         phoneNo: Yup.string().required("Phone number is required"),
-        email: Yup.string()
-          .email("Invalid email format")
-          .required("Email is required"),
+        email: Yup.string().email("Invalid email format").required("Email is required"),
         contactLanguage: Yup.string().required("Contact language is required"),
       });
     }
@@ -277,10 +271,7 @@ const CreateAddress = () => {
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label
-              htmlFor="accountId"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="accountId" className="block text-sm text-gray-700 mb-1 font-semibold">
               ACCOUNT
             </label>
             <TextField
@@ -315,10 +306,7 @@ const CreateAddress = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label
-              htmlFor="companyName"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="companyName" className="block text-sm text-gray-700 mb-1 font-semibold">
               COMPANY
             </label>
             <TextField
@@ -333,10 +321,7 @@ const CreateAddress = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="contactName"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="contactName" className="block text-sm text-gray-700 mb-1 font-semibold">
               CONTACT NAME
             </label>
             <TextField
@@ -348,22 +333,15 @@ const CreateAddress = () => {
               value={formik.values.contactName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={
-                formik.touched.contactName && Boolean(formik.errors.contactName)
-              }
-              helperText={
-                formik.touched.contactName && formik.errors.contactName
-              }
+              error={formik.touched.contactName && Boolean(formik.errors.contactName)}
+              helperText={formik.touched.contactName && formik.errors.contactName}
             />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label
-              htmlFor="phoneNo"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="phoneNo" className="block text-sm text-gray-700 mb-1 font-semibold">
               PHONE
             </label>
             <TextField
@@ -381,10 +359,7 @@ const CreateAddress = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="email" className="block text-sm text-gray-700 mb-1 font-semibold">
               EMAIL
             </label>
             <TextField
@@ -416,18 +391,12 @@ const CreateAddress = () => {
             >
               <FormControlLabel
                 value="ENGLISH"
-                control={
-                  <Radio
-                    checked={formik.values.contactLanguage === "ENGLISH"}
-                  />
-                }
+                control={<Radio checked={formik.values.contactLanguage === "ENGLISH"} />}
                 label="ENGLISH"
               />
               <FormControlLabel
                 value="FRENCH"
-                control={
-                  <Radio checked={formik.values.contactLanguage === "FRENCH"} />
-                }
+                control={<Radio checked={formik.values.contactLanguage === "FRENCH"} />}
                 label="FRENCH"
               />
             </RadioGroup>
@@ -472,9 +441,7 @@ const CreateAddress = () => {
                 value={inputValue}
                 onChange={handleInputChange}
                 InputProps={{
-                  endAdornment: loading && (
-                    <CircularProgress color="inherit" size={20} />
-                  ),
+                  endAdornment: loading && <CircularProgress color="inherit" size={20} />,
                 }}
               />
               {suggestionOpen && (
@@ -500,10 +467,7 @@ const CreateAddress = () => {
             </div>
           </div>
 
-          <Dialog
-            open={customAddressOpen}
-            onClose={() => setCustomAddressOpen(false)}
-          >
+          <Dialog open={customAddressOpen} onClose={() => setCustomAddressOpen(false)}>
             <DialogTitle>{"Custom Address"}</DialogTitle>
             <DialogContent>
               <div className="mt-2">
@@ -524,10 +488,7 @@ const CreateAddress = () => {
                 />
               </div>
               <div className="mt-2">
-                <label
-                  htmlFor="city"
-                  className="block text-sm text-gray-700 mb-1 font-semibold"
-                >
+                <label htmlFor="city" className="block text-sm text-gray-700 mb-1 font-semibold">
                   Address Line 1
                 </label>
                 <TextField
@@ -539,21 +500,13 @@ const CreateAddress = () => {
                   value={formik.values.addressLine1}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.addressLine1 &&
-                    Boolean(formik.errors.addressLine1)
-                  }
-                  helperText={
-                    formik.touched.addressLine1 && formik.errors.addressLine1
-                  }
+                  error={formik.touched.addressLine1 && Boolean(formik.errors.addressLine1)}
+                  helperText={formik.touched.addressLine1 && formik.errors.addressLine1}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="mt-2">
-                  <label
-                    htmlFor="city"
-                    className="block text-sm text-gray-700 mb-1 font-semibold"
-                  >
+                  <label htmlFor="city" className="block text-sm text-gray-700 mb-1 font-semibold">
                     CITY
                   </label>
                   <TextField
@@ -567,10 +520,7 @@ const CreateAddress = () => {
                   />
                 </div>
                 <div className="mt-2">
-                  <label
-                    htmlFor="state"
-                    className="block text-sm text-gray-700 mb-1 font-semibold"
-                  >
+                  <label htmlFor="state" className="block text-sm text-gray-700 mb-1 font-semibold">
                     State/Province
                   </label>
                   <TextField
@@ -677,10 +627,7 @@ const CreateAddress = () => {
         </>
 
         <div>
-          <label
-            htmlFor="note"
-            className="block text-sm text-gray-700 mb-1 font-semibold"
-          >
+          <label htmlFor="note" className="block text-sm text-gray-700 mb-1 font-semibold">
             NOTES
           </label>
           <TextField
@@ -703,10 +650,7 @@ const CreateAddress = () => {
     return (
       <div className="space-y-4">
         <div>
-          <label
-            htmlFor="companyName"
-            className="block text-sm text-gray-700 mb-1 font-semibold"
-          >
+          <label htmlFor="companyName" className="block text-sm text-gray-700 mb-1 font-semibold">
             COMPANY (HUB NAME)
           </label>
           <TextField
@@ -721,10 +665,7 @@ const CreateAddress = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="contactName"
-            className="block text-sm text-gray-700 mb-1 font-semibold"
-          >
+          <label htmlFor="contactName" className="block text-sm text-gray-700 mb-1 font-semibold">
             CONTACT NAME
           </label>
           <TextField
@@ -736,19 +677,14 @@ const CreateAddress = () => {
             value={formik.values.contactName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={
-              formik.touched.contactName && Boolean(formik.errors.contactName)
-            }
+            error={formik.touched.contactName && Boolean(formik.errors.contactName)}
             helperText={formik.touched.contactName && formik.errors.contactName}
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label
-              htmlFor="phoneNo"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="phoneNo" className="block text-sm text-gray-700 mb-1 font-semibold">
               PHONE
             </label>
             <TextField
@@ -766,10 +702,7 @@ const CreateAddress = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="email" className="block text-sm text-gray-700 mb-1 font-semibold">
               EMAIL
             </label>
             <TextField
@@ -789,9 +722,7 @@ const CreateAddress = () => {
         </div>
 
         <div>
-          <label className="block text-sm text-gray-700 mb-1 font-semibold">
-            CONTACT LANGUAGE
-          </label>
+          <label className="block text-sm text-gray-700 mb-1 font-semibold">CONTACT LANGUAGE</label>
           <RadioGroup
             row
             name="contactLanguage"
@@ -800,12 +731,12 @@ const CreateAddress = () => {
           >
             <FormControlLabel
               value="ENGLISH"
-              control={<Radio  checked={formik.values.contactLanguage === "ENGLISH"}/>}
+              control={<Radio checked={formik.values.contactLanguage === "ENGLISH"} />}
               label="ENGLISH"
             />
             <FormControlLabel
               value="FRENCH"
-              control={<Radio  checked={formik.values.contactLanguage === "FRENCH"}/>}
+              control={<Radio checked={formik.values.contactLanguage === "FRENCH"} />}
               label="FRENCH"
             />
           </RadioGroup>
@@ -836,9 +767,7 @@ const CreateAddress = () => {
                 value={inputValue}
                 onChange={handleInputChange}
                 InputProps={{
-                  endAdornment: loading && (
-                    <CircularProgress color="inherit" size={20} />
-                  ),
+                  endAdornment: loading && <CircularProgress color="inherit" size={20} />,
                 }}
               />
               {suggestionOpen && (
@@ -864,10 +793,7 @@ const CreateAddress = () => {
             </div>
           </div>
 
-          <Dialog
-            open={customAddressOpen}
-            onClose={() => setCustomAddressOpen(false)}
-          >
+          <Dialog open={customAddressOpen} onClose={() => setCustomAddressOpen(false)}>
             <DialogTitle>{"Custom Address"}</DialogTitle>
             <DialogContent>
               <div className="mt-2">
@@ -888,10 +814,7 @@ const CreateAddress = () => {
                 />
               </div>
               <div className="mt-2">
-                <label
-                  htmlFor="city"
-                  className="block text-sm text-gray-700 mb-1 font-semibold"
-                >
+                <label htmlFor="city" className="block text-sm text-gray-700 mb-1 font-semibold">
                   Address Line 1
                 </label>
                 <TextField
@@ -903,21 +826,13 @@ const CreateAddress = () => {
                   value={formik.values.addressLine1}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.addressLine1 &&
-                    Boolean(formik.errors.addressLine1)
-                  }
-                  helperText={
-                    formik.touched.addressLine1 && formik.errors.addressLine1
-                  }
+                  error={formik.touched.addressLine1 && Boolean(formik.errors.addressLine1)}
+                  helperText={formik.touched.addressLine1 && formik.errors.addressLine1}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="mt-2">
-                  <label
-                    htmlFor="city"
-                    className="block text-sm text-gray-700 mb-1 font-semibold"
-                  >
+                  <label htmlFor="city" className="block text-sm text-gray-700 mb-1 font-semibold">
                     CITY
                   </label>
                   <TextField
@@ -931,10 +846,7 @@ const CreateAddress = () => {
                   />
                 </div>
                 <div className="mt-2">
-                  <label
-                    htmlFor="state"
-                    className="block text-sm text-gray-700 mb-1 font-semibold"
-                  >
+                  <label htmlFor="state" className="block text-sm text-gray-700 mb-1 font-semibold">
                     State/Province
                   </label>
                   <TextField
@@ -1041,10 +953,7 @@ const CreateAddress = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="note"
-            className="block text-sm text-gray-700 mb-1 font-semibold"
-          >
+          <label htmlFor="note" className="block text-sm text-gray-700 mb-1 font-semibold">
             NOTES
           </label>
           <TextField
@@ -1067,10 +976,7 @@ const CreateAddress = () => {
     return (
       <div className="space-y-4">
         <div>
-          <label
-            htmlFor="companyName"
-            className="block text-sm text-gray-700 mb-1 font-semibold"
-          >
+          <label htmlFor="companyName" className="block text-sm text-gray-700 mb-1 font-semibold">
             COMPANY
           </label>
           <TextField
@@ -1109,9 +1015,7 @@ const CreateAddress = () => {
                 value={inputValue}
                 onChange={handleInputChange}
                 InputProps={{
-                  endAdornment: loading && (
-                    <CircularProgress color="inherit" size={20} />
-                  ),
+                  endAdornment: loading && <CircularProgress color="inherit" size={20} />,
                 }}
               />
               {suggestionOpen && (
@@ -1137,10 +1041,7 @@ const CreateAddress = () => {
             </div>
           </div>
 
-          <Dialog
-            open={customAddressOpen}
-            onClose={() => setCustomAddressOpen(false)}
-          >
+          <Dialog open={customAddressOpen} onClose={() => setCustomAddressOpen(false)}>
             <DialogTitle>{"Custom Address"}</DialogTitle>
             <DialogContent>
               <div className="mt-2">
@@ -1161,10 +1062,7 @@ const CreateAddress = () => {
                 />
               </div>
               <div className="mt-2">
-                <label
-                  htmlFor="city"
-                  className="block text-sm text-gray-700 mb-1 font-semibold"
-                >
+                <label htmlFor="city" className="block text-sm text-gray-700 mb-1 font-semibold">
                   Address Line 1
                 </label>
                 <TextField
@@ -1176,21 +1074,13 @@ const CreateAddress = () => {
                   value={formik.values.addressLine1}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.addressLine1 &&
-                    Boolean(formik.errors.addressLine1)
-                  }
-                  helperText={
-                    formik.touched.addressLine1 && formik.errors.addressLine1
-                  }
+                  error={formik.touched.addressLine1 && Boolean(formik.errors.addressLine1)}
+                  helperText={formik.touched.addressLine1 && formik.errors.addressLine1}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="mt-2">
-                  <label
-                    htmlFor="city"
-                    className="block text-sm text-gray-700 mb-1 font-semibold"
-                  >
+                  <label htmlFor="city" className="block text-sm text-gray-700 mb-1 font-semibold">
                     CITY
                   </label>
                   <TextField
@@ -1204,10 +1094,7 @@ const CreateAddress = () => {
                   />
                 </div>
                 <div className="mt-2">
-                  <label
-                    htmlFor="state"
-                    className="block text-sm text-gray-700 mb-1 font-semibold"
-                  >
+                  <label htmlFor="state" className="block text-sm text-gray-700 mb-1 font-semibold">
                     State/Province
                   </label>
                   <TextField
@@ -1314,10 +1201,7 @@ const CreateAddress = () => {
         </div>
 
         <div>
-          <label
-            htmlFor="note"
-            className="block text-sm text-gray-700 mb-1 font-semibold"
-          >
+          <label htmlFor="note" className="block text-sm text-gray-700 mb-1 font-semibold">
             NOTES
           </label>
           <TextField

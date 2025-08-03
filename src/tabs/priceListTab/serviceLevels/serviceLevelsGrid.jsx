@@ -4,9 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { getRequest } from "../../../consts/apiCalls";
 
 const ServiceLevelsGrid = () => {
-
   const columns = [
-    { field: "name", headerName: "Name", flex: 1.5 ,cellClassName: "text-center cursor-pointer !text-[#3e4396]",},
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1.5,
+      cellClassName: "text-center cursor-pointer !text-[#3e4396]",
+    },
     { field: "description", headerName: "description", flex: 1.5 },
   ];
 

@@ -3,8 +3,8 @@ import { Button, Typography } from "@mui/material";
 import { postRequest } from "../../../consts/apiCalls";
 import axios from "axios";
 import useToast from "../../../components/toast/useToast";
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 const PricingFileOperations = ({ fetchData, id }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
@@ -61,7 +61,7 @@ const PricingFileOperations = ({ fetchData, id }) => {
 
       if (contentDisposition) {
         const filenameMatch = contentDisposition.match(
-          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/
         );
         if (filenameMatch && filenameMatch[1]) {
           filename = decodeURIComponent(filenameMatch[1]);
@@ -104,7 +104,7 @@ const PricingFileOperations = ({ fetchData, id }) => {
 
       if (contentDisposition) {
         const filenameMatch = contentDisposition.match(
-          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/
         );
         if (filenameMatch && filenameMatch[1]) {
           filename = decodeURIComponent(filenameMatch[1]);
@@ -135,7 +135,7 @@ const PricingFileOperations = ({ fetchData, id }) => {
         Prices
       </Typography>
       <Typography variant="h5" className=" ">
-      Upload Price File
+        Upload Price File
       </Typography>
       {/* Upload Area */}
       <div
@@ -147,20 +147,19 @@ const PricingFileOperations = ({ fetchData, id }) => {
             Drag & Drop file here
           </Typography>
           <Typography variant="body2" className="mb-4">
-            {selectedFile
-              ? `Selected: ${selectedFile.name}`
-              : <div className=" mt-4 max-w-[100px] p-2 bg-gray-300 cursor-pointer">Select a File...</div>}
+            {selectedFile ? (
+              `Selected: ${selectedFile.name}`
+            ) : (
+              <div className=" mt-4 max-w-[100px] p-2 bg-gray-300 cursor-pointer">
+                Select a File...
+              </div>
+            )}
           </Typography>
         </div>
 
-        <input
-          id="fileInput"
-          type="file"
-          onChange={handleFileSelect}
-          className="hidden"
-        />
+        <input id="fileInput" type="file" onChange={handleFileSelect} className="hidden" />
       </div>
-      
+
       {/* Upload Button */}
       <Button
         variant="contained"
@@ -176,24 +175,23 @@ const PricingFileOperations = ({ fetchData, id }) => {
           },
         }}
       >
-      <FileUploadOutlinedIcon/> Upload
+        <FileUploadOutlinedIcon /> Upload
       </Button>
 
       {/* Warning Message */}
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 mt-4">
         <Typography variant="body2" className="text-yellow-800">
-         <span className="text-xl">⚠️</span> The last uploaded file will not reflect changes made on vehicles,
-          service levels and/or zones. To make changes to the price list, either
-          add the missing vehicles, service levels and/or zones manually in the
-          existing price list or download the Template File to generate a valid
-          empty price list.
+          <span className="text-xl">⚠️</span> The last uploaded file will not reflect changes made
+          on vehicles, service levels and/or zones. To make changes to the price list, either add
+          the missing vehicles, service levels and/or zones manually in the existing price list or
+          download the Template File to generate a valid empty price list.
         </Typography>
       </div>
 
       {/* Download Section */}
       <div className="text-center">
         <Typography variant="h5" className="mb-4">
-        Download Price File
+          Download Price File
         </Typography>
         <div className="space-y-2 flex flex-col justify-center items-center">
           <Button
@@ -202,30 +200,30 @@ const PricingFileOperations = ({ fetchData, id }) => {
             onClick={handleDownload}
             disabled={isLoading}
             sx={{
-              backgroundColor: 'transparent !important', // Custom color for this specific button
-              color: 'black !important',
-              border: "1px solid black !important"
+              backgroundColor: "transparent !important", // Custom color for this specific button
+              color: "black !important",
+              border: "1px solid black !important",
             }}
             className="mb-2 max-w-[150px] gap-2 !bg-white "
           >
-           <FileDownloadOutlinedIcon/>   Price file
+            <FileDownloadOutlinedIcon /> Price file
           </Button>
           <Typography variant="h5" className="!mt-2">
-          Download
-        </Typography>
+            Download
+          </Typography>
           <Button
             variant="outlined"
             fullWidth
             onClick={handleDownloadTemplate}
             disabled={isLoading}
             sx={{
-              backgroundColor: 'transparent !important', // Custom color for this specific button
-              color: 'black !important',
-              border: "1px solid black !important"
+              backgroundColor: "transparent !important", // Custom color for this specific button
+              color: "black !important",
+              border: "1px solid black !important",
             }}
             className="mb-2 max-w-[150px] gap-1 !capitalize"
           >
-           <FileDownloadOutlinedIcon/> Template file
+            <FileDownloadOutlinedIcon /> Template file
           </Button>
         </div>
       </div>

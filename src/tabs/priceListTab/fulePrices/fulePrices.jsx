@@ -1,6 +1,6 @@
-import SubTabNavigator from '../../../components/subTabNavigator'
-import LinkBtn from '../../../components/linkBtn'
-import FuelPricesGrid from './fuelPriceGrid'
+import SubTabNavigator from "../../../components/subTabNavigator";
+import LinkBtn from "../../../components/linkBtn";
+import FuelPricesGrid from "./fuelPriceGrid";
 
 export const FuelPrices = () => {
   return (
@@ -14,12 +14,9 @@ export const FuelPrices = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="New Fuel Price"
-          url={"/pricelist/fuel-prices/create"}
-        />
+        <LinkBtn label="New Fuel Price" url={"/pricelist/fuel-prices/create"} />
       </div>
       <FuelPricesGrid />
     </div>
-  )
-}
+  );
+};

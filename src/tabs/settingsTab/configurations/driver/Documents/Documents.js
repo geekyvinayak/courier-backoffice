@@ -87,9 +87,7 @@ const Documents = () => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box
-        sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}>
         <Button
           variant="contained"
           color="primary"
@@ -104,7 +102,9 @@ const Documents = () => {
           rows={documents}
           columns={columns}
           loading={loading}
-          onCellClick={(params, event) => {handleEdit(params.id);}}
+          onCellClick={(params, event) => {
+            handleEdit(params.id);
+          }}
           getRowId={(row) => row.id}
           slotProps={{
             loadingOverlay: {

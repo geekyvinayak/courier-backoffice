@@ -21,13 +21,13 @@ body,
   color: #3e4396 !important;
 }
 
-.Mui-checked.Mui-disabled{
-  color: #adadad  !important;
+.Mui-checked.Mui-disabled {
+  color: #adadad !important;
 }
 .MuiButton-root {
   text-transform: capitalize !important;
 }
-.MuiTypography-body1{
+.MuiTypography-body1 {
   font: bold !important;
   font-weight: 600 !important;
 }
@@ -38,8 +38,8 @@ body,
 
 .MuiSelect-select.Mui-disabled {
   background-color: #e6e5e5 !important;
-  color: black  !important;
-  font-weight: 500  !important;
+  color: black !important;
+  font-weight: 500 !important;
   cursor: no-drop !important;
 }
 .MuiInputBase-root.Mui-disabled {
@@ -49,8 +49,8 @@ body,
 
 .MuiButton.Mui-disabled {
   background-color: #e6e5e5 !important;
-  color: black  !important;
-  font-weight: 500  !important;
+  color: black !important;
+  font-weight: 500 !important;
   cursor: no-drop !important;
 }
 .MuiButton-root.Mui-disabled {
@@ -62,7 +62,7 @@ body,
   background-color: #3e4396 !important;
   color: white !important;
   border-color: #3e4396 !important;
-} 
+}
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -82,12 +82,12 @@ body,
   margin: 1.5rem 0 0 2.5rem;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }

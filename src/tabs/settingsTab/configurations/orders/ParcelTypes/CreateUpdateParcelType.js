@@ -13,23 +13,13 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  postRequest,
-  getRequest,
-  putRequest,
-  deleteRequest,
-} from "../../../../../consts/apiCalls";
+import { postRequest, getRequest, putRequest, deleteRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 import useToast from "../../../../../components/toast/useToast";
 import { InfoRounded } from "@mui/icons-material";
 
-const CreateUpdateParcelType = ({
-  editingId,
-  isEditMode,
-  onBack,
-  onSuccess,
-}) => {
+const CreateUpdateParcelType = ({ editingId, isEditMode, onBack, onSuccess }) => {
   const { showSuccess, showError } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,9 +42,7 @@ const CreateUpdateParcelType = ({
     validationSchema: Yup.object({
       displayId: Yup.string().required("ID is required"),
       name: Yup.string().required("Name (EN) is required"),
-      systemOfMeasurement: Yup.string().required(
-        "System of Measurement is required",
-      ),
+      systemOfMeasurement: Yup.string().required("System of Measurement is required"),
       unitOfLength: Yup.string().required("Unit of Length is required"),
     }),
     onSubmit: async (values) => {
@@ -125,9 +113,7 @@ const CreateUpdateParcelType = ({
         items={[
           { label: "Parcel Types", onClick: onBack },
           {
-            label: isEditMode
-              ? ` ${formik.values.displayId}`
-              : "New Parcel Type",
+            label: isEditMode ? ` ${formik.values.displayId}` : "New Parcel Type",
           },
         ]}
       />
@@ -143,12 +129,7 @@ const CreateUpdateParcelType = ({
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={3}
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={3}>
             <Typography variant="h5" sx={{ fontWeight: 500 }}>
               Parcel Type
             </Typography>
@@ -203,13 +184,8 @@ const CreateUpdateParcelType = ({
                     value={formik.values.displayId}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={
-                      formik.touched.displayId &&
-                      Boolean(formik.errors.displayId)
-                    }
-                    helperText={
-                      formik.touched.displayId && formik.errors.displayId
-                    }
+                    error={formik.touched.displayId && Boolean(formik.errors.displayId)}
+                    helperText={formik.touched.displayId && formik.errors.displayId}
                     sx={{ marginBottom: 2 }}
                   />
                 </Box>
@@ -299,48 +275,49 @@ const CreateUpdateParcelType = ({
                   </TextField>
                 </Box>
                 <Box display={"flex"} textAlign={"center"} gap={5}>
-                <Box >
-                  <Typography variant="body1" gutterBottom>
-                    Length
-                  </Typography>
-                  <TextField
-                    name="length"
-                    type="number"
-                    size="small"
-                    fullWidth
-                    value={formik.values.length}
-                    onChange={formik.handleChange}
-                    sx={{ marginBottom: 2 }}
-                  />
+                  <Box>
+                    <Typography variant="body1" gutterBottom>
+                      Length
+                    </Typography>
+                    <TextField
+                      name="length"
+                      type="number"
+                      size="small"
+                      fullWidth
+                      value={formik.values.length}
+                      onChange={formik.handleChange}
+                      sx={{ marginBottom: 2 }}
+                    />
+                  </Box>
+                  <Box>
+                    <Typography variant="body1" gutterBottom>
+                      Width
+                    </Typography>
+                    <TextField
+                      name="width"
+                      type="number"
+                      size="small"
+                      fullWidth
+                      value={formik.values.width}
+                      onChange={formik.handleChange}
+                      sx={{ marginBottom: 2 }}
+                    />
+                  </Box>
+                  <Box>
+                    <Typography variant="body1" gutterBottom>
+                      Height
+                    </Typography>
+                    <TextField
+                      name="height"
+                      type="number"
+                      size="small"
+                      fullWidth
+                      value={formik.values.height}
+                      onChange={formik.handleChange}
+                      sx={{ marginBottom: 2 }}
+                    />
+                  </Box>
                 </Box>
-                <Box >
-                  <Typography variant="body1" gutterBottom>
-                    Width
-                  </Typography>
-                  <TextField
-                    name="width"
-                    type="number"
-                    size="small"
-                    fullWidth
-                    value={formik.values.width}
-                    onChange={formik.handleChange}
-                    sx={{ marginBottom: 2 }}
-                  />
-                </Box>
-                <Box >
-                  <Typography variant="body1" gutterBottom>
-                    Height
-                  </Typography>
-                  <TextField
-                    name="height"
-                    type="number"
-                    size="small"
-                    fullWidth
-                    value={formik.values.height}
-                    onChange={formik.handleChange}
-                    sx={{ marginBottom: 2 }}
-                  />
-                </Box></Box>
               </Box>
 
               {/* Weight */}
@@ -359,17 +336,18 @@ const CreateUpdateParcelType = ({
                   label="Is Dimensional Weight"
                 />
                 <Tooltip title="Dimensional weight is used as the minimum weight and is calculated from the dimension and the dimensional factor.">
-                                  <IconButton>
-                                    <InfoRounded fontSize="small"  className="text-[#3e4396]" />
-                                  </IconButton>
-                                </Tooltip>
-                <Box flex="1">
-                  <Typography variant="body1" gutterBottom>
-                    Dimensional Factor <Tooltip title="The dimensional factor is used to calculate the dimensional weight (used as minimum weight) of a package from the cubic size divided by the dimensional factor.">
                   <IconButton>
-                    <InfoRounded fontSize="small"  className="text-[#3e4396]" />
+                    <InfoRounded fontSize="small" className="text-[#3e4396]" />
                   </IconButton>
                 </Tooltip>
+                <Box flex="1">
+                  <Typography variant="body1" gutterBottom>
+                    Dimensional Factor{" "}
+                    <Tooltip title="The dimensional factor is used to calculate the dimensional weight (used as minimum weight) of a package from the cubic size divided by the dimensional factor.">
+                      <IconButton>
+                        <InfoRounded fontSize="small" className="text-[#3e4396]" />
+                      </IconButton>
+                    </Tooltip>
                   </Typography>
                   <TextField
                     name="dimensionalFactor"
@@ -399,11 +377,12 @@ const CreateUpdateParcelType = ({
                 </Box>
                 <Box flex="1">
                   <Typography variant="body1" gutterBottom>
-                    Total Unit Factor{" "}<Tooltip title="The unit factor is the intelligent quantity of a parcel type used to calculate the Number of Pieces extra fee and if order will fit within a vehicle capacity.">
-                  <IconButton>
-                    <InfoRounded fontSize="small"  className="text-[#3e4396]" />
-                  </IconButton>
-                </Tooltip>
+                    Total Unit Factor{" "}
+                    <Tooltip title="The unit factor is the intelligent quantity of a parcel type used to calculate the Number of Pieces extra fee and if order will fit within a vehicle capacity.">
+                      <IconButton>
+                        <InfoRounded fontSize="small" className="text-[#3e4396]" />
+                      </IconButton>
+                    </Tooltip>
                   </Typography>
                   <TextField
                     name="totalUnitFactor"

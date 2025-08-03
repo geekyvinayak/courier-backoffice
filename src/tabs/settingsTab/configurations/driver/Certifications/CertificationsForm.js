@@ -12,23 +12,13 @@ import {
   FormLabel,
   FormControl,
 } from "@mui/material";
-import {
-  postRequest,
-  getRequest,
-  putRequest,
-  deleteRequest,
-} from "../../../../../consts/apiCalls";
+import { postRequest, getRequest, putRequest, deleteRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 import useToast from "../../../../../components/toast/useToast";
 import { CircularProgress } from "@mui/material";
 
-const CertificationsForm = ({
-  editingId,
-  isEditMode,
-  onBack,
-  onSuccess,
-}) => {
+const CertificationsForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
   const { showSuccess, showError } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,7 +42,9 @@ const CertificationsForm = ({
         }
         onSuccess();
       } catch (error) {
-        showError(error.response.data.message??"Something went wrong while saving the Certification");
+        showError(
+          error.response.data.message ?? "Something went wrong while saving the Certification"
+        );
         console.error("Save error:", error);
       }
     },
@@ -63,7 +55,7 @@ const CertificationsForm = ({
     try {
       const response = await getRequest(`/api/certifications/${editingId}`);
       formik.setValues({
-          displayId: response.displayId || "",
+        displayId: response.displayId || "",
         name: response.name || "",
       });
     } catch (error) {
@@ -97,9 +89,7 @@ const CertificationsForm = ({
         items={[
           { label: "Certifications", onClick: onBack },
           {
-            label: isEditMode
-              ? `Certification '${editingId}'`
-              : "New Certification",
+            label: isEditMode ? `Certification '${editingId}'` : "New Certification",
           },
         ]}
       />
@@ -115,14 +105,9 @@ const CertificationsForm = ({
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={3}
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={3}>
             <Typography variant="h5" sx={{ fontWeight: 500 }}>
-            Certification
+              Certification
             </Typography>
             <Box display="flex" gap={1}>
               <Button
@@ -159,21 +144,13 @@ const CertificationsForm = ({
           </Box>
 
           {isLoading ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="80px"
-            >
+            <Box display="flex" justifyContent="center" alignItems="center" height="80px">
               <CircularProgress />
             </Box>
           ) : (
             <>
               <Box marginY={3}>
-                <Typography
-                  variant="body1"
-                  sx={{ marginBottom: 1, fontWeight: 500 }}
-                >
+                <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
                   ID
                 </Typography>
                 <TextField
@@ -194,13 +171,9 @@ const CertificationsForm = ({
                   }}
                 />
               </Box>
-        
 
-            <Box marginY={3}>
-                <Typography
-                  variant="body1"
-                  sx={{ marginBottom: 1, fontWeight: 500 }}
-                >
+              <Box marginY={3}>
+                <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
                   Name
                 </Typography>
                 <TextField

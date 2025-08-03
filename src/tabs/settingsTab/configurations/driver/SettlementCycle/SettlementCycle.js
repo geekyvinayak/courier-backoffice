@@ -84,7 +84,7 @@ const SettlementCycle = () => {
       headerName: "Default",
       width: 100,
       cellClassName: "!flex !justify-center !items-center",
-     
+
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
@@ -113,10 +113,7 @@ const SettlementCycle = () => {
       cellClassName: "flex !justify-center",
       renderCell: (params) => (
         <IconButton>
-          <DeleteDialog
-            key={params.id}
-            handleDelete={() => handleDelete(params.id)}
-          />
+          <DeleteDialog key={params.id} handleDelete={() => handleDelete(params.id)} />
         </IconButton>
       ),
     },
@@ -124,9 +121,7 @@ const SettlementCycle = () => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box
-        sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}>
         <Button
           variant="contained"
           color="primary"

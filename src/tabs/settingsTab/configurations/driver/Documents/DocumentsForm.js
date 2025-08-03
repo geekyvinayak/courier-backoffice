@@ -12,23 +12,13 @@ import {
   FormLabel,
   FormControl,
 } from "@mui/material";
-import {
-  postRequest,
-  getRequest,
-  putRequest,
-  deleteRequest,
-} from "../../../../../consts/apiCalls";
+import { postRequest, getRequest, putRequest, deleteRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 import useToast from "../../../../../components/toast/useToast";
 import { CircularProgress } from "@mui/material";
 
-const DocumentsForm = ({
-  editingId,
-  isEditMode,
-  onBack,
-  onSuccess,
-}) => {
+const DocumentsForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
   const { showSuccess, showError } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,7 +42,7 @@ const DocumentsForm = ({
         }
         onSuccess();
       } catch (error) {
-        showError(error.response.data.message??"Something went wrong while saving the Document");
+        showError(error.response.data.message ?? "Something went wrong while saving the Document");
         console.error("Save error:", error);
       }
     },
@@ -63,7 +53,7 @@ const DocumentsForm = ({
     try {
       const response = await getRequest(`/documents/${editingId}`);
       formik.setValues({
-          displayId: response.displayId || "",
+        displayId: response.displayId || "",
         name: response.name || "",
       });
     } catch (error) {
@@ -97,9 +87,7 @@ const DocumentsForm = ({
         items={[
           { label: "Documents", onClick: onBack },
           {
-            label: isEditMode
-              ? `Document '${editingId}'`
-              : "New Document",
+            label: isEditMode ? `Document '${editingId}'` : "New Document",
           },
         ]}
       />
@@ -115,14 +103,9 @@ const DocumentsForm = ({
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={3}
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={3}>
             <Typography variant="h5" sx={{ fontWeight: 500 }}>
-            Document
+              Document
             </Typography>
             <Box display="flex" gap={1}>
               <Button
@@ -159,21 +142,13 @@ const DocumentsForm = ({
           </Box>
 
           {isLoading ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="80px"
-            >
+            <Box display="flex" justifyContent="center" alignItems="center" height="80px">
               <CircularProgress />
             </Box>
           ) : (
             <>
               <Box marginY={3}>
-                <Typography
-                  variant="body1"
-                  sx={{ marginBottom: 1, fontWeight: 500 }}
-                >
+                <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
                   ID
                 </Typography>
                 <TextField
@@ -194,13 +169,9 @@ const DocumentsForm = ({
                   }}
                 />
               </Box>
-        
 
-            <Box marginY={3}>
-                <Typography
-                  variant="body1"
-                  sx={{ marginBottom: 1, fontWeight: 500 }}
-                >
+              <Box marginY={3}>
+                <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
                   Name
                 </Typography>
                 <TextField

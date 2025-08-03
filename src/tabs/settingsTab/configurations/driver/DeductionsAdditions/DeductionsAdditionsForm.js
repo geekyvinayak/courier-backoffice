@@ -12,23 +12,13 @@ import {
   FormLabel,
   FormControl,
 } from "@mui/material";
-import {
-  postRequest,
-  getRequest,
-  putRequest,
-  deleteRequest,
-} from "../../../../../consts/apiCalls";
+import { postRequest, getRequest, putRequest, deleteRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 import useToast from "../../../../../components/toast/useToast";
 import { CircularProgress } from "@mui/material";
 
-const DeductionsAdditionsForm = ({
-  editingId,
-  isEditMode,
-  onBack,
-  onSuccess,
-}) => {
+const DeductionsAdditionsForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
   const { showSuccess, showError } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -103,9 +93,7 @@ const DeductionsAdditionsForm = ({
         items={[
           { label: "Deduction/Addition", onClick: onBack },
           {
-            label: isEditMode
-              ? `Deduction/Addition '${editingId}'`
-              : "New Deduction/Addition",
+            label: isEditMode ? `Deduction/Addition '${editingId}'` : "New Deduction/Addition",
           },
         ]}
       />
@@ -121,14 +109,9 @@ const DeductionsAdditionsForm = ({
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={3}
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={3}>
             <Typography variant="h5" sx={{ fontWeight: 500 }}>
-            Deduction/Addition
+              Deduction/Addition
             </Typography>
             <Box display="flex" gap={1}>
               <Button
@@ -165,21 +148,13 @@ const DeductionsAdditionsForm = ({
           </Box>
 
           {isLoading ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="80px"
-            >
+            <Box display="flex" justifyContent="center" alignItems="center" height="80px">
               <CircularProgress />
             </Box>
           ) : (
             <>
               <Box marginY={3}>
-                <Typography
-                  variant="body1"
-                  sx={{ marginBottom: 1, fontWeight: 500 }}
-                >
+                <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
                   Name
                 </Typography>
                 <TextField
@@ -208,16 +183,8 @@ const DeductionsAdditionsForm = ({
                     value={formik.values.type}
                     onChange={formik.handleChange}
                   >
-                    <FormControlLabel
-                      value="ADDITION"
-                      control={<Radio />}
-                      label="Addition"
-                    />
-                    <FormControlLabel
-                      value="DEDUCTION"
-                      control={<Radio />}
-                      label="Deduction"
-                    />
+                    <FormControlLabel value="ADDITION" control={<Radio />} label="Addition" />
+                    <FormControlLabel value="DEDUCTION" control={<Radio />} label="Deduction" />
                   </RadioGroup>
                 </FormControl>
               </Box>
@@ -231,16 +198,8 @@ const DeductionsAdditionsForm = ({
                     value={formik.values.unit}
                     onChange={formik.handleChange}
                   >
-                    <FormControlLabel
-                      value="PERCENTAGE"
-                      control={<Radio />}
-                      label="%"
-                    />
-                    <FormControlLabel
-                      value="DOLLAR"
-                      control={<Radio />}
-                      label="$"
-                    />
+                    <FormControlLabel value="PERCENTAGE" control={<Radio />} label="%" />
+                    <FormControlLabel value="DOLLAR" control={<Radio />} label="$" />
                   </RadioGroup>
                 </FormControl>
               </Box>

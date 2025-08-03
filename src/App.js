@@ -34,7 +34,7 @@ import { Address } from "./tabs/settingsTab/system/address/address";
 import CreateAddress from "./tabs/settingsTab/system/address/createAddress";
 import { FuleSurchargesCalculator } from "./tabs/priceListTab/fuleSurcharges/fuleSurchargesCalculator";
 import FuleSurchargesCalculatorCreate from "./tabs/priceListTab/fuleSurcharges/fuleSurchargeCalculatorCreate";
-import {FuelPrices} from "./tabs/priceListTab/fulePrices/fulePrices";
+import { FuelPrices } from "./tabs/priceListTab/fulePrices/fulePrices";
 import CreateFuelPrice from "./tabs/priceListTab/fulePrices/createFuelPrice";
 import ConfigrationsTab from "./tabs/settingsTab/configurations";
 import CompaniesTab from "./tabs/settingsTab/Companies";
@@ -50,8 +50,8 @@ function App() {
         <CssBaseline />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/forget-password" element={<Forget/>} />
-          <Route path="/reset-password" element={<ResetPassword/>} />
+          <Route path="/forget-password" element={<Forget />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/*"
             element={
@@ -62,18 +62,12 @@ function App() {
                     <Navbar />
                     <Routes>
                       <Route path="/" element={<Navigate to="/dashboard" />} />
-                      <Route path='/change-password' element={<ChangePassword />} />
+                      <Route path="/change-password" element={<ChangePassword />} />
                       <Route path="/dashboard" element={<Dashboard />} />
                       <Route path="/pricelist" element={<PriceList />} />
                       <Route path="/pricelist/create" element={<NewPrice />} />
-                      <Route
-                        path="/pricelist/edit/:id"
-                        element={<NewPrice />}
-                      />
-                      <Route
-                        path="/pricelist/vehiclestype"
-                        element={<VehiclesTypes />}
-                      />
+                      <Route path="/pricelist/edit/:id" element={<NewPrice />} />
+                      <Route path="/pricelist/vehiclestype" element={<VehiclesTypes />} />
                       <Route
                         path="/pricelist/vehiclestype/create"
                         element={<VehiclesTypesCreate />}
@@ -94,10 +88,7 @@ function App() {
                         path="/pricelist/vehicleequivalency/edit/:id"
                         element={<VehicleEquivalenciesEditForm />}
                       />
-                      <Route
-                        path="/pricelist/extrafeesschedule"
-                        element={<ExtraFeesSchedule />}
-                      />
+                      <Route path="/pricelist/extrafeesschedule" element={<ExtraFeesSchedule />} />
                       <Route
                         path="/pricelist/extrafeesschedule/create"
                         element={<CreateExtraFeesSchedule />}
@@ -106,27 +97,12 @@ function App() {
                         path="/pricelist/extrafeesschedule/edit/:id"
                         element={<CreateExtraFeesSchedule />}
                       />
-                      <Route
-                        path="/pricelist/extrafees"
-                        element={<ExtraFees />}
-                      />
-                      <Route
-                        path="/pricelist/extrafees/create"
-                        element={<ExtraFeesCreate />}
-                      />
-                      <Route
-                        path="/pricelist/pricingzones"
-                        element={<PricingZone />}
-                      />
+                      <Route path="/pricelist/extrafees" element={<ExtraFees />} />
+                      <Route path="/pricelist/extrafees/create" element={<ExtraFeesCreate />} />
+                      <Route path="/pricelist/pricingzones" element={<PricingZone />} />
 
-                      <Route
-                        path="/pricelist/extrafees/edit/:id"
-                        element={<ExtraFeesCreate />}
-                      />
-                      <Route
-                        path="/pricelist/discounts-surcharges"
-                        element={<Discount />}
-                      />
+                      <Route path="/pricelist/extrafees/edit/:id" element={<ExtraFeesCreate />} />
+                      <Route path="/pricelist/discounts-surcharges" element={<Discount />} />
                       <Route
                         path="/pricelist/discounts-surcharges/create"
                         element={<DiscountCreate />}
@@ -147,10 +123,7 @@ function App() {
                         path="/pricelist/servicelevelschedule/edit/:id"
                         element={<CreateServiceLevelSchedule />}
                       />
-                      <Route
-                        path="/pricelist/servicelevels"
-                        element={<Servicelevels />}
-                      />
+                      <Route path="/pricelist/servicelevels" element={<Servicelevels />} />
                       <Route
                         path="/pricelist/servicelevels/create"
                         element={<CreateServiceLevel />}
@@ -159,22 +132,10 @@ function App() {
                         path="/pricelist/servicelevels/edit/:id"
                         element={<CreateServiceLevel />}
                       />
-                      <Route
-                        path="/settings/system/users"
-                        element={<Users />}
-                      />
-                      <Route
-                        path="/settings/system/users/create"
-                        element={<CreateUser />}
-                      />
-                      <Route
-                        path="settings/system/users/edit/:id"
-                        element={<CreateUser />}
-                      />
-                      <Route
-                        path="settings/system/address"
-                        element={<Address />}
-                      />
+                      <Route path="/settings/system/users" element={<Users />} />
+                      <Route path="/settings/system/users/create" element={<CreateUser />} />
+                      <Route path="settings/system/users/edit/:id" element={<CreateUser />} />
+                      <Route path="settings/system/address" element={<Address />} />
                       <Route
                         path="/settings/system/address/create/:form"
                         element={<CreateAddress />}
@@ -191,14 +152,8 @@ function App() {
                         path="/pricelist/surcharge-calculator/create/:id"
                         element={<FuleSurchargesCalculatorCreate />}
                       />
-                      <Route
-                        path="/pricelist/fuel-prices"
-                        element={<FuelPrices />}
-                      />
-                      <Route
-                        path="/pricelist/fuel-prices/create"
-                        element={<CreateFuelPrice />}
-                      />
+                      <Route path="/pricelist/fuel-prices" element={<FuelPrices />} />
+                      <Route path="/pricelist/fuel-prices/create" element={<CreateFuelPrice />} />
                       <Route
                         path="/pricelist/fuel-prices/create/:id"
                         element={<CreateFuelPrice />}
@@ -207,22 +162,10 @@ function App() {
                         path="/settings/system/address/edit/:form/:id"
                         element={<CreateAddress />}
                       />
-                      <Route
-                        path="/settings/configurations/*"
-                        element={<ConfigrationsTab />}
-                      />
-                      <Route
-                        path="/settings/companies/*"
-                        element={<CompaniesTab />}
-                      />
-                       <Route
-                        path="/settings/zones/*"
-                        element={<ZonesTab />}
-                      />
-                       <Route
-                        path="/settings/checkpoints/*"
-                        element={<CheckpointsTab />}
-                      />
+                      <Route path="/settings/configurations/*" element={<ConfigrationsTab />} />
+                      <Route path="/settings/companies/*" element={<CompaniesTab />} />
+                      <Route path="/settings/zones/*" element={<ZonesTab />} />
+                      <Route path="/settings/checkpoints/*" element={<CheckpointsTab />} />
                     </Routes>
                   </main>
                 </div>

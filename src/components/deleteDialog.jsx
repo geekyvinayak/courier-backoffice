@@ -39,9 +39,7 @@ export const DeleteDialog = ({ handleDelete, trigger }) => {
       <Dialog open={showDeleteDailog} onClose={handleClose}>
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete this row?
-          </DialogContentText>
+          <DialogContentText>Are you sure you want to delete this row?</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} className="!bg-primary">

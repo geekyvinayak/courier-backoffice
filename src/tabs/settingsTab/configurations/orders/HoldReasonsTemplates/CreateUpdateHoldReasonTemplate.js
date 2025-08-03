@@ -2,22 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, TextField, Box, Typography } from "@mui/material";
-import {
-  postRequest,
-  getRequest,
-  putRequest,
-  deleteRequest,
-} from "../../../../../consts/apiCalls";
+import { postRequest, getRequest, putRequest, deleteRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 import useToast from "../../../../../components/toast/useToast";
 import { CircularProgress } from "@mui/material";
-const CreateUpdateHoldReasonTemplate = ({
-  editingId,
-  isEditMode,
-  onBack,
-  onSuccess,
-}) => {
+const CreateUpdateHoldReasonTemplate = ({ editingId, isEditMode, onBack, onSuccess }) => {
   const { showSuccess, showError } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -83,9 +73,7 @@ const CreateUpdateHoldReasonTemplate = ({
         items={[
           { label: "Hold Reasons", onClick: onBack },
           {
-            label: isEditMode
-              ? `Hold Reason Template '${editingId}'`
-              : "New Hold Reason Template",
+            label: isEditMode ? `Hold Reason Template '${editingId}'` : "New Hold Reason Template",
           },
         ]}
       />
@@ -101,12 +89,7 @@ const CreateUpdateHoldReasonTemplate = ({
         }}
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={3}
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={3}>
             <Typography variant="h5" sx={{ fontWeight: 500 }}>
               Hold Reason Template
             </Typography>
@@ -145,20 +128,12 @@ const CreateUpdateHoldReasonTemplate = ({
           </Box>
 
           {isLoading ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="80px"
-            >
+            <Box display="flex" justifyContent="center" alignItems="center" height="80px">
               <CircularProgress />
             </Box>
           ) : (
             <Box marginY={3}>
-              <Typography
-                variant="body1"
-                sx={{ marginBottom: 1, fontWeight: 500 }}
-              >
+              <Typography variant="body1" sx={{ marginBottom: 1, fontWeight: 500 }}>
                 TEXT (EN)
               </Typography>
               <TextField

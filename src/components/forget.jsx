@@ -22,9 +22,7 @@ const Forget = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await getRequest(
-        `/api/v1//forgot-password?email=${formData.email}`,
-      );
+      const response = await getRequest(`/api/v1//forgot-password?email=${formData.email}`);
       showSuccess("Check your mail for OTP");
       navigate("/reset-password");
     } catch (error) {
@@ -51,23 +49,18 @@ const Forget = () => {
           width={"350px"}
           style={{ marginBottom: 10 }}
         />
-        <Typography
-          component="h1"
-          variant="h3"
-          fontWeight={500}
-          fontSize={"30px"}
-        >
+        <Typography component="h1" variant="h3" fontWeight={500} fontSize={"30px"}>
           Request New Password
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <Box>
             <Typography
-             variant="subtitle1"
-             gutterBottom
-             fontWeight={600}
-             marginBottom={"-8px"}
-             marginLeft={"4px"}
-             fontSize={"16px"}
+              variant="subtitle1"
+              gutterBottom
+              fontWeight={600}
+              marginBottom={"-8px"}
+              marginLeft={"4px"}
+              fontSize={"16px"}
             >
               Email Address
             </Typography>

@@ -44,7 +44,7 @@ export default function CreateFuelPrice() {
         navigate("/pricelist/fuel-prices");
       } catch (error) {
         console.log(error);
-        showError("Something went wrong.")
+        showError("Something went wrong.");
       }
     },
   });
@@ -78,7 +78,7 @@ export default function CreateFuelPrice() {
             lable: "Fuel Surcharges Table",
             url: "/pricelist/fule-surcharges-table",
           },
-          { lable: "Fuel Prices", url: "/pricelist/fuel-prices", isFilled:true },
+          { lable: "Fuel Prices", url: "/pricelist/fuel-prices", isFilled: true },
           {
             lable: "Fuel Surcharges Calculator",
             url: "/pricelist/surcharge-calculator",
@@ -107,10 +107,7 @@ export default function CreateFuelPrice() {
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="name" className="block text-sm text-gray-700 mb-1 font-semibold">
               NAME
             </label>
             <TextField
@@ -131,15 +128,17 @@ export default function CreateFuelPrice() {
               <Typography variant="h3" gutterBottom>
                 Prices
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={()=>setShowDialog(true)}
-              >
+              <Button variant="contained" color="primary" onClick={() => setShowDialog(true)}>
                 Add Price
               </Button>
             </div>
-            <FuelEntries getFuelPrices={getFuelPrices} entries={formik.values.entries} loading={isLoading} showDialog={showDialog} setShowDialog={setShowDialog}/>
+            <FuelEntries
+              getFuelPrices={getFuelPrices}
+              entries={formik.values.entries}
+              loading={isLoading}
+              showDialog={showDialog}
+              setShowDialog={setShowDialog}
+            />
           </div>
         </form>
       </div>

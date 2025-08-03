@@ -9,8 +9,7 @@ function handleError(error) {
   if (error.response) {
     // Server responded with a status other than 2xx
     if (
-      error.response.data.message ===
-        "You must be authenticated to access this resource." &&
+      error.response.data.message === "You must be authenticated to access this resource." &&
       error.response.data.error == "Unauthorized" &&
       error.response.data.status == 401
     ) {

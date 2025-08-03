@@ -26,10 +26,7 @@ const CreateServiceLevelSchedule = () => {
 
     onSubmit: async (values) => {
       try {
-        const response = await postRequest(
-          "/api/service-level-schedule",
-          values,
-        );
+        const response = await postRequest("/api/service-level-schedule", values);
         if (id) {
           showSuccess("Service Level Schedule Updated");
         }
@@ -46,8 +43,10 @@ const CreateServiceLevelSchedule = () => {
 
   const getServiceLevel = async () => {
     try {
-      const response = await getRequest(`/api/service-level-schedule/${id}/vehicle-first-service-level/availableVehicle`);
-      console.log(response)
+      const response = await getRequest(
+        `/api/service-level-schedule/${id}/vehicle-first-service-level/availableVehicle`
+      );
+      console.log(response);
       formik.setValues(response);
     } catch (error) {
       console.log(error);
@@ -80,7 +79,7 @@ const CreateServiceLevelSchedule = () => {
           {
             lable: "Service Level Schedules",
             url: "/pricelist/servicelevelschedule",
-            isFilled:true
+            isFilled: true,
           },
           { lable: "Service Levels", url: "/pricelist/servicelevels" },
         ]}
@@ -108,10 +107,7 @@ const CreateServiceLevelSchedule = () => {
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="name" className="block text-sm text-gray-700 mb-1 font-semibold">
               Name
             </label>
             <TextField
@@ -139,9 +135,7 @@ const CreateServiceLevelSchedule = () => {
               id="selectionSequence"
               name="type"
               value={formik.values.selectionSequence}
-              onChange={(event) =>
-                formik.setFieldValue("discountType", event.target.value)
-              }
+              onChange={(event) => formik.setFieldValue("discountType", event.target.value)}
               fullWidth
               size="small"
               disabled={id ? true : false}

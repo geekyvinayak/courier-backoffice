@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Box,
-} from "@mui/material";
+import { Button, Box } from "@mui/material";
 import { getRequest } from "../../../../../consts/apiCalls";
 import OrderRuleForm from "./OrderRuleForm";
 import { DataGrid } from "@mui/x-data-grid";
@@ -105,9 +102,7 @@ const OrderRules = () => {
 
   return (
     <Box className="w-[90%]">
-      <Box
-        sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}>
         <Button
           variant="contained"
           color="primary"

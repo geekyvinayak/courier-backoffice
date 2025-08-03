@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Plus, X, ChevronDown, Info, ArrowLeft } from "lucide-react";
-import {
-  getRequest,
-  postRequest,
-  putRequest,
-  deleteRequest,
-} from "../../../../../consts/apiCalls";
+import { getRequest, postRequest, putRequest, deleteRequest } from "../../../../../consts/apiCalls";
 import useToast from "../../../../../components/toast/useToast";
 import Breadcrumb from "../../../../../components/Breadcrumb";
 
@@ -83,8 +78,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
       return {
         id: "root",
         type: "group",
-        operator:
-          orderRule.rootOperator?.toLowerCase() === "AND" ? "And" : "Or",
+        operator: orderRule.rootOperator?.toLowerCase() === "AND" ? "And" : "Or",
         conditions: [],
       };
     }
@@ -121,9 +115,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
 
       // Add filters to this group
       if (ruleGroup.filters && ruleGroup.filters.length > 0) {
-        const sortedFilters = [...ruleGroup.filters].sort(
-          (a, b) => a.filterOrder - b.filterOrder,
-        );
+        const sortedFilters = [...ruleGroup.filters].sort((a, b) => a.filterOrder - b.filterOrder);
 
         sortedFilters.forEach((filter) => {
           group.conditions.push({
@@ -192,7 +184,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
         newConditions[pathArray[index]] = updateNested(
           newConditions[pathArray[index]],
           pathArray,
-          index + 1,
+          index + 1
         );
         return { ...obj, conditions: newConditions };
       };
@@ -221,7 +213,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
         newConditions[pathArray[index]] = updateNested(
           newConditions[pathArray[index]],
           pathArray,
-          index + 1,
+          index + 1
         );
       }
       return { ...obj, conditions: newConditions };
@@ -232,8 +224,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
 
   const addCondition = (path) => {
     const defaultField = filterFields[0]?.field || "ACCOUNT";
-    const defaultOperator =
-      filterFields[0]?.supportedOperators?.[0] || "EQUALS";
+    const defaultOperator = filterFields[0]?.supportedOperators?.[0] || "EQUALS";
 
     const newCondition = {
       id: Date.now().toString(),
@@ -252,7 +243,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
       newConditions[pathArray[index]] = addToNested(
         newConditions[pathArray[index]],
         pathArray,
-        index + 1,
+        index + 1
       );
       return { ...obj, conditions: newConditions };
     };
@@ -277,7 +268,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
       newConditions[pathArray[index]] = addToNested(
         newConditions[pathArray[index]],
         pathArray,
-        index + 1,
+        index + 1
       );
       return { ...obj, conditions: newConditions };
     };
@@ -297,7 +288,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
       newConditions[pathArray[index]] = removeFromNested(
         newConditions[pathArray[index]],
         pathArray,
-        index + 1,
+        index + 1
       );
       return { ...obj, conditions: newConditions };
     };
@@ -306,11 +297,8 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
   };
 
   const renderCondition = (condition, path) => {
-    const currentFieldMeta = filterFields.find(
-      (f) => f.field === condition.field,
-    );
-    const availableOperators =
-      currentFieldMeta?.supportedOperators || operatorOptions;
+    const currentFieldMeta = filterFields.find((f) => f.field === condition.field);
+    const availableOperators = currentFieldMeta?.supportedOperators || operatorOptions;
 
     return (
       <div key={condition.id} className="flex items-center gap-2 mb-2">
@@ -348,10 +336,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
           <option value="option2">Option 2</option>
         </select>
 
-        <button
-          onClick={() => removeItem(path)}
-          className="text-red-500 hover:text-red-700 p-1"
-        >
+        <button onClick={() => removeItem(path)} className="text-red-500 hover:text-red-700 p-1">
           <X size={16} />
         </button>
       </div>
@@ -359,10 +344,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
   };
 
   const renderGroup = (group, path = []) => (
-    <div
-      key={group.id}
-      className="border border-gray-300 rounded-lg p-4 mb-4 bg-white"
-    >
+    <div key={group.id} className="border border-gray-300 rounded-lg p-4 mb-4 bg-white">
       <div className="flex items-center gap-2 mb-4">
         <button
           onClick={() => updateGroupOperator(path, "And")}
@@ -509,9 +491,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
         items={[
           { label: " Order Rules", onClick: onBack },
           {
-            label: isEditMode
-              ? `Edit Order Rule (${editingId})`
-              : "Create Order Rule",
+            label: isEditMode ? `Edit Order Rule (${editingId})` : "Create Order Rule",
           },
         ]}
       />
@@ -525,12 +505,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
           boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
         }}
       >
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          marginBottom={3}
-        >
+        <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={3}>
           <Typography variant="h5" sx={{ fontWeight: 500 }}>
             Order Rule
           </Typography>
@@ -553,7 +528,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
                 handleDelete={handleDelete}
                 trigger={
                   <Button
-                   disabled={loading || isFormLoading}
+                    disabled={loading || isFormLoading}
                     variant="contained"
                     sx={{
                       backgroundColor: "#d32f2f !important",
@@ -572,123 +547,106 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
         </Box>
 
         {/* Main Content */}
-            {isFormLoading ? (
-              <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        {isFormLoading ? (
+          <div className="flex justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+        ) : (
+          /* Form Fields */
+          <div className="space-y-6">
+            {/* Name Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">NAME</label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => handleFormChange("name", e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter rule name"
+              />
+            </div>
+
+            {/* Description Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">DESCRIPTION</label>
+              <textarea
+                value={formData.description}
+                onChange={(e) => handleFormChange("description", e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                rows={3}
+                placeholder="Enter rule description"
+              />
+            </div>
+
+            {/* Type Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">TYPE</label>
+              <div className="relative">
+                <select
+                  value={formData.type}
+                  onChange={(e) => handleFormChange("type", e.target.value)}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
+                >
+                  <option value="Script">Script</option>
+                  <option value="Value Based">Value Based</option>
+                </select>
+                <ChevronDown
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+                  size={16}
+                />
               </div>
-            ) : (
-              /* Form Fields */
-              <div className="space-y-6">
-                {/* Name Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    NAME
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => handleFormChange("name", e.target.value)}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Enter rule name"
+            </div>
+
+            {/* Script Field - Only show when type is Script */}
+            {formData.type === "Script" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">SCRIPT</label>
+                <div className="relative">
+                  <select
+                    value={formData.script}
+                    onChange={(e) => handleFormChange("script", e.target.value)}
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
+                  >
+                    <option value="">Select script...</option>
+                    {/* Add script options here */}
+                  </select>
+                  <ChevronDown
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+                    size={16}
                   />
                 </div>
-
-                {/* Description Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    DESCRIPTION
-                  </label>
-                  <textarea
-                    value={formData.description}
-                    onChange={(e) =>
-                      handleFormChange("description", e.target.value)
-                    }
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    rows={3}
-                    placeholder="Enter rule description"
-                  />
-                </div>
-
-                {/* Type Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    TYPE
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.type}
-                      onChange={(e) => handleFormChange("type", e.target.value)}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
-                    >
-                      <option value="Script">Script</option>
-                      <option value="Value Based">Value Based</option>
-                    </select>
-                    <ChevronDown
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
-                      size={16}
-                    />
-                  </div>
-                </div>
-
-                {/* Script Field - Only show when type is Script */}
-                {formData.type === "Script" && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      SCRIPT
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={formData.script}
-                        onChange={(e) =>
-                          handleFormChange("script", e.target.value)
-                        }
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
-                      >
-                        <option value="">Select script...</option>
-                        {/* Add script options here */}
-                      </select>
-                      <ChevronDown
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
-                        size={16}
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* Values Section - Only show when type is Value Based */}
-                {formData.type === "Value Based" && (
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <label className="block text-sm font-medium text-gray-700">
-                        VALUES
-                      </label>
-                      <div className="relative group">
-                        <Info size={16} className="text-blue-500 cursor-help" />
-                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
-                          <div className="max-w-xs">
-                            <div>
-                              Selecting AND means that all operations must be
-                              true at the same time to return true.
-                            </div>
-                            <div>
-                              Selecting OR means that at least one operation
-                              must be true to return true.
-                            </div>
-                          </div>
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Query Builder */}
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      {renderGroup(filters)}
-                    </div>
-                  </div>
-                )}
               </div>
             )}
-          
+
+            {/* Values Section - Only show when type is Value Based */}
+            {formData.type === "Value Based" && (
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <label className="block text-sm font-medium text-gray-700">VALUES</label>
+                  <div className="relative group">
+                    <Info size={16} className="text-blue-500 cursor-help" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                      <div className="max-w-xs">
+                        <div>
+                          Selecting AND means that all operations must be true at the same time to
+                          return true.
+                        </div>
+                        <div>
+                          Selecting OR means that at least one operation must be true to return
+                          true.
+                        </div>
+                      </div>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Query Builder */}
+                <div className="bg-gray-50 p-4 rounded-lg">{renderGroup(filters)}</div>
+              </div>
+            )}
+          </div>
+        )}
       </Box>
     </Box>
   );

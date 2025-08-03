@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  Typography,
-  IconButton,
-} from "@mui/material";
+import { Box, Button, Typography, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { getRequest } from "../../../../../consts/apiCalls";
 import ParcelTypeScheduleForm from "./ParcelTypeScheduleForm";
@@ -74,19 +69,15 @@ const ParcelTypeSchedulesContent = () => {
       field: "default",
       headerName: "Default",
       width: 100,
-      cellClassName:'!flex !justify-center !items-center',
-      renderHeader: () => (
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          Default
-        </Box>
-      ),
-     renderCell: (params) =>
+      cellClassName: "!flex !justify-center !items-center",
+      renderHeader: () => <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>Default</Box>,
+      renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
         ) : (
           <StarOutlineIcon
             onClick={() => console.log("handle active at line 87 ")}
-            style={{ color: "#1976d2",justifySelf:"center",alignSelf:"center" }}
+            style={{ color: "#1976d2", justifySelf: "center", alignSelf: "center" }}
           />
         ),
       sortable: false,
@@ -95,11 +86,7 @@ const ParcelTypeSchedulesContent = () => {
       field: "name",
       headerName: "Name",
       flex: 1,
-      renderHeader: () => (
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          Name
-        </Box>
-      ),
+      renderHeader: () => <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>Name</Box>,
       renderCell: (params) => params.value || "-",
     },
   ];
@@ -116,49 +103,50 @@ const ParcelTypeSchedulesContent = () => {
           New Schedule
         </Button>
       </Box>
-       <Box className="w-[90%]">
-      <DataGrid
-        rows={schedules}
-        columns={columns}
-        loading={loading}
-        onCellClick={(params) => handleEdit(params.id)}
-        getRowId={(row) => row.id}
-         slotProps={{
-          loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
-          },
-        }}
-       initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
+      <Box className="w-[90%]">
+        <DataGrid
+          rows={schedules}
+          columns={columns}
+          loading={loading}
+          onCellClick={(params) => handleEdit(params.id)}
+          getRowId={(row) => row.id}
+          slotProps={{
+            loadingOverlay: {
+              variant: "circular-progress",
+              noRowsVariant: "circular-progress",
             },
-          },
-        }}
-        rowHeight={45}
-        columnHeaderHeight={45}
-        sx={{
-          "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
-            border: "1px solid #e0e0e0", // Border between rows
-          },
-          "& .MuiDataGrid-row:nth-of-type(odd)": {
-            backgroundColor: "#f5f5f5", // Light color for odd rows
-          },
-          "& .MuiDataGrid-row:nth-of-type(even)": {
-            backgroundColor: "#ffffff", // White color for even rows
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            fontWeight: "bold", // Bold text
-            fontSize: "14px", // Increase font size
-          },
-          "& .MuiDataGrid-virtualScrollerContent":{
-            fontWeight: "500", // Bold text
-            fontSize: "12px",
-          }
-        }}
-        className="cursor-pointer !h-[48vh]"
-      /></Box>
+          }}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          rowHeight={45}
+          columnHeaderHeight={45}
+          sx={{
+            "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
+              border: "1px solid #e0e0e0", // Border between rows
+            },
+            "& .MuiDataGrid-row:nth-of-type(odd)": {
+              backgroundColor: "#f5f5f5", // Light color for odd rows
+            },
+            "& .MuiDataGrid-row:nth-of-type(even)": {
+              backgroundColor: "#ffffff", // White color for even rows
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              fontWeight: "bold", // Bold text
+              fontSize: "14px", // Increase font size
+            },
+            "& .MuiDataGrid-virtualScrollerContent": {
+              fontWeight: "500", // Bold text
+              fontSize: "12px",
+            },
+          }}
+          className="cursor-pointer !h-[48vh]"
+        />
+      </Box>
     </Box>
   );
 };

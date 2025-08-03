@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const FieldsForm = () => {
-  return (
-    <div>FieldsForm</div>
-  )
-}
+  return <div>FieldsForm</div>;
+};
 
-export default FieldsForm
+export default FieldsForm;

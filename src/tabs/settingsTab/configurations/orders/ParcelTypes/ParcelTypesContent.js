@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Box,
-} from "@mui/material";
+import { Button, Box } from "@mui/material";
 import { getRequest } from "../../../../../consts/apiCalls";
 import { DataGrid } from "@mui/x-data-grid";
 import CreateUpdateParcelType from "./CreateUpdateParcelType";
@@ -122,8 +119,7 @@ const ParcelTypesContent = () => {
       field: "weight",
       headerName: "Weight",
       flex: 1,
-      renderCell: (params) =>
-        params.value !== undefined ? `${params.value} lbs` : "-",
+      renderCell: (params) => (params.value !== undefined ? `${params.value} lbs` : "-"),
     },
     {
       field: "totalUnitFactor",
@@ -135,9 +131,7 @@ const ParcelTypesContent = () => {
 
   return (
     <Box className="w-[90%] ">
-      <Box
-        sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}>
         <Button
           variant="contained"
           color="primary"

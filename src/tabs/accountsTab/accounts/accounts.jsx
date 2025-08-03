@@ -1,6 +1,3 @@
-
 export default function Accounts() {
-  return (
-    <div>accounts</div>
-  )
+  return <div>accounts</div>;
 }

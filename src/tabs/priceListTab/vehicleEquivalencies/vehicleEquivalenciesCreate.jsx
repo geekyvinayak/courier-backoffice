@@ -30,8 +30,7 @@ const VehicleEquivalenciesForm = () => {
   const { showSuccess, showError } = useToast();
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [selectedVehicleEquivalencies, setSelectedVehicleEquivalencies] =
-    useState([]);
+  const [selectedVehicleEquivalencies, setSelectedVehicleEquivalencies] = useState([]);
   const [selectedVehicledDisplayId, setSelectedDisplayId] = useState(null);
   const [equivalencies, setEquivalencies] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,9 +50,7 @@ const VehicleEquivalenciesForm = () => {
   // Function to handle vehicle selection and fetch equivalencies
   const handleVehicleSelect = async (displayId, setFieldValue) => {
     // Find the selected vehicle by displayId
-    const selectedVehicle = vehicles.find(
-      (vehicle) => vehicle.displayId === displayId,
-    );
+    const selectedVehicle = vehicles.find((vehicle) => vehicle.displayId === displayId);
 
     // Set the vehicle id for the backend API call
     setSelectedVehicle(selectedVehicle.id);
@@ -63,11 +60,9 @@ const VehicleEquivalenciesForm = () => {
     try {
       // Fetch equivalencies using the vehicle id (not displayId)
       const response = await getRequest(
-        `/vehicleEquivalency/availableVehicleId/${selectedVehicle.id}`,
+        `/vehicleEquivalency/availableVehicleId/${selectedVehicle.id}`
       );
-      const response2 = await getRequest(
-        `/vehicleEquivalency/${selectedVehicle.displayId}`,
-      );
+      const response2 = await getRequest(`/vehicleEquivalency/${selectedVehicle.displayId}`);
       setEquivalencies(response);
       setSelectedVehicleEquivalencies(response2?.equivalencyIds?.split(","));
       // Set the equivalency of the selected vehicle as checked by default
@@ -97,156 +92,145 @@ const VehicleEquivalenciesForm = () => {
 
   return (
     <div className="wraper-container">
-    <div className="pb-4">
-      <SubTabNavigator
-        data={[
-          {
-            lable: "Vehicle Types",
-            url: "/pricelist/vehiclestype",
-          },
-          {
-            lable: "Vehicle Equivalencies",
-            url: "/pricelist/vehicleequivalencies",
-            isFilled: true,
-          },
-        ]}
-      />
-      <Breadcrumb
-        items={[
-          { label: "Vehicles Equivalencies", href: "/pricelist/vehicleequivalencies" },
-          {
-            label:  "New Vehicle Equivalencies",
-            href: "", // Conditional href
-          },
-        ]}
-      />
-      <div className="max-w-[600px] p-4 border border-gray shadow-md mt-4 mb-4">
-        <Formik
-          initialValues={{
-            vehicleId: "",
-            equivalencies: [],
-          }}
-          onSubmit={handleSubmit}
-        >
-          {({ values, handleChange, setFieldValue }) => (
-            <Form>
-              <Box
-                marginBottom={2}
-                display={"flex"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-              >
-                <Typography variant="h3" gutterBottom>
-                  Vehicle Information
-                </Typography>
-                {/* Submit Button */}
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  // sx={{
-                  //   // Red border (you can change the color)
-                  //   backgroundColor: "#1569CB",
-                  // }}
+      <div className="pb-4">
+        <SubTabNavigator
+          data={[
+            {
+              lable: "Vehicle Types",
+              url: "/pricelist/vehiclestype",
+            },
+            {
+              lable: "Vehicle Equivalencies",
+              url: "/pricelist/vehicleequivalencies",
+              isFilled: true,
+            },
+          ]}
+        />
+        <Breadcrumb
+          items={[
+            { label: "Vehicles Equivalencies", href: "/pricelist/vehicleequivalencies" },
+            {
+              label: "New Vehicle Equivalencies",
+              href: "", // Conditional href
+            },
+          ]}
+        />
+        <div className="max-w-[600px] p-4 border border-gray shadow-md mt-4 mb-4">
+          <Formik
+            initialValues={{
+              vehicleId: "",
+              equivalencies: [],
+            }}
+            onSubmit={handleSubmit}
+          >
+            {({ values, handleChange, setFieldValue }) => (
+              <Form>
+                <Box
+                  marginBottom={2}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
                 >
-                  Save
-                </Button>
-              </Box>
-              {/* Vehicle Selection Dropdown */}
-              <FormControl fullWidth margin="normal">
-                <Typography variant="subtitle1" gutterBottom>
-                  Vehicle Types
-                </Typography>
-                <Select
-                  name="vehicleId"
-                  value={values.vehicleId}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleVehicleSelect(e.target.value, setFieldValue);
-                  }}
-                  fullWidth
-                >
-                  {vehicles.map((vehicle) => (
-                    <MenuItem key={vehicle.id} value={vehicle.displayId}>
-                      {vehicle.name} - {vehicle.displayId}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  <Typography variant="h3" gutterBottom>
+                    Vehicle Information
+                  </Typography>
+                  {/* Submit Button */}
 
-              {/* Equivalencies Checkbox */}
-              {equivalencies.length > 0 && (
-                <div>
-                  <TableContainer component={Paper}>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Vehicle Type</TableCell>
-                          <TableCell>Equivalencies</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {equivalencies.map((equivalency) => (
-                          <TableRow key={equivalency}>
-                            <TableCell style={{ padding: "8px", paddingLeft:"50px" }}>
-                              <FormControlLabel
-                                key={equivalency}
-                                control={
-                                  <Checkbox
-                                    name="equivalencies"
-                                    value={equivalency}
-                                    checked={
-                                      values.equivalencies.includes(
-                                        equivalency,
-                                      ) ||
-                                      selectedVehicleEquivalencies.includes(
-                                        equivalency,
-                                      )
-                                    }
-                                    onChange={(e) => {
-                                      const { value, checked } = e.target;
-                                      const updatedEquivalencies = checked
-                                        ? [...values.equivalencies, value]
-                                        : values.equivalencies.filter(
-                                            (v) => v !== value,
-                                          );
-                                      setFieldValue(
-                                        "equivalencies",
-                                        updatedEquivalencies,
-                                      );
-                                      // Also remove from selectedVehicleEquivalencies if unchecked
-                                      if (!checked) {
-                                        setSelectedVehicleEquivalencies(
-                                          (prev) =>
-                                            prev.filter((v) => v !== value),
-                                        );
-                                      }
-                                    }}
-                                    disabled={
-                                      equivalency ===
-                                      selectedVehicledDisplayId?.toString()
-                                    }
-                                  />
-                                }
-                              />
-                            </TableCell>
-                            <TableCell style={{ padding: "8px", paddingLeft:"50px" }}>
-                              {equivalency}
-                            </TableCell>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    // sx={{
+                    //   // Red border (you can change the color)
+                    //   backgroundColor: "#1569CB",
+                    // }}
+                  >
+                    Save
+                  </Button>
+                </Box>
+                {/* Vehicle Selection Dropdown */}
+                <FormControl fullWidth margin="normal">
+                  <Typography variant="subtitle1" gutterBottom>
+                    Vehicle Types
+                  </Typography>
+                  <Select
+                    name="vehicleId"
+                    value={values.vehicleId}
+                    onChange={(e) => {
+                      handleChange(e);
+                      handleVehicleSelect(e.target.value, setFieldValue);
+                    }}
+                    fullWidth
+                  >
+                    {vehicles.map((vehicle) => (
+                      <MenuItem key={vehicle.id} value={vehicle.displayId}>
+                        {vehicle.name} - {vehicle.displayId}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                {/* Equivalencies Checkbox */}
+                {equivalencies.length > 0 && (
+                  <div>
+                    <TableContainer component={Paper}>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Vehicle Type</TableCell>
+                            <TableCell>Equivalencies</TableCell>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </div>
-              )}
-            </Form>
-          )}
-        </Formik>
+                        </TableHead>
+                        <TableBody>
+                          {equivalencies.map((equivalency) => (
+                            <TableRow key={equivalency}>
+                              <TableCell style={{ padding: "8px", paddingLeft: "50px" }}>
+                                <FormControlLabel
+                                  key={equivalency}
+                                  control={
+                                    <Checkbox
+                                      name="equivalencies"
+                                      value={equivalency}
+                                      checked={
+                                        values.equivalencies.includes(equivalency) ||
+                                        selectedVehicleEquivalencies.includes(equivalency)
+                                      }
+                                      onChange={(e) => {
+                                        const { value, checked } = e.target;
+                                        const updatedEquivalencies = checked
+                                          ? [...values.equivalencies, value]
+                                          : values.equivalencies.filter((v) => v !== value);
+                                        setFieldValue("equivalencies", updatedEquivalencies);
+                                        // Also remove from selectedVehicleEquivalencies if unchecked
+                                        if (!checked) {
+                                          setSelectedVehicleEquivalencies((prev) =>
+                                            prev.filter((v) => v !== value)
+                                          );
+                                        }
+                                      }}
+                                      disabled={
+                                        equivalency === selectedVehicledDisplayId?.toString()
+                                      }
+                                    />
+                                  }
+                                />
+                              </TableCell>
+                              <TableCell style={{ padding: "8px", paddingLeft: "50px" }}>
+                                {equivalency}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </div>
+                )}
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
     </div>
-      </div>
   );
 };
 

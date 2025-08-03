@@ -1,11 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
@@ -104,32 +97,32 @@ export default function FuelEntries({
 
 export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices }) {
   const [isLoading, setIsLoading] = useState(false);
-  const {id:priceId} = useParams();
+  const { id: priceId } = useParams();
   const { showSuccess, showError } = useToast();
-  
+
   const handleDate = (value) => {
-    if (!value) return '';
+    if (!value) return "";
     const date = new Date(value);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
   };
 
   const convertToInputDateFormat = (dateString) => {
-    if (!dateString) return '';
-    
+    if (!dateString) return "";
+
     // If date is in DD-MM-YYYY format, convert to YYYY-MM-DD
-    if (dateString.includes('-') && dateString.split('-')[0].length === 2) {
-      const [day, month, year] = dateString.split('-');
+    if (dateString.includes("-") && dateString.split("-")[0].length === 2) {
+      const [day, month, year] = dateString.split("-");
       return `${year}-${month}-${day}`;
     }
-    
+
     // If already in YYYY-MM-DD format or other formats, handle accordingly
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return '';
-    
-    return date.toISOString().split('T')[0]; // Returns YYYY-MM-DD
+    if (isNaN(date.getTime())) return "";
+
+    return date.toISOString().split("T")[0]; // Returns YYYY-MM-DD
   };
 
   const formik = useFormik({
@@ -157,23 +150,20 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
-        
+
         // Create a copy of values to avoid mutating the original
         const submitValues = {
           ...values,
-          startDate: handleDate(values.startDate)
+          startDate: handleDate(values.startDate),
         };
-        
+
         if (entryId && entryId.id) {
           const response = await putRequest(
             `/fuel-prices/${priceId}/entries/${entryId.id}`,
-            submitValues,
+            submitValues
           );
         } else {
-          const response = await postRequest(
-            `/fuel-prices/${priceId}/entries`,
-            submitValues,
-          );
+          const response = await postRequest(`/fuel-prices/${priceId}/entries`, submitValues);
         }
         showSuccess(entryId ? "Fuel Price updated successfully" : "Fuel Price added successfully");
         handleDialogClose(); // Close the dialog
@@ -187,7 +177,7 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
   });
 
   useEffect(() => {
-    if (entryId && typeof entryId === 'object') {
+    if (entryId && typeof entryId === "object") {
       // Set all values at once using setValues with complete object
       formik.setValues({
         startDate: convertToInputDateFormat(entryId.startDate) || "",
@@ -195,7 +185,6 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
         baseFuelPrice: entryId.baseFuelPrice || 0,
         referenceFuelPrice: entryId.referenceFuelPrice || 0,
       });
-      
     } else if (!entryId) {
       // Reset form when creating new entry
       formik.resetForm();
@@ -208,12 +197,10 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
     getFuelPrices();
     handleClose();
   };
-  
+
   return (
     <Dialog open={open} onClose={handleDialogClose} maxWidth="md" fullWidth>
-      <DialogTitle>
-        {entryId ? "Edit Fuel Entry" : "Add Fuel Entry"}
-      </DialogTitle>
+      <DialogTitle>{entryId ? "Edit Fuel Entry" : "Add Fuel Entry"}</DialogTitle>
       <DialogContent>
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h3" gutterBottom>
@@ -234,13 +221,10 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
             {isLoading ? "Saving..." : "Save"}
           </Button>
         </div>
-        
+
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="startDate"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="startDate" className="block text-sm text-gray-700 mb-1 font-semibold">
               START DATE *
             </label>
             <TextField
@@ -253,9 +237,7 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
               value={formik.values.startDate}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={
-                formik.touched.startDate && Boolean(formik.errors.startDate)
-              }
+              error={formik.touched.startDate && Boolean(formik.errors.startDate)}
               helperText={formik.touched.startDate && formik.errors.startDate}
               InputLabelProps={{
                 shrink: true,
@@ -264,15 +246,10 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
           </div>
 
           <div>
-            <label className="block text-sm text-gray-700 mb-3 font-semibold">
-              PRICES
-            </label>
+            <label className="block text-sm text-gray-700 mb-3 font-semibold">PRICES</label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label
-                  htmlFor="baseFuelPrice"
-                  className="block text-sm text-gray-600 mb-1"
-                >
+                <label htmlFor="baseFuelPrice" className="block text-sm text-gray-600 mb-1">
                   Base Fuel Price ($) *
                 </label>
                 <TextField
@@ -286,13 +263,8 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
                   value={formik.values.baseFuelPrice}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.baseFuelPrice &&
-                    Boolean(formik.errors.baseFuelPrice)
-                  }
-                  helperText={
-                    formik.touched.baseFuelPrice && formik.errors.baseFuelPrice
-                  }
+                  error={formik.touched.baseFuelPrice && Boolean(formik.errors.baseFuelPrice)}
+                  helperText={formik.touched.baseFuelPrice && formik.errors.baseFuelPrice}
                   inputProps={{
                     step: "0.01",
                     min: "0",
@@ -301,10 +273,7 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
               </div>
 
               <div>
-                <label
-                  htmlFor="referenceFuelPrice"
-                  className="block text-sm text-gray-600 mb-1"
-                >
+                <label htmlFor="referenceFuelPrice" className="block text-sm text-gray-600 mb-1">
                   Reference Fuel Price ($) *
                 </label>
                 <TextField
@@ -319,13 +288,9 @@ export function AddFueluelEntries({ open, handleClose, entryId, getFuelPrices })
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   error={
-                    formik.touched.referenceFuelPrice &&
-                    Boolean(formik.errors.referenceFuelPrice)
+                    formik.touched.referenceFuelPrice && Boolean(formik.errors.referenceFuelPrice)
                   }
-                  helperText={
-                    formik.touched.referenceFuelPrice &&
-                    formik.errors.referenceFuelPrice
-                  }
+                  helperText={formik.touched.referenceFuelPrice && formik.errors.referenceFuelPrice}
                   inputProps={{
                     step: "0.01",
                     min: "0",

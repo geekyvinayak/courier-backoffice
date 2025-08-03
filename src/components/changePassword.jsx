@@ -1,14 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Tooltip,
-  IconButton,
-} from "@mui/material";
+import { TextField, Button, Box, Typography, Tooltip, IconButton } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import { postRequest } from "../consts/apiCalls";
 import useToast from "./toast/useToast";
@@ -19,10 +12,7 @@ const validationSchema = Yup.object({
   newPassword: Yup.string()
     .min(12, "At least 12 characters required.")
     .matches(/[0-9]/, "Must contain at least one digit (0-9).")
-    .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
-      "Must contain at least one special character.",
-    )
+    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Must contain at least one special character.")
     .matches(/[a-z]/, "Must contain at least one lowercase letter.")
     .required("New password is required."),
   confirmPassword: Yup.string()
@@ -71,13 +61,8 @@ export const ChangePassword = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.currentPassword}
-          error={
-            formik.touched.currentPassword &&
-            Boolean(formik.errors.currentPassword)
-          }
-          helperText={
-            formik.touched.currentPassword && formik.errors.currentPassword
-          }
+          error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
+          helperText={formik.touched.currentPassword && formik.errors.currentPassword}
         />
 
         <Typography variant="body2" fontWeight="bold" gutterBottom>
@@ -115,9 +100,7 @@ export const ChangePassword = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.newPassword}
-          error={
-            formik.touched.newPassword && Boolean(formik.errors.newPassword)
-          }
+          error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
           helperText={formik.touched.newPassword && formik.errors.newPassword}
         />
 
@@ -134,13 +117,8 @@ export const ChangePassword = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.confirmPassword}
-          error={
-            formik.touched.confirmPassword &&
-            Boolean(formik.errors.confirmPassword)
-          }
-          helperText={
-            formik.touched.confirmPassword && formik.errors.confirmPassword
-          }
+          error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+          helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
         />
 
         <Button type="submit" variant="contained" color="primary">

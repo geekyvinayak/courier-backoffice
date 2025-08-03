@@ -8,17 +8,17 @@ import { DeleteDialog } from "../../../components/deleteDialog";
 
 const DiscountGrid = () => {
   const columns = [
-    { field: "name", cellClassName:"!text-[#3e4396]" , headerName: "Name", flex: 1.5 },
+    { field: "name", cellClassName: "!text-[#3e4396]", headerName: "Name", flex: 1.5 },
     { field: "amount", headerName: "Amount", flex: 1.5 },
     { field: "discountType", headerName: "Type", flex: 1 },
     {
       field: "action",
       headerName: "",
       sortable: false,
-      cellClassName:'flex !justify-center',
+      cellClassName: "flex !justify-center",
       renderCell: (params) => (
         <IconButton>
-           <DeleteDialog handleDelete={() => handleDelete(params.id)} />
+          <DeleteDialog handleDelete={() => handleDelete(params.id)} />
         </IconButton>
       ),
     },
@@ -31,9 +31,9 @@ const DiscountGrid = () => {
     try {
       const response = await getRequest("/discounts");
       setDiscount(response);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.error("Error fetching Extra fees:", error);
     }
   };
@@ -64,14 +64,14 @@ const DiscountGrid = () => {
             }
           }}
           loading={loading}
-        slotProps={{
-          loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
-          },
-        }}
+          slotProps={{
+            loadingOverlay: {
+              variant: "circular-progress",
+              noRowsVariant: "circular-progress",
+            },
+          }}
           rowHeight={45}
-           columnHeaderHeight={45}
+          columnHeaderHeight={45}
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
@@ -95,10 +95,10 @@ const DiscountGrid = () => {
               fontWeight: "bold", // Bold text
               fontSize: "14px", // Increase font size
             },
-            "& .MuiDataGrid-virtualScrollerContent":{
+            "& .MuiDataGrid-virtualScrollerContent": {
               fontWeight: "500", // Bold text
               fontSize: "12px",
-            }
+            },
           }}
         />
       </div>

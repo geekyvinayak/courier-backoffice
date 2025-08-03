@@ -19,13 +19,15 @@ const VehiclesTypeGrid = () => {
 
   const fetchData = async () => {
     const response = await getRequest("/vehicleType")
-      .then((response)=>{setRow(response);setLoading(false)})
+      .then((response) => {
+        setRow(response);
+        setLoading(false);
+      })
       .catch((e) => {
         console.log(e);
         setLoading(false);
       });
     console.log("responseresponse", response);
-    
   };
 
   const changeDefault = async (id, name) => {
@@ -40,7 +42,7 @@ const VehiclesTypeGrid = () => {
       headerName: "Default",
       sortable: false,
       filterable: false,
-      cellClassName:'!flex !justify-center !items-center',
+      cellClassName: "!flex !justify-center !items-center",
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
@@ -95,8 +97,8 @@ const VehiclesTypeGrid = () => {
         loading={loading}
         slotProps={{
           loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
+            variant: "circular-progress",
+            noRowsVariant: "circular-progress",
           },
         }}
         initialState={{
@@ -122,13 +124,13 @@ const VehiclesTypeGrid = () => {
             fontWeight: "bold", // Bold text
             fontSize: "14px", // Increase font size
           },
-          "& .MuiDataGrid-virtualScrollerContent":{
+          "& .MuiDataGrid-virtualScrollerContent": {
             fontWeight: "500", // Bold text
             fontSize: "12px",
-          }
+          },
         }}
         disableRowSelectionOnClick
-         className="!h-[70vh]"
+        className="!h-[70vh]"
       />
     </Box>
   );

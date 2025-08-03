@@ -93,14 +93,9 @@ const DeductionsAdditions = () => {
 
         if (amount == null) return "-";
 
-        const sign =
-          type === "ADDITION" ? "+" : type === "DEDUCTION" ? "-" : "";
+        const sign = type === "ADDITION" ? "+" : type === "DEDUCTION" ? "-" : "";
         const formattedAmount =
-          unit === "PERCENTAGE"
-            ? `${amount}%`
-            : unit === "DOLLAR"
-              ? `$${amount}`
-              : amount;
+          unit === "PERCENTAGE" ? `${amount}%` : unit === "DOLLAR" ? `$${amount}` : amount;
 
         return `${sign}${formattedAmount}`;
       },
@@ -109,9 +104,7 @@ const DeductionsAdditions = () => {
 
   return (
     <Box className="w-[90%] ">
-      <Box
-        sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "flex-start", marginBottom: 2 }}>
         <Button
           variant="contained"
           color="primary"

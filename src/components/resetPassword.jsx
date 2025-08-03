@@ -1,14 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Tooltip,
-  IconButton,
-} from "@mui/material";
+import { TextField, Button, Box, Typography, Tooltip, IconButton } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import { postRequest } from "../consts/apiCalls";
 import useToast from "./toast/useToast";
@@ -19,10 +12,7 @@ const validationSchema = Yup.object({
   newPassword: Yup.string()
     .min(12, "At least 12 characters required.")
     .matches(/[0-9]/, "Must contain at least one digit (0-9).")
-    .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
-      "Must contain at least one special character.",
-    )
+    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Must contain at least one special character.")
     .matches(/[a-z]/, "Must contain at least one lowercase letter.")
     .required("New password is required."),
   confirmPassword: Yup.string()
@@ -69,21 +59,17 @@ export const ResetPassword = () => {
           width={"350px"}
           style={{ marginBottom: 10 }}
         />
-        <Typography
-          component="h1"
-          variant="h3"
-          fontWeight={500}
-          fontSize={"30px"}
-        >
+        <Typography component="h1" variant="h3" fontWeight={500} fontSize={"30px"}>
           Request New Password
         </Typography>
         <form onSubmit={formik.handleSubmit} className="mt-5">
-          <Typography variant="subtitle1"
+          <Typography
+            variant="subtitle1"
             gutterBottom
             fontWeight={600}
-            
             marginLeft={"4px"}
-            fontSize={"16px"}>
+            fontSize={"16px"}
+          >
             NEW PASSWORD
             <Tooltip
               title={
@@ -118,18 +104,17 @@ export const ResetPassword = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.newPassword}
-            error={
-              formik.touched.newPassword && Boolean(formik.errors.newPassword)
-            }
+            error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
             helperText={formik.touched.newPassword && formik.errors.newPassword}
           />
 
-          <Typography variant="subtitle1"
+          <Typography
+            variant="subtitle1"
             gutterBottom
             fontWeight={600}
-            
             marginLeft={"4px"}
-            fontSize={"16px"}>
+            fontSize={"16px"}
+          >
             CONFIRM NEW PASSWORD
           </Typography>
           <TextField
@@ -142,21 +127,17 @@ export const ResetPassword = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.confirmPassword}
-            error={
-              formik.touched.confirmPassword &&
-              Boolean(formik.errors.confirmPassword)
-            }
-            helperText={
-              formik.touched.confirmPassword && formik.errors.confirmPassword
-            }
+            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
           />
 
-          <Typography variant="subtitle1"
+          <Typography
+            variant="subtitle1"
             gutterBottom
             fontWeight={600}
-            
             marginLeft={"4px"}
-            fontSize={"16px"}>
+            fontSize={"16px"}
+          >
             OTP
           </Typography>
           <TextField

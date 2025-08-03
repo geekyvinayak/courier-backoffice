@@ -47,7 +47,7 @@ const VehicleEquivalenciesGrid = () => {
       headerName: "",
       sortable: false,
       filterable: false,
-      cellClassName:'flex !justify-center cursor-pointer',
+      cellClassName: "flex !justify-center cursor-pointer",
       renderCell: (params) => (
         <IconButton>
           <DeleteDialog handleDelete={() => deleteEquivalance(params.id)} />
@@ -57,12 +57,14 @@ const VehicleEquivalenciesGrid = () => {
   ];
   const fetchData = async () => {
     const response = await getRequest("/vehicleEquivalency")
-      .then((response)=>{setRow(response);setLoading(false)})
+      .then((response) => {
+        setRow(response);
+        setLoading(false);
+      })
       .catch((e) => {
         console.log(e);
         setLoading(false);
       });
-    
   };
 
   useEffect(() => {
@@ -92,16 +94,16 @@ const VehicleEquivalenciesGrid = () => {
         }}
         slotProps={{
           loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
+            variant: "circular-progress",
+            noRowsVariant: "circular-progress",
           },
         }}
         disableRowSelectionOnClick
         rowHeight={45}
-         columnHeaderHeight={45}
+        columnHeaderHeight={45}
         getRowId={(row) => row.vehicleId}
-         className="!h-[70vh]"
-         sx={{
+        className="!h-[70vh]"
+        sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
           },
@@ -115,10 +117,10 @@ const VehicleEquivalenciesGrid = () => {
             fontWeight: "bold", // Bold text
             fontSize: "14px", // Increase font size
           },
-          "& .MuiDataGrid-virtualScrollerContent":{
+          "& .MuiDataGrid-virtualScrollerContent": {
             fontWeight: "500", // Bold text
             fontSize: "12px",
-          }
+          },
         }}
       />
     </Box>
