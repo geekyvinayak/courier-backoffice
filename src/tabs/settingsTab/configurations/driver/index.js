@@ -1,4 +1,5 @@
 import DeductionsAdditions from "./DeductionsAdditions/DeductionsAdditions";
+import SettlementCycle from "./SettlementCycle/SettlementCycle";
 
 
 
@@ -7,16 +8,16 @@ const DriverTab = ({ selectedItem }) => {
   switch (selectedItem) {
     case "Deductions/ Additions":
       return <DeductionsAdditions />;
-    // case "Parcel Types":
-    //   return <ParcelTypesContent />;
+    case "Settlement Cycle":
+      return <SettlementCycle />;
     // case "Parcel Types Schedules":
     //   return <ParcelTypeSchedulesContent />;
     // case "Status Color":
     //   return <StatusColorContent />;
     // case "Rules":
     //   return <OrderRules />;
-    // default:
-    //   return <HoldReasonsContent />;
+    default:
+      return <DeductionsAdditions />;
   }
 };
 
