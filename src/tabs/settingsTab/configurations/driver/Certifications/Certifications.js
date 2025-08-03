@@ -1,40 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-
-import DocumentsForm from "./DocumentsForm";
-import StarIcon from "@mui/icons-material/Star";
-import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import { deleteRequest, getRequest } from "../../../../../consts/apiCalls";
-import { DeleteDialog } from "../../../../../components/deleteDialog";
+import { getRequest } from "../../../../../consts/apiCalls";
 import useToast from "../../../../../components/toast/useToast";
+import CertificationsForm from "./CertificationsForm";
 
-const Documents = () => {
-  const [documents, setDocuments] = useState([]);
+const Certifications = () => {
+  const [certifications, setCertifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const { showSuccess, showError } = useToast();
 
-  const fetchDocuments = async () => {
+  const fetchCertifications = async () => {
     try {
       setLoading(true);
-      const response = await getRequest("/documents");
-      setDocuments(response || []);
+      const response = await getRequest("/api/certifications");
+      setCertifications(response || []);
     } catch (error) {
-      console.error("Error fetching documents :", error);
-      setDocuments([]);
+      console.error("Error fetching certification :", error);
+      setCertifications([]);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchDocuments();
+    fetchCertifications();
   }, []);
 
-  const handleNewdocuments = () => {
+  const handleNewcertification = () => {
     setEditingId(null);
     setIsEditMode(false);
     setShowForm(true);
@@ -50,7 +46,7 @@ const Documents = () => {
     setShowForm(false);
     setEditingId(null);
     setIsEditMode(false);
-    fetchDocuments();
+    fetchCertifications();
   };
 
   const handleFormSuccess = () => {
@@ -59,7 +55,7 @@ const Documents = () => {
 
   if (showForm) {
     return (
-      <DocumentsForm
+      <CertificationsForm
         editingId={editingId}
         isEditMode={isEditMode}
         onBack={handleBackToList}
@@ -72,7 +68,7 @@ const Documents = () => {
     {
       field: "displayId",
       headerName: "ID",
-      width: 100,
+      width: 150,
       cellClassName: "!text-[#3e4396]",
       renderCell: (params) => params.value || "-",
       sortable: false,
@@ -93,15 +89,15 @@ const Documents = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleNewdocuments}
+          onClick={handleNewcertification}
           sx={{ backgroundColor: "#1569CB", textTransform: "none" }}
         >
-          New Document
+          New Certification
         </Button>
       </Box>
       <Box className="w-[90%]">
         <DataGrid
-          rows={documents}
+          rows={certifications}
           columns={columns}
           loading={loading}
           onCellClick={(params, event) => {handleEdit(params.id);}}
@@ -147,4 +143,4 @@ const Documents = () => {
   );
 };
 
-export default Documents;
+export default Certifications;
