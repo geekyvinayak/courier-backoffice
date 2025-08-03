@@ -2,7 +2,8 @@ import HoldReasonsContent from "./HoldReasonsTemplates/HoldReasonsContent";
 import OrderRules from "./OrderRules/OrderRules";
 import ParcelTypesContent from "./ParcelTypes/ParcelTypesContent";
 import ParcelTypeSchedulesContent from "./ParcelTypeSchedules/ParcelTypeSchedulesContent";
-import StatusColorContent from "./StatusColorContent";
+import StatusColorContent from "./StatusColor/StatusColorContent";
+
 
 const OrderTab = ({ selectedItem }) => {
   switch (selectedItem) {
