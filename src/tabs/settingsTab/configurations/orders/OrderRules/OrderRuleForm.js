@@ -553,6 +553,7 @@ const OrderRuleForm = ({ editingId, isEditMode, onBack, onSuccess }) => {
                 handleDelete={handleDelete}
                 trigger={
                   <Button
+                   disabled={loading || isFormLoading}
                     variant="contained"
                     sx={{
                       backgroundColor: "#d32f2f !important",
