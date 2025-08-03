@@ -13,7 +13,7 @@ import {
   CircularProgress,
   TextField,
 } from "@mui/material";
-import { getRequest,putRequest } from "../../../../consts/apiCalls";
+import { getRequest,putRequest } from "../../../../../consts/apiCalls";
 
 
 const StatusColorContent = () => {

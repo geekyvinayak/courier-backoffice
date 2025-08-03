@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import OrderTab from "./orders";
+import DriverTab from "./driver";
 
 const ConfigrationsTab = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -107,6 +108,9 @@ const ConfigrationsTab = () => {
     // Order tab specific content components
     if (currentConfigType === "order") {
         return <OrderTab  selectedItem={selectedItem}/>;
+    }
+    if (currentConfigType === "driver") {
+        return <DriverTab  selectedItem={selectedItem}/>;
     }
 
     return <GenericContent  title={selectedItem}/>;

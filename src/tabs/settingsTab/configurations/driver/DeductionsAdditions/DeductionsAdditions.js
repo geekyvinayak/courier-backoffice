@@ -1,39 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { getRequest } from "../../../../../consts/apiCalls";
+import DeductionsAdditionsForm from "./DeductionsAdditionsForm";
 import {
   Button,
   Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
 } from "@mui/material";
-
-import { getRequest } from "../../../../../consts/apiCalls";
-import CreateUpdateHoldReasonTemplate from "./CreateUpdateHoldReasonTemplate";
 import { DataGrid } from "@mui/x-data-grid";
-
-const HoldReasonsContent = () => {
-  const [holdReasons, setHoldReasons] = useState([]);
+const DeductionsAdditions = () => {
+  const [DeductionsAdditions, setDeductionsAdditions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const fetchHoldReasons = async () => {
+  const fetchDeductionsAdditions = async () => {
     try {
       setLoading(true);
-      const response = await getRequest("/holdReasonTemplates");
-      console.log("responseresponse", response);
-      setHoldReasons(response || []);
+      const response = await getRequest("/deduction-additions");
+      console.log("responseresponse dd", response);
+      setDeductionsAdditions(response || []);
     } catch (error) {
       console.error("Error fetching hold reasons:", error);
-      setHoldReasons([]);
+      setDeductionsAdditions([]);
     } finally {
       setLoading(false);
     }
   };
-
   useEffect(() => {
-    fetchHoldReasons();
+    fetchDeductionsAdditions();
   }, []);
 
-  const handleNewTemplate = () => {
+  const handleNewDeductionsAdditions = () => {
     setEditingId(null);
     setIsEditMode(false);
     setShowForm(true);
@@ -50,7 +56,7 @@ const HoldReasonsContent = () => {
     setEditingId(null);
     setIsEditMode(false);
     // Refresh the list after form operations
-    fetchHoldReasons();
+    fetchDeductionsAdditions();
   };
 
   const handleFormSuccess = () => {
@@ -61,7 +67,7 @@ const HoldReasonsContent = () => {
   // If showing form, render the form component
   if (showForm) {
     return (
-      <CreateUpdateHoldReasonTemplate
+      <DeductionsAdditionsForm
         editingId={editingId}
         isEditMode={isEditMode}
         onBack={handleBackToList}
@@ -72,23 +78,32 @@ const HoldReasonsContent = () => {
 
   const columns = [
     {
-      field: "id",
-      headerName: "Id",
+      field: "name",
+      headerName: "Name",
       flex: 1,
       cellClassName: "!text-[#3e4396]",
       renderCell: (params) => params.value || "-",
     },
     {
-      field: "text",
-      headerName: "Text (EN)",
+      field: "amount",
+      headerName: "Amount",
       flex: 1,
-      renderCell: (params) => params.value || "-",
-    },
-    {
-      field: "Text (FR)",
-      headerName: "Text (FR)",
-      flex: 1,
-      renderCell: (params) => params.value || "-",
+      renderCell: (params) => {
+        const { type, unit, amount } = params.row;
+
+        if (amount == null) return "-";
+
+        const sign =
+          type === "ADDITION" ? "+" : type === "DEDUCTION" ? "-" : "";
+        const formattedAmount =
+          unit === "PERCENTAGE"
+            ? `${amount}%`
+            : unit === "DOLLAR"
+              ? `$${amount}`
+              : amount;
+
+        return `${sign}${formattedAmount}`;
+      },
     },
   ];
 
@@ -100,17 +115,17 @@ const HoldReasonsContent = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleNewTemplate}
+          onClick={handleNewDeductionsAdditions}
           sx={{
             backgroundColor: "#1569CB",
             textTransform: "none",
           }}
         >
-          New Hold Reason Template
+          New Deductions/Additions
         </Button>
       </Box>
       <DataGrid
-        rows={holdReasons}
+        rows={DeductionsAdditions}
         columns={columns}
         loading={loading}
         slotProps={{
@@ -158,4 +173,4 @@ const HoldReasonsContent = () => {
   );
 };
 
-export default HoldReasonsContent;
+export default DeductionsAdditions;
