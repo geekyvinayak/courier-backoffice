@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { getRequest } from "../../../../../consts/apiCalls";
+import { getRequest, postRequest } from "../../../../../consts/apiCalls";
 import ParcelTypeScheduleForm from "./ParcelTypeScheduleForm";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
@@ -64,6 +64,16 @@ const ParcelTypeSchedulesContent = () => {
     );
   }
 
+
+    const handleActive = async (id) => {
+      try {
+        const response = await postRequest(`/parcel-type-schedules/makeDefault/${id}`);
+        fetchSchedules();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
   const columns = [
     {
       field: "default",
@@ -76,7 +86,7 @@ const ParcelTypeSchedulesContent = () => {
           <StarIcon style={{ color: "#1976d2" }} />
         ) : (
           <StarOutlineIcon
-            onClick={() => console.log("handle active at line 87 ")}
+            onClick={() => handleActive(params.row.id)}
             style={{ color: "#1976d2", justifySelf: "center", alignSelf: "center" }}
           />
         ),
@@ -108,7 +118,7 @@ const ParcelTypeSchedulesContent = () => {
           rows={schedules}
           columns={columns}
           loading={loading}
-          onCellClick={(params) => handleEdit(params.id)}
+          onCellClick={(params) => {console.log("params.field",params.field); if (params.field !== "default") {handleEdit(params.id)}}}
           getRowId={(row) => row.id}
           slotProps={{
             loadingOverlay: {

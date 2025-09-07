@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import SettlementCycleForm from "./SettlementCycleForm";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import { deleteRequest, getRequest } from "../../../../../consts/apiCalls";
+import { deleteRequest, getRequest, postRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import useToast from "../../../../../components/toast/useToast";
 
@@ -78,6 +78,16 @@ const SettlementCycle = () => {
     );
   }
 
+
+      const handleActive = async (id) => {
+        try {
+          const response = await postRequest(`/settlement-cycles/makeDefault/${id}`);
+          fetchSettlementCycle();
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
   const columns = [
     {
       field: "isDefault",
@@ -90,7 +100,7 @@ const SettlementCycle = () => {
           <StarIcon style={{ color: "#1976d2" }} />
         ) : (
           <StarOutlineIcon
-            onClick={() => console.log("handle active at line 87 ")}
+            onClick={() => handleActive(params.row.id)}
             style={{
               color: "#1976d2",
               justifySelf: "center",
@@ -137,7 +147,7 @@ const SettlementCycle = () => {
           columns={columns}
           loading={loading}
           onCellClick={(params, event) => {
-            if (params.field !== "actions") {
+            if (params.field !== "isDefault" && params.field  !=="actions") {
               handleEdit(params.id);
             }
           }}

@@ -33,7 +33,8 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
   const [checkedAvailable, setCheckedAvailable] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const [rankErrors, setRankErrors] = useState({});
+  console.log("selectedParcelTypesselectedParcelTypes",)
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -46,13 +47,28 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
         showError("Alteast 1 Type is required");
         return;
       }
+
+      // Validate ranks
+      const rankValidation = validateRanks();
+      if (!rankValidation.isValid) {
+        showError(rankValidation.message);
+        return;
+      }
+        console.log("selectedParcelTypes",selectedParcelTypes)
       try {
         const submitData = {
           name: values.name,
-          selectedParcelTypes,
+          id:editingId,
+          selectedParcelTypes: selectedParcelTypes.map((item, index) => ({
+            ...item,
+            parcelTypeId: item.id,
+            rank: item.rank || 1,
+            id:undefined
+          })),
           default: false,
         };
-
+        console.log("submitData",submitData);
+        // return;
         if (isEditMode && editingId) {
           await putRequest(`/parcel-type-schedules/${editingId}`, submitData);
         } else {
@@ -60,14 +76,66 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
         }
         onSuccess();
       } catch (error) {
-        console.error("Error saving parcel type schedule:", error);
+        console.erro("Error saving parcel type schedule:", error);
       }
     },
   });
 
+  const validateRanks = () => {
+    const ranks = selectedParcelTypes
+      .map((item) => item.rank)
+      .filter((rank) => rank !== undefined && rank !== null);
+    const uniqueRanks = new Set(ranks);
+
+    if (ranks.length !== uniqueRanks.size) {
+      return { isValid: false, message: "Each parcel type must have a unique rank" };
+    }
+
+    const invalidRanks = ranks.filter((rank) => rank < 1 || rank > selectedParcelTypes.length);
+    if (invalidRanks.length > 0) {
+      return {
+        isValid: false,
+        message: `Ranks must be between 1 and ${selectedParcelTypes.length}`,
+      };
+    }
+
+    return { isValid: true };
+  };
+
+  const handleRankChange = (itemId, newRank) => {
+    const rankValue = parseInt(newRank) || null;
+    console.log("brfire after reank changed",selectedParcelTypes,itemId)
+    // Update the selected parcel types
+   const updatedParcelTypes = selectedParcelTypes.map((item) => {
+    return item.id === itemId ? { ...item, rank: rankValue } : item;
+});
+
+    console.log("updatedParcelTypes",updatedParcelTypes)
+
+    setSelectedParcelTypes(updatedParcelTypes);
+
+    // Validate all ranks for duplicates after the update
+    const newRankErrors = {};
+
+    updatedParcelTypes.forEach((item) => {
+      if (item.rank) {
+        const duplicateCount = updatedParcelTypes.filter(
+          (otherItem) => otherItem.rank === item.rank
+        ).length;
+
+        if (duplicateCount > 1) {
+          newRankErrors[item.id] = "Rank already exists";
+        }
+      }
+    });
+
+    setRankErrors(newRankErrors);
+  };
+
   const fetchParcelTypes = async () => {
     try {
       const response = await getRequest("/parcelType");
+      console.log("responseresponse",response)
       setAllParcelTypes(response || []);
     } catch (error) {
       console.error("Error fetching parcel types:", error);
@@ -76,18 +144,32 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
   };
 
   const fetchScheduleById = async () => {
-    try {
-      const response = await getRequest(`/parcel-type-schedules/${editingId}`);
-      formik.setValues({ name: response.name || "" });
-      setSelectedParcelTypes(response.selectedParcelTypes || []);
-    } catch (error) {
-      console.error("Error fetching schedule:", error);
-    }
-  };
+  try {
+    const response = await getRequest(`/parcel-type-schedules/${editingId}`);
+    
+    // Set formik name
+    formik.setValues({ name: response.name || "" });
+
+    // Normalize parcel types
+    const selectedWithRanks = (response.selectedParcelTypes || []).map(
+      ({ parcelTypeId, ...rest }) => ({
+        ...rest,
+        id: rest.id ?? parcelTypeId,   // use existing id, else parcelTypeId
+        rank: rest.rank || null,       // ensure rank always exists
+      })
+    );
+
+    setSelectedParcelTypes(selectedWithRanks);
+  } catch (error) {
+    console.error("Error fetching schedule:", error);
+  }
+};
+
 
   useEffect(() => {
     const selectedIds = selectedParcelTypes.map((item) => item.id);
     const available = allParcelTypes.filter((item) => !selectedIds.includes(item.id));
+    console.log('selectedParcelTypes',selectedParcelTypes,"====","selectedIds-->",selectedIds,"//available-->",available)
     setAvailableParcelTypes(available);
   }, [allParcelTypes, selectedParcelTypes]);
 
@@ -117,13 +199,27 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
 
   const handleAddSelected = () => {
     const itemsToAdd = availableParcelTypes.filter((item) => checkedAvailable.includes(item.id));
-    setSelectedParcelTypes((prev) => [...prev, ...itemsToAdd]);
+
+    // Add items with default rank (next available number)
+    const maxRank = Math.max(...selectedParcelTypes.map((item) => item.rank || 0), 0);
+    const itemsWithRanks = itemsToAdd.map((item, index) => ({
+      ...item,
+      rank: maxRank + index + 1,
+    }));
+
+    setSelectedParcelTypes((prev) => [...prev, ...itemsWithRanks]);
     setCheckedAvailable([]);
     setSearchTerm("");
   };
 
   const handleRemoveSelected = (id) => {
     setSelectedParcelTypes((prev) => prev.filter((item) => item.id !== id));
+    // Clear any rank errors for the removed item
+    setRankErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[id];
+      return newErrors;
+    });
   };
 
   return (
@@ -216,7 +312,7 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
                           <TableCell>Customizable</TableCell>
                           <TableCell>Rank</TableCell>
                           <TableCell>Name (EN)</TableCell>
-                          <TableCell>Name (FR)</TableCell>
+                          {/* <TableCell>Name (FR)</TableCell> */}
                           <TableCell>Dimensions</TableCell>
                           <TableCell>Weight Type</TableCell>
                           <TableCell>Dimensional Factor</TableCell>
@@ -241,9 +337,33 @@ const ParcelTypeScheduleForm = ({ editingId, isEditMode, onBack, onSuccess }) =>
                               </Typography>
                             </TableCell>
                             <TableCell>{item.customizable ? "Yes" : "No"}</TableCell>
-                            <TableCell>-</TableCell>
+                            <TableCell>
+                              <TextField
+                                type="number"
+                                size="small"
+                                value={item.rank || ""}
+                                onChange={(e) => handleRankChange(item.id, e.target.value)}
+                                inputProps={{
+                                  min: 1,
+                                  max: selectedParcelTypes.length,
+                                  style: { textAlign: "center" },
+                                }}
+                                error={Boolean(rankErrors[item.id])}
+                                helperText={rankErrors[item.id]}
+                                sx={{
+                                  width: "80px",
+                                  "& .MuiOutlinedInput-root": {
+                                    backgroundColor: "white",
+                                  },
+                                  "& .MuiFormHelperText-root": {
+                                    fontSize: "0.75rem",
+                                    whiteSpace: "nowrap",
+                                  },
+                                }}
+                              />
+                            </TableCell>
                             <TableCell>{item.name}</TableCell>
-                            <TableCell>-</TableCell>
+                            {/* <TableCell>-</TableCell> */}
                             <TableCell>
                               {item.length && item.width && item.height
                                 ? `${item.length} x ${item.width} x ${item.height} ${item.unitOfLength || "in"}`
