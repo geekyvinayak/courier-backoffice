@@ -40,6 +40,10 @@ import ConfigrationsTab from "./tabs/settingsTab/configurations";
 import CompaniesTab from "./tabs/settingsTab/Companies";
 import ZonesTab from "./tabs/settingsTab/Zones";
 import CheckpointsTab from "./tabs/settingsTab/Checkpoints";
+import { FuleSurchargesTable } from "./tabs/priceListTab/fuleSurchargeTable/fuleSurchargeTable";
+import FuleSurchargeTableCreate from "./tabs/priceListTab/fuleSurchargeTable/fuleSurchargeTableCreate";
+import { FuleSurchargesSchedule } from "./tabs/priceListTab/fuleSurchargesSchedule/fuleSurchargesSchedule";
+import FuelSurchargeScheduleCreate from "./tabs/priceListTab/fuleSurchargesSchedule/fuleSurchargeScheduleCreate";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -207,6 +211,13 @@ function App() {
                         path="/settings/system/address/edit/:form/:id"
                         element={<CreateAddress />}
                       />
+                      <Route path="/pricelist/fuel-surcharges-table" element={<FuleSurchargesTable/>} />
+                      <Route path="/pricelist/fuel-surcharges-table/create" element={<FuleSurchargeTableCreate/>} />
+                      <Route path="/pricelist/fuel-surcharges-table/edit/:id" element={<FuleSurchargeTableCreate/>} />
+                      <Route path="/pricelist/fuel-surcharges-schedule" element={<FuleSurchargesSchedule/>} />
+                      <Route path="/pricelist/fuel-surcharges-schedule/create" element={<FuelSurchargeScheduleCreate />} />
+                      <Route path="/pricelist/fuel-surcharges-schedule/edit/:id" element={<FuelSurchargeScheduleCreate />} />
+
                       <Route
                         path="/settings/configurations/*"
                         element={<ConfigrationsTab />}

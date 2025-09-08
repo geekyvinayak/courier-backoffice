@@ -70,19 +70,10 @@ export default function CreateFuelPrice() {
     <div className="wraper-container">
       <SubTabNavigator
         data={[
-          {
-            lable: "Fuel Surcharges Schedules",
-            url: "/pricelist/fule-surcharges-schedule",
-          },
-          {
-            lable: "Fuel Surcharges Table",
-            url: "/pricelist/fule-surcharges-table",
-          },
-          { lable: "Fuel Prices", url: "/pricelist/fuel-prices", isFilled:true },
-          {
-            lable: "Fuel Surcharges Calculator",
-            url: "/pricelist/surcharge-calculator",
-          },
+          { lable: "Fuel Surcharges Schedules", url: "/pricelist/fuel-surcharges-schedule" },
+          { lable: "Fuel Surcharges Table", url: "/pricelist/fuel-surcharges-table" },
+          { lable: "Fuel Prices", url: "/pricelist/fuel-prices", isFilled: true},
+          { lable: "Fuel Surcharges Calculator", url: "/pricelist/surcharge-calculator" },
         ]}
         filled={true}
       />

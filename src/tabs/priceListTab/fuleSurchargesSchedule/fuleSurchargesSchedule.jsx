@@ -1,8 +1,9 @@
+import React from 'react'
 import SubTabNavigator from '../../../components/subTabNavigator'
 import LinkBtn from '../../../components/linkBtn'
-import FuelPricesGrid from './fuelPriceGrid'
+import FuleSurchargesScheduleGrid from './fuleSurchargesScheduleGrid'
 
-export const FuelPrices = () => {
+export const FuleSurchargesSchedule = () => {
   return (
     <div className="wraper-container">
       <SubTabNavigator
@@ -15,11 +16,11 @@ export const FuelPrices = () => {
       />
       <div>
         <LinkBtn
-          label="New Fuel Price"
-          url={"/pricelist/fuel-prices/create"}
+          label="New Surcharge Schedule"
+          url={"/pricelist/fuel-surcharges-schedule/create"}
         />
       </div>
-      <FuelPricesGrid />
+      <FuleSurchargesScheduleGrid />
     </div>
   )
 }

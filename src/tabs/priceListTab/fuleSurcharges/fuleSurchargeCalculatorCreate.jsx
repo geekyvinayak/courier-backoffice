@@ -173,17 +173,10 @@ const FuelSurchargesCalculatorCreate = () => {
     <div className="wraper-container">
       <SubTabNavigator
         data={[
-          {
-            lable: "Fuel Surcharges Schedules",
-            url: "/pricelist/extrafeesschedule",
-          },
-          { lable: "Fuel Surcharges Table", url: "/pricelist/extrafees" },
-          { lable: "Fuel Prices", url: "/pricelist/extrafees" },
-          {
-            lable: "Fuel Surcharges Calculator",
-            url: "/pricelist/surcharge-calculator",
-            isFilled: true,
-          },
+          { lable: "Fuel Surcharges Schedules", url: "/pricelist/fuel-surcharges-schedule" },
+          { lable: "Fuel Surcharges Table", url: "/pricelist/fuel-surcharges-table" },
+          { lable: "Fuel Prices", url: "/pricelist/fuel-prices" },
+          { lable: "Fuel Surcharges Calculator", url: "/pricelist/surcharge-calculator", isFilled:true },
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />

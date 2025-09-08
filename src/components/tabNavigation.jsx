@@ -39,14 +39,18 @@ const itemsData = {
     {
       id:4,
       name: "Fule Surcharges",
-      link: "/pricelist/surcharge-calculator",
+      link: "/pricelist/fuel-surcharges-schedule",
       childPaths: [
         "/pricelist/surcharge-calculator",
         "/pricelist/surcharge-calculator/create",
         "/pricelist/surcharge-calculator/edit",
         "/pricelist/fuel-prices",
         "/pricelist/fuel-prices/create",
-        "/pricelist/fuel-prices/edit"
+        "/pricelist/fuel-prices/edit",
+        "/pricelist/fuel-surcharges-schedule",
+        "/pricelist/fuel-surcharges-table",
+        "/pricelist/fuel-surcharges-table/edit",
+        "/pricelist/fuel-surcharges-table/create",
       ]
     },
     {
