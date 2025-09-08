@@ -5,10 +5,7 @@ export const Discount = () => {
   return (
     <div className="wraper-container">
       <div>
-        <LinkBtn
-          label="New Discount/Surcharge"
-          url={"/pricelist/discounts-surcharges/create"}
-        />
+        <LinkBtn label="New Discount/Surcharge" url={"/pricelist/discounts-surcharges/create"} />
       </div>
 
       <DiscountGrid />

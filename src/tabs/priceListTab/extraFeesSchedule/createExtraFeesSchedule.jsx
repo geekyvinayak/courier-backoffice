@@ -40,7 +40,7 @@ const CreateExtraFeesSchedule = () => {
         //     values,
         //   );
         // } else {
-          const response = await postRequest("/extraFeeSchedule", values);
+        const response = await postRequest("/extraFeeSchedule", values);
         // }
         navigate("/pricelist/extrafeesschedule");
       } catch (error) {
@@ -101,12 +101,12 @@ const CreateExtraFeesSchedule = () => {
     },
     {
       id: 2,
-      label: id?"Edit Extra Fee Schedules":"New Extra Fee Schedules",
+      label: id ? "Edit Extra Fee Schedules" : "New Extra Fee Schedules",
       href: "",
     },
   ];
 
-  const [configId,setConfigId] = useState();
+  const [configId, setConfigId] = useState();
 
   return (
     <div className="wraper-container">
@@ -124,7 +124,7 @@ const CreateExtraFeesSchedule = () => {
       <div className="max-w-[600px] p-4 border border-gray mt-4 mb-4">
         <div className="flex justify-between items-center mb-4">
           <Typography variant="h3" gutterBottom>
-            {id?"Edit":"New"} Extra Fee Schedules
+            {id ? "Edit" : "New"} Extra Fee Schedules
           </Typography>
           <Button
             variant="contained"
@@ -142,10 +142,7 @@ const CreateExtraFeesSchedule = () => {
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="name" className="block text-sm text-gray-700 mb-1 font-semibold">
               NAME
             </label>
             <TextField
@@ -163,21 +160,24 @@ const CreateExtraFeesSchedule = () => {
           </div>
         </form>
       </div>
-     
-        {id && (
-          <ExtraConfigGrid
-            ConfigData={extraConfig}
-            setOpenDialog={setOpenDialog}
-            setConfigId={setConfigId}
-            sheduleId={id}
-            refetchFunction={fetchExtraFeesSchedule}
-          />
-        )}
-      
+
+      {id && (
+        <ExtraConfigGrid
+          ConfigData={extraConfig}
+          setOpenDialog={setOpenDialog}
+          setConfigId={setConfigId}
+          sheduleId={id}
+          refetchFunction={fetchExtraFeesSchedule}
+        />
+      )}
+
       {id && openDialog && (
         <ExtraFeesConfig
           open={openDialog}
-          handleClose={() => {setOpenDialog(false);fetchExtraFeesSchedule()}}
+          handleClose={() => {
+            setOpenDialog(false);
+            fetchExtraFeesSchedule();
+          }}
           id={id}
           configId={configId}
         />
@@ -188,111 +188,115 @@ const CreateExtraFeesSchedule = () => {
 
 export default CreateExtraFeesSchedule;
 
-const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId,sheduleId,refetchFunction }) => {
-
-    const { showSuccess, showError } = useToast();
-    const deleteEquivalance = async (id) => {
-      try {
-        await deleteRequest(`/extraFeeSchedule/${sheduleId}/${id}`);
-        showSuccess("Price list deleted");
-        refetchFunction();
-      } catch (error) {
-        showError("Something went wrong!");
-        console.log("error", error);
-      }
-    };
-  
+const ExtraConfigGrid = ({
+  ConfigData,
+  setOpenDialog,
+  setConfigId,
+  sheduleId,
+  refetchFunction,
+}) => {
+  const { showSuccess, showError } = useToast();
+  const deleteEquivalance = async (id) => {
+    try {
+      await deleteRequest(`/extraFeeSchedule/${sheduleId}/${id}`);
+      showSuccess("Price list deleted");
+      refetchFunction();
+    } catch (error) {
+      showError("Something went wrong!");
+      console.log("error", error);
+    }
+  };
 
   const columns = [
     {
       field: "extraFeeName",
       headerName: "Name",
       flex: 1,
-      minWidth: 150, 
-      cellClassName:"!text-[#3e4396]",
+      minWidth: 150,
+      cellClassName: "!text-[#3e4396]",
     },
     {
       field: "type",
       headerName: "Type",
-     minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "rate",
       headerName: "Rate",
-      minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "per",
       headerName: "Per",
-      minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "max",
       headerName: "Max",
-    minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "included",
       headerName: "Included",
-    minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "defaultQuantity",
       headerName: "Default Quantity",
-    minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "hideDefaultPriceQuantity",
       headerName: "Hide Quantity and Unit Price",
-    minWidth: 350, 
+      minWidth: 350,
       flex: 1,
     },
     {
       field: "driverCommissionable",
       headerName: "Driver Commissionable",
-  minWidth: 250, 
+      minWidth: 250,
       flex: 1,
     },
     {
       field: "salesCommissionable",
       headerName: "Sales Commissionable",
-  minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "visibilityForInternalUser",
       headerName: "Visibility For InternalUser",
-     minWidth: 350, 
+      minWidth: 350,
       flex: 1,
     },
     {
       field: "visibilitySelfServe",
       headerName: "Visibility for SelfServe",
-    minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "visibilityDriver",
       headerName: "Visibility for Driver",
-     minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "fuelSurcharge",
       headerName: "fuelSurcharge",
-     minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "priority",
       headerName: "Priority",
-      minWidth: 150, 
+      minWidth: 150,
       flex: 1,
     },
     {
@@ -300,7 +304,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId,sheduleId,refe
       headerName: "",
       sortable: false,
       filterable: false,
-      cellClassName:'flex !justify-center cursor-pointer',
+      cellClassName: "flex !justify-center cursor-pointer",
       renderCell: (params) => (
         <IconButton>
           <DeleteDialog handleDelete={() => deleteEquivalance(params.id)} />
@@ -315,7 +319,10 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId,sheduleId,refe
       <Box className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Configuration Data</h2>
         <button
-          onClick={() => {setOpenDialog(true);setConfigId(null)}}
+          onClick={() => {
+            setOpenDialog(true);
+            setConfigId(null);
+          }}
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
           Add New Config
@@ -327,10 +334,11 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId,sheduleId,refe
         rows={ConfigData}
         columns={columns}
         onCellClick={(params) => {
-          if(params?.field !== 'action'){
-          setOpenDialog(true);setConfigId(params.id)}
+          if (params?.field !== "action") {
+            setOpenDialog(true);
+            setConfigId(params.id);
           }
-          }
+        }}
         className="cursor-pointer"
         scroll={{ x: true }}
         initialState={{
@@ -341,7 +349,7 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId,sheduleId,refe
           },
         }}
         rowHeight={45}
-         columnHeaderHeight={45}
+        columnHeaderHeight={45}
         sx={{
           "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
             border: "1px solid #e0e0e0", // Border between rows
@@ -356,12 +364,12 @@ const ExtraConfigGrid = ({ ConfigData, setOpenDialog, setConfigId,sheduleId,refe
             fontWeight: "bold", // Bold text
             fontSize: "14px", // Increase font size
           },
-          "& .MuiDataGrid-virtualScrollerContent":{
+          "& .MuiDataGrid-virtualScrollerContent": {
             fontWeight: "500", // Bold text
             fontSize: "12px",
           },
-          '& .MuiDataGrid-columnHeaders': { minWidth: '100%' },
-          '& .MuiDataGrid-root': { overflowX: 'auto' },
+          "& .MuiDataGrid-columnHeaders": { minWidth: "100%" },
+          "& .MuiDataGrid-root": { overflowX: "auto" },
         }}
         disableRowSelectionOnClick
       />

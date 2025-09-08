@@ -1,11 +1,4 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Tooltip,
-  IconButton,
-  Box,
-} from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, Tooltip, IconButton, Box } from "@mui/material";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -72,7 +65,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
           { extraFeeConfigDto: JSON.stringify(values), file },
           {
             "Content-Type": "multipart/form-data",
-          },
+          }
         );
         showSuccess("Config Added");
         handleClose();
@@ -87,9 +80,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
   const fetchExtraFees = async () => {
     try {
-      const response = await getRequest(
-        `/extraFeeSchedule/extraFeeAvailable/${id}`,
-      );
+      const response = await getRequest(`/extraFeeSchedule/extraFeeAvailable/${id}`);
       setExtraFees(response);
     } catch (error) {
       console.error("Error fetching:", error);
@@ -114,7 +105,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
       if (contentDisposition) {
         const filenameMatch = contentDisposition.match(
-          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/
         );
         if (filenameMatch && filenameMatch[1]) {
           filename = decodeURIComponent(filenameMatch[1]); // Decode in case of URL encoding
@@ -141,9 +132,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
   const fetchExtraFeeConfigById = async () => {
     try {
-      const response = await getRequest(
-        `/extraFeeSchedule/getExtraFeeConfigById/${configId}`,
-      );
+      const response = await getRequest(`/extraFeeSchedule/getExtraFeeConfigById/${configId}`);
       formik.setValues(response);
     } catch (error) {
       showError("Some Thing Went Wrong.");
@@ -162,7 +151,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{configId?'Edit Extra Config':'Add Extra Config'}</DialogTitle>
+      <DialogTitle>{configId ? "Edit Extra Config" : "Add Extra Config"}</DialogTitle>
       <DialogContent>
         <form onSubmit={formik.handleSubmit}>
           {/* Extra Fee Type */}
@@ -181,9 +170,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                   return <MenuItem value={fees.name}>{fees.name}</MenuItem>;
                 })}
               {configId && (
-                <MenuItem value={formik.values.extraFeeName}>
-                  {formik.values.extraFeeName}
-                </MenuItem>
+                <MenuItem value={formik.values.extraFeeName}>{formik.values.extraFeeName}</MenuItem>
               )}
             </Select>
           </FormControl>
@@ -197,22 +184,9 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                 TYPE
               </Typography>
 
-              <RadioGroup
-                row
-                name="type"
-                value={formik.values.type}
-                onChange={formik.handleChange}
-              >
-                <FormControlLabel
-                  value="rated"
-                  control={<Radio />}
-                  label="Rated"
-                />
-                <FormControlLabel
-                  value="sliding"
-                  control={<Radio />}
-                  label="Sliding"
-                />
+              <RadioGroup row name="type" value={formik.values.type} onChange={formik.handleChange}>
+                <FormControlLabel value="rated" control={<Radio />} label="Rated" />
+                <FormControlLabel value="sliding" control={<Radio />} label="Sliding" />
               </RadioGroup>
             </FormControl>
 
@@ -224,9 +198,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                   <input
                     type="file"
                     name="file"
-                    onChange={(event) =>
-                      formik.setFieldValue("file", event.currentTarget.files[0])
-                    }
+                    onChange={(event) => formik.setFieldValue("file", event.currentTarget.files[0])}
                   />
                 </FormControl>
 
@@ -245,11 +217,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                 <br />
 
                 {/* Download Template Button */}
-                <Button
-                  onClick={handdleTemplteDownload}
-                  variant="outlined"
-                  sx={{ mb: 2 }}
-                >
+                <Button onClick={handdleTemplteDownload} variant="outlined" sx={{ mb: 2 }}>
                   Download Template
                 </Button>
               </>
@@ -351,8 +319,8 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                         Round up the quantity to the next 'Per unit' value.
                       </Typography>
                       <Typography variant="body2" sx={{ mt: 1 }}>
-                        Eg: [Quantity: 0.05] x [Per: 1.00] x [Unit Price: 1000]
-                        = [Total Price: 1000] (Quantity was rounded up to 1.00).
+                        Eg: [Quantity: 0.05] x [Per: 1.00] x [Unit Price: 1000] = [Total Price:
+                        1000] (Quantity was rounded up to 1.00).
                       </Typography>
                     </Box>
                   }
@@ -362,11 +330,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                     <InfoRounded className="text-[#3e4396]" />
                   </IconButton>
                 </Tooltip>
-                <FormControlLabel
-                  value="norounding"
-                  control={<Radio />}
-                  label="NO ROUNDING"
-                />
+                <FormControlLabel value="norounding" control={<Radio />} label="NO ROUNDING" />
                 <Tooltip
                   title={
                     <Box sx={{ maxWidth: 250, p: 1 }}>
@@ -377,8 +341,8 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                         Quantity will be calculated as entered with no rounding.
                       </Typography>
                       <Typography variant="body2" sx={{ mt: 1 }}>
-                        Eg: [Quantity: 0.05] x [Per: 1.00] x [Unit Price: 1000]
-                        = [Total Price: 50] (Quantity was kept to 0.05).
+                        Eg: [Quantity: 0.05] x [Per: 1.00] x [Unit Price: 1000] = [Total Price: 50]
+                        (Quantity was kept to 0.05).
                       </Typography>
                     </Box>
                   }
@@ -388,11 +352,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                     <InfoRounded className="text-[#3e4396]" />
                   </IconButton>
                 </Tooltip>
-                <FormControlLabel
-                  value="rounddown"
-                  control={<Radio />}
-                  label="ROUND DOWN"
-                />
+                <FormControlLabel value="rounddown" control={<Radio />} label="ROUND DOWN" />
                 <Tooltip
                   title={
                     <Box sx={{ maxWidth: 250, p: 1 }}>
@@ -400,12 +360,11 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                         Round Down
                       </Typography>
                       <Typography variant="body2">
-                        Round down the quantity to the previous 'Per unit'
-                        value.
+                        Round down the quantity to the previous 'Per unit' value.
                       </Typography>
                       <Typography variant="body2" sx={{ mt: 1 }}>
-                        Eg: [Quantity: 0.05] × [Per: 1.00] × [Unit Price: 1000]
-                        = [Total Price: 0] (Quantity was rounded down to 0.00).
+                        Eg: [Quantity: 0.05] × [Per: 1.00] × [Unit Price: 1000] = [Total Price: 0]
+                        (Quantity was rounded down to 0.00).
                       </Typography>
                     </Box>
                   }
@@ -475,8 +434,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
               onChange={formik.handleChange}
             />
             {/* Find the selected fee object */}
-            {extraFees.find((fee) => fee.name === formik.values.extraFeeName)
-              ?.systemExtra && (
+            {extraFees.find((fee) => fee.name === formik.values.extraFeeName)?.systemExtra && (
               <FormControl fullWidth sx={{ mb: 2 }}>
                 <Select
                   label="VISIBILITY FOR INTERNAL USERS"
@@ -484,9 +442,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
                   value={formik.values.visibilityForInternalUser}
                   onChange={formik.handleChange}
                 >
-                  <MenuItem value="RestrictedUsersOnly">
-                    Restricted Users Only
-                  </MenuItem>
+                  <MenuItem value="RestrictedUsersOnly">Restricted Users Only</MenuItem>
                   <MenuItem value="Optional">Optional</MenuItem>
                   <MenuItem value="Required">Required</MenuItem>
                 </Select>
@@ -515,12 +471,7 @@ const ExtraFeesConfig = ({ open, handleClose, id, configId }) => {
           </Paper>
 
           {/* Submit Button */}
-          <Button
-            type="submit"
-            onClick={formik.handleSubmit}
-            variant="contained"
-            color="primary"
-          >
+          <Button type="submit" onClick={formik.handleSubmit} variant="contained" color="primary">
             Save
           </Button>
         </form>

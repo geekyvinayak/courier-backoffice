@@ -97,7 +97,7 @@ const ExtraFeesCreate = () => {
       <div className="max-w-[600px] p-4 border border-gray shadow-md mt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
           <Typography variant="h3" gutterBottom>
-            {id?"Edit":"New"} Extra Fee Type
+            {id ? "Edit" : "New"} Extra Fee Type
           </Typography>
           <Button
             variant="contained"
@@ -127,10 +127,7 @@ const ExtraFeesCreate = () => {
             { id: "reference", label: "REFERENCE #" },
           ].map((field) => (
             <div key={field.id}>
-              <label
-                htmlFor={field.id}
-                className="block text-sm text-gray-700 mb-1 font-semibold"
-              >
+              <label htmlFor={field.id} className="block text-sm text-gray-700 mb-1 font-semibold">
                 {field.label}
               </label>
               <TextField
@@ -143,9 +140,7 @@ const ExtraFeesCreate = () => {
                 value={formik.values[field.id]}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={
-                  formik.touched[field.id] && Boolean(formik.errors[field.id])
-                }
+                error={formik.touched[field.id] && Boolean(formik.errors[field.id])}
                 helperText={formik.touched[field.id] && formik.errors[field.id]}
               />
             </div>

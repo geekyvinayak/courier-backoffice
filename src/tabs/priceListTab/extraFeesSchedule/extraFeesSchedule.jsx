@@ -14,10 +14,7 @@ export const ExtraFeesSchedule = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="New Schedule"
-          url={"/pricelist/extrafeesschedule/create"}
-        />
+        <LinkBtn label="New Schedule" url={"/pricelist/extrafeesschedule/create"} />
       </div>
       <ExtraFeesScheduleGrid />
     </div>

@@ -1,8 +1,8 @@
-import HoldReasonsContent from "./HoldReasonsContent";
-import ParcelTypesContent from "./ParcelTypesContent";
-import ParcelTypesSchedulesContent from "./ParcelTypesSchedulesContent";
-import StatusColorContent from "./StatusColorContent";
-import RulesContent from "./RulesContent";
+import HoldReasonsContent from "./HoldReasonsTemplates/HoldReasonsContent";
+import OrderRules from "./OrderRules/OrderRules";
+import ParcelTypesContent from "./ParcelTypes/ParcelTypesContent";
+import ParcelTypeSchedulesContent from "./ParcelTypeSchedules/ParcelTypeSchedulesContent";
+import StatusColorContent from "./StatusColor/StatusColorContent";
 
 const OrderTab = ({ selectedItem }) => {
   switch (selectedItem) {
@@ -11,11 +11,11 @@ const OrderTab = ({ selectedItem }) => {
     case "Parcel Types":
       return <ParcelTypesContent />;
     case "Parcel Types Schedules":
-      return <ParcelTypesSchedulesContent />;
+      return <ParcelTypeSchedulesContent />;
     case "Status Color":
       return <StatusColorContent />;
     case "Rules":
-      return <RulesContent />;
+      return <OrderRules />;
     default:
       return <HoldReasonsContent />;
   }

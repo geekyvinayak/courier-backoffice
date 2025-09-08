@@ -1,7 +1,7 @@
-import React from 'react'
-import SubTabNavigator from '../../../components/subTabNavigator'
-import LinkBtn from '../../../components/linkBtn'
-import FuleSurchargesCalculatorGrid from './fuleSurchargesCalculatorGrid'
+import React from "react";
+import SubTabNavigator from "../../../components/subTabNavigator";
+import LinkBtn from "../../../components/linkBtn";
+import FuleSurchargesCalculatorGrid from "./fuleSurchargesCalculatorGrid";
 
 export const FuleSurchargesCalculator = () => {
   return (
@@ -15,12 +15,9 @@ export const FuleSurchargesCalculator = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="New Calculator"
-          url={"/pricelist/surcharge-calculator/create"}
-        />
+        <LinkBtn label="New Calculator" url={"/pricelist/surcharge-calculator/create"} />
       </div>
       <FuleSurchargesCalculatorGrid />
     </div>
-  )
-}
+  );
+};

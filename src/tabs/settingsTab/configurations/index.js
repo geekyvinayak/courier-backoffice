@@ -13,33 +13,17 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import OrderTab from "./orders";
+import DriverTab from "./driver";
 
 const ConfigrationsTab = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const location = useLocation();
 
   const menuConfigs = {
-    order: [
-      "Hold Reasons",
-      "Parcel Types",
-      "Parcel Types Schedules",
-      "Status Color",
-      "Rules",
-    ],
-    driver: [
-      "Deductions/ Additions",
-      "Settlement Cycle",
-      "Fields",
-      "Documents",
-      "Certifications",
-    ],
+    order: ["Hold Reasons", "Parcel Types", "Parcel Types Schedules", "Status Color", "Rules"],
+    driver: ["Deductions/ Additions", "Settlement Cycle", "Fields", "Documents", "Certifications"],
     account: ["Billing Cycle", "Tax Schedules", "Tax Rules", "Fields"],
-    accounting: [
-      "Accounting Profiles",
-      "Accounting Items",
-      "Terms",
-      "Document Types",
-    ],
+    accounting: ["Accounting Profiles", "Accounting Items", "Terms", "Document Types"],
     system: ["Attributes", "Dashboard", "Calendars", "Roles"],
   };
 
@@ -87,29 +71,39 @@ const ConfigrationsTab = () => {
   };
 
   const GenericContent = ({ title, description }) => (
-  <Card sx={{ minHeight: 200,maxWidth:"75%", display:"flex",justifyContent:"center",alignItems:"center  " }}>
-    <CardContent>
-      <Typography variant="h6" gutterBottom>
-        {title} - section will go here
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        {description}
-      </Typography>
-      {/* Add specific content for each configuration type */}
-    </CardContent>
-  </Card>
-);
-
+    <Card
+      sx={{
+        minHeight: 200,
+        maxWidth: "75%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center  ",
+      }}
+    >
+      <CardContent>
+        <Typography variant="h6" gutterBottom>
+          {title} - section will go here
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {description}
+        </Typography>
+        {/* Add specific content for each configuration type */}
+      </CardContent>
+    </Card>
+  );
 
   const renderContent = () => {
     const selectedItem = menuItems[selectedIndex];
-    
+    console.log("first", selectedItem);
     // Order tab specific content components
-    // if (currentConfigType === "order") {
-    //     return <OrderTab  selectedItem={selectedItem}/>;
-    // }
+    if (currentConfigType === "order") {
+      return <OrderTab selectedItem={selectedItem} />;
+    }
+    if (currentConfigType === "driver") {
+      return <DriverTab selectedItem={selectedItem} />;
+    }
 
-    return <GenericContent  title={selectedItem}/>;
+    return <GenericContent title={selectedItem} />;
   };
 
   return (
@@ -123,7 +117,7 @@ const ConfigrationsTab = () => {
           { lable: "System", url: "/settings/configurations/system" },
         ]}
       />
-      
+
       <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
         {/* Left Sidebar Menu */}
         <Paper
@@ -169,9 +163,7 @@ const ConfigrationsTab = () => {
         </Paper>
 
         {/* Right Content Area */}
-        <Box sx={{ flex: 1 }}>
-          {renderContent()}
-        </Box>
+        <Box sx={{ flex: 1 }}>{renderContent()}</Box>
       </Box>
     </div>
   );

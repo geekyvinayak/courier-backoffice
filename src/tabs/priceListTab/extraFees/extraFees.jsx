@@ -14,10 +14,7 @@ export const ExtraFees = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="Add Extra Fees Type"
-          url={"/pricelist/extrafees/create"}
-        />
+        <LinkBtn label="Add Extra Fees Type" url={"/pricelist/extrafees/create"} />
       </div>
       <ExtraFeesGrid />
     </div>

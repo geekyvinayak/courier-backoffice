@@ -7,7 +7,7 @@ import { getRequest, postRequest, putRequest } from "../../../consts/apiCalls";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import SubTabNavigator from "../../../components/subTabNavigator";
 import {
   Box,
@@ -46,10 +46,7 @@ const FuelSurchargesCalculatorCreate = () => {
       }),
       sheetContent: Yup.string().when("type", {
         is: "Sheet",
-        then: () =>
-          Yup.string().required(
-            "Sheet content is required when no file is uploaded",
-          ),
+        then: () => Yup.string().required("Sheet content is required when no file is uploaded"),
         otherwise: () => Yup.string(),
       }),
     }),
@@ -60,7 +57,7 @@ const FuelSurchargesCalculatorCreate = () => {
           name: values.name,
           type: values.type,
           formula: values.formula,
-        })
+        });
 
         if (id) {
           const response = await putRequest(
@@ -97,21 +94,21 @@ const FuelSurchargesCalculatorCreate = () => {
   const getCalculatorsData = async () => {
     try {
       const response = await getRequest(`/surcharge-calculators/${id}`);
-      setIsLoading(true)
+      setIsLoading(true);
       formik.setValues(response);
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const handleDownloadTemplate = async () => {
-
     setIsLoading(true);
     try {
       const response = await axios({
-        url: id?`${process.env.REACT_APP_BACKEND_URL}/surcharge-calculators/${id}/download-sheet`:
-        `${process.env.REACT_APP_BACKEND_URL}/surcharge-calculators/download-template`,
+        url: id
+          ? `${process.env.REACT_APP_BACKEND_URL}/surcharge-calculators/${id}/download-sheet`
+          : `${process.env.REACT_APP_BACKEND_URL}/surcharge-calculators/download-template`,
         method: "GET",
         responseType: "blob",
         headers: {
@@ -125,7 +122,7 @@ const FuelSurchargesCalculatorCreate = () => {
 
       if (contentDisposition) {
         const filenameMatch = contentDisposition.match(
-          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/,
+          /filename\*?=(?:UTF-8'')?["']?([^;"'\n]*)["']?/
         );
         if (filenameMatch && filenameMatch[1]) {
           filename = decodeURIComponent(filenameMatch[1]);
@@ -201,10 +198,7 @@ const FuelSurchargesCalculatorCreate = () => {
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="name" className="block text-sm text-gray-700 mb-1 font-semibold">
               Name
             </label>
             <TextField
@@ -233,16 +227,8 @@ const FuelSurchargesCalculatorCreate = () => {
                 }}
                 row
               >
-                <FormControlLabel
-                  value="Formula"
-                  control={<Radio />}
-                  label="Formula"
-                />
-                <FormControlLabel
-                  value="Sheet"
-                  control={<Radio />}
-                  label="Sheet"
-                />
+                <FormControlLabel value="Formula" control={<Radio />} label="Formula" />
+                <FormControlLabel value="Sheet" control={<Radio />} label="Sheet" />
               </RadioGroup>
             </FormControl>
           </div>
@@ -250,10 +236,7 @@ const FuelSurchargesCalculatorCreate = () => {
           {/* Conditional rendering based on selected type */}
           {formik.values.type === "Formula" ? (
             <div>
-              <label
-                htmlFor="formula"
-                className="block text-sm text-gray-700 mb-1 font-semibold"
-              >
+              <label htmlFor="formula" className="block text-sm text-gray-700 mb-1 font-semibold">
                 Formula
               </label>
               <TextField
@@ -281,10 +264,7 @@ const FuelSurchargesCalculatorCreate = () => {
                     type="file"
                     name="sheetContent"
                     onChange={(event) =>
-                      formik.setFieldValue(
-                        "sheetContent",
-                        event.currentTarget.files[0],
-                      )
+                      formik.setFieldValue("sheetContent", event.currentTarget.files[0])
                     }
                   />
                 </FormControl>
@@ -303,7 +283,7 @@ const FuelSurchargesCalculatorCreate = () => {
                   }}
                   className="mb-2 max-w-fit gap-2 !bg-white "
                 >
-                  <FileDownloadOutlinedIcon /> {id?'Download File':'Download Template'}
+                  <FileDownloadOutlinedIcon /> {id ? "Download File" : "Download Template"}
                 </Button>
               </div>
             </div>

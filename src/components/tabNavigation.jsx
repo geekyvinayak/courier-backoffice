@@ -8,7 +8,7 @@ const itemsData = {
       id: 1,
       name: "Price List",
       link: "/pricelist",
-      childPaths: ["/pricelist", "/pricelist/create","/pricelist/edit"],
+      childPaths: ["/pricelist", "/pricelist/create", "/pricelist/edit"],
     },
     {
       id: 2,
@@ -37,7 +37,7 @@ const itemsData = {
       ],
     },
     {
-      id:4,
+      id: 4,
       name: "Fule Surcharges",
       link: "/pricelist/fuel-surcharges-schedule",
       childPaths: [
@@ -47,11 +47,15 @@ const itemsData = {
         "/pricelist/fuel-prices",
         "/pricelist/fuel-prices/create",
         "/pricelist/fuel-prices/edit",
+<<<<<<< HEAD
         "/pricelist/fuel-surcharges-schedule",
         "/pricelist/fuel-surcharges-table",
         "/pricelist/fuel-surcharges-table/edit",
         "/pricelist/fuel-surcharges-table/create",
       ]
+=======
+      ],
+>>>>>>> 047bb7cf5ae9d14d5a62f2170a72370f73503cc8
     },
     {
       id: 5,
@@ -81,7 +85,7 @@ const itemsData = {
       name: "Pricing Zones",
       link: "/pricelist/pricingzones",
       childPaths: ["/pricelist/pricingzones", "/pricelist/pricingzoneslayout"],
-    }
+    },
   ],
   "/dashboard": [
     {
@@ -123,42 +127,42 @@ const itemsData = {
       childPaths: ["/accounts/notifications"],
     },
   ],
-  "/settings":[
+  "/settings": [
     {
-      id:1,
-      name:"Checkpoints",
-      link:"/settings/checkpoints",
-      childPaths:["/settings/checkpoints"]
+      id: 1,
+      name: "Checkpoints",
+      link: "/settings/checkpoints",
+      childPaths: ["/settings/checkpoints"],
     },
     {
-      id:2,
-      name:"Zones",
-      link:"/settings/zones",
-      childPaths:["/settings/zones"]
+      id: 2,
+      name: "Zones",
+      link: "/settings/zones",
+      childPaths: ["/settings/zones"],
     },
     {
-      id:3,
-      name:"Companies",
-      link:"/settings/companies",
-      childPaths:["/settings/companies"]
+      id: 3,
+      name: "Companies",
+      link: "/settings/companies",
+      childPaths: ["/settings/companies"],
     },
     {
-      id:4,
-      name:"Configurations",
-      link:"/settings/configurations/order",
-      childPaths:[
+      id: 4,
+      name: "Configurations",
+      link: "/settings/configurations/order",
+      childPaths: [
         "/settings/configurations/order",
         "/settings/configurations/driver",
         "/settings/configurations/account",
         "/settings/configurations/accounting",
         "/settings/configurations/system",
-      ]
+      ],
     },
     {
-      id:5,
-      name:"System",
-      link:"/settings/system/users",
-      childPaths:[
+      id: 5,
+      name: "System",
+      link: "/settings/system/users",
+      childPaths: [
         "/settings/system/*",
         "/settings/system/users",
         "/settings/system/users/create",
@@ -170,9 +174,9 @@ const itemsData = {
         "/settings/system/address/create/NewHub",
         "/settings/system/address/create/NewContact",
         "/settings/system/address/create/NewGlobalAddress",
-      ]
+      ],
     },
-  ]
+  ],
 };
 
 // Component to display items based on the current route

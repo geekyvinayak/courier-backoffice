@@ -16,10 +16,7 @@ const VehicleEquivalencies = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="New Vehicle Equivalency"
-          url={"/pricelist/vehicleequivalencies/create"}
-        />
+        <LinkBtn label="New Vehicle Equivalency" url={"/pricelist/vehicleequivalencies/create"} />
       </div>
       <VehicleEquivalenciesGrid />
     </div>

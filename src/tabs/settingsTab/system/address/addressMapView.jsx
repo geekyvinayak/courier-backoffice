@@ -14,16 +14,14 @@ function AddressMapView({
   const mapContainerRef = useRef();
 
   useEffect(() => {
-    mapboxgl.accessToken = process.env.REACT_APP_MAP_ACCESS_TOKEN
+    mapboxgl.accessToken = process.env.REACT_APP_MAP_ACCESS_TOKEN;
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       center: [longitude, latitude],
       zoom: latitude == 0 ? 2.5 : zoomLevel,
     });
 
-    new mapboxgl.Marker()
-      .setLngLat([longitude, latitude])
-      .addTo(mapRef.current);
+    new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(mapRef.current);
     if (disableScroll) {
       mapRef.current.addControl(new mapboxgl.NavigationControl());
       mapRef.current.scrollZoom.disable();
@@ -36,11 +34,7 @@ function AddressMapView({
 
   return (
     <div style={{ display: "flex", flex: 1 }}>
-      <div
-        id="map-container"
-        ref={mapContainerRef}
-        style={{ ...containerStyle }}
-      />
+      <div id="map-container" ref={mapContainerRef} style={{ ...containerStyle }} />
     </div>
   );
 }

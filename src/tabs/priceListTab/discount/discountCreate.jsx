@@ -40,8 +40,7 @@ const DiscountCreate = () => {
     validationSchema: Yup.object({
       name: Yup.string().required("First name is required"),
       description: Yup.string().required("Description is required"),
-      amount: Yup.number()
-        .typeError("Amount must be a number"),
+      amount: Yup.number().typeError("Amount must be a number"),
     }),
     onSubmit: async (values) => {
       try {
@@ -90,11 +89,7 @@ const DiscountCreate = () => {
       <Breadcrumb items={pageBreadcrums} />
       <div className="max-w-[600px] p-4 border border-gray shadow-md mt-4 mb-4">
         <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
+          <Box display="flex" justifyContent="space-between" alignItems="center">
             <Typography variant="h3" gutterBottom>
               {id ? "Edit" : "New"} Discount/Surcharge
             </Typography>
@@ -120,9 +115,7 @@ const DiscountCreate = () => {
             <Select
               name="type"
               value={formik.values.discountType}
-              onChange={(event) =>
-                formik.setFieldValue("discountType", event.target.value)
-              }
+              onChange={(event) => formik.setFieldValue("discountType", event.target.value)}
               fullWidth
               size="small"
               disabled={id ? true : false}
@@ -160,34 +153,17 @@ const DiscountCreate = () => {
               onChange={formik.handleChange}
               fullWidth
               onBlur={formik.handleBlur}
-              error={
-                formik.touched.description && Boolean(formik.errors.description)
-              }
-              helperText={
-                formik.touched.description && formik.errors.description
-              }
+              error={formik.touched.description && Boolean(formik.errors.description)}
+              helperText={formik.touched.description && formik.errors.description}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
             />
           </Box>
 
           <FormControl component="fieldset" margin="normal">
             <FormLabel component="legend">Unit</FormLabel>
-            <RadioGroup
-              row
-              name="unit"
-              value={formik.values.unit}
-              onChange={formik.handleChange}
-            >
-              <FormControlLabel
-                value="dollar"
-                control={<Radio />}
-                label="Dollar ($)"
-              />
-              <FormControlLabel
-                value="percentage"
-                control={<Radio />}
-                label="Percentage (%)"
-              />
+            <RadioGroup row name="unit" value={formik.values.unit} onChange={formik.handleChange}>
+              <FormControlLabel value="dollar" control={<Radio />} label="Dollar ($)" />
+              <FormControlLabel value="percentage" control={<Radio />} label="Percentage (%)" />
             </RadioGroup>
           </FormControl>
 
@@ -219,26 +195,10 @@ const DiscountCreate = () => {
                   value={formik.values.roundingDefault}
                   onChange={formik.handleChange}
                 >
-                  <FormControlLabel
-                    value="No Rounding"
-                    control={<Radio />}
-                    label="No Rounding"
-                  />
-                  <FormControlLabel
-                    value="quater"
-                    control={<Radio />}
-                    label="$0.25"
-                  />
-                  <FormControlLabel
-                    value="half"
-                    control={<Radio />}
-                    label="$0.50"
-                  />
-                  <FormControlLabel
-                    value="whole"
-                    control={<Radio />}
-                    label="$1.00"
-                  />
+                  <FormControlLabel value="No Rounding" control={<Radio />} label="No Rounding" />
+                  <FormControlLabel value="quater" control={<Radio />} label="$0.25" />
+                  <FormControlLabel value="half" control={<Radio />} label="$0.50" />
+                  <FormControlLabel value="whole" control={<Radio />} label="$1.00" />
                 </RadioGroup>
               </FormControl>
 
@@ -252,35 +212,17 @@ const DiscountCreate = () => {
                 >
                   <FormControlLabel
                     value="Closest"
-                    control={
-                      <Radio
-                        disabled={
-                          formik.values.roundingDefault === "No Rounding"
-                        }
-                      />
-                    }
+                    control={<Radio disabled={formik.values.roundingDefault === "No Rounding"} />}
                     label="Closest"
                   />
                   <FormControlLabel
                     value="Round Up"
-                    control={
-                      <Radio
-                        disabled={
-                          formik.values.roundingDefault === "No Rounding"
-                        }
-                      />
-                    }
+                    control={<Radio disabled={formik.values.roundingDefault === "No Rounding"} />}
                     label="Round Up"
                   />
                   <FormControlLabel
                     value="Round Down"
-                    control={
-                      <Radio
-                        disabled={
-                          formik.values.roundingDefault === "No Rounding"
-                        }
-                      />
-                    }
+                    control={<Radio disabled={formik.values.roundingDefault === "No Rounding"} />}
                     label="Round Down"
                   />
                 </RadioGroup>

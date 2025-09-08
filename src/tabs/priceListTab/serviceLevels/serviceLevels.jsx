@@ -13,10 +13,7 @@ export const Servicelevels = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="New Service Level"
-          url={"/pricelist/servicelevels/create"}
-        />
+        <LinkBtn label="New Service Level" url={"/pricelist/servicelevels/create"} />
       </div>
       <ServiceLevelsGrid />
     </div>

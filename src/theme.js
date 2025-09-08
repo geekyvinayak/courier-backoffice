@@ -211,10 +211,9 @@ export const useMode = () => {
   // Color mode toggle function
   const colorMode = useMemo(
     () => ({
-      toggleColorMode: () =>
-        setMode((prev) => (prev === "light" ? "dark" : "light")),
+      toggleColorMode: () => setMode((prev) => (prev === "light" ? "dark" : "light")),
     }),
-    [],
+    []
   );
 
   // Create the theme using the mode (light or dark)

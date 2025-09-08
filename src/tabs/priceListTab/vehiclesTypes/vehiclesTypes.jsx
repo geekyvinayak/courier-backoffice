@@ -16,11 +16,7 @@ const VehiclesTypes = () => {
         ]}
       />
       <div>
-        <LinkBtn
-          label="New Vehicle Type"
-          url={"/pricelist/vehiclestype/create"}
-          className="ml-4"
-        />
+        <LinkBtn label="New Vehicle Type" url={"/pricelist/vehiclestype/create"} className="ml-4" />
       </div>
       <VehiclesTypeGrid />
     </div>

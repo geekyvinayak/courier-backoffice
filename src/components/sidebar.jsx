@@ -109,7 +109,7 @@ const Sidebarr = () => {
               margin: "10px 0 20px 0",
               color: colors.grey[100],
             }}
-            component={<Link to="/settings/system/users" />}
+            component={<Link to="/settings/configurations/order" />}
             active={currentPath === "settings"}
           ></MenuItem>
         </Menu>

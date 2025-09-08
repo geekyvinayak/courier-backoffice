@@ -5,7 +5,7 @@ import UserGrid from "./usersGrid";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
 export const Users = () => {
-  const [showAchive,setShowArchive] = useState(false);
+  const [showAchive, setShowArchive] = useState(false);
   return (
     <div className="wraper-container">
       <SubTabNavigator
@@ -28,17 +28,13 @@ export const Users = () => {
               id="showArchive"
               name="showArchive"
               checked={showAchive}
-              onChange={(event) =>
-                setShowArchive(event.target.checked)
-              }
+              onChange={(event) => setShowArchive(event.target.checked)}
             />
           }
-          label={
-            <span className="text-sm font-normal">Show Archive Users</span>
-          }
+          label={<span className="text-sm font-normal">Show Archive Users</span>}
         />
       </div>
-      <UserGrid showAchive={showAchive}/>
+      <UserGrid showAchive={showAchive} />
     </div>
   );
 };

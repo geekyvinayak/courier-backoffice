@@ -50,9 +50,7 @@ const PricingZone = () => {
     if (term.trim() === "") {
       setFilteredZones(zones);
     } else {
-      const filtered = zones.filter((zone) =>
-        zone.toLowerCase().includes(term.toLowerCase()),
-      );
+      const filtered = zones.filter((zone) => zone.toLowerCase().includes(term.toLowerCase()));
       setFilteredZones(filtered);
     }
   };

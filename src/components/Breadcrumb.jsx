@@ -26,9 +26,7 @@ const Breadcrumb = ({ items = [] }) => {
           >
             {item.label}
           </Link>
-          {index < lastIndex && (
-            <NavigateNextOutlinedIcon className="w-4 h-4 text-gray-400" />
-          )}
+          {index < lastIndex && <NavigateNextOutlinedIcon className="w-4 h-4 text-gray-400" />}
         </React.Fragment>
       ))}
     </nav>

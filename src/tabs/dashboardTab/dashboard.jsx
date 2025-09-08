@@ -163,11 +163,7 @@ const OrderDashboard = () => {
       </div> */}
         <div className="h-50%">
           <Card>
-            <CardHeader
-              title={
-                <Typography variant="h6">Delivered Orders Per Day</Typography>
-              }
-            />
+            <CardHeader title={<Typography variant="h6">Delivered Orders Per Day</Typography>} />
             <CardContent>
               <div style={{ height: "320px" }}>
                 <ResponsiveBar
@@ -281,11 +277,7 @@ const LatenessChart = () => {
   return (
     <Card>
       <CardHeader
-        title={
-          <Typography variant="h6">
-            Minutes of Lateness Per Working Hour
-          </Typography>
-        }
+        title={<Typography variant="h6">Minutes of Lateness Per Working Hour</Typography>}
       />
       <CardContent>
         <div style={{ height: "250px" }}>
@@ -451,7 +443,7 @@ const LastOrders = () => {
 
   return (
     <div className="w-[35%]">
-      <Card sx={{ p: 2  }}>
+      <Card sx={{ p: 2 }}>
         <CardHeader title="Last Orders Created" sx={{ p: 1, pb: 2 }} />
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {orders.map((order) => (
@@ -461,10 +453,11 @@ const LastOrders = () => {
                 display: "flex",
                 borderBottom: "1px solid #e0e0e0",
                 pb: 2,
-                backgroundColor:"#f7f7f7" ,p:2
+                backgroundColor: "#f7f7f7",
+                p: 2,
               }}
             >
-              <Box sx={{ display: "flex", gap: 2, flex: 1}}>
+              <Box sx={{ display: "flex", gap: 2, flex: 1 }}>
                 <Box>
                   <Typography
                     variant="subtitle1"
@@ -485,17 +478,11 @@ const LastOrders = () => {
                   >
                     <LocationOnIcon sx={{ color: "#4CAF50", fontSize: 20 }} />
                     <Box>
-                      <Typography variant="body2">
-                        {order.pickup.address}
-                      </Typography>
+                      <Typography variant="body2">{order.pickup.address}</Typography>
                       <Typography variant="caption" color="text.secondary">
                         {order.pickup.city}
                       </Typography>
-                      <Typography
-                        variant="caption"
-                        display="block"
-                        color="text.secondary"
-                      >
+                      <Typography variant="caption" display="block" color="text.secondary">
                         {order.pickup.time}
                       </Typography>
                     </Box>
@@ -523,17 +510,11 @@ const LastOrders = () => {
                 <Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
                   <LocationOnIcon sx={{ color: "#F44336", fontSize: 20 }} />
                   <Box>
-                    <Typography variant="body2">
-                      {order.delivery.address}
-                    </Typography>
+                    <Typography variant="body2">{order.delivery.address}</Typography>
                     <Typography variant="caption" color="text.secondary">
                       {order.delivery.city}
                     </Typography>
-                    <Typography
-                      variant="caption"
-                      display="block"
-                      color="text.secondary"
-                    >
+                    <Typography variant="caption" display="block" color="text.secondary">
                       {order.delivery.time}
                     </Typography>
                   </Box>

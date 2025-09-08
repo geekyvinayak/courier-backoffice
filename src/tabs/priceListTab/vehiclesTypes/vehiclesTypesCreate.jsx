@@ -22,61 +22,41 @@ import useToast from "../../../components/toast/useToast";
 const validationSchema = Yup.object({
   displayId: Yup.number()
     .typeError("Display ID must be a number")
-    .transform((value, originalValue) =>
-      originalValue === "" ? undefined : Number(value),
-    )
+    .transform((value, originalValue) => (originalValue === "" ? undefined : Number(value)))
     .required("Display ID is required"),
 
-  name: Yup.string()
-    .max(100, "Name must be at most 100 characters")
-    .required("Name is required"),
+  name: Yup.string().max(100, "Name must be at most 100 characters").required("Name is required"),
 
-  optimizationProfile: Yup.string().required(
-    "Optimization Profile is required",
-  ),
+  optimizationProfile: Yup.string().required("Optimization Profile is required"),
 
-  capacityOverage: Yup.string().required(
-    "Dispatch Option on Vehicle Capacity Overage is required",
-  ),
+  capacityOverage: Yup.string().required("Dispatch Option on Vehicle Capacity Overage is required"),
 
   maxNumOfPieces: Yup.number()
     .typeError("Maximum Number of Pieces must be a number")
-    .transform((value, originalValue) =>
-      originalValue === "" ? undefined : Number(value),
-    )
+    .transform((value, originalValue) => (originalValue === "" ? undefined : Number(value)))
     .notRequired(),
 
   maxVolume: Yup.number()
     .typeError("Maximum Volume must be a number")
-    .transform((value, originalValue) =>
-      originalValue === "" ? undefined : Number(value),
-    )
+    .transform((value, originalValue) => (originalValue === "" ? undefined : Number(value)))
     .notRequired(),
 
   maxWeight: Yup.number()
     .typeError("Maximum Weight must be a number")
-    .transform((value, originalValue) =>
-      originalValue === "" ? undefined : Number(value),
-    )
+    .transform((value, originalValue) => (originalValue === "" ? undefined : Number(value)))
     .notRequired(),
 
   baseFuelMilage: Yup.number()
     .typeError("Base Fuel Mileage must be a number")
-    .transform((value, originalValue) =>
-      originalValue === "" ? undefined : Number(value),
-    )
+    .transform((value, originalValue) => (originalValue === "" ? undefined : Number(value)))
     .notRequired(),
 
   color: Yup.string()
-    .transform((value, originalValue) =>
-      originalValue === "" ? undefined : value,
-    )
+    .transform((value, originalValue) => (originalValue === "" ? undefined : value))
     .notRequired(),
 
   image: Yup.string()
-    .transform((value, originalValue) =>
-      originalValue === "" ? undefined : value,
-    )
+    .transform((value, originalValue) => (originalValue === "" ? undefined : value))
     .notRequired(),
 
   default: Yup.boolean().notRequired(),
@@ -218,16 +198,12 @@ const VehiclesTypesCreate = () => {
       Object.entries({
         ...values,
         displayId: Number(values.displayId),
-        maxNumOfPieces: values.maxNumOfPieces
-          ? Number(values.maxNumOfPieces)
-          : null,
+        maxNumOfPieces: values.maxNumOfPieces ? Number(values.maxNumOfPieces) : null,
         maxVolume: values.maxVolume ? parseFloat(values.maxVolume) : null,
         maxWeight: values.maxWeight ? parseFloat(values.maxWeight) : null,
-        baseFuelMilage: values.baseFuelMilage
-          ? parseFloat(values.baseFuelMilage)
-          : null,
+        baseFuelMilage: values.baseFuelMilage ? parseFloat(values.baseFuelMilage) : null,
         image: values.image !== "" ? values.image : null,
-      }).filter(([_, value]) => value !== null && value !== undefined),
+      }).filter(([_, value]) => value !== null && value !== undefined)
     );
 
     try {
@@ -249,166 +225,164 @@ const VehiclesTypesCreate = () => {
 
   return (
     <div className="wraper-container">
-    <div className="pb-4">
-      <SubTabNavigator
-        data={[
-          {
-            lable: "Vehicle Types",
-            url: "/pricelist/vehiclestype",
-            isFilled: true,
-          },
-          {
-            lable: "Vehicle Equivalencies",
-            url: "/pricelist/vehicleequivalencies",
-          },
-        ]}
-      />
-      <Breadcrumb
-        items={[
-          { label: "Vehicles", href: "/pricelist/vehiclestype" },
-          {
-            label: id ? `Edit ${id}` : "New Vehicle Type",
-            href: "", // Conditional href
-          },
-        ]}
-      />
-      <div className="max-w-[600px] p-4 border border-gray shadow-md mt-4 mb-4">
-        <Formik
-          initialValues={initialFormValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-          className="border-2 border-black"
-          enableReinitialize={true}
-        >
-          {({ values, setFieldValue, errors, touched }) => (
-            <Form>
-              <Box
-                marginBottom={2}
-                display={"flex"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-              >
-                <Typography variant="h3" gutterBottom>
-                  Vehicle Information
-                </Typography>
-                {/* Submit Button */}
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                    // Red border (you can change the color)
-                    backgroundColor: "#1569CB",
-                  }}
+      <div className="pb-4">
+        <SubTabNavigator
+          data={[
+            {
+              lable: "Vehicle Types",
+              url: "/pricelist/vehiclestype",
+              isFilled: true,
+            },
+            {
+              lable: "Vehicle Equivalencies",
+              url: "/pricelist/vehicleequivalencies",
+            },
+          ]}
+        />
+        <Breadcrumb
+          items={[
+            { label: "Vehicles", href: "/pricelist/vehiclestype" },
+            {
+              label: id ? `Edit ${id}` : "New Vehicle Type",
+              href: "", // Conditional href
+            },
+          ]}
+        />
+        <div className="max-w-[600px] p-4 border border-gray shadow-md mt-4 mb-4">
+          <Formik
+            initialValues={initialFormValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+            className="border-2 border-black"
+            enableReinitialize={true}
+          >
+            {({ values, setFieldValue, errors, touched }) => (
+              <Form>
+                <Box
+                  marginBottom={2}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
                 >
-                  Save
-                </Button>
-              </Box>
+                  <Typography variant="h3" gutterBottom>
+                    Vehicle Information
+                  </Typography>
+                  {/* Submit Button */}
 
-              {fieldDefinitions.map((field) => (
-                <Box marginBottom={2} key={field.id}>
-                  {field.type === "text" && (
-                    <div>
-                      <Typography variant="body1" gutterBottom>
-                        {field.label}
-                      </Typography>
-                      <Field
-                        name={field.id}
-                        as={TextField}
-                        fullWidth
-                        size="small"
-                        error={touched[field.id] && Boolean(errors[field.id])}
-                        helperText={touched[field.id] && errors[field.id]}
-                      />
-                    </div>
-                  )}
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      // Red border (you can change the color)
+                      backgroundColor: "#1569CB",
+                    }}
+                  >
+                    Save
+                  </Button>
+                </Box>
 
-                  {field.type === "select" && (
-                    <FormControl fullWidth size="small">
-                      <div>
-                        <Typography variant="body1" gutterBottom>
-                          {field.label}
-                        </Typography>
-                        <Field name={field.id} as={Select} fullWidth>
-                          {field.options.map((opt) => (
-                            <MenuItem key={opt.value} value={opt.value}>
-                              {opt.label}
-                            </MenuItem>
-                          ))}
-                        </Field>
-                        {touched[field.id] && errors[field.id] && (
-                          <Typography color="error" variant="caption">
-                            {errors[field.id]}
-                          </Typography>
-                        )}
-                      </div>
-                    </FormControl>
-                  )}
-                  {field.type === "color" && (
-                    <FormControl>
+                {fieldDefinitions.map((field) => (
+                  <Box marginBottom={2} key={field.id}>
+                    {field.type === "text" && (
                       <div>
                         <Typography variant="body1" gutterBottom>
                           {field.label}
                         </Typography>
                         <Field
                           name={field.id}
-                          as={"input"}
+                          as={TextField}
                           fullWidth
-                          type="color"
                           size="small"
-                          onChange={(e) =>
-                            setFieldValue("color", e.target.value)
-                          }
-                          value={values.color}
-                          label={field.label}
                           error={touched[field.id] && Boolean(errors[field.id])}
-                          style={{
-                            width: "100%",
-                            height: "40px",
-                            border: "1px solid #ccc",
-                            borderRadius: "4px",
-                          }}
+                          helperText={touched[field.id] && errors[field.id]}
                         />
                       </div>
-                      {touched[field.id] && errors[field.id] && (
-                        <Typography color="error" variant="caption">
-                          {errors[field.id]}
-                        </Typography>
-                      )}
-                    </FormControl>
-                  )}
-                </Box>
-              ))}
-              {/* Icon Selector */}
-              <FormControl>
-                <Box marginBottom={2}>
-                  <Typography variant="body1">Icon</Typography>
-                  <Grid2 container spacing={2}>
-                    {options.icons.map((icon) => (
-                      <Grid2 item key={icon.value}>
-                        <div
-                          className={`cursor-pointer border-2 ${values.image == icon.src ? "border-[#1569cb]" : "border-white"}`}
-                          onClick={() => setFieldValue("image", icon.src)}
-                        >
-                          <img src={icon.src} alt={icon.value} />
+                    )}
+
+                    {field.type === "select" && (
+                      <FormControl fullWidth size="small">
+                        <div>
+                          <Typography variant="body1" gutterBottom>
+                            {field.label}
+                          </Typography>
+                          <Field name={field.id} as={Select} fullWidth>
+                            {field.options.map((opt) => (
+                              <MenuItem key={opt.value} value={opt.value}>
+                                {opt.label}
+                              </MenuItem>
+                            ))}
+                          </Field>
+                          {touched[field.id] && errors[field.id] && (
+                            <Typography color="error" variant="caption">
+                              {errors[field.id]}
+                            </Typography>
+                          )}
                         </div>
-                      </Grid2>
-                    ))}
-                  </Grid2>
-                  {touched.image && errors.image && (
-                    <Typography color="error" variant="caption">
-                      {errors.image}
-                    </Typography>
-                  )}
-                </Box>
-              </FormControl>
-            </Form>
-          )}
-        </Formik>
+                      </FormControl>
+                    )}
+                    {field.type === "color" && (
+                      <FormControl>
+                        <div>
+                          <Typography variant="body1" gutterBottom>
+                            {field.label}
+                          </Typography>
+                          <Field
+                            name={field.id}
+                            as={"input"}
+                            fullWidth
+                            type="color"
+                            size="small"
+                            onChange={(e) => setFieldValue("color", e.target.value)}
+                            value={values.color}
+                            label={field.label}
+                            error={touched[field.id] && Boolean(errors[field.id])}
+                            style={{
+                              width: "100%",
+                              height: "40px",
+                              border: "1px solid #ccc",
+                              borderRadius: "4px",
+                            }}
+                          />
+                        </div>
+                        {touched[field.id] && errors[field.id] && (
+                          <Typography color="error" variant="caption">
+                            {errors[field.id]}
+                          </Typography>
+                        )}
+                      </FormControl>
+                    )}
+                  </Box>
+                ))}
+                {/* Icon Selector */}
+                <FormControl>
+                  <Box marginBottom={2}>
+                    <Typography variant="body1">Icon</Typography>
+                    <Grid2 container spacing={2}>
+                      {options.icons.map((icon) => (
+                        <Grid2 item key={icon.value}>
+                          <div
+                            className={`cursor-pointer border-2 ${values.image == icon.src ? "border-[#1569cb]" : "border-white"}`}
+                            onClick={() => setFieldValue("image", icon.src)}
+                          >
+                            <img src={icon.src} alt={icon.value} />
+                          </div>
+                        </Grid2>
+                      ))}
+                    </Grid2>
+                    {touched.image && errors.image && (
+                      <Typography color="error" variant="caption">
+                        {errors.image}
+                      </Typography>
+                    )}
+                  </Box>
+                </FormControl>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
     </div>
-      </div>
   );
 };
 

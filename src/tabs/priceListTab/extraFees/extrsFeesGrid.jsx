@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getRequest } from "../../../consts/apiCalls";
 
 const columns = [
-  { field: "displayId", headerName: "Display Id", cellClassName:"!text-[#3e4396]", flex: 1 },
+  { field: "displayId", headerName: "Display Id", cellClassName: "!text-[#3e4396]", flex: 1 },
   { field: "name", headerName: "Name", flex: 1.5 },
   { field: "unitsOfMeasure", headerName: "Unit of Measure", flex: 1.5 },
   { field: "reference", headerName: "Reference #", flex: 1 },
@@ -19,9 +19,9 @@ const ExtraFeesGrid = () => {
     try {
       const response = await getRequest("/extraFee");
       setExtraFeesList(response);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
 
       console.error("Error fetching Extra fees:", error);
     }
@@ -44,14 +44,14 @@ const ExtraFeesGrid = () => {
             }
           }}
           loading={loading}
-        slotProps={{
-          loadingOverlay: {
-            variant: 'circular-progress',
-            noRowsVariant: 'circular-progress',
-          },
-        }}
+          slotProps={{
+            loadingOverlay: {
+              variant: "circular-progress",
+              noRowsVariant: "circular-progress",
+            },
+          }}
           rowHeight={45}
-           columnHeaderHeight={45}
+          columnHeaderHeight={45}
           disableColumnMenu
           disableSelectionOnClick
           initialState={{
@@ -75,10 +75,10 @@ const ExtraFeesGrid = () => {
               fontWeight: "bold", // Bold text
               fontSize: "14px", // Increase font size
             },
-            "& .MuiDataGrid-virtualScrollerContent":{
+            "& .MuiDataGrid-virtualScrollerContent": {
               fontWeight: "500", // Bold text
               fontSize: "12px",
-            }
+            },
           }}
         />
       </div>

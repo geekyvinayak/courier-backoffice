@@ -8,9 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
-import {
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import useToast from "../../../components/toast/useToast";
 
 const CreateServiceLevel = () => {
@@ -34,8 +32,8 @@ const CreateServiceLevel = () => {
     onSubmit: async (values) => {
       try {
         const response = await postRequest("/api/service-level", values);
-        if(id) {
-        showSuccess("Service Level Updated");
+        if (id) {
+          showSuccess("Service Level Updated");
         }
         showSuccess("Service Level Added");
         navigate("/pricelist/servicelevels");
@@ -84,7 +82,7 @@ const CreateServiceLevel = () => {
             lable: "Service Level Schedules",
             url: "/pricelist/servicelevelschedule",
           },
-          { lable: "Service Levels", url: "/pricelist/servicelevels",isFilled:true },
+          { lable: "Service Levels", url: "/pricelist/servicelevels", isFilled: true },
         ]}
       />
       <Breadcrumb items={pageBreadcrums} />
@@ -128,15 +126,14 @@ const CreateServiceLevel = () => {
               error={
                 formik.touched.serviceLevelDisplayId && Boolean(formik.errors.serviceLevelDisplayId)
               }
-              helperText={formik.touched.serviceLevelDisplayId && formik.errors.serviceLevelDisplayId}
+              helperText={
+                formik.touched.serviceLevelDisplayId && formik.errors.serviceLevelDisplayId
+              }
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
             />
           </div>
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="name" className="block text-sm text-gray-700 mb-1 font-semibold">
               Name
             </label>
             <TextField
@@ -154,10 +151,7 @@ const CreateServiceLevel = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="description"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="description" className="block text-sm text-gray-700 mb-1 font-semibold">
               Description
             </label>
             <TextField
@@ -175,10 +169,7 @@ const CreateServiceLevel = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor="color"
-              className="block text-sm text-gray-700 mb-1 font-semibold"
-            >
+            <label htmlFor="color" className="block text-sm text-gray-700 mb-1 font-semibold">
               Color
             </label>
             <TextField

@@ -98,9 +98,7 @@ const TravelOptions = ({ values, setFieldValue }) => {
             variant="outlined"
             name="warehouseLongitude"
             value={values.warehouseLongitude}
-            onChange={(e) =>
-              setFieldValue("warehouseLongitude", e.target.value)
-            }
+            onChange={(e) => setFieldValue("warehouseLongitude", e.target.value)}
           />
         </Box>
       </Box>
@@ -111,9 +109,7 @@ const TravelOptions = ({ values, setFieldValue }) => {
           control={
             <Checkbox
               checked={values.excludeDistanceOnReturnOrders}
-              onChange={(e) =>
-                setFieldValue("excludeDistanceOnReturnOrders", e.target.checked)
-              }
+              onChange={(e) => setFieldValue("excludeDistanceOnReturnOrders", e.target.checked)}
             />
           }
           label="EXCLUDE DISTANCE ON RETURN ORDERS"
@@ -125,10 +121,7 @@ const TravelOptions = ({ values, setFieldValue }) => {
             <Checkbox
               checked={values.excludeDistanceOnContinuationOrders}
               onChange={(e) =>
-                setFieldValue(
-                  "excludeDistanceOnContinuationOrders",
-                  e.target.checked,
-                )
+                setFieldValue("excludeDistanceOnContinuationOrders", e.target.checked)
               }
             />
           }
@@ -162,9 +155,7 @@ const TravelOptions = ({ values, setFieldValue }) => {
         <Button
           type="button"
           color="primary"
-          onClick={() =>
-            setFieldValue("distanceFormula", initialValues.distanceFormula)
-          }
+          onClick={() => setFieldValue("distanceFormula", initialValues.distanceFormula)}
         >
           Reset to Default
         </Button>
@@ -239,325 +230,298 @@ const NewPrice = () => {
     },
     {
       id: 2,
-      label: id?"Edit Price List":"New Price List",
+      label: id ? "Edit Price List" : "New Price List",
       href: "",
     },
   ];
 
   return (
     <div className="wraper-container">
-    <div className="pb-4">
-      <div className="mt-2">
-        <Breadcrumb items={pageBreadcrums} />
-      </div>
-      <div className="flex gap-10">
-        <div className="max-w-[600px] w-full p-4 border border-gray shadow-md mt-4 mb-4">
-          <form onSubmit={formik.handleSubmit}>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              marginBottom={2}
-            >
-              <Typography variant="h3" gutterBottom>
-                {id? `Edit ${formik.values.name}`:"New Price List"}
-              </Typography>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{
-                  // Red border (you can change the color)
-                  backgroundColor: "#3e4396",
-                }}
+      <div className="pb-4">
+        <div className="mt-2">
+          <Breadcrumb items={pageBreadcrums} />
+        </div>
+        <div className="flex gap-10">
+          <div className="max-w-[600px] w-full p-4 border border-gray shadow-md mt-4 mb-4">
+            <form onSubmit={formik.handleSubmit}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                marginBottom={2}
               >
-                Save
-              </Button>
-            </Box>
+                <Typography variant="h3" gutterBottom>
+                  {id ? `Edit ${formik.values.name}` : "New Price List"}
+                </Typography>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    // Red border (you can change the color)
+                    backgroundColor: "#3e4396",
+                  }}
+                >
+                  Save
+                </Button>
+              </Box>
 
-            {/* Text Field */}
-            <div style={{ marginBottom: "10px" }}>
-              <Typography variant="body1" gutterBottom>
-                Name
-              </Typography>
-              <TextField
-                name="name"
-                fullWidth
-                size="small"
-                variant="outlined"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-              />
-            </div>
-
-            {id && (
+              {/* Text Field */}
               <div style={{ marginBottom: "10px" }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formik.values.fuelSurcharge}
-                      onChange={(e) =>
-                        formik.setFieldValue("fuelSurcharge", e.target.checked)
-                      }
-                    />
-                  }
-                  label="FUEL SURCHARGE"
+                <Typography variant="body1" gutterBottom>
+                  Name
+                </Typography>
+                <TextField
+                  name="name"
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
                 />
               </div>
-            )}
 
-            {/* Conditional Checkbox */}
-            {formik.values.type !== "Combined" && (
-              <div style={{ marginBottom: "10px" }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formik.values.includeWarehouseTravellingDistance}
-                      onChange={(e) =>
-                        formik.setFieldValue(
-                          "includeWarehouseTravellingDistance",
-                          e.target.checked,
-                        )
-                      }
-                    />
-                  }
-                  label="INCLUDE WAREHOUSE TRAVELLING DISTANCE"
-                  className="!mr-0"
-                />
-                <Tooltip title="Customize how the distance portion of the pricing is calculated by using the travelling distance from and to the warehouse.">
-                  <IconButton>
-                    <InfoRounded className="text-[#3e4396]" />
-                  </IconButton>
-                </Tooltip>
-
-                {formik.values.includeWarehouseTravellingDistance && (
-                  <TravelOptions
-                    values={formik.values}
-                    setFieldValue={formik.setFieldValue}
+              {id && (
+                <div style={{ marginBottom: "10px" }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formik.values.fuelSurcharge}
+                        onChange={(e) => formik.setFieldValue("fuelSurcharge", e.target.checked)}
+                      />
+                    }
+                    label="FUEL SURCHARGE"
                   />
+                </div>
+              )}
+
+              {/* Conditional Checkbox */}
+              {formik.values.type !== "Combined" && (
+                <div style={{ marginBottom: "10px" }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formik.values.includeWarehouseTravellingDistance}
+                        onChange={(e) =>
+                          formik.setFieldValue(
+                            "includeWarehouseTravellingDistance",
+                            e.target.checked
+                          )
+                        }
+                      />
+                    }
+                    label="INCLUDE WAREHOUSE TRAVELLING DISTANCE"
+                    className="!mr-0"
+                  />
+                  <Tooltip title="Customize how the distance portion of the pricing is calculated by using the travelling distance from and to the warehouse.">
+                    <IconButton>
+                      <InfoRounded className="text-[#3e4396]" />
+                    </IconButton>
+                  </Tooltip>
+
+                  {formik.values.includeWarehouseTravellingDistance && (
+                    <TravelOptions values={formik.values} setFieldValue={formik.setFieldValue} />
+                  )}
+                </div>
+              )}
+
+              {/* Radio Buttons */}
+              <div style={{ marginBottom: "10px" }}>
+                <Typography variant="body1" gutterBottom>
+                  TYPE
+                </Typography>
+                {!id ? (
+                  <FormControl>
+                    <RadioGroup
+                      value={formik.values.type}
+                      onChange={(e) => {
+                        formik.setFieldValue("type", e.target.value);
+                        if (e.target.value === "Combined") {
+                          formik.setFieldValue("includeWarehouseTravellingDistance", false);
+                        }
+                      }}
+                      row
+                    >
+                      <FormControlLabel value="ByZone" control={<Radio />} label="By Zone" />
+                      <FormControlLabel
+                        value="ByDistance"
+                        control={<Radio />}
+                        label="By Distance"
+                      />
+                      <FormControlLabel value="Combined" control={<Radio />} label="Combined" />
+                    </RadioGroup>
+                  </FormControl>
+                ) : (
+                  <Typography variant="body1" gutterBottom>
+                    {formik.values.type}
+                  </Typography>
                 )}
               </div>
-            )}
-
-            {/* Radio Buttons */}
-            <div style={{ marginBottom: "10px" }}>
-              <Typography variant="body1" gutterBottom>
-                TYPE
-              </Typography>
-              {!id ? (
-                <FormControl>
-                  <RadioGroup
-                    value={formik.values.type}
-                    onChange={(e) => {
-                      formik.setFieldValue("type", e.target.value);
-                      if (e.target.value === "Combined") {
-                        formik.setFieldValue(
-                          "includeWarehouseTravellingDistance",
-                          false,
-                        );
-                      }
-                    }}
-                    row
-                  >
-                    <FormControlLabel
-                      value="ByZone"
-                      control={<Radio />}
-                      label="By Zone"
-                    />
-                    <FormControlLabel
-                      value="ByDistance"
-                      control={<Radio />}
-                      label="By Distance"
-                    />
-                    <FormControlLabel
-                      value="Combined"
-                      control={<Radio />}
-                      label="Combined"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              ) : (
-                <Typography variant="body1" gutterBottom>
-                  {formik.values.type}
-                </Typography>
-              )}
-            </div>
-            {id && (
-              <div style={{ marginBottom: "10px" }}>
-                <Typography variant="body1" gutterBottom>
-                  PRICING METHOD
-                </Typography>
-                <FormControl>
-                  <RadioGroup
-                    value={formik.values.pricingMethod}
-                    onChange={(e) => {
-                      formik.setFieldValue("pricingMethod", e.target.value);
-                    }}
-                    row
-                  >
-                    <FormControlLabel
-                      value="VehicleTypeSurcharge"
-                      control={<Radio />}
-                      label="Vehicle Type Surcharge"
-                    />
-                    <FormControlLabel
-                      value="SeparatePriceSheetByVehicle"
-                      control={<Radio />}
-                      label="Separate Price Sheet By Vehicle"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </div>
-            )}
-
-            {id && (
-              <div style={{ marginBottom: "10px" }}>
-                <FormControl fullWidth>
+              {id && (
+                <div style={{ marginBottom: "10px" }}>
                   <Typography variant="body1" gutterBottom>
-                    VEHICLE TYPES
+                    PRICING METHOD
                   </Typography>
-                  <Table>
-                    <TableHead>
-                      <TableCell>Vehicle Type</TableCell>
-                      {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>Minimum Charges</TableCell>}
-                      {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>Surcharge</TableCell>}
-                    </TableHead>
-                    <TableBody>
-                      {vehicleType?.map((vehicle, index) => {
-                        const handleInputChange = (
-                          e,
-                          chargeName,
-                          vehicleId,
-                        ) => {
-                          const value = Number(e.target.value);
-                          let flag = false;
-                          // Update the specific vehicle surcharge data in the formik values
-                          let updatedSurchargeData =
-                            formik.values.vehicleTypeSurchargeDtoList.map(
-                              (item) => {
+                  <FormControl>
+                    <RadioGroup
+                      value={formik.values.pricingMethod}
+                      onChange={(e) => {
+                        formik.setFieldValue("pricingMethod", e.target.value);
+                      }}
+                      row
+                    >
+                      <FormControlLabel
+                        value="VehicleTypeSurcharge"
+                        control={<Radio />}
+                        label="Vehicle Type Surcharge"
+                      />
+                      <FormControlLabel
+                        value="SeparatePriceSheetByVehicle"
+                        control={<Radio />}
+                        label="Separate Price Sheet By Vehicle"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+              )}
+
+              {id && (
+                <div style={{ marginBottom: "10px" }}>
+                  <FormControl fullWidth>
+                    <Typography variant="body1" gutterBottom>
+                      VEHICLE TYPES
+                    </Typography>
+                    <Table>
+                      <TableHead>
+                        <TableCell>Vehicle Type</TableCell>
+                        {formik.values.pricingMethod != "SeparatePriceSheetByVehicle" && (
+                          <TableCell>Minimum Charges</TableCell>
+                        )}
+                        {formik.values.pricingMethod != "SeparatePriceSheetByVehicle" && (
+                          <TableCell>Surcharge</TableCell>
+                        )}
+                      </TableHead>
+                      <TableBody>
+                        {vehicleType?.map((vehicle, index) => {
+                          const handleInputChange = (e, chargeName, vehicleId) => {
+                            const value = Number(e.target.value);
+                            let flag = false;
+                            // Update the specific vehicle surcharge data in the formik values
+                            let updatedSurchargeData =
+                              formik.values.vehicleTypeSurchargeDtoList.map((item) => {
                                 if (vehicleId == item.vehicleTypeId) {
                                   item[chargeName] = value; // update the specific field
                                   flag = true;
                                 }
                                 return item;
-                              },
+                              });
+                            if (!flag) {
+                              updatedSurchargeData.push({
+                                vehicleTypeId: vehicleId,
+                                [chargeName]: value,
+                              });
+                            }
+                            console.log(formik.values.vehicleTypeSurchargeDtoList);
+                            formik.setFieldValue(
+                              "vehicleTypeSurchargeDtoList",
+                              updatedSurchargeData
                             );
-                          if (!flag) {
-                            updatedSurchargeData.push({
-                              vehicleTypeId: vehicleId,
-                              [chargeName]: value,
-                            });
-                          }
-                          console.log(
-                            formik.values.vehicleTypeSurchargeDtoList,
-                          );
-                          formik.setFieldValue(
-                            "vehicleTypeSurchargeDtoList",
-                            updatedSurchargeData,
-                          );
-                        };
+                          };
 
-                        return (
-                          <TableRow key={vehicle.id}>
-                            <TableCell>
-                              <TextField
-                                name={`vehicleTypeId_${vehicle.id}`}
-                                size="small"
-                                fullWidth
-                                variant="outlined"
-                                value={vehicle.id}
-                                disabled
-                              />
-                            </TableCell>
-                            {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>
-                              <TextField
-                                name={`minimumSurcharge_${vehicle.id}`}
-                                size="small"
-                                variant="outlined"
-                                value={
-                                  formik.values.vehicleTypeSurchargeDtoList?.find(
-                                    (charge) =>
-                                      charge.vehicleTypeId === vehicle.id,
-                                  )?.minimumSurcharge ?? 0
-                                }
-                                onChange={(e) =>
-                                  handleInputChange(
-                                    e,
-                                    "minimumSurcharge",
-                                    vehicle.id,
-                                  )
-                                }
-                              />
-                            </TableCell>}
-                            {formik.values.pricingMethod!='SeparatePriceSheetByVehicle'&&<TableCell>
-                              <TextField
-                                name={`surcharge_${vehicle.id}`}
-                                size="small"
-                                variant="outlined"
-                                value={
-                                  formik.values.vehicleTypeSurchargeDtoList?.find(
-                                    (charge) =>
-                                      charge.vehicleTypeId === vehicle.id,
-                                  )?.surcharge ?? 0
-                                }
-                                onChange={(e) =>
-                                  handleInputChange(e, "surcharge", vehicle.id)
-                                }
-                              />
-                            </TableCell>}
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
-                </FormControl>
-              </div>
-            )}
+                          return (
+                            <TableRow key={vehicle.id}>
+                              <TableCell>
+                                <TextField
+                                  name={`vehicleTypeId_${vehicle.id}`}
+                                  size="small"
+                                  fullWidth
+                                  variant="outlined"
+                                  value={vehicle.id}
+                                  disabled
+                                />
+                              </TableCell>
+                              {formik.values.pricingMethod != "SeparatePriceSheetByVehicle" && (
+                                <TableCell>
+                                  <TextField
+                                    name={`minimumSurcharge_${vehicle.id}`}
+                                    size="small"
+                                    variant="outlined"
+                                    value={
+                                      formik.values.vehicleTypeSurchargeDtoList?.find(
+                                        (charge) => charge.vehicleTypeId === vehicle.id
+                                      )?.minimumSurcharge ?? 0
+                                    }
+                                    onChange={(e) =>
+                                      handleInputChange(e, "minimumSurcharge", vehicle.id)
+                                    }
+                                  />
+                                </TableCell>
+                              )}
+                              {formik.values.pricingMethod != "SeparatePriceSheetByVehicle" && (
+                                <TableCell>
+                                  <TextField
+                                    name={`surcharge_${vehicle.id}`}
+                                    size="small"
+                                    variant="outlined"
+                                    value={
+                                      formik.values.vehicleTypeSurchargeDtoList?.find(
+                                        (charge) => charge.vehicleTypeId === vehicle.id
+                                      )?.surcharge ?? 0
+                                    }
+                                    onChange={(e) => handleInputChange(e, "surcharge", vehicle.id)}
+                                  />
+                                </TableCell>
+                              )}
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </FormControl>
+                </div>
+              )}
 
-            {id && (
-              <div style={{ marginBottom: "10px" }}>
-                <FormControl fullWidth>
-                  <div className="flex items-center space-x-2">
-                    <Typography variant="body1" gutterBottom className="!mb-0">
-                      FAILOVER PRICE LIST
-                    </Typography>
-                    <Tooltip title="This price list will be used when no price is found. Order price may not calculate if the Failover Price List is not setup for all Service Levels and Vehicles.">
-                      <IconButton size="small">
-                        <InfoRounded className="text-[#3e4396]" />
-                      </IconButton>
-                    </Tooltip>
-                  </div>
-                  <TextField
-                    select
-                    name="failOverPriceListName"
-                    value={formik.values.failOverPriceListName}
-                    onChange={(e) => {
-                      formik.setFieldValue(
-                        "failOverPriceListName",
-                        e.target.value,
-                      );
-                      console.log(formik.values);
-                    }}
-                    variant="outlined"
-                    fullWidth
-                  >
-                    <MenuItem value="0">None</MenuItem>
-                    {failoverPriceLists.map((list) => (
-                      <MenuItem key={list.id} value={list.id}>
-                        {list.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </FormControl>
-              </div>
-            )}
-          </form>
-        </div>
-        <div className="">
-          {id && <PricingFileOperations id={id} fetchData={fetchPriceById} />}
+              {id && (
+                <div style={{ marginBottom: "10px" }}>
+                  <FormControl fullWidth>
+                    <div className="flex items-center space-x-2">
+                      <Typography variant="body1" gutterBottom className="!mb-0">
+                        FAILOVER PRICE LIST
+                      </Typography>
+                      <Tooltip title="This price list will be used when no price is found. Order price may not calculate if the Failover Price List is not setup for all Service Levels and Vehicles.">
+                        <IconButton size="small">
+                          <InfoRounded className="text-[#3e4396]" />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
+                    <TextField
+                      select
+                      name="failOverPriceListName"
+                      value={formik.values.failOverPriceListName}
+                      onChange={(e) => {
+                        formik.setFieldValue("failOverPriceListName", e.target.value);
+                        console.log(formik.values);
+                      }}
+                      variant="outlined"
+                      fullWidth
+                    >
+                      <MenuItem value="0">None</MenuItem>
+                      {failoverPriceLists.map((list) => (
+                        <MenuItem key={list.id} value={list.id}>
+                          {list.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </FormControl>
+                </div>
+              )}
+            </form>
+          </div>
+          <div className="">
+            {id && <PricingFileOperations id={id} fetchData={fetchPriceById} />}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
