@@ -47,15 +47,13 @@ const itemsData = {
         "/pricelist/fuel-prices",
         "/pricelist/fuel-prices/create",
         "/pricelist/fuel-prices/edit",
-<<<<<<< HEAD
         "/pricelist/fuel-surcharges-schedule",
+        "/pricelist/fuel-surcharges-schedule/create",
+        "/pricelist/fuel-surcharges-schedule/edit",
         "/pricelist/fuel-surcharges-table",
         "/pricelist/fuel-surcharges-table/edit",
-        "/pricelist/fuel-surcharges-table/create",
-      ]
-=======
+        "/pricelist/fuel-surcharges-table/create"
       ],
->>>>>>> 047bb7cf5ae9d14d5a62f2170a72370f73503cc8
     },
     {
       id: 5,
