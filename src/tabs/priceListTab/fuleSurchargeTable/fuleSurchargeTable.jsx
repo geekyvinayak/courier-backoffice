@@ -1,8 +1,9 @@
-import SubTabNavigator from "../../../components/subTabNavigator";
-import LinkBtn from "../../../components/linkBtn";
-import FuelPricesGrid from "./fuelPriceGrid";
+import React from 'react'
+import SubTabNavigator from '../../../components/subTabNavigator'
+import LinkBtn from '../../../components/linkBtn'
+import FuleSurchargesTableGrid from './fuleSurchargesTableGrid'
 
-export const FuelPrices = () => {
+export const FuleSurchargesTable = () => {
   return (
     <div className="wraper-container">
       <SubTabNavigator
@@ -14,9 +15,12 @@ export const FuelPrices = () => {
         ]}
       />
       <div>
-        <LinkBtn label="New Fuel Price" url={"/pricelist/fuel-prices/create"} />
+        <LinkBtn
+          label="New Table"
+          url={"/pricelist/fuel-surcharges-table/create"}
+        />
       </div>
-      <FuelPricesGrid />
+      <FuleSurchargesTableGrid />
     </div>
-  );
-};
+  )
+}
