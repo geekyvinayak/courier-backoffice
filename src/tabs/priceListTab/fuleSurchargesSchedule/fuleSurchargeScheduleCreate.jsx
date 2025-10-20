@@ -7,6 +7,7 @@ import { getRequest, postRequest, putRequest } from "../../../consts/apiCalls";
 import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
 import useToast from "../../../components/toast/useToast";
+import FuelSurchargeScheduleRules from "./fuelSurchargeScheduleRules";
 
 const FuelSurchargeScheduleCreate = () => {
   const navigate = useNavigate();
@@ -56,10 +57,7 @@ const FuelSurchargeScheduleCreate = () => {
     try {
       setIsLoading(true);
       const response = await getRequest(`/fuelSurchargeSchedule/${id}`);
-      formik.setValues({
-        name: response.name || "",
-        defaultFuelSurchargeTableId: response.defaultFuelSurchargeTableId || "",
-      });
+      formik.setValues(response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -169,6 +167,7 @@ const FuelSurchargeScheduleCreate = () => {
               ))}
             </TextField>
           </div>
+          {id && <FuelSurchargeScheduleRules id={id} />}
         </form>
       </div>
     </div>

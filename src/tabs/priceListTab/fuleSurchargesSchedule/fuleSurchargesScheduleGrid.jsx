@@ -56,7 +56,7 @@ const FuleSurchargesScheduleGrid = () => {
   const handleDelete = async (id) => {
     try {
       setLoading(true);
-      const response = await deleteRequest(`/fuel-surcharges-table/${id}`);
+      const response = await deleteRequest(`/fuelSurchargeSchedule/${id}`);
       fetchData();
       setLoading(false);
     } catch (error) {

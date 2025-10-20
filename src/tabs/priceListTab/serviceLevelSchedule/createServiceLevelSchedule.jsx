@@ -10,6 +10,7 @@ import Breadcrumb from "../../../components/Breadcrumb";
 import SubTabNavigator from "../../../components/subTabNavigator";
 import { Select, Typography, MenuItem } from "@mui/material";
 import useToast from "../../../components/toast/useToast";
+import ServiceLevelVehicles from "./serviceLevelVehicles";
 
 const CreateServiceLevelSchedule = () => {
   const navigate = useNavigate();
@@ -131,7 +132,7 @@ const CreateServiceLevelSchedule = () => {
             >
               Selection Sequence
             </label>
-            <Select
+            {!id && <Select
               id="selectionSequence"
               name="type"
               value={formik.values.selectionSequence}
@@ -146,8 +147,10 @@ const CreateServiceLevelSchedule = () => {
               <MenuItem value="ServiceLevelFirstThenVehicle">
                 Service Level First Then, Vehicle
               </MenuItem>
-            </Select>
+            </Select>}
+            {id && <span id="selectionSequence">{formik.values.selectionSequence}</span>}
           </div>
+          {id && <div><ServiceLevelVehicles id={id} /></div>}
         </form>
       </div>
     </div>
