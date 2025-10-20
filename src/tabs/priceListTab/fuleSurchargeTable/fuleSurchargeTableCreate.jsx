@@ -116,7 +116,7 @@ const FuleSurchargeTableCreate = () => {
       getFulePrices();
       getCalculator();
     }
-  }, []);
+  }, [formik.values.defaultMode]);
 
   const pageBreadcrums = [
     {
