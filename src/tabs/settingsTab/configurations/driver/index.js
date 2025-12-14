@@ -1,7 +1,7 @@
 import Certifications from "./Certifications/Certifications";
 import DeductionsAdditions from "./DeductionsAdditions/DeductionsAdditions";
 import Documents from "./Documents/Documents";
-import Fields from "./Fields/Fields";
+// import Fields from "./Fields/Fields";
 import SettlementCycle from "./SettlementCycle/SettlementCycle";
 
 const DriverTab = ({ selectedItem }) => {
@@ -11,8 +11,8 @@ const DriverTab = ({ selectedItem }) => {
       return <DeductionsAdditions />;
     case "Settlement Cycle":
       return <SettlementCycle />;
-    case "Fields":
-      return <Fields />;
+    // case "Fields":
+    //   return <Fields />;
     case "Documents":
       return <Documents />;
     case "Certifications":

@@ -126,24 +126,24 @@ const itemsData = {
     },
   ],
   "/settings": [
-    {
-      id: 1,
-      name: "Checkpoints",
-      link: "/settings/checkpoints",
-      childPaths: ["/settings/checkpoints"],
-    },
-    {
-      id: 2,
-      name: "Zones",
-      link: "/settings/zones",
-      childPaths: ["/settings/zones"],
-    },
-    {
-      id: 3,
-      name: "Companies",
-      link: "/settings/companies",
-      childPaths: ["/settings/companies"],
-    },
+    // {
+    //   id: 1,
+    //   name: "Checkpoints",
+    //   link: "/settings/checkpoints",
+    //   childPaths: ["/settings/checkpoints"],
+    // },
+    // {
+    //   id: 2,
+    //   name: "Zones",
+    //   link: "/settings/zones",
+    //   childPaths: ["/settings/zones"],
+    // },
+    // {
+    //   id: 3,
+    //   name: "Companies",
+    //   link: "/settings/companies",
+    //   childPaths: ["/settings/companies"],
+    // },
     {
       id: 4,
       name: "Configurations",

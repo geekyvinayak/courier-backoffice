@@ -1,17 +1,36 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteRequest, getRequest } from "../../../../consts/apiCalls";
-import { IconButton } from "@mui/material";
+import {
+  IconButton,
+  Box,
+  TextField,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  InputAdornment,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 import { DeleteDialog } from "../../../../components/deleteDialog";
 import useToast from "../../../../components/toast/useToast";
+import { InfoIcon } from "lucide-react";
 
 const AddressGrid = () => {
   const navigate = useNavigate();
-  const { showSuccess, showError, showWarning } = useToast();
+  const { showSuccess, showError } = useToast();
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
+  const [searchString, setSearchString] = useState("");
+  const [searchType, setSearchType] = useState("Address");
+  const [isSearchMode, setIsSearchMode] = useState(false);
+  const debounceTimer = useRef(null);
+
   const columns = [
     { field: "type", headerName: "Type", flex: 1, minWidth: 100 },
     {
@@ -92,15 +111,17 @@ const AddressGrid = () => {
     try {
       await deleteRequest(`/address/${id}`);
       showSuccess("Address deleted");
-      fetchContacts();
+      if (isSearchMode && searchString.length >= 3) {
+        performSearch(searchString, searchType);
+      } else {
+        fetchContacts();
+      }
     } catch (error) {
       showError("Something went wrong!");
       console.log("error", error);
     }
   };
 
-  // Mock fetch function for demonstration
-  // Replace with your actual API call
   const fetchContacts = async () => {
     setLoading(true);
     try {
@@ -113,12 +134,182 @@ const AddressGrid = () => {
     }
   };
 
-  useEffect(() => {
+  const performSearch = async (searchText, type) => {
+    if (searchText.length < 3) {
+      setIsSearchMode(false);
+      fetchContacts();
+      return;
+    }
+
+    setLoading(true);
+    setIsSearchMode(true);
+    try {
+      const response = await getRequest(
+        `/address/search?searchType=${type}&searchString=${encodeURIComponent(searchText)}`
+      );
+      setContacts(response);
+      setLoading(false);
+    } catch (error) {
+      showError("Error performing search");
+      console.error("Search error:", error);
+      setLoading(false);
+    }
+  };
+
+  const debouncedSearch = useCallback((searchText, type) => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(() => {
+      performSearch(searchText, type);
+    }, 500);
+  }, []);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchString(value);
+
+    if (value.trim() === "") {
+      setIsSearchMode(false);
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+      fetchContacts();
+    } else {
+      debouncedSearch(value, searchType);
+    }
+  };
+
+  const handleSearchTypeChange = (e) => {
+    const newType = e.target.value;
+    setSearchType(newType);
+
+    if (searchString.length >= 3) {
+      debouncedSearch(searchString, newType);
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchString("");
+    setIsSearchMode(false);
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
     fetchContacts();
-  }, [page]);
+  };
+
+  const handleSearchIconClick = () => {
+    if (searchString) {
+      // If there's text, clear it
+      handleClearSearch();
+    } else if (searchString.length >= 3) {
+      // If no text but we want to trigger search manually
+      performSearch(searchString, searchType);
+    }
+  };
+
+  useEffect(() => {
+    if (!isSearchMode) {
+      fetchContacts();
+    }
+  }, [page, isSearchMode]);
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="w-[90%] mt-5">
+      {/* Search Section */}
+      <Box sx={{ mb: 3, display: "flex", alignItems: "center", gap: 2 }}>
+        <FormControl component="fieldset">
+          <RadioGroup row value={searchType} onChange={handleSearchTypeChange}>
+            <FormControlLabel value="Address" control={<Radio />} label="Address" />
+            <FormControlLabel value="Contact" control={<Radio />} label="Contact" />
+            {/* <FormControlLabel 
+              value="Position" 
+              control={<Radio />} 
+              label="Position" 
+            /> */}
+          </RadioGroup>
+        </FormControl>
+        <Box sx={{position:"relative"}}>
+          <TextField
+            placeholder="Search by"
+            value={searchString}
+            onChange={handleSearchChange}
+            size="small"
+            sx={{ minWidth: 300, borderTopRightRadius: 0, borderTopLeftRadius: 0 }}
+          />
+          <Tooltip
+            title={
+              <Box sx={{ maxWidth: 250, p: 1, }}>
+                {searchType == "Address" ? (
+                  <>
+                    <Typography variant="subtitle2" fontWeight="bold">
+                      Available search fields
+                    </Typography>
+                    <Typography variant="body2">
+                      Address Line 1 <br />
+                      Address Line 2 <br />
+                      City <br />
+                      Postal Code <br />
+                      State Province <br />
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="subtitle2" fontWeight="bold">
+                      Available search fields
+                    </Typography>
+                    <Typography variant="body2">
+                      Account Name
+                      <br />
+                      User Name
+                      <br />
+                      User Email
+                      <br />
+                      User Phone
+                      <br />
+                      Company
+                      <br />
+                      Contact Name
+                      <br />
+                      Contact Phone
+                      <br />
+                      Contact Email
+                      <br />
+                    </Typography>
+                  </>
+                )}
+              </Box>
+            }
+          >
+            <IconButton size="small" sx={{position:"absolute",top:"15%",right:"12%"}}>
+              <InfoIcon fontSize="small" height={14} width={14} className="text-[#3e4396]" />
+            </IconButton>
+          </Tooltip>
+          <IconButton
+            color="primary"
+            sx={{
+              backgroundColor: "#1976d2",
+              borderRadius: 0,
+              color: "white",
+              "&:hover": { backgroundColor: "#1565c0" },
+            }}
+            onClick={handleSearchIconClick}
+          >
+            {searchString ? <ClearIcon /> : <SearchIcon />}
+          </IconButton>
+        </Box>
+      </Box>
+
+      {/* Data Grid */}
       <div>
         <DataGrid
           rows={contacts}
@@ -150,20 +341,20 @@ const AddressGrid = () => {
           }}
           sx={{
             "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
-              border: "1px solid #e0e0e0", // Border between rows
+              border: "1px solid #e0e0e0",
             },
             "& .MuiDataGrid-row:nth-of-type(odd)": {
-              backgroundColor: "#f5f5f5", // Light color for odd rows
+              backgroundColor: "#f5f5f5",
             },
             "& .MuiDataGrid-row:nth-of-type(even)": {
-              backgroundColor: "#ffffff", // White color for even rows
+              backgroundColor: "#ffffff",
             },
             "& .MuiDataGrid-columnHeaders": {
-              fontWeight: "bold", // Bold text
-              fontSize: "14px", // Increase font size
+              fontWeight: "bold",
+              fontSize: "14px",
             },
             "& .MuiDataGrid-virtualScrollerContent": {
-              fontWeight: "500", // Bold text
+              fontWeight: "500",
               fontSize: "12px",
             },
           }}

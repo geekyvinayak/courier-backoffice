@@ -21,10 +21,10 @@ const ConfigrationsTab = () => {
 
   const menuConfigs = {
     order: ["Hold Reasons", "Parcel Types", "Parcel Types Schedules", "Status Color", "Rules"],
-    driver: ["Deductions/ Additions", "Settlement Cycle", "Fields", "Documents", "Certifications"],
+    driver: ["Deductions/ Additions", "Settlement Cycle", "Documents", "Certifications"],
     account: ["Billing Cycle", "Tax Schedules", "Tax Rules", "Fields"],
-    accounting: ["Accounting Profiles", "Accounting Items", "Terms", "Document Types"],
-    system: ["Attributes", "Dashboard", "Calendars", "Roles"],
+    // accounting: ["Accounting Profiles", "Accounting Items", "Terms", "Document Types"],
+    // system: ["Attributes", "Dashboard", "Calendars", "Roles"],
   };
 
   const getMenuItems = (route) => {
@@ -113,8 +113,8 @@ const ConfigrationsTab = () => {
           { lable: "Order", url: "/settings/configurations/order" },
           { lable: "Driver", url: "/settings/configurations/driver" },
           { lable: "Account", url: "/settings/configurations/account" },
-          { lable: "Accounting", url: "/settings/configurations/accounting" },
-          { lable: "System", url: "/settings/configurations/system" },
+          // { lable: "Accounting", url: "/settings/configurations/accounting" },
+          // { lable: "System", url: "/settings/configurations/system" },
         ]}
       />
 
