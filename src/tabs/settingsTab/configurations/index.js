@@ -14,6 +14,7 @@ import {
 import { useLocation } from "react-router-dom";
 import OrderTab from "./orders";
 import DriverTab from "./driver";
+import AccountTab from "./account";
 
 const ConfigrationsTab = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -22,7 +23,7 @@ const ConfigrationsTab = () => {
   const menuConfigs = {
     order: ["Hold Reasons", "Parcel Types", "Parcel Types Schedules", "Status Color", "Rules"],
     driver: ["Deductions/ Additions", "Settlement Cycle", "Documents", "Certifications"],
-    account: ["Billing Cycle", "Tax Schedules", "Tax Rules", "Fields"],
+    account: ["Billing Cycle", "Tax Schedules", "Tax Rules"],
     // accounting: ["Accounting Profiles", "Accounting Items", "Terms", "Document Types"],
     // system: ["Attributes", "Dashboard", "Calendars", "Roles"],
   };
@@ -94,13 +95,16 @@ const ConfigrationsTab = () => {
 
   const renderContent = () => {
     const selectedItem = menuItems[selectedIndex];
-    console.log("first", selectedItem);
+    console.log("first", selectedItem,currentConfigType);
     // Order tab specific content components
     if (currentConfigType === "order") {
       return <OrderTab selectedItem={selectedItem} />;
     }
     if (currentConfigType === "driver") {
       return <DriverTab selectedItem={selectedItem} />;
+    }
+    if (currentConfigType === "account") {
+      return <AccountTab selectedItem={selectedItem} />;
     }
 
     return <GenericContent title={selectedItem} />;

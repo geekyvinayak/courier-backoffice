@@ -2,35 +2,36 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
-import SettlementCycleForm from "./SettlementCycleForm";
+import BillingCycleForm from "./BillingCycleForm";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { deleteRequest, getRequest, postRequest } from "../../../../../consts/apiCalls";
 import { DeleteDialog } from "../../../../../components/deleteDialog";
 import useToast from "../../../../../components/toast/useToast";
 
-const SettlementCycle = () => {
-  const [settlementCycle, setSettlementCycle] = useState([]);
+const BillingCycle = () => {
+  const [billingCycles, setBillingCycles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const { showSuccess, showError } = useToast();
-  const fetchSettlementCycle = async () => {
+
+  const fetchBillingCycles = async () => {
     try {
       setLoading(true);
-      const response = await getRequest("/settlement-cycles");
-      setSettlementCycle(response || []);
+      const response = await getRequest("/billingCycle");
+      setBillingCycles(response || []);
     } catch (error) {
-      console.error("Error fetching parcel type schedules:", error);
-      setSettlementCycle([]);
+      console.error("Error fetching billing cycles:", error);
+      setBillingCycles([]);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchSettlementCycle();
+    fetchBillingCycles();
   }, []);
 
   const handleNewSchedule = () => {
@@ -47,9 +48,9 @@ const SettlementCycle = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await deleteRequest(`/settlement-cycles/${id}`);
-      showSuccess("Settlement Cycle deleted");
-      fetchSettlementCycle();
+      await deleteRequest(`/billingCycle/${id}`);
+      showSuccess("Billing Cycle deleted");
+      fetchBillingCycles();
     } catch (error) {
       showError("Something went wrong!");
       console.log(error);
@@ -60,16 +61,26 @@ const SettlementCycle = () => {
     setShowForm(false);
     setEditingId(null);
     setIsEditMode(false);
-    fetchSettlementCycle();
+    fetchBillingCycles();
   };
 
   const handleFormSuccess = () => {
     handleBackToList();
   };
 
+  const handleMakeDefault = async (id) => {
+    try {
+      await postRequest(`/billingCycle/makeDefault/${id}`);
+      fetchBillingCycles();
+    } catch (error) {
+      showError("Error setting default billing cycle");
+      console.log(error);
+    }
+  };
+
   if (showForm) {
     return (
-      <SettlementCycleForm
+      <BillingCycleForm
         editingId={editingId}
         isEditMode={isEditMode}
         onBack={handleBackToList}
@@ -78,40 +89,30 @@ const SettlementCycle = () => {
     );
   }
 
-
-      const handleActive = async (id) => {
-        try {
-          const response = await postRequest(`/settlement-cycles/makeDefault/${id}`);
-          fetchSettlementCycle();
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
   const columns = [
     {
-      field: "isDefault",
+      field: "defaultCycle",
       headerName: "Default",
       width: 100,
       cellClassName: "!flex !justify-center !items-center",
-
       renderCell: (params) =>
         params.value ? (
           <StarIcon style={{ color: "#1976d2" }} />
         ) : (
           <StarOutlineIcon
-            onClick={() => handleActive(params.row.id)}
+            onClick={() => handleMakeDefault(params.row.id)}
             style={{
               color: "#1976d2",
               justifySelf: "center",
               alignSelf: "center",
+              cursor: "pointer",
             }}
           />
         ),
       sortable: false,
     },
     {
-      field: "descriptionEn",
+      field: "description",
       headerName: "Description",
       flex: 1,
       renderCell: (params) => params.value || "-",
@@ -138,16 +139,16 @@ const SettlementCycle = () => {
           onClick={handleNewSchedule}
           sx={{ backgroundColor: "#1569CB", textTransform: "none" }}
         >
-          New Settlement Cycle
+          New Billing Cycle
         </Button>
       </Box>
       <Box className="w-[90%]">
         <DataGrid
-          rows={settlementCycle}
+          rows={billingCycles}
           columns={columns}
           loading={loading}
           onCellClick={(params, event) => {
-            if (params.field !== "isDefault" && params.field  !=="actions") {
+            if (params.field !== "defaultCycle" && params.field !== "actions") {
               handleEdit(params.id);
             }
           }}
@@ -169,20 +170,20 @@ const SettlementCycle = () => {
           columnHeaderHeight={45}
           sx={{
             "& .MuiDataGrid-cell , & .MuiDataGrid-columnHeader ": {
-              border: "1px solid #e0e0e0", // Border between rows
+              border: "1px solid #e0e0e0",
             },
             "& .MuiDataGrid-row:nth-of-type(odd)": {
-              backgroundColor: "#f5f5f5", // Light color for odd rows
+              backgroundColor: "#f5f5f5",
             },
             "& .MuiDataGrid-row:nth-of-type(even)": {
-              backgroundColor: "#ffffff", // White color for even rows
+              backgroundColor: "#ffffff",
             },
             "& .MuiDataGrid-columnHeaders": {
-              fontWeight: "bold", // Bold text
-              fontSize: "14px", // Increase font size
+              fontWeight: "bold",
+              fontSize: "14px",
             },
             "& .MuiDataGrid-virtualScrollerContent": {
-              fontWeight: "500", // Bold text
+              fontWeight: "500",
               fontSize: "12px",
             },
           }}
@@ -193,4 +194,4 @@ const SettlementCycle = () => {
   );
 };
 
-export default SettlementCycle;
+export default BillingCycle;

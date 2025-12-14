@@ -194,7 +194,7 @@ const TabNavigation = () => {
         return (
           <li
             key={item.id}
-            className={`relative flex-1 text-center max-w-[450px] font-medium transition-all duration-300 ease-in-out 
+            className={`relative flex-1 text-center max-w-[50px] font-medium transition-all duration-300 ease-in-out 
               ${
                 isActive
                   ? "text-black border-b-4 border-[#494fb5] font-bold bg-gray-100 shadow-md rounded-t-md"
